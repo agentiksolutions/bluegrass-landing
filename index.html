@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bluegrass Advisory Group</title>
+<meta name="description" content="AI-powered knowledge systems for businesses that want to stop re-explaining everything. Based in Lexington, Kentucky.">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Outfit:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #08090E;
+    --surface: #0F1117;
+    --border: rgba(255,255,255,0.06);
+    --text: #C8CCD4;
+    --text-dim: #5A5F6B;
+    --white: #F0F2F5;
+    --accent: #4ADE80;
+    --accent-dim: rgba(74,222,128,0.08);
+    --blue: #60A5FA;
+    --amber: #FBBF24;
+    --mono: 'Space Mono', monospace;
+    --sans: 'Outfit', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  ::selection { background: var(--accent); color: var(--bg); }
+
+  /* GRID BACKGROUND */
+  .grid-bg {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .page { position: relative; z-index: 1; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    padding: 20px 0;
+    background: rgba(8,9,14,0.8);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    max-width: 1200px; margin: 0 auto; padding: 0 40px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .nav-brand {
+    font-family: var(--mono); font-size: 14px; font-weight: 700;
+    color: var(--white); text-decoration: none;
+    letter-spacing: -0.3px;
+  }
+  .nav-brand span { color: var(--accent); }
+  .nav-right { display: flex; align-items: center; gap: 28px; }
+  .nav-right a {
+    font-size: 13px; color: var(--text-dim); text-decoration: none;
+    font-weight: 400; transition: color 0.2s;
+  }
+  .nav-right a:hover { color: var(--white); }
+  .nav-cta {
+    font-family: var(--mono) !important; font-size: 12px !important;
+    padding: 8px 20px; border: 1px solid var(--accent);
+    color: var(--accent) !important; border-radius: 4px;
+    transition: all 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--accent); color: var(--bg) !important; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh; display: flex; align-items: center;
+    padding: 140px 40px 100px;
+    position: relative;
+  }
+  .hero::before {
+    content: ''; position: absolute;
+    top: -20%; right: -10%; width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(74,222,128,0.04) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-inner { max-width: 1200px; margin: 0 auto; width: 100%; }
+
+  .hero-tag {
+    font-family: var(--mono); font-size: 12px;
+    color: var(--accent); letter-spacing: 1px;
+    margin-bottom: 28px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-tag::before {
+    content: ''; width: 8px; height: 8px;
+    background: var(--accent); border-radius: 50%;
+    animation: pulse 2s ease infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(74,222,128,0.4); }
+    50% { opacity: 0.8; box-shadow: 0 0 0 8px rgba(74,222,128,0); }
+  }
+
+  .hero h1 {
+    font-size: clamp(48px, 7vw, 88px);
+    font-weight: 800; color: var(--white);
+    line-height: 1.0; letter-spacing: -3px;
+    max-width: 900px; margin-bottom: 32px;
+  }
+  .hero h1 .dim { color: var(--text-dim); }
+
+  .hero-sub {
+    font-size: 18px; font-weight: 300;
+    color: var(--text); max-width: 520px;
+    line-height: 1.8; margin-bottom: 48px;
+  }
+
+  .hero-actions { display: flex; gap: 16px; align-items: center; }
+  .btn-primary {
+    font-family: var(--mono); font-size: 13px; font-weight: 700;
+    padding: 16px 32px; background: var(--accent); color: var(--bg);
+    text-decoration: none; border-radius: 4px;
+    transition: all 0.2s; display: inline-block;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(74,222,128,0.3); }
+  .btn-ghost {
+    font-family: var(--mono); font-size: 13px;
+    padding: 16px 32px; color: var(--text-dim);
+    text-decoration: none; border: 1px solid var(--border);
+    border-radius: 4px; transition: all 0.2s;
+  }
+  .btn-ghost:hover { color: var(--white); border-color: rgba(255,255,255,0.2); }
+
+  /* TERMINAL BLOCK */
+  .terminal {
+    margin-top: 80px; max-width: 680px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px; overflow: hidden;
+  }
+  .terminal-bar {
+    padding: 12px 16px;
+    display: flex; align-items: center; gap: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .terminal-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+  }
+  .terminal-dot:nth-child(1) { background: #FF5F57; }
+  .terminal-dot:nth-child(2) { background: #FFBD2E; }
+  .terminal-dot:nth-child(3) { background: #28C840; }
+  .terminal-title {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--text-dim); margin-left: 8px;
+  }
+  .terminal-body {
+    padding: 20px 24px;
+    font-family: var(--mono); font-size: 13px; line-height: 2;
+  }
+  .t-prompt { color: var(--accent); }
+  .t-cmd { color: var(--white); }
+  .t-output { color: var(--text-dim); }
+  .t-value { color: var(--amber); }
+  .t-cursor {
+    display: inline-block; width: 8px; height: 16px;
+    background: var(--accent); margin-left: 4px;
+    animation: blink 1s step-end infinite;
+    vertical-align: text-bottom;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* DIVIDER */
+  .divider {
+    max-width: 1200px; margin: 0 auto; padding: 0 40px;
+    height: 1px; position: relative;
+  }
+  .divider::after {
+    content: ''; position: absolute; left: 40px; right: 40px;
+    height: 1px; background: var(--border);
+  }
+
+  /* SECTIONS */
+  section { padding: 120px 40px; }
+  .section-inner { max-width: 1200px; margin: 0 auto; }
+
+  .section-tag {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--accent); letter-spacing: 2px;
+    text-transform: uppercase; margin-bottom: 20px;
+  }
+  .section-heading {
+    font-size: clamp(36px, 4.5vw, 56px);
+    font-weight: 800; color: var(--white);
+    line-height: 1.1; letter-spacing: -2px;
+    margin-bottom: 20px; max-width: 700px;
+  }
+  .section-desc {
+    font-size: 17px; font-weight: 300;
+    color: var(--text-dim); max-width: 560px;
+    line-height: 1.8; margin-bottom: 60px;
+  }
+
+  /* PROBLEM / SOLUTION */
+  .problem-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+  }
+  .problem-side, .solution-side {
+    padding: 48px 44px;
+    border-radius: 8px;
+  }
+  .problem-side {
+    background: rgba(239,68,68,0.03);
+    border: 1px solid rgba(239,68,68,0.08);
+  }
+  .solution-side {
+    background: var(--accent-dim);
+    border: 1px solid rgba(74,222,128,0.1);
+  }
+  .ps-label {
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+  .problem-side .ps-label { color: #EF4444; }
+  .solution-side .ps-label { color: var(--accent); }
+  .ps-item {
+    font-size: 15px; padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: flex-start; gap: 12px;
+  }
+  .ps-item:last-child { border-bottom: none; }
+  .ps-icon { font-size: 14px; flex-shrink: 0; margin-top: 3px; }
+  .problem-side .ps-item { color: var(--text-dim); }
+  .solution-side .ps-item { color: var(--text); }
+
+  /* SERVICES */
+  .services-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+  }
+  .service-card {
+    padding: 40px 32px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    transition: all 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .service-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 2px; background: var(--accent);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.4s;
+  }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-card:hover { border-color: rgba(74,222,128,0.15); }
+  .service-num {
+    font-family: var(--mono); font-size: 48px;
+    font-weight: 700; color: rgba(255,255,255,0.03);
+    margin-bottom: 20px;
+  }
+  .service-card h3 {
+    font-size: 22px; font-weight: 700;
+    color: var(--white); margin-bottom: 12px;
+    letter-spacing: -0.5px;
+  }
+  .service-card p {
+    font-size: 14px; color: var(--text-dim);
+    line-height: 1.7; font-weight: 300;
+  }
+  .service-price {
+    font-family: var(--mono); font-size: 12px;
+    color: var(--accent); margin-top: 20px;
+    padding-top: 16px; border-top: 1px solid var(--border);
+  }
+
+  /* PROOF */
+  .proof-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px;
+  }
+  .proof-card {
+    padding: 36px 28px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    text-align: center;
+  }
+  .proof-num {
+    font-family: var(--mono); font-size: 36px;
+    font-weight: 700; color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .proof-label {
+    font-size: 13px; color: var(--text-dim);
+    font-weight: 300; line-height: 1.5;
+  }
+
+  /* CASES */
+  .case-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+  .case-card {
+    padding: 40px 36px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    transition: border-color 0.3s;
+  }
+  .case-card:hover { border-color: rgba(255,255,255,0.1); }
+  .case-industry {
+    font-family: var(--mono); font-size: 10px;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 16px;
+  }
+  .case-card h3 {
+    font-size: 20px; font-weight: 700;
+    color: var(--white); margin-bottom: 12px;
+    letter-spacing: -0.3px;
+  }
+  .case-card p {
+    font-size: 14px; color: var(--text-dim);
+    line-height: 1.7; font-weight: 300;
+    margin-bottom: 20px;
+  }
+  .case-stats { display: flex; gap: 24px; }
+  .case-stat-num {
+    font-family: var(--mono); font-size: 18px;
+    font-weight: 700; color: var(--white);
+  }
+  .case-stat-label {
+    font-size: 11px; color: var(--text-dim); margin-top: 2px;
+  }
+
+  /* CTA SECTION */
+  .cta-section {
+    text-align: center;
+    padding: 140px 40px;
+    position: relative;
+  }
+  .cta-section::before {
+    content: ''; position: absolute;
+    top: 50%; left: 50%; transform: translate(-50%,-50%);
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(74,222,128,0.04) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cta-section h2 {
+    font-size: clamp(40px, 5vw, 64px);
+    font-weight: 800; color: var(--white);
+    letter-spacing: -2px; margin-bottom: 20px;
+  }
+  .cta-section p {
+    font-size: 17px; color: var(--text-dim);
+    font-weight: 300; max-width: 500px;
+    margin: 0 auto 40px; line-height: 1.8;
+  }
+  .cta-email {
+    font-family: var(--mono); font-size: 18px;
+    color: var(--accent); text-decoration: none;
+    border-bottom: 1px solid rgba(74,222,128,0.3);
+    padding-bottom: 2px;
+    transition: all 0.2s;
+  }
+  .cta-email:hover { border-color: var(--accent); }
+
+  /* FOOTER */
+  footer {
+    padding: 32px 40px;
+    border-top: 1px solid var(--border);
+  }
+  .footer-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-brand {
+    font-family: var(--mono); font-size: 12px; color: var(--text-dim);
+  }
+  .footer-brand span { color: var(--accent); }
+  .footer-right { font-size: 12px; color: var(--text-dim); }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .problem-grid, .case-grid, .services-grid { grid-template-columns: 1fr; }
+    .proof-grid { grid-template-columns: 1fr 1fr; }
+    .nav-right a:not(.nav-cta) { display: none; }
+    section { padding: 80px 24px; }
+    .hero { padding: 120px 24px 80px; }
+  }
+  @media (max-width: 500px) {
+    .proof-grid { grid-template-columns: 1fr; }
+    .hero-actions { flex-direction: column; }
+    .btn-primary, .btn-ghost { width: 100%; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+
+<div class="page">
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-brand"><span>&gt;</span> bluegrass_advisory</a>
+    <div class="nav-right">
+      <a href="#services">Services</a>
+      <a href="#proof">Results</a>
+      <a href="#contact" class="nav-cta">Get Started</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">ACCEPTING NEW CLIENTS</div>
+    <h1>Your business runs on context.<br><span class="dim">Your AI doesn't.</span></h1>
+    <p class="hero-sub">We build AI-powered knowledge systems that give your entire operation a single source of truth. No re-explaining. No lost context. No manual bookkeeping. The system maintains itself.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">BOOK A CALL &rarr;</a>
+      <a href="#services" class="btn-ghost">SEE HOW IT WORKS</a>
+    </div>
+
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="terminal-dot"></div>
+        <div class="terminal-dot"></div>
+        <div class="terminal-dot"></div>
+        <span class="terminal-title">what-we-build.sh</span>
+      </div>
+      <div class="terminal-body">
+        <span class="t-prompt">$</span> <span class="t-cmd">bluegrass --audit</span><br>
+        <span class="t-output">scanning operations...</span><br>
+        <span class="t-output">files_organized:</span> <span class="t-value">2,151</span><br>
+        <span class="t-output">duplicates_removed:</span> <span class="t-value">732</span><br>
+        <span class="t-output">sops_generated:</span> <span class="t-value">18</span><br>
+        <span class="t-output">annual_savings_identified:</span> <span class="t-value">$50,000–$80,000</span><br>
+        <span class="t-output">time_to_deploy:</span> <span class="t-value">4 days</span><br>
+        <span class="t-prompt">$</span> <span class="t-cmd">bluegrass --status</span><br>
+        <span class="t-output">system: </span><span class="t-value">self-maintaining</span><br>
+        <span class="t-prompt">$</span><span class="t-cursor"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROBLEM / SOLUTION -->
+<section>
+  <div class="section-inner">
+    <div class="section-tag">// the problem</div>
+    <div class="section-heading">Everyone has AI.<br>Nobody has architecture.</div>
+    <div class="section-desc">Tools are commoditized. Your competitor has the same subscription you do. The difference is the system underneath.</div>
+    <div class="problem-grid">
+      <div class="problem-side">
+        <div class="ps-label">Without architecture</div>
+        <div class="ps-item"><span class="ps-icon">&times;</span> Re-explain your business to AI every session</div>
+        <div class="ps-item"><span class="ps-icon">&times;</span> Decisions made and forgotten within a week</div>
+        <div class="ps-item"><span class="ps-icon">&times;</span> Files scattered across 6 apps and 3 devices</div>
+        <div class="ps-item"><span class="ps-icon">&times;</span> Every new tool creates another silo</div>
+        <div class="ps-item"><span class="ps-icon">&times;</span> Knowledge walks out the door when people leave</div>
+      </div>
+      <div class="solution-side">
+        <div class="ps-label">With architecture</div>
+        <div class="ps-item"><span class="ps-icon">&check;</span> AI knows your full context instantly — zero ramp-up</div>
+        <div class="ps-item"><span class="ps-icon">&check;</span> Every decision documented with the "why"</div>
+        <div class="ps-item"><span class="ps-icon">&check;</span> One source of truth that tracks everything</div>
+        <div class="ps-item"><span class="ps-icon">&check;</span> New tools plug into the system, not around it</div>
+        <div class="ps-item"><span class="ps-icon">&check;</span> The system IS the institutional knowledge</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-inner">
+    <div class="section-tag">// services</div>
+    <div class="section-heading">Three ways in.</div>
+    <div class="section-desc">Every engagement starts with understanding your business. We don't sell hours — we sell outcomes.</div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-num">01</div>
+        <h3>Strategic Assessment</h3>
+        <p>Full audit of your operations, digital presence, tools, and processes. You get a prioritized roadmap with costs, timelines, and the recommended sequence of attack.</p>
+        <div class="service-price">STARTING AT $750</div>
+      </div>
+      <div class="service-card">
+        <div class="service-num">02</div>
+        <h3>AI Command Center</h3>
+        <p>We build your knowledge system — the source of truth, the automation engine, and the safety net. AI agents read it and know everything. You work, it documents itself.</p>
+        <div class="service-price">STARTING AT $1,500</div>
+      </div>
+      <div class="service-card">
+        <div class="service-num">03</div>
+        <h3>Operations Overhaul</h3>
+        <p>SOPs, pay restructuring, vendor management, communication systems, implementation roadmaps. We turn operational chaos into repeatable, scalable infrastructure.</p>
+        <div class="service-price">SCOPED PER ENGAGEMENT</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROOF -->
+<section id="proof">
+  <div class="section-inner">
+    <div class="section-tag">// results</div>
+    <div class="section-heading">Numbers don't need adjectives.</div>
+    <div class="proof-grid">
+      <div class="proof-card">
+        <div class="proof-num">$50K+</div>
+        <div class="proof-label">Annual savings identified in a single assessment</div>
+      </div>
+      <div class="proof-card">
+        <div class="proof-num">85+</div>
+        <div class="proof-label">Employees managed across active operations</div>
+      </div>
+      <div class="proof-card">
+        <div class="proof-num">4 Days</div>
+        <div class="proof-label">Concept to deployed production application</div>
+      </div>
+      <div class="proof-card">
+        <div class="proof-num">18+</div>
+        <div class="proof-label">SOPs delivered in one engagement</div>
+      </div>
+    </div>
+
+    <div class="case-grid" style="margin-top: 2px;">
+      <div class="case-card">
+        <div class="case-industry">Restaurant Operations</div>
+        <h3>3-Location Franchise Group</h3>
+        <p>Organized 2,151 files from chaos, removed 732 duplicates, built an 8-phase improvement plan, and designed a weekly newsletter system — all while managing daily operations for ~85 employees.</p>
+        <div class="case-stats">
+          <div><div class="case-stat-num">2,151</div><div class="case-stat-label">Files organized</div></div>
+          <div><div class="case-stat-num">732</div><div class="case-stat-label">Duplicates removed</div></div>
+          <div><div class="case-stat-num">8</div><div class="case-stat-label">Phase plan</div></div>
+        </div>
+      </div>
+      <div class="case-card">
+        <div class="case-industry">Contracting Services</div>
+        <h3>Multi-Crew Carpentry Company</h3>
+        <p>Identified $50K–$80K in annual losses from paid downtime and no cost-per-man-hour visibility. Delivered 18+ SOPs, pay restructuring, and a 90-day implementation roadmap.</p>
+        <div class="case-stats">
+          <div><div class="case-stat-num">$50K+</div><div class="case-stat-label">Savings found</div></div>
+          <div><div class="case-stat-num">18+</div><div class="case-stat-label">SOPs delivered</div></div>
+          <div><div class="case-stat-num">90</div><div class="case-stat-label">Day roadmap</div></div>
+        </div>
+      </div>
+      <div class="case-card">
+        <div class="case-industry">Nonprofit Management</div>
+        <h3>501(c)(3) Donor Platform</h3>
+        <p>Built a complete donor management system from scratch — tracking, PDF receipts, email automation, analytics, and reporting. Went from concept to production in days, not months.</p>
+        <div class="case-stats">
+          <div><div class="case-stat-num">Full</div><div class="case-stat-label">Production app</div></div>
+          <div><div class="case-stat-num">PDF</div><div class="case-stat-label">Auto-receipts</div></div>
+          <div><div class="case-stat-num">Live</div><div class="case-stat-label">Analytics</div></div>
+        </div>
+      </div>
+      <div class="case-card">
+        <div class="case-industry">Personal Productivity</div>
+        <h3>Life Command Center</h3>
+        <p>80+ database tables, 11 life area cards, daily briefings, smart nudges, weekly reviews — deployed as a progressive web app. Built in 4 days with AI-assisted development.</p>
+        <div class="case-stats">
+          <div><div class="case-stat-num">80+</div><div class="case-stat-label">DB tables</div></div>
+          <div><div class="case-stat-num">11</div><div class="case-stat-label">Life areas</div></div>
+          <div><div class="case-stat-num">4</div><div class="case-stat-label">Days to build</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <div class="section-inner">
+    <div class="section-tag">// let's go</div>
+    <h2>Ready to build yours?</h2>
+    <p>30-minute discovery call. No pitch, no pressure. Just an honest conversation about where your business is and where it could be.</p>
+    <a href="mailto:phil@bluegrassadvisorygroup.com" class="cta-email">phil@bluegrassadvisorygroup.com</a>
+    <div style="margin-top: 16px; font-size: 13px; color: var(--text-dim);">Lexington, Kentucky</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand"><span>&gt;</span> bluegrass_advisory_group</div>
+    <div class="footer-right">&copy; 2026 Bluegrass Advisory Group, LLC</div>
+  </div>
+</footer>
+
+</div>
+</body>
+</html>
