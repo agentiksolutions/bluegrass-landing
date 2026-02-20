@@ -3,19 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bluegrass Advisory Group</title>
-<meta name="description" content="AI-powered knowledge systems for businesses that want to stop re-explaining everything. Based in Lexington, Kentucky.">
+<title>Bluegrass Advisory Group — Operations-First AI Consulting</title>
+<meta name="description" content="Operations-first AI consulting for multi-location operators and growth-stage businesses. We don't just implement tools — we redesign how your business operates.">
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Outfit:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #08090E;
     --surface: #0F1117;
+    --surface-2: #141620;
     --border: rgba(255,255,255,0.06);
-    --text: #C8CCD4;
+    --border-hover: rgba(255,255,255,0.12);
+    --text: #B0B5C0;
     --text-dim: #5A5F6B;
     --white: #F0F2F5;
     --accent: #4ADE80;
-    --accent-dim: rgba(74,222,128,0.08);
+    --accent-dim: rgba(74,222,128,0.06);
+    --accent-glow: rgba(74,222,128,0.15);
     --blue: #60A5FA;
     --amber: #FBBF24;
     --mono: 'Space Mono', monospace;
@@ -36,13 +39,12 @@
 
   ::selection { background: var(--accent); color: var(--bg); }
 
-  /* GRID BACKGROUND */
   .grid-bg {
     position: fixed; inset: 0; z-index: 0; pointer-events: none;
     background-image:
-      linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
-    background-size: 60px 60px;
+      linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
+    background-size: 80px 80px;
   }
 
   .page { position: relative; z-index: 1; }
@@ -51,8 +53,8 @@
   nav {
     position: fixed; top: 0; width: 100%; z-index: 100;
     padding: 20px 0;
-    background: rgba(8,9,14,0.8);
-    backdrop-filter: blur(20px);
+    background: rgba(8,9,14,0.85);
+    backdrop-filter: blur(24px);
     border-bottom: 1px solid var(--border);
   }
   .nav-inner {
@@ -60,123 +62,94 @@
     display: flex; justify-content: space-between; align-items: center;
   }
   .nav-brand {
-    font-family: var(--mono); font-size: 14px; font-weight: 700;
+    font-family: var(--sans); font-size: 15px; font-weight: 700;
     color: var(--white); text-decoration: none;
     letter-spacing: -0.3px;
   }
-  .nav-brand span { color: var(--accent); }
-  .nav-right { display: flex; align-items: center; gap: 28px; }
+  .nav-brand span { color: var(--accent); font-weight: 800; }
+  .nav-right { display: flex; align-items: center; gap: 32px; }
   .nav-right a {
     font-size: 13px; color: var(--text-dim); text-decoration: none;
-    font-weight: 400; transition: color 0.2s;
+    font-weight: 400; transition: color 0.2s; letter-spacing: 0.2px;
   }
   .nav-right a:hover { color: var(--white); }
   .nav-cta {
-    font-family: var(--mono) !important; font-size: 12px !important;
-    padding: 8px 20px; border: 1px solid var(--accent);
-    color: var(--accent) !important; border-radius: 4px;
-    transition: all 0.2s !important;
+    font-family: var(--sans) !important; font-size: 13px !important;
+    font-weight: 600 !important;
+    padding: 10px 24px; background: var(--accent);
+    color: var(--bg) !important; border-radius: 6px;
+    transition: all 0.2s !important; border: none;
   }
-  .nav-cta:hover { background: var(--accent); color: var(--bg) !important; }
+  .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(74,222,128,0.3); }
 
   /* HERO */
   .hero {
     min-height: 100vh; display: flex; align-items: center;
-    padding: 140px 40px 100px;
+    padding: 160px 40px 120px;
     position: relative;
   }
   .hero::before {
     content: ''; position: absolute;
-    top: -20%; right: -10%; width: 600px; height: 600px;
-    background: radial-gradient(circle, rgba(74,222,128,0.04) 0%, transparent 70%);
+    top: -10%; right: -5%; width: 800px; height: 800px;
+    background: radial-gradient(circle, rgba(74,222,128,0.03) 0%, transparent 60%);
     pointer-events: none;
   }
   .hero-inner { max-width: 1200px; margin: 0 auto; width: 100%; }
 
   .hero-tag {
     font-family: var(--mono); font-size: 12px;
-    color: var(--accent); letter-spacing: 1px;
-    margin-bottom: 28px;
-    display: flex; align-items: center; gap: 12px;
-  }
-  .hero-tag::before {
-    content: ''; width: 8px; height: 8px;
-    background: var(--accent); border-radius: 50%;
-    animation: pulse 2s ease infinite;
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(74,222,128,0.4); }
-    50% { opacity: 0.8; box-shadow: 0 0 0 8px rgba(74,222,128,0); }
+    color: var(--accent); letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 32px; opacity: 0.9;
   }
 
   .hero h1 {
-    font-size: clamp(48px, 7vw, 88px);
+    font-size: clamp(44px, 6.5vw, 80px);
     font-weight: 800; color: var(--white);
-    line-height: 1.0; letter-spacing: -3px;
-    max-width: 900px; margin-bottom: 32px;
+    line-height: 1.05; letter-spacing: -3px;
+    max-width: 860px; margin-bottom: 28px;
   }
-  .hero h1 .dim { color: var(--text-dim); }
+  .hero h1 .accent { color: var(--accent); }
 
   .hero-sub {
-    font-size: 18px; font-weight: 300;
-    color: var(--text); max-width: 520px;
+    font-size: 19px; font-weight: 300;
+    color: var(--text); max-width: 540px;
     line-height: 1.8; margin-bottom: 48px;
   }
 
-  .hero-actions { display: flex; gap: 16px; align-items: center; }
+  .hero-actions { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
   .btn-primary {
-    font-family: var(--mono); font-size: 13px; font-weight: 700;
-    padding: 16px 32px; background: var(--accent); color: var(--bg);
-    text-decoration: none; border-radius: 4px;
+    font-family: var(--sans); font-size: 14px; font-weight: 600;
+    padding: 16px 36px; background: var(--accent); color: var(--bg);
+    text-decoration: none; border-radius: 6px;
     transition: all 0.2s; display: inline-block;
   }
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(74,222,128,0.3); }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(74,222,128,0.25); }
   .btn-ghost {
-    font-family: var(--mono); font-size: 13px;
-    padding: 16px 32px; color: var(--text-dim);
+    font-family: var(--sans); font-size: 14px; font-weight: 400;
+    padding: 16px 36px; color: var(--text-dim);
     text-decoration: none; border: 1px solid var(--border);
-    border-radius: 4px; transition: all 0.2s;
+    border-radius: 6px; transition: all 0.2s;
   }
-  .btn-ghost:hover { color: var(--white); border-color: rgba(255,255,255,0.2); }
+  .btn-ghost:hover { color: var(--white); border-color: var(--border-hover); }
 
-  /* TERMINAL BLOCK */
-  .terminal {
-    margin-top: 80px; max-width: 680px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px; overflow: hidden;
+  /* AUTHORITY BAR */
+  .authority-bar {
+    margin-top: 80px;
+    display: flex; gap: 48px; flex-wrap: wrap;
   }
-  .terminal-bar {
-    padding: 12px 16px;
-    display: flex; align-items: center; gap: 8px;
-    border-bottom: 1px solid var(--border);
+  .authority-stat {
+    display: flex; flex-direction: column;
   }
-  .terminal-dot {
-    width: 10px; height: 10px; border-radius: 50%;
-    background: rgba(255,255,255,0.08);
+  .authority-num {
+    font-family: var(--mono); font-size: 24px;
+    font-weight: 700; color: var(--white);
+    letter-spacing: -1px;
   }
-  .terminal-dot:nth-child(1) { background: #FF5F57; }
-  .terminal-dot:nth-child(2) { background: #FFBD2E; }
-  .terminal-dot:nth-child(3) { background: #28C840; }
-  .terminal-title {
-    font-family: var(--mono); font-size: 11px;
-    color: var(--text-dim); margin-left: 8px;
+  .authority-label {
+    font-size: 13px; color: var(--text-dim);
+    font-weight: 300; margin-top: 4px;
   }
-  .terminal-body {
-    padding: 20px 24px;
-    font-family: var(--mono); font-size: 13px; line-height: 2;
-  }
-  .t-prompt { color: var(--accent); }
-  .t-cmd { color: var(--white); }
-  .t-output { color: var(--text-dim); }
-  .t-value { color: var(--amber); }
-  .t-cursor {
-    display: inline-block; width: 8px; height: 16px;
-    background: var(--accent); margin-left: 4px;
-    animation: blink 1s step-end infinite;
-    vertical-align: text-bottom;
-  }
-  @keyframes blink { 50% { opacity: 0; } }
 
   /* DIVIDER */
   .divider {
@@ -198,56 +171,203 @@
     text-transform: uppercase; margin-bottom: 20px;
   }
   .section-heading {
-    font-size: clamp(36px, 4.5vw, 56px);
+    font-size: clamp(34px, 4.5vw, 52px);
     font-weight: 800; color: var(--white);
     line-height: 1.1; letter-spacing: -2px;
     margin-bottom: 20px; max-width: 700px;
   }
   .section-desc {
     font-size: 17px; font-weight: 300;
-    color: var(--text-dim); max-width: 560px;
-    line-height: 1.8; margin-bottom: 60px;
+    color: var(--text-dim); max-width: 580px;
+    line-height: 1.8; margin-bottom: 64px;
   }
 
-  /* PROBLEM / SOLUTION */
-  .problem-grid {
+  /* PHILOSOPHY SECTION */
+  .philosophy-grid {
     display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
   }
-  .problem-side, .solution-side {
-    padding: 48px 44px;
+  .philosophy-card {
+    padding: 48px 40px;
     border-radius: 8px;
+    position: relative;
   }
-  .problem-side {
-    background: rgba(239,68,68,0.03);
-    border: 1px solid rgba(239,68,68,0.08);
+  .philosophy-card.technical {
+    background: rgba(251,191,36,0.03);
+    border: 1px solid rgba(251,191,36,0.08);
   }
-  .solution-side {
+  .philosophy-card.adaptive {
     background: var(--accent-dim);
     border: 1px solid rgba(74,222,128,0.1);
   }
-  .ps-label {
+  .philosophy-label {
     font-family: var(--mono); font-size: 11px;
     letter-spacing: 2px; text-transform: uppercase;
-    margin-bottom: 28px;
+    margin-bottom: 24px;
   }
-  .problem-side .ps-label { color: #EF4444; }
-  .solution-side .ps-label { color: var(--accent); }
-  .ps-item {
-    font-size: 15px; padding: 12px 0;
+  .philosophy-card.technical .philosophy-label { color: var(--amber); }
+  .philosophy-card.adaptive .philosophy-label { color: var(--accent); }
+  .philosophy-card h3 {
+    font-size: 22px; font-weight: 700;
+    color: var(--white); margin-bottom: 16px;
+    letter-spacing: -0.5px; line-height: 1.3;
+  }
+  .philosophy-card p {
+    font-size: 15px; color: var(--text);
+    line-height: 1.8; font-weight: 300;
+  }
+  .philosophy-card .example {
+    margin-top: 24px; padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 14px; color: var(--text-dim);
+    line-height: 1.7; font-style: italic;
+  }
+
+  /* METHODOLOGY */
+  .method-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+  }
+  .method-card {
+    padding: 44px 36px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    transition: all 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .method-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 2px; background: var(--accent);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.4s;
+  }
+  .method-card:hover::before { transform: scaleX(1); }
+  .method-card:hover { border-color: var(--accent-glow); }
+  .method-num {
+    font-family: var(--mono); font-size: 13px;
+    font-weight: 700; color: var(--accent);
+    margin-bottom: 24px; opacity: 0.7;
+  }
+  .method-card h3 {
+    font-size: 20px; font-weight: 700;
+    color: var(--white); margin-bottom: 14px;
+    letter-spacing: -0.3px;
+  }
+  .method-card p {
+    font-size: 14px; color: var(--text-dim);
+    line-height: 1.8; font-weight: 300;
+  }
+
+  /* PEOPLE SECTION */
+  .people-section {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
-    display: flex; align-items: flex-start; gap: 12px;
   }
-  .ps-item:last-child { border-bottom: none; }
-  .ps-icon { font-size: 14px; flex-shrink: 0; margin-top: 3px; }
-  .problem-side .ps-item { color: var(--text-dim); }
-  .solution-side .ps-item { color: var(--text); }
+  .people-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px;
+    margin-top: 16px;
+  }
+  .people-example {
+    padding: 0;
+  }
+  .people-example .role {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--accent); letter-spacing: 1px;
+    text-transform: uppercase; margin-bottom: 12px;
+  }
+  .people-example p {
+    font-size: 15px; color: var(--text);
+    line-height: 1.7; font-weight: 300;
+  }
+
+  /* CASE STUDIES */
+  .case-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+  .case-card {
+    padding: 44px 40px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    transition: border-color 0.3s;
+  }
+  .case-card:hover { border-color: var(--border-hover); }
+  .case-card.featured {
+    grid-column: 1 / -1;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+    align-items: start;
+  }
+  .case-industry {
+    font-family: var(--mono); font-size: 10px;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 16px;
+  }
+  .case-card h3 {
+    font-size: 22px; font-weight: 700;
+    color: var(--white); margin-bottom: 14px;
+    letter-spacing: -0.3px;
+  }
+  .case-card p {
+    font-size: 14px; color: var(--text-dim);
+    line-height: 1.8; font-weight: 300;
+    margin-bottom: 24px;
+  }
+  .case-outcomes {
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .case-outcome {
+    font-size: 14px; color: var(--text);
+    display: flex; align-items: flex-start; gap: 10px;
+    line-height: 1.6;
+  }
+  .case-outcome .check {
+    color: var(--accent); flex-shrink: 0;
+    margin-top: 2px; font-size: 14px;
+  }
+  .case-impact {
+    margin-top: 24px; padding-top: 20px;
+    border-top: 1px solid var(--border);
+    display: flex; gap: 32px;
+  }
+  .case-impact-item {}
+  .case-impact-num {
+    font-family: var(--mono); font-size: 20px;
+    font-weight: 700; color: var(--white);
+  }
+  .case-impact-label {
+    font-size: 12px; color: var(--text-dim); margin-top: 2px;
+  }
+
+  /* INDUSTRIES */
+  .industry-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px;
+  }
+  .industry-card {
+    padding: 36px 28px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    transition: all 0.3s;
+    text-align: center;
+  }
+  .industry-card:hover { border-color: var(--accent-glow); }
+  .industry-icon {
+    font-size: 28px; margin-bottom: 16px;
+    opacity: 0.8;
+  }
+  .industry-card h4 {
+    font-size: 15px; font-weight: 600;
+    color: var(--white); margin-bottom: 8px;
+  }
+  .industry-card p {
+    font-size: 13px; color: var(--text-dim);
+    line-height: 1.6; font-weight: 300;
+  }
 
   /* SERVICES */
   .services-grid {
     display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
   }
   .service-card {
-    padding: 40px 32px;
+    padding: 44px 36px;
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 8px;
@@ -261,113 +381,71 @@
     transition: transform 0.4s;
   }
   .service-card:hover::before { transform: scaleX(1); }
-  .service-card:hover { border-color: rgba(74,222,128,0.15); }
-  .service-num {
-    font-family: var(--mono); font-size: 48px;
-    font-weight: 700; color: rgba(255,255,255,0.03);
-    margin-bottom: 20px;
-  }
+  .service-card:hover { border-color: var(--accent-glow); }
   .service-card h3 {
-    font-size: 22px; font-weight: 700;
-    color: var(--white); margin-bottom: 12px;
-    letter-spacing: -0.5px;
+    font-size: 20px; font-weight: 700;
+    color: var(--white); margin-bottom: 14px;
+    letter-spacing: -0.3px;
   }
   .service-card p {
     font-size: 14px; color: var(--text-dim);
-    line-height: 1.7; font-weight: 300;
-  }
-  .service-price {
-    font-family: var(--mono); font-size: 12px;
-    color: var(--accent); margin-top: 20px;
-    padding-top: 16px; border-top: 1px solid var(--border);
-  }
-
-  /* PROOF */
-  .proof-grid {
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px;
-  }
-  .proof-card {
-    padding: 36px 28px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    text-align: center;
-  }
-  .proof-num {
-    font-family: var(--mono); font-size: 36px;
-    font-weight: 700; color: var(--accent);
-    margin-bottom: 8px;
-  }
-  .proof-label {
-    font-size: 13px; color: var(--text-dim);
-    font-weight: 300; line-height: 1.5;
-  }
-
-  /* CASES */
-  .case-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
-  .case-card {
-    padding: 40px 36px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    transition: border-color 0.3s;
-  }
-  .case-card:hover { border-color: rgba(255,255,255,0.1); }
-  .case-industry {
-    font-family: var(--mono); font-size: 10px;
-    letter-spacing: 2px; text-transform: uppercase;
-    color: var(--accent); margin-bottom: 16px;
-  }
-  .case-card h3 {
-    font-size: 20px; font-weight: 700;
-    color: var(--white); margin-bottom: 12px;
-    letter-spacing: -0.3px;
-  }
-  .case-card p {
-    font-size: 14px; color: var(--text-dim);
-    line-height: 1.7; font-weight: 300;
+    line-height: 1.8; font-weight: 300;
     margin-bottom: 20px;
   }
-  .case-stats { display: flex; gap: 24px; }
-  .case-stat-num {
-    font-family: var(--mono); font-size: 18px;
-    font-weight: 700; color: var(--white);
+  .service-includes {
+    list-style: none; padding: 0;
+    border-top: 1px solid var(--border);
+    padding-top: 20px;
   }
-  .case-stat-label {
-    font-size: 11px; color: var(--text-dim); margin-top: 2px;
+  .service-includes li {
+    font-size: 13px; color: var(--text);
+    padding: 6px 0; display: flex;
+    align-items: flex-start; gap: 8px;
+    line-height: 1.5;
   }
+  .service-includes .check { color: var(--accent); flex-shrink: 0; }
 
   /* CTA SECTION */
   .cta-section {
     text-align: center;
-    padding: 140px 40px;
+    padding: 160px 40px;
     position: relative;
   }
   .cta-section::before {
     content: ''; position: absolute;
     top: 50%; left: 50%; transform: translate(-50%,-50%);
-    width: 500px; height: 500px;
-    background: radial-gradient(circle, rgba(74,222,128,0.04) 0%, transparent 70%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(74,222,128,0.03) 0%, transparent 60%);
     pointer-events: none;
   }
   .cta-section h2 {
-    font-size: clamp(40px, 5vw, 64px);
+    font-size: clamp(36px, 5vw, 58px);
     font-weight: 800; color: var(--white);
     letter-spacing: -2px; margin-bottom: 20px;
+    line-height: 1.1;
   }
   .cta-section p {
     font-size: 17px; color: var(--text-dim);
-    font-weight: 300; max-width: 500px;
-    margin: 0 auto 40px; line-height: 1.8;
+    font-weight: 300; max-width: 480px;
+    margin: 0 auto 44px; line-height: 1.8;
+  }
+  .cta-actions {
+    display: flex; gap: 16px; justify-content: center;
+    align-items: center; flex-wrap: wrap;
+    margin-bottom: 32px;
   }
   .cta-email {
-    font-family: var(--mono); font-size: 18px;
+    font-family: var(--mono); font-size: 16px;
     color: var(--accent); text-decoration: none;
     border-bottom: 1px solid rgba(74,222,128,0.3);
     padding-bottom: 2px;
     transition: all 0.2s;
   }
   .cta-email:hover { border-color: var(--accent); }
+  .cta-location {
+    font-size: 13px; color: var(--text-dim);
+    margin-top: 8px;
+  }
 
   /* FOOTER */
   footer {
@@ -379,23 +457,29 @@
     display: flex; justify-content: space-between; align-items: center;
   }
   .footer-brand {
-    font-family: var(--mono); font-size: 12px; color: var(--text-dim);
+    font-size: 13px; color: var(--text-dim); font-weight: 400;
   }
-  .footer-brand span { color: var(--accent); }
+  .footer-brand span { color: var(--accent); font-weight: 600; }
   .footer-right { font-size: 12px; color: var(--text-dim); }
 
   /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    .case-card.featured { grid-template-columns: 1fr; }
+    .industry-grid { grid-template-columns: 1fr 1fr; }
+  }
   @media (max-width: 900px) {
-    .problem-grid, .case-grid, .services-grid { grid-template-columns: 1fr; }
-    .proof-grid { grid-template-columns: 1fr 1fr; }
+    .philosophy-grid, .case-grid, .services-grid, .method-grid { grid-template-columns: 1fr; }
+    .people-grid { grid-template-columns: 1fr; gap: 32px; }
     .nav-right a:not(.nav-cta) { display: none; }
     section { padding: 80px 24px; }
     .hero { padding: 120px 24px 80px; }
+    .authority-bar { gap: 32px; }
   }
   @media (max-width: 500px) {
-    .proof-grid { grid-template-columns: 1fr; }
+    .industry-grid { grid-template-columns: 1fr; }
     .hero-actions { flex-direction: column; }
     .btn-primary, .btn-ghost { width: 100%; text-align: center; }
+    .authority-bar { flex-direction: column; gap: 24px; }
   }
 </style>
 </head>
@@ -408,11 +492,12 @@
 <!-- NAV -->
 <nav>
   <div class="nav-inner">
-    <a href="#" class="nav-brand"><span>&gt;</span> bluegrass_advisory</a>
+    <a href="#" class="nav-brand"><span>Bluegrass</span> Advisory Group</a>
     <div class="nav-right">
+      <a href="#approach">Approach</a>
+      <a href="#results">Results</a>
       <a href="#services">Services</a>
-      <a href="#proof">Results</a>
-      <a href="#contact" class="nav-cta">Get Started</a>
+      <a href="#contact" class="nav-cta">Schedule a Conversation</a>
     </div>
   </div>
 </nav>
@@ -420,32 +505,30 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-inner">
-    <div class="hero-tag">ACCEPTING NEW CLIENTS</div>
-    <h1>What area of your business<br><span class="dim">would you like to improve?</span></h1>
-    <p class="hero-sub">We build systems that make your people better, your operations sharper, and your business smarter. Not by replacing anyone — by giving everyone superpowers. This is yours. Let's build it.</p>
+    <div class="hero-tag">Operations-First AI Consulting</div>
+    <h1>What area of your business would you like to <span class="accent">improve?</span></h1>
+    <p class="hero-sub">We don't just implement tools. We redesign how your business operates — then build the systems to make it permanent. Your people get better. Your operations get sharper. Your advantage compounds.</p>
     <div class="hero-actions">
-      <a href="#contact" class="btn-primary">BOOK A CALL &rarr;</a>
-      <a href="#services" class="btn-ghost">SEE HOW IT WORKS</a>
+      <a href="#contact" class="btn-primary">Schedule a Conversation</a>
+      <a href="#approach" class="btn-ghost">See Our Approach</a>
     </div>
 
-    <div class="terminal">
-      <div class="terminal-bar">
-        <div class="terminal-dot"></div>
-        <div class="terminal-dot"></div>
-        <div class="terminal-dot"></div>
-        <span class="terminal-title">what-we-build.sh</span>
+    <div class="authority-bar">
+      <div class="authority-stat">
+        <div class="authority-num">13+ Years</div>
+        <div class="authority-label">Operations leadership</div>
       </div>
-      <div class="terminal-body">
-        <span class="t-prompt">$</span> <span class="t-cmd">bluegrass --audit</span><br>
-        <span class="t-output">scanning operations...</span><br>
-        <span class="t-output">files_organized:</span> <span class="t-value">2,151</span><br>
-        <span class="t-output">duplicates_removed:</span> <span class="t-value">732</span><br>
-        <span class="t-output">sops_generated:</span> <span class="t-value">18</span><br>
-        <span class="t-output">annual_savings_identified:</span> <span class="t-value">$50,000–$80,000</span><br>
-        <span class="t-output">time_to_deploy:</span> <span class="t-value">4 days</span><br>
-        <span class="t-prompt">$</span> <span class="t-cmd">bluegrass --status</span><br>
-        <span class="t-output">system: </span><span class="t-value">self-maintaining</span><br>
-        <span class="t-prompt">$</span><span class="t-cursor"></span>
+      <div class="authority-stat">
+        <div class="authority-num">$15M+</div>
+        <div class="authority-label">Revenue managed annually</div>
+      </div>
+      <div class="authority-stat">
+        <div class="authority-num">85+</div>
+        <div class="authority-label">Employees across active operations</div>
+      </div>
+      <div class="authority-stat">
+        <div class="authority-num">500+</div>
+        <div class="authority-label">SOPs, playbooks & systems built</div>
       </div>
     </div>
   </div>
@@ -453,28 +536,200 @@
 
 <div class="divider"></div>
 
-<!-- PROBLEM / SOLUTION -->
+<!-- PHILOSOPHY: TECHNICAL VS ADAPTIVE CHANGE -->
+<section id="approach">
+  <div class="section-inner">
+    <div class="section-tag">Our Philosophy</div>
+    <div class="section-heading">Two kinds of change. Only one moves you forward.</div>
+    <div class="section-desc">Most consultants swap the parts. We redesign the system. That's the difference between a temporary improvement and a permanent transformation.</div>
+    <div class="philosophy-grid">
+      <div class="philosophy-card technical">
+        <div class="philosophy-label">Technical Change</div>
+        <h3>Same system, different parts.</h3>
+        <p>Something isn't working, so you swap the component. New software. New hire. New checklist. The system stays the same — you just replaced a piece of it. It's comfortable, predictable, and almost never enough.</p>
+        <div class="example">"The light bulb went out. Replace it with a new light bulb."</div>
+      </div>
+      <div class="philosophy-card adaptive">
+        <div class="philosophy-label">Adaptive Change</div>
+        <h3>Different system entirely.</h3>
+        <p>The technical solution didn't work — so we ask why. What's causing the underlying condition? How do we make the entire system perform better? Adaptive change is harder because it requires new thinking, not just new parts. That's where the real improvement lives.</p>
+        <div class="example">"Why does the light bulb keep going out? How do we make it work better?"</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- METHODOLOGY -->
 <section>
   <div class="section-inner">
-    <div class="section-tag">// the problem</div>
-    <div class="section-heading">AI doesn't replace your people.<br>It makes them unstoppable.</div>
-    <div class="section-desc">Your best employees become even better. Your processes run themselves. Your knowledge stays — even when people move on. This isn't about cutting costs. It's about raising the ceiling.</div>
-    <div class="problem-grid">
-      <div class="problem-side">
-        <div class="ps-label">Where most businesses are today</div>
-        <div class="ps-item"><span class="ps-icon">&times;</span> Processes live in one person's head</div>
-        <div class="ps-item"><span class="ps-icon">&times;</span> New hires take months to get up to speed</div>
-        <div class="ps-item"><span class="ps-icon">&times;</span> Files scattered across 6 apps and 3 devices</div>
-        <div class="ps-item"><span class="ps-icon">&times;</span> Good employees limited by bad systems</div>
-        <div class="ps-item"><span class="ps-icon">&times;</span> Knowledge walks out the door when people leave</div>
+    <div class="section-tag">How We Work</div>
+    <div class="section-heading">Diagnose. Redesign. Build.</div>
+    <div class="section-desc">Every engagement starts by understanding your operation — not selling you a tool. We listen first. Then we build something that actually works.</div>
+    <div class="method-grid">
+      <div class="method-card">
+        <div class="method-num">01</div>
+        <h3>Operational Diagnosis</h3>
+        <p>We learn your business inside and out. Where the knowledge lives, where it leaks, what runs on muscle memory, and what happens when key people aren't in the room. No assumptions — just a clear picture of where you are.</p>
       </div>
-      <div class="solution-side">
-        <div class="ps-label">Where we take you</div>
-        <div class="ps-item"><span class="ps-icon">&check;</span> Your entire operation documented — anyone can step in</div>
-        <div class="ps-item"><span class="ps-icon">&check;</span> Every decision documented with the "why"</div>
-        <div class="ps-item"><span class="ps-icon">&check;</span> One source of truth your whole team can access</div>
-        <div class="ps-item"><span class="ps-icon">&check;</span> Your people operating at a level competitors can't match</div>
-        <div class="ps-item"><span class="ps-icon">&check;</span> Systems that maintain themselves — no manual upkeep</div>
+      <div class="method-card">
+        <div class="method-num">02</div>
+        <h3>System Architecture</h3>
+        <p>We design the operational system your business actually needs — not a generic framework from a textbook. Custom knowledge systems, documented processes, clear accountability, and AI infrastructure that makes your people more effective.</p>
+      </div>
+      <div class="method-card">
+        <div class="method-num">03</div>
+        <h3>Implementation & Handoff</h3>
+        <p>We build it, deploy it, and make sure it runs without us. Self-maintaining documentation. Systems that compound value over time. No recurring fees, no dependency. It's yours.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PEOPLE SECTION -->
+<section class="people-section">
+  <div class="section-inner">
+    <div class="section-tag">Our Commitment</div>
+    <div class="section-heading">AI doesn't replace your people. It makes them unstoppable.</div>
+    <div class="section-desc">The businesses that win aren't the ones that cut headcount. They're the ones whose people operate at a level their competitors can't match.</div>
+    <div class="people-grid">
+      <div class="people-example">
+        <div class="role">Your General Manager</div>
+        <p>Runs on instinct today. Tomorrow, every decision is backed by data and documented for the next person. Same great leader — now with a system that multiplies their impact.</p>
+      </div>
+      <div class="people-example">
+        <div class="role">Your Office Manager</div>
+        <p>Juggling six apps and keeping it all in their head. We give them one view of everything — and it updates itself. They stop managing chaos and start managing growth.</p>
+      </div>
+      <div class="people-example">
+        <div class="role">Your New Hire</div>
+        <p>Takes three months to get up to speed today. With the entire operation documented, they have context from day one. Your institutional knowledge stops walking out the door.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CASE STUDIES -->
+<section id="results">
+  <div class="section-inner">
+    <div class="section-tag">Client Work</div>
+    <div class="section-heading">Transformations, not transactions.</div>
+    <div class="section-desc">Every engagement is measured by one thing: did the business fundamentally improve? Here's what that looks like.</div>
+
+    <div class="case-grid">
+      <!-- FEATURED: BRG -->
+      <div class="case-card featured">
+        <div>
+          <div class="case-industry">Multi-Location Restaurant Group</div>
+          <h3>3-Location Franchise Operation</h3>
+          <p>A franchise group managing three locations and approximately 85 employees across two cities. Operational knowledge lived in one person's head. If they left tomorrow, decades of institutional knowledge would disappear overnight.</p>
+          <div class="case-impact">
+            <div class="case-impact-item">
+              <div class="case-impact-num">3 Locations</div>
+              <div class="case-impact-label">Unified under one system</div>
+            </div>
+            <div class="case-impact-item">
+              <div class="case-impact-num">~85 Employees</div>
+              <div class="case-impact-label">Operations documented</div>
+            </div>
+            <div class="case-impact-item">
+              <div class="case-impact-num">8 Phases</div>
+              <div class="case-impact-label">Improvement plan</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="case-outcomes">
+            <div class="case-outcome"><span class="check">&#10003;</span> Centralized operational knowledge base accessible to every manager across all locations</div>
+            <div class="case-outcome"><span class="check">&#10003;</span> AI-ready documentation — any new system instantly understands the entire operation</div>
+            <div class="case-outcome"><span class="check">&#10003;</span> 8-phase operational improvement plan covering every major system</div>
+            <div class="case-outcome"><span class="check">&#10003;</span> Cross-location communication system for consistent operations</div>
+            <div class="case-outcome"><span class="check">&#10003;</span> Live process documentation capturing institutional knowledge in real-time</div>
+            <div class="case-outcome"><span class="check">&#10003;</span> Eliminated single point of failure — the operation runs on systems, not memory</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LET'S TRIM -->
+      <div class="case-card">
+        <div class="case-industry">Contracting Services</div>
+        <h3>Multi-Crew Service Company</h3>
+        <p>A growing contracting operation with no visibility into cost-per-man-hour, no standardized processes, and the biggest budget leak — paid downtime — completely invisible and untracked.</p>
+        <div class="case-outcomes">
+          <div class="case-outcome"><span class="check">&#10003;</span> $50K&ndash;$80K in annual recovery identified</div>
+          <div class="case-outcome"><span class="check">&#10003;</span> 18+ SOPs and complete pay restructuring</div>
+          <div class="case-outcome"><span class="check">&#10003;</span> 90-day implementation roadmap with owners</div>
+        </div>
+        <div class="case-impact">
+          <div class="case-impact-item">
+            <div class="case-impact-num">$50K+</div>
+            <div class="case-impact-label">Annual recovery</div>
+          </div>
+          <div class="case-impact-item">
+            <div class="case-impact-num">90 Days</div>
+            <div class="case-impact-label">To implementation</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PFSA -->
+      <div class="case-card">
+        <div class="case-industry">Nonprofit Technology</div>
+        <h3>501(c)(3) Digital Transformation</h3>
+        <p>A registered nonprofit with zero technology infrastructure. Donors tracked in memory and spreadsheets. No receipt system, no analytics, no public-facing donation capability.</p>
+        <div class="case-outcomes">
+          <div class="case-outcome"><span class="check">&#10003;</span> Full donor management platform — built and deployed</div>
+          <div class="case-outcome"><span class="check">&#10003;</span> Automated PDF receipts, analytics, and reporting</div>
+          <div class="case-outcome"><span class="check">&#10003;</span> Production infrastructure with zero recurring cost</div>
+        </div>
+        <div class="case-impact">
+          <div class="case-impact-item">
+            <div class="case-impact-num">Full Platform</div>
+            <div class="case-impact-label">Concept to production</div>
+          </div>
+          <div class="case-impact-item">
+            <div class="case-impact-num">$0/mo</div>
+            <div class="case-impact-label">Ongoing cost</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- INDUSTRIES -->
+<section>
+  <div class="section-inner">
+    <div class="section-tag">Who We Work With</div>
+    <div class="section-heading">Operations are operations. The architecture is universal.</div>
+    <div class="section-desc">The same methodology works across industries because the underlying problems are the same: knowledge loss, process gaps, and systems that don't talk to each other.</div>
+    <div class="industry-grid">
+      <div class="industry-card">
+        <div class="industry-icon">&#9881;</div>
+        <h4>Restaurant & Franchise</h4>
+        <p>Multi-location operations, compliance, training, and cross-store consistency.</p>
+      </div>
+      <div class="industry-card">
+        <div class="industry-icon">&#9874;</div>
+        <h4>Trades & Contracting</h4>
+        <p>Crew management, job costing, SOPs, and accountability systems.</p>
+      </div>
+      <div class="industry-card">
+        <div class="industry-icon">&#9733;</div>
+        <h4>Nonprofit & Mission-Driven</h4>
+        <p>Donor management, compliance, reporting, and technology infrastructure.</p>
+      </div>
+      <div class="industry-card">
+        <div class="industry-icon">&#9650;</div>
+        <h4>Growth-Stage Business</h4>
+        <p>Scaling operations, documenting tribal knowledge, and building systems that outlast any one person.</p>
       </div>
     </div>
   </div>
@@ -485,98 +740,39 @@
 <!-- SERVICES -->
 <section id="services">
   <div class="section-inner">
-    <div class="section-tag">// services</div>
-    <div class="section-heading">Built around you.</div>
-    <div class="section-desc">Every engagement starts with one question: "What area of your business would you like to improve?" We listen first. Then we build.</div>
+    <div class="section-tag">Engagement Options</div>
+    <div class="section-heading">Built around your operation. Not a template.</div>
+    <div class="section-desc">Every engagement begins with one question and a conversation. No pitches, no pressure — just clarity on where you are and where you want to be.</div>
     <div class="services-grid">
       <div class="service-card">
-        <div class="service-num">01</div>
-        <h3>Discovery & Roadmap</h3>
+        <h3>Discovery & Strategic Roadmap</h3>
         <p>We learn your business inside and out. You get a comprehensive assessment with findings, recommendations, and a prioritized action plan — what to tackle first and why.</p>
-        <div class="service-price">$1,000 FLAT</div>
+        <ul class="service-includes">
+          <li><span class="check">&#10003;</span> Intake questionnaire covering operations, tools, and pain points</li>
+          <li><span class="check">&#10003;</span> Comprehensive assessment with findings</li>
+          <li><span class="check">&#10003;</span> Written roadmap with prioritized action items</li>
+          <li><span class="check">&#10003;</span> Branded deliverable you keep forever</li>
+        </ul>
       </div>
       <div class="service-card">
-        <div class="service-num">02</div>
-        <h3>Roadmap + First Build</h3>
-        <p>Everything in Discovery, plus we build it. SOPs for your priority areas, implementation roadmaps with timelines, and the systems your team needs to operate at the next level.</p>
-        <div class="service-price">$2,500</div>
+        <h3>Roadmap + Implementation</h3>
+        <p>Everything in Discovery, plus we build it. SOPs for your priority areas, implementation roadmaps with timelines and owners, and the systems your team needs to operate at the next level.</p>
+        <ul class="service-includes">
+          <li><span class="check">&#10003;</span> Everything in Discovery</li>
+          <li><span class="check">&#10003;</span> SOP development for priority areas</li>
+          <li><span class="check">&#10003;</span> Implementation with timelines and owners</li>
+          <li><span class="check">&#10003;</span> Follow-up support period</li>
+        </ul>
       </div>
       <div class="service-card">
-        <div class="service-num">03</div>
         <h3>Custom Operations Dashboard</h3>
-        <p>A real-time command center built for YOUR operation. Role-based views, live task tracking, decision surfacing. No monthly fees — it's yours forever.</p>
-        <div class="service-price">$3,000 – $5,000</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- PROOF -->
-<section id="proof">
-  <div class="section-inner">
-    <div class="section-tag">// results</div>
-    <div class="section-heading">Numbers don't need adjectives.</div>
-    <div class="proof-grid">
-      <div class="proof-card">
-        <div class="proof-num">$50K+</div>
-        <div class="proof-label">Annual savings identified in a single assessment</div>
-      </div>
-      <div class="proof-card">
-        <div class="proof-num">85+</div>
-        <div class="proof-label">Employees managed across active operations</div>
-      </div>
-      <div class="proof-card">
-        <div class="proof-num">4 Days</div>
-        <div class="proof-label">Concept to deployed production application</div>
-      </div>
-      <div class="proof-card">
-        <div class="proof-num">18+</div>
-        <div class="proof-label">SOPs delivered in one engagement</div>
-      </div>
-    </div>
-
-    <div class="case-grid" style="margin-top: 2px;">
-      <div class="case-card">
-        <div class="case-industry">Restaurant Operations</div>
-        <h3>3-Location Franchise Group</h3>
-        <p>Organized 2,151 files from chaos, removed 732 duplicates, built an 8-phase improvement plan, and designed a weekly newsletter system — all while managing daily operations for ~85 employees.</p>
-        <div class="case-stats">
-          <div><div class="case-stat-num">2,151</div><div class="case-stat-label">Files organized</div></div>
-          <div><div class="case-stat-num">732</div><div class="case-stat-label">Duplicates removed</div></div>
-          <div><div class="case-stat-num">8</div><div class="case-stat-label">Phase plan</div></div>
-        </div>
-      </div>
-      <div class="case-card">
-        <div class="case-industry">Contracting Services</div>
-        <h3>Multi-Crew Carpentry Company</h3>
-        <p>Identified $50K–$80K in annual losses from paid downtime and no cost-per-man-hour visibility. Delivered 18+ SOPs, pay restructuring, and a 90-day implementation roadmap.</p>
-        <div class="case-stats">
-          <div><div class="case-stat-num">$50K+</div><div class="case-stat-label">Savings found</div></div>
-          <div><div class="case-stat-num">18+</div><div class="case-stat-label">SOPs delivered</div></div>
-          <div><div class="case-stat-num">90</div><div class="case-stat-label">Day roadmap</div></div>
-        </div>
-      </div>
-      <div class="case-card">
-        <div class="case-industry">Nonprofit Management</div>
-        <h3>501(c)(3) Donor Platform</h3>
-        <p>Built a complete donor management system from scratch — tracking, PDF receipts, email automation, analytics, and reporting. Went from concept to production in days, not months.</p>
-        <div class="case-stats">
-          <div><div class="case-stat-num">Full</div><div class="case-stat-label">Production app</div></div>
-          <div><div class="case-stat-num">PDF</div><div class="case-stat-label">Auto-receipts</div></div>
-          <div><div class="case-stat-num">Live</div><div class="case-stat-label">Analytics</div></div>
-        </div>
-      </div>
-      <div class="case-card">
-        <div class="case-industry">Personal Productivity</div>
-        <h3>Life Command Center</h3>
-        <p>80+ database tables, 11 life area cards, daily briefings, smart nudges, weekly reviews — deployed as a progressive web app. Built in 4 days with AI-assisted development.</p>
-        <div class="case-stats">
-          <div><div class="case-stat-num">80+</div><div class="case-stat-label">DB tables</div></div>
-          <div><div class="case-stat-num">11</div><div class="case-stat-label">Life areas</div></div>
-          <div><div class="case-stat-num">4</div><div class="case-stat-label">Days to build</div></div>
-        </div>
+        <p>A real-time command center built for your operation. Role-based views, live task tracking, decision surfacing — no monthly SaaS fees. One build. Yours forever.</p>
+        <ul class="service-includes">
+          <li><span class="check">&#10003;</span> Full assessment included</li>
+          <li><span class="check">&#10003;</span> Custom-built real-time dashboard</li>
+          <li><span class="check">&#10003;</span> Role-based views for your org</li>
+          <li><span class="check">&#10003;</span> No recurring fees — it's yours</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -587,19 +783,22 @@
 <!-- CTA -->
 <section class="cta-section" id="contact">
   <div class="section-inner">
-    <div class="section-tag">// let's go</div>
+    <div class="section-tag">Let's Talk</div>
     <h2>This is yours.<br>Let's build it.</h2>
     <p>30-minute conversation. No pitch, no pressure. Just one question: what area of your business would you like to improve?</p>
+    <div class="cta-actions">
+      <a href="mailto:phil@bluegrassadvisorygroup.com" class="btn-primary">Schedule a Conversation</a>
+    </div>
     <a href="mailto:phil@bluegrassadvisorygroup.com" class="cta-email">phil@bluegrassadvisorygroup.com</a>
-    <div style="margin-top: 16px; font-size: 13px; color: var(--text-dim);">Lexington, Kentucky</div>
+    <div class="cta-location">Lexington, Kentucky</div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
-    <div class="footer-brand"><span>&gt;</span> bluegrass_advisory_group</div>
-    <div class="footer-right">&copy; 2026 Bluegrass Advisory Group, LLC</div>
+    <div class="footer-brand"><span>Bluegrass</span> Advisory Group, LLC</div>
+    <div class="footer-right">Business Operations &middot; AI Integration &middot; Knowledge Systems</div>
   </div>
 </footer>
 
