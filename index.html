@@ -3,48 +3,49 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bluegrass Advisory Group — Operations-First AI Consulting</title>
-<meta name="description" content="Operations-first AI consulting for multi-location operators and growth-stage businesses. We don't just implement tools — we redesign how your business operates.">
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Outfit:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<title>Bluegrass Advisory Group | Management Consulting</title>
+<meta name="description" content="Management consulting that actually changes how your business runs. Operational assessments, strategic engagements, and AI-powered operations systems.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #08090E;
-    --surface: #0F1117;
-    --surface-2: #141620;
+    --navy: #0d1117;
+    --navy-light: #161b22;
+    --navy-mid: #1c2333;
+    --gold: #d4a843;
+    --gold-dim: rgba(212,168,67,0.08);
+    --gold-glow: rgba(212,168,67,0.15);
+    --gold-bright: #e8c468;
+    --white: #f0f2f5;
+    --text: #8b949e;
+    --text-dim: #6e7681;
     --border: rgba(255,255,255,0.06);
     --border-hover: rgba(255,255,255,0.12);
-    --text: #B0B5C0;
-    --text-dim: #5A5F6B;
-    --white: #F0F2F5;
-    --accent: #4ADE80;
-    --accent-dim: rgba(74,222,128,0.06);
-    --accent-glow: rgba(74,222,128,0.15);
-    --blue: #60A5FA;
-    --amber: #FBBF24;
-    --mono: 'Space Mono', monospace;
-    --sans: 'Outfit', sans-serif;
+    --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
 
   body {
-    font-family: var(--sans);
-    background: var(--bg);
+    font-family: var(--font);
+    background: var(--navy);
     color: var(--text);
-    line-height: 1.6;
+    line-height: 1.7;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
   }
 
-  ::selection { background: var(--accent); color: var(--bg); }
+  ::selection { background: var(--gold); color: var(--navy); }
 
-  .grid-bg {
-    position: fixed; inset: 0; z-index: 0; pointer-events: none;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
-    background-size: 80px 80px;
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+
+  /* SUBTLE BACKGROUND */
+  body::before {
+    content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% 0%, rgba(212,168,67,0.03) 0%, transparent 50%),
+      radial-gradient(ellipse 60% 40% at 80% 100%, rgba(212,168,67,0.02) 0%, transparent 50%);
   }
 
   .page { position: relative; z-index: 1; }
@@ -52,9 +53,9 @@
   /* NAV */
   nav {
     position: fixed; top: 0; width: 100%; z-index: 100;
-    padding: 20px 0;
-    background: rgba(8,9,14,0.85);
-    backdrop-filter: blur(24px);
+    padding: 18px 0;
+    background: rgba(13,17,23,0.92);
+    backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border);
   }
   .nav-inner {
@@ -62,304 +63,103 @@
     display: flex; justify-content: space-between; align-items: center;
   }
   .nav-brand {
-    font-family: var(--sans); font-size: 15px; font-weight: 700;
-    color: var(--white); text-decoration: none;
-    letter-spacing: -0.3px;
+    font-size: 15px; font-weight: 700; color: var(--white);
+    text-decoration: none; letter-spacing: -0.3px;
   }
-  .nav-brand span { color: var(--accent); font-weight: 800; }
-  .nav-right { display: flex; align-items: center; gap: 32px; }
-  .nav-right a {
+  .nav-brand span { color: var(--gold); }
+  .nav-links { display: flex; align-items: center; gap: 36px; }
+  .nav-links a {
     font-size: 13px; color: var(--text-dim); text-decoration: none;
-    font-weight: 400; transition: color 0.2s; letter-spacing: 0.2px;
+    font-weight: 500; transition: color 0.2s; letter-spacing: 0.3px;
+    text-transform: uppercase;
   }
-  .nav-right a:hover { color: var(--white); }
+  .nav-links a:hover { color: var(--white); }
   .nav-cta {
-    font-family: var(--sans) !important; font-size: 13px !important;
-    font-weight: 600 !important;
-    padding: 10px 24px; background: var(--accent);
-    color: var(--bg) !important; border-radius: 6px;
-    transition: all 0.2s !important; border: none;
+    padding: 10px 28px !important; background: var(--gold) !important;
+    color: var(--navy) !important; border-radius: 4px;
+    font-weight: 600 !important; text-transform: none !important;
+    letter-spacing: 0 !important; transition: all 0.2s !important;
   }
-  .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(74,222,128,0.3); }
+  .nav-cta:hover { background: var(--gold-bright) !important; transform: translateY(-1px); }
 
   /* HERO */
   .hero {
     min-height: 100vh; display: flex; align-items: center;
-    padding: 160px 40px 120px;
+    padding: 140px 40px 100px;
     position: relative;
   }
-  .hero::before {
-    content: ''; position: absolute;
-    top: -10%; right: -5%; width: 800px; height: 800px;
-    background: radial-gradient(circle, rgba(74,222,128,0.03) 0%, transparent 60%);
-    pointer-events: none;
-  }
   .hero-inner { max-width: 1200px; margin: 0 auto; width: 100%; }
-
-  .hero-tag {
-    font-family: var(--mono); font-size: 12px;
-    color: var(--accent); letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: 32px; opacity: 0.9;
+  .hero-eyebrow {
+    font-size: 13px; font-weight: 600; color: var(--gold);
+    letter-spacing: 3px; text-transform: uppercase;
+    margin-bottom: 28px;
   }
-
   .hero h1 {
-    font-size: clamp(44px, 6.5vw, 80px);
+    font-size: clamp(40px, 5.5vw, 72px);
     font-weight: 800; color: var(--white);
-    line-height: 1.05; letter-spacing: -3px;
-    max-width: 860px; margin-bottom: 28px;
+    line-height: 1.08; letter-spacing: -2.5px;
+    max-width: 820px; margin-bottom: 24px;
   }
-  .hero h1 .accent { color: var(--accent); }
-
   .hero-sub {
-    font-size: 19px; font-weight: 300;
-    color: var(--text); max-width: 540px;
-    line-height: 1.8; margin-bottom: 48px;
+    font-size: 20px; font-weight: 400; color: var(--text);
+    max-width: 560px; line-height: 1.7; margin-bottom: 48px;
   }
-
-  .hero-actions { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
   .btn-primary {
-    font-family: var(--sans); font-size: 14px; font-weight: 600;
-    padding: 16px 36px; background: var(--accent); color: var(--bg);
-    text-decoration: none; border-radius: 6px;
-    transition: all 0.2s; display: inline-block;
+    display: inline-block; font-family: var(--font);
+    font-size: 15px; font-weight: 600; padding: 18px 40px;
+    background: var(--gold); color: var(--navy);
+    text-decoration: none; border-radius: 4px;
+    transition: all 0.25s; letter-spacing: 0.2px;
   }
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(74,222,128,0.25); }
-  .btn-ghost {
-    font-family: var(--sans); font-size: 14px; font-weight: 400;
-    padding: 16px 36px; color: var(--text-dim);
-    text-decoration: none; border: 1px solid var(--border);
-    border-radius: 6px; transition: all 0.2s;
+  .btn-primary:hover { background: var(--gold-bright); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(212,168,67,0.25); }
+  .btn-secondary {
+    display: inline-block; font-family: var(--font);
+    font-size: 15px; font-weight: 500; padding: 18px 40px;
+    color: var(--text); text-decoration: none;
+    border: 1px solid var(--border); border-radius: 4px;
+    transition: all 0.25s;
   }
-  .btn-ghost:hover { color: var(--white); border-color: var(--border-hover); }
+  .btn-secondary:hover { color: var(--white); border-color: var(--border-hover); }
+  .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
 
-  /* AUTHORITY BAR */
-  .authority-bar {
-    margin-top: 80px;
-    display: flex; gap: 48px; flex-wrap: wrap;
+  .stats-bar {
+    margin-top: 80px; display: flex; gap: 56px; flex-wrap: wrap;
+    padding-top: 48px; border-top: 1px solid var(--border);
   }
-  .authority-stat {
-    display: flex; flex-direction: column;
+  .stat-num {
+    font-size: 28px; font-weight: 800; color: var(--white);
+    letter-spacing: -1px; line-height: 1;
   }
-  .authority-num {
-    font-family: var(--mono); font-size: 24px;
-    font-weight: 700; color: var(--white);
-    letter-spacing: -1px;
-  }
-  .authority-label {
+  .stat-label {
     font-size: 13px; color: var(--text-dim);
-    font-weight: 300; margin-top: 4px;
-  }
-
-  /* DIVIDER */
-  .divider {
-    max-width: 1200px; margin: 0 auto; padding: 0 40px;
-    height: 1px; position: relative;
-  }
-  .divider::after {
-    content: ''; position: absolute; left: 40px; right: 40px;
-    height: 1px; background: var(--border);
+    font-weight: 400; margin-top: 6px;
   }
 
   /* SECTIONS */
   section { padding: 120px 40px; }
   .section-inner { max-width: 1200px; margin: 0 auto; }
-
-  .section-tag {
-    font-family: var(--mono); font-size: 11px;
-    color: var(--accent); letter-spacing: 2px;
-    text-transform: uppercase; margin-bottom: 20px;
+  .section-label {
+    font-size: 12px; font-weight: 700; color: var(--gold);
+    letter-spacing: 3px; text-transform: uppercase;
+    margin-bottom: 20px;
   }
   .section-heading {
-    font-size: clamp(34px, 4.5vw, 52px);
+    font-size: clamp(32px, 4vw, 48px);
     font-weight: 800; color: var(--white);
-    line-height: 1.1; letter-spacing: -2px;
-    margin-bottom: 20px; max-width: 700px;
+    line-height: 1.1; letter-spacing: -1.5px;
+    margin-bottom: 16px; max-width: 680px;
   }
   .section-desc {
-    font-size: 17px; font-weight: 300;
-    color: var(--text-dim); max-width: 580px;
-    line-height: 1.8; margin-bottom: 64px;
+    font-size: 17px; font-weight: 400; color: var(--text);
+    max-width: 560px; line-height: 1.8; margin-bottom: 64px;
   }
-
-  /* PHILOSOPHY SECTION */
-  .philosophy-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+  .divider {
+    max-width: 1200px; margin: 0 auto; padding: 0 40px;
+    height: 1px;
   }
-  .philosophy-card {
-    padding: 48px 40px;
-    border-radius: 8px;
-    position: relative;
-  }
-  .philosophy-card.technical {
-    background: rgba(251,191,36,0.03);
-    border: 1px solid rgba(251,191,36,0.08);
-  }
-  .philosophy-card.adaptive {
-    background: var(--accent-dim);
-    border: 1px solid rgba(74,222,128,0.1);
-  }
-  .philosophy-label {
-    font-family: var(--mono); font-size: 11px;
-    letter-spacing: 2px; text-transform: uppercase;
-    margin-bottom: 24px;
-  }
-  .philosophy-card.technical .philosophy-label { color: var(--amber); }
-  .philosophy-card.adaptive .philosophy-label { color: var(--accent); }
-  .philosophy-card h3 {
-    font-size: 22px; font-weight: 700;
-    color: var(--white); margin-bottom: 16px;
-    letter-spacing: -0.5px; line-height: 1.3;
-  }
-  .philosophy-card p {
-    font-size: 15px; color: var(--text);
-    line-height: 1.8; font-weight: 300;
-  }
-  .philosophy-card .example {
-    margin-top: 24px; padding-top: 20px;
-    border-top: 1px solid var(--border);
-    font-size: 14px; color: var(--text-dim);
-    line-height: 1.7; font-style: italic;
-  }
-
-  /* METHODOLOGY */
-  .method-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
-  }
-  .method-card {
-    padding: 44px 36px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    transition: all 0.3s;
-    position: relative; overflow: hidden;
-  }
-  .method-card::before {
-    content: ''; position: absolute; top: 0; left: 0; right: 0;
-    height: 2px; background: var(--accent);
-    transform: scaleX(0); transform-origin: left;
-    transition: transform 0.4s;
-  }
-  .method-card:hover::before { transform: scaleX(1); }
-  .method-card:hover { border-color: var(--accent-glow); }
-  .method-num {
-    font-family: var(--mono); font-size: 13px;
-    font-weight: 700; color: var(--accent);
-    margin-bottom: 24px; opacity: 0.7;
-  }
-  .method-card h3 {
-    font-size: 20px; font-weight: 700;
-    color: var(--white); margin-bottom: 14px;
-    letter-spacing: -0.3px;
-  }
-  .method-card p {
-    font-size: 14px; color: var(--text-dim);
-    line-height: 1.8; font-weight: 300;
-  }
-
-  /* PEOPLE SECTION */
-  .people-section {
-    background: var(--surface);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-  }
-  .people-grid {
-    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px;
-    margin-top: 16px;
-  }
-  .people-example {
-    padding: 0;
-  }
-  .people-example .role {
-    font-family: var(--mono); font-size: 11px;
-    color: var(--accent); letter-spacing: 1px;
-    text-transform: uppercase; margin-bottom: 12px;
-  }
-  .people-example p {
-    font-size: 15px; color: var(--text);
-    line-height: 1.7; font-weight: 300;
-  }
-
-  /* CASE STUDIES */
-  .case-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
-  .case-card {
-    padding: 44px 40px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    transition: border-color 0.3s;
-  }
-  .case-card:hover { border-color: var(--border-hover); }
-  .case-card.featured {
-    grid-column: 1 / -1;
-    display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
-    align-items: start;
-  }
-  .case-industry {
-    font-family: var(--mono); font-size: 10px;
-    letter-spacing: 2px; text-transform: uppercase;
-    color: var(--accent); margin-bottom: 16px;
-  }
-  .case-card h3 {
-    font-size: 22px; font-weight: 700;
-    color: var(--white); margin-bottom: 14px;
-    letter-spacing: -0.3px;
-  }
-  .case-card p {
-    font-size: 14px; color: var(--text-dim);
-    line-height: 1.8; font-weight: 300;
-    margin-bottom: 24px;
-  }
-  .case-outcomes {
-    display: flex; flex-direction: column; gap: 12px;
-  }
-  .case-outcome {
-    font-size: 14px; color: var(--text);
-    display: flex; align-items: flex-start; gap: 10px;
-    line-height: 1.6;
-  }
-  .case-outcome .check {
-    color: var(--accent); flex-shrink: 0;
-    margin-top: 2px; font-size: 14px;
-  }
-  .case-impact {
-    margin-top: 24px; padding-top: 20px;
-    border-top: 1px solid var(--border);
-    display: flex; gap: 32px;
-  }
-  .case-impact-item {}
-  .case-impact-num {
-    font-family: var(--mono); font-size: 20px;
-    font-weight: 700; color: var(--white);
-  }
-  .case-impact-label {
-    font-size: 12px; color: var(--text-dim); margin-top: 2px;
-  }
-
-  /* INDUSTRIES */
-  .industry-grid {
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px;
-  }
-  .industry-card {
-    padding: 36px 28px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    transition: all 0.3s;
-    text-align: center;
-  }
-  .industry-card:hover { border-color: var(--accent-glow); }
-  .industry-icon {
-    font-size: 28px; margin-bottom: 16px;
-    opacity: 0.8;
-  }
-  .industry-card h4 {
-    font-size: 15px; font-weight: 600;
-    color: var(--white); margin-bottom: 8px;
-  }
-  .industry-card p {
-    font-size: 13px; color: var(--text-dim);
-    line-height: 1.6; font-weight: 300;
+  .divider::after {
+    content: ''; display: block;
+    height: 1px; background: var(--border);
   }
 
   /* SERVICES */
@@ -367,125 +167,173 @@
     display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
   }
   .service-card {
-    padding: 44px 36px;
-    background: var(--surface);
+    padding: 48px 36px;
+    background: var(--navy-light);
     border: 1px solid var(--border);
     border-radius: 8px;
     transition: all 0.3s;
     position: relative; overflow: hidden;
+    display: flex; flex-direction: column;
   }
   .service-card::before {
     content: ''; position: absolute; top: 0; left: 0; right: 0;
-    height: 2px; background: var(--accent);
+    height: 3px; background: linear-gradient(90deg, var(--gold), var(--gold-bright));
     transform: scaleX(0); transform-origin: left;
     transition: transform 0.4s;
   }
   .service-card:hover::before { transform: scaleX(1); }
-  .service-card:hover { border-color: var(--accent-glow); }
+  .service-card:hover { border-color: var(--gold-glow); }
+  .service-tier {
+    font-size: 12px; font-weight: 700; color: var(--gold);
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
   .service-card h3 {
-    font-size: 20px; font-weight: 700;
-    color: var(--white); margin-bottom: 14px;
-    letter-spacing: -0.3px;
+    font-size: 22px; font-weight: 700; color: var(--white);
+    margin-bottom: 8px; letter-spacing: -0.5px;
   }
-  .service-card p {
-    font-size: 14px; color: var(--text-dim);
-    line-height: 1.8; font-weight: 300;
-    margin-bottom: 20px;
+  .service-price {
+    font-size: 32px; font-weight: 800; color: var(--white);
+    letter-spacing: -1px; margin-bottom: 20px; line-height: 1;
   }
-  .service-includes {
-    list-style: none; padding: 0;
-    border-top: 1px solid var(--border);
-    padding-top: 20px;
+  .service-price span { font-size: 15px; font-weight: 400; color: var(--text-dim); }
+  .service-card > p {
+    font-size: 15px; color: var(--text); line-height: 1.8;
+    font-weight: 400; margin-bottom: 24px;
   }
-  .service-includes li {
-    font-size: 13px; color: var(--text);
-    padding: 6px 0; display: flex;
-    align-items: flex-start; gap: 8px;
-    line-height: 1.5;
+  .service-deliverables {
+    list-style: none; padding: 0; margin-top: auto;
+    border-top: 1px solid var(--border); padding-top: 24px;
   }
-  .service-includes .check { color: var(--accent); flex-shrink: 0; }
+  .service-deliverables li {
+    font-size: 14px; color: var(--text); padding: 7px 0;
+    display: flex; align-items: flex-start; gap: 10px; line-height: 1.5;
+  }
+  .service-deliverables .check {
+    color: var(--gold); flex-shrink: 0; font-size: 14px; margin-top: 2px;
+  }
 
-  /* CTA SECTION */
-  .cta-section {
-    text-align: center;
-    padding: 160px 40px;
-    position: relative;
+  /* ABOUT */
+  .about-section { background: var(--navy-light); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+    align-items: start;
   }
-  .cta-section::before {
+  .about-role {
+    font-size: 12px; font-weight: 700; color: var(--gold);
+    letter-spacing: 3px; text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .about-name {
+    font-size: 36px; font-weight: 800; color: var(--white);
+    letter-spacing: -1px; margin-bottom: 24px; line-height: 1.1;
+  }
+  .about-bio {
+    font-size: 16px; color: var(--text); line-height: 1.9; font-weight: 400;
+  }
+  .about-bio p { margin-bottom: 20px; }
+  .about-quote {
+    font-size: 20px; font-weight: 500; color: var(--white);
+    line-height: 1.6; font-style: italic;
+    padding: 40px; border-left: 3px solid var(--gold);
+    background: var(--navy-mid);
+    border-radius: 0 8px 8px 0;
+    margin-top: 32px;
+  }
+
+  /* RESULTS */
+  .results-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;
+  }
+  .result-card {
+    padding: 40px; background: var(--navy-light);
+    border: 1px solid var(--border); border-radius: 8px;
+    transition: border-color 0.3s;
+  }
+  .result-card:hover { border-color: var(--border-hover); }
+  .result-stat {
+    font-size: 20px; font-weight: 700; color: var(--white);
+    margin-bottom: 12px; line-height: 1.3;
+  }
+  .result-detail {
+    font-size: 14px; color: var(--text-dim); line-height: 1.7;
+  }
+
+  /* CONTACT */
+  .contact-section {
+    text-align: center; padding: 160px 40px; position: relative;
+  }
+  .contact-section::before {
     content: ''; position: absolute;
-    top: 50%; left: 50%; transform: translate(-50%,-50%);
-    width: 600px; height: 600px;
-    background: radial-gradient(circle, rgba(74,222,128,0.03) 0%, transparent 60%);
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(212,168,67,0.04) 0%, transparent 60%);
     pointer-events: none;
   }
-  .cta-section h2 {
-    font-size: clamp(36px, 5vw, 58px);
+  .contact-section h2 {
+    font-size: clamp(36px, 4.5vw, 56px);
     font-weight: 800; color: var(--white);
-    letter-spacing: -2px; margin-bottom: 20px;
-    line-height: 1.1;
+    letter-spacing: -2px; margin-bottom: 20px; line-height: 1.1;
   }
-  .cta-section p {
-    font-size: 17px; color: var(--text-dim);
-    font-weight: 300; max-width: 480px;
-    margin: 0 auto 44px; line-height: 1.8;
+  .contact-section > .section-inner > p {
+    font-size: 18px; color: var(--text); font-weight: 400;
+    max-width: 520px; margin: 0 auto 44px; line-height: 1.8;
   }
-  .cta-actions {
+  .contact-actions {
     display: flex; gap: 16px; justify-content: center;
-    align-items: center; flex-wrap: wrap;
-    margin-bottom: 32px;
+    flex-wrap: wrap; margin-bottom: 36px;
   }
-  .cta-email {
-    font-family: var(--mono); font-size: 16px;
-    color: var(--accent); text-decoration: none;
-    border-bottom: 1px solid rgba(74,222,128,0.3);
-    padding-bottom: 2px;
-    transition: all 0.2s;
+  .contact-email {
+    font-size: 17px; font-weight: 500; color: var(--gold);
+    text-decoration: none; border-bottom: 1px solid rgba(212,168,67,0.3);
+    padding-bottom: 2px; transition: all 0.2s;
   }
-  .cta-email:hover { border-color: var(--accent); }
-  .cta-location {
-    font-size: 13px; color: var(--text-dim);
-    margin-top: 8px;
+  .contact-email:hover { border-color: var(--gold); }
+  .contact-location {
+    font-size: 14px; color: var(--text-dim); margin-top: 12px;
   }
 
   /* FOOTER */
   footer {
-    padding: 32px 40px;
-    border-top: 1px solid var(--border);
+    padding: 28px 40px; border-top: 1px solid var(--border);
   }
   .footer-inner {
     max-width: 1200px; margin: 0 auto;
     display: flex; justify-content: space-between; align-items: center;
   }
-  .footer-brand {
-    font-size: 13px; color: var(--text-dim); font-weight: 400;
-  }
-  .footer-brand span { color: var(--accent); font-weight: 600; }
+  .footer-brand { font-size: 13px; color: var(--text-dim); }
+  .footer-brand span { color: var(--gold); font-weight: 600; }
   .footer-right { font-size: 12px; color: var(--text-dim); }
+
+  /* SCROLL ANIMATIONS */
+  .fade-up {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
 
   /* RESPONSIVE */
   @media (max-width: 1024px) {
-    .case-card.featured { grid-template-columns: 1fr; }
-    .industry-grid { grid-template-columns: 1fr 1fr; }
+    .about-grid { grid-template-columns: 1fr; gap: 48px; }
+    .results-grid { grid-template-columns: 1fr; }
   }
   @media (max-width: 900px) {
-    .philosophy-grid, .case-grid, .services-grid, .method-grid { grid-template-columns: 1fr; }
-    .people-grid { grid-template-columns: 1fr; gap: 32px; }
-    .nav-right a:not(.nav-cta) { display: none; }
+    .services-grid { grid-template-columns: 1fr; }
+    .nav-links a:not(.nav-cta) { display: none; }
     section { padding: 80px 24px; }
     .hero { padding: 120px 24px 80px; }
-    .authority-bar { gap: 32px; }
+    .stats-bar { gap: 32px; }
+    .container { padding: 0 24px; }
   }
   @media (max-width: 500px) {
-    .industry-grid { grid-template-columns: 1fr; }
     .hero-actions { flex-direction: column; }
-    .btn-primary, .btn-ghost { width: 100%; text-align: center; }
-    .authority-bar { flex-direction: column; gap: 24px; }
+    .btn-primary, .btn-secondary { width: 100%; text-align: center; }
+    .stats-bar { flex-direction: column; gap: 20px; }
+    footer .footer-inner { flex-direction: column; gap: 8px; text-align: center; }
   }
 </style>
 </head>
 <body>
-
-<div class="grid-bg"></div>
 
 <div class="page">
 
@@ -493,11 +341,11 @@
 <nav>
   <div class="nav-inner">
     <a href="#" class="nav-brand"><span>Bluegrass</span> Advisory Group</a>
-    <div class="nav-right">
-      <a href="#approach">Approach</a>
-      <a href="#results">Results</a>
+    <div class="nav-links">
       <a href="#services">Services</a>
-      <a href="#contact" class="nav-cta">Schedule a Conversation</a>
+      <a href="#results">Results</a>
+      <a href="#about">About</a>
+      <a href="#contact" class="nav-cta">Schedule a Consultation</a>
     </div>
   </div>
 </nav>
@@ -505,231 +353,29 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-inner">
-    <div class="hero-tag">Operations-First AI Consulting</div>
-    <h1>What area of your business would you like to <span class="accent">improve?</span></h1>
-    <p class="hero-sub">We don't just implement tools. We redesign how your business operates — then build the systems to make it permanent. Your people get better. Your operations get sharper. Your advantage compounds.</p>
+    <div class="hero-eyebrow">Management Consulting</div>
+    <h1>Operational Clarity for Growing Businesses</h1>
+    <p class="hero-sub">Management consulting that actually changes how your business runs. We diagnose, build systems, and leave you with operations that compound value long after we're gone.</p>
     <div class="hero-actions">
-      <a href="#contact" class="btn-primary">Schedule a Conversation</a>
-      <a href="#approach" class="btn-ghost">See Our Approach</a>
+      <a href="#contact" class="btn-primary">Schedule a Consultation</a>
+      <a href="#services" class="btn-secondary">View Services</a>
     </div>
-
-    <div class="authority-bar">
-      <div class="authority-stat">
-        <div class="authority-num">13+ Years</div>
-        <div class="authority-label">Operations leadership</div>
+    <div class="stats-bar">
+      <div>
+        <div class="stat-num">13+ Years</div>
+        <div class="stat-label">Operations leadership</div>
       </div>
-      <div class="authority-stat">
-        <div class="authority-num">$15M+</div>
-        <div class="authority-label">Revenue managed annually</div>
+      <div>
+        <div class="stat-num">$15M+</div>
+        <div class="stat-label">Revenue managed annually</div>
       </div>
-      <div class="authority-stat">
-        <div class="authority-num">85+</div>
-        <div class="authority-label">Employees across active operations</div>
+      <div>
+        <div class="stat-num">85+</div>
+        <div class="stat-label">Employees across operations</div>
       </div>
-      <div class="authority-stat">
-        <div class="authority-num">500+</div>
-        <div class="authority-label">SOPs, playbooks & systems built</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- PHILOSOPHY: TECHNICAL VS ADAPTIVE CHANGE -->
-<section id="approach">
-  <div class="section-inner">
-    <div class="section-tag">Our Philosophy</div>
-    <div class="section-heading">Two kinds of change. Only one moves you forward.</div>
-    <div class="section-desc">Most consultants swap the parts. We redesign the system. That's the difference between a temporary improvement and a permanent transformation.</div>
-    <div class="philosophy-grid">
-      <div class="philosophy-card technical">
-        <div class="philosophy-label">Technical Change</div>
-        <h3>Same system, different parts.</h3>
-        <p>Something isn't working, so you swap the component. New software. New hire. New checklist. The system stays the same — you just replaced a piece of it. It's comfortable, predictable, and almost never enough.</p>
-        <div class="example">"The light bulb went out. Replace it with a new light bulb."</div>
-      </div>
-      <div class="philosophy-card adaptive">
-        <div class="philosophy-label">Adaptive Change</div>
-        <h3>Different system entirely.</h3>
-        <p>The technical solution didn't work — so we ask why. What's causing the underlying condition? How do we make the entire system perform better? Adaptive change is harder because it requires new thinking, not just new parts. That's where the real improvement lives.</p>
-        <div class="example">"Why does the light bulb keep going out? How do we make it work better?"</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- METHODOLOGY -->
-<section>
-  <div class="section-inner">
-    <div class="section-tag">How We Work</div>
-    <div class="section-heading">Diagnose. Redesign. Build.</div>
-    <div class="section-desc">Every engagement starts by understanding your operation — not selling you a tool. We listen first. Then we build something that actually works.</div>
-    <div class="method-grid">
-      <div class="method-card">
-        <div class="method-num">01</div>
-        <h3>Operational Diagnosis</h3>
-        <p>We learn your business inside and out. Where the knowledge lives, where it leaks, what runs on muscle memory, and what happens when key people aren't in the room. No assumptions — just a clear picture of where you are.</p>
-      </div>
-      <div class="method-card">
-        <div class="method-num">02</div>
-        <h3>System Architecture</h3>
-        <p>We design the operational system your business actually needs — not a generic framework from a textbook. Custom knowledge systems, documented processes, clear accountability, and AI infrastructure that makes your people more effective.</p>
-      </div>
-      <div class="method-card">
-        <div class="method-num">03</div>
-        <h3>Implementation & Handoff</h3>
-        <p>We build it, deploy it, and make sure it runs without us. Self-maintaining documentation. Systems that compound value over time. No recurring fees, no dependency. It's yours.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- PEOPLE SECTION -->
-<section class="people-section">
-  <div class="section-inner">
-    <div class="section-tag">Our Commitment</div>
-    <div class="section-heading">AI doesn't replace your people. It makes them unstoppable.</div>
-    <div class="section-desc">The businesses that win aren't the ones that cut headcount. They're the ones whose people operate at a level their competitors can't match.</div>
-    <div class="people-grid">
-      <div class="people-example">
-        <div class="role">Your General Manager</div>
-        <p>Runs on instinct today. Tomorrow, every decision is backed by data and documented for the next person. Same great leader — now with a system that multiplies their impact.</p>
-      </div>
-      <div class="people-example">
-        <div class="role">Your Office Manager</div>
-        <p>Juggling six apps and keeping it all in their head. We give them one view of everything — and it updates itself. They stop managing chaos and start managing growth.</p>
-      </div>
-      <div class="people-example">
-        <div class="role">Your New Hire</div>
-        <p>Takes three months to get up to speed today. With the entire operation documented, they have context from day one. Your institutional knowledge stops walking out the door.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- CASE STUDIES -->
-<section id="results">
-  <div class="section-inner">
-    <div class="section-tag">Client Work</div>
-    <div class="section-heading">Transformations, not transactions.</div>
-    <div class="section-desc">Every engagement is measured by one thing: did the business fundamentally improve? Here's what that looks like.</div>
-
-    <div class="case-grid">
-      <!-- FEATURED: BRG -->
-      <div class="case-card featured">
-        <div>
-          <div class="case-industry">Multi-Location Restaurant Group</div>
-          <h3>3-Location Franchise Operation</h3>
-          <p>A franchise group managing three locations and approximately 85 employees across two cities. Operational knowledge lived in one person's head. If they left tomorrow, decades of institutional knowledge would disappear overnight.</p>
-          <div class="case-impact">
-            <div class="case-impact-item">
-              <div class="case-impact-num">3 Locations</div>
-              <div class="case-impact-label">Unified under one system</div>
-            </div>
-            <div class="case-impact-item">
-              <div class="case-impact-num">~85 Employees</div>
-              <div class="case-impact-label">Operations documented</div>
-            </div>
-            <div class="case-impact-item">
-              <div class="case-impact-num">8 Phases</div>
-              <div class="case-impact-label">Improvement plan</div>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div class="case-outcomes">
-            <div class="case-outcome"><span class="check">&#10003;</span> Centralized operational knowledge base accessible to every manager across all locations</div>
-            <div class="case-outcome"><span class="check">&#10003;</span> AI-ready documentation — any new system instantly understands the entire operation</div>
-            <div class="case-outcome"><span class="check">&#10003;</span> 8-phase operational improvement plan covering every major system</div>
-            <div class="case-outcome"><span class="check">&#10003;</span> Cross-location communication system for consistent operations</div>
-            <div class="case-outcome"><span class="check">&#10003;</span> Live process documentation capturing institutional knowledge in real-time</div>
-            <div class="case-outcome"><span class="check">&#10003;</span> Eliminated single point of failure — the operation runs on systems, not memory</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- LET'S TRIM -->
-      <div class="case-card">
-        <div class="case-industry">Contracting Services</div>
-        <h3>Multi-Crew Service Company</h3>
-        <p>A growing contracting operation with no visibility into cost-per-man-hour, no standardized processes, and the biggest budget leak — paid downtime — completely invisible and untracked.</p>
-        <div class="case-outcomes">
-          <div class="case-outcome"><span class="check">&#10003;</span> $50K&ndash;$80K in annual recovery identified</div>
-          <div class="case-outcome"><span class="check">&#10003;</span> 18+ SOPs and complete pay restructuring</div>
-          <div class="case-outcome"><span class="check">&#10003;</span> 90-day implementation roadmap with owners</div>
-        </div>
-        <div class="case-impact">
-          <div class="case-impact-item">
-            <div class="case-impact-num">$50K+</div>
-            <div class="case-impact-label">Annual recovery</div>
-          </div>
-          <div class="case-impact-item">
-            <div class="case-impact-num">90 Days</div>
-            <div class="case-impact-label">To implementation</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- PFSA -->
-      <div class="case-card">
-        <div class="case-industry">Nonprofit Technology</div>
-        <h3>501(c)(3) Digital Transformation</h3>
-        <p>A registered nonprofit with zero technology infrastructure. Donors tracked in memory and spreadsheets. No receipt system, no analytics, no public-facing donation capability.</p>
-        <div class="case-outcomes">
-          <div class="case-outcome"><span class="check">&#10003;</span> Full donor management platform — built and deployed</div>
-          <div class="case-outcome"><span class="check">&#10003;</span> Automated PDF receipts, analytics, and reporting</div>
-          <div class="case-outcome"><span class="check">&#10003;</span> Production infrastructure with zero recurring cost</div>
-        </div>
-        <div class="case-impact">
-          <div class="case-impact-item">
-            <div class="case-impact-num">Full Platform</div>
-            <div class="case-impact-label">Concept to production</div>
-          </div>
-          <div class="case-impact-item">
-            <div class="case-impact-num">$0/mo</div>
-            <div class="case-impact-label">Ongoing cost</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- INDUSTRIES -->
-<section>
-  <div class="section-inner">
-    <div class="section-tag">Who We Work With</div>
-    <div class="section-heading">Operations are operations. The architecture is universal.</div>
-    <div class="section-desc">The same methodology works across industries because the underlying problems are the same: knowledge loss, process gaps, and systems that don't talk to each other.</div>
-    <div class="industry-grid">
-      <div class="industry-card">
-        <div class="industry-icon">&#9881;</div>
-        <h4>Restaurant & Franchise</h4>
-        <p>Multi-location operations, compliance, training, and cross-store consistency.</p>
-      </div>
-      <div class="industry-card">
-        <div class="industry-icon">&#9874;</div>
-        <h4>Trades & Contracting</h4>
-        <p>Crew management, job costing, SOPs, and accountability systems.</p>
-      </div>
-      <div class="industry-card">
-        <div class="industry-icon">&#9733;</div>
-        <h4>Nonprofit & Mission-Driven</h4>
-        <p>Donor management, compliance, reporting, and technology infrastructure.</p>
-      </div>
-      <div class="industry-card">
-        <div class="industry-icon">&#9650;</div>
-        <h4>Growth-Stage Business</h4>
-        <p>Scaling operations, documenting tribal knowledge, and building systems that outlast any one person.</p>
+      <div>
+        <div class="stat-num">35+</div>
+        <div class="stat-label">Automated workflows daily</div>
       </div>
     </div>
   </div>
@@ -738,41 +384,77 @@
 <div class="divider"></div>
 
 <!-- SERVICES -->
-<section id="services">
+<section id="services" class="fade-up">
   <div class="section-inner">
-    <div class="section-tag">Engagement Options</div>
-    <div class="section-heading">Built around your operation. Not a template.</div>
-    <div class="section-desc">Every engagement begins with one question and a conversation. No pitches, no pressure — just clarity on where you are and where you want to be.</div>
+    <div class="section-label">Services</div>
+    <div class="section-heading">Three ways to work together.</div>
+    <div class="section-desc">Every engagement starts with a conversation, not a contract. We figure out where you are, where you want to be, and what it takes to get there.</div>
     <div class="services-grid">
+
       <div class="service-card">
-        <h3>Discovery & Strategic Roadmap</h3>
-        <p>We learn your business inside and out. You get a comprehensive assessment with findings, recommendations, and a prioritized action plan — what to tackle first and why.</p>
-        <ul class="service-includes">
-          <li><span class="check">&#10003;</span> Intake questionnaire covering operations, tools, and pain points</li>
-          <li><span class="check">&#10003;</span> Comprehensive assessment with findings</li>
-          <li><span class="check">&#10003;</span> Written roadmap with prioritized action items</li>
+        <div class="service-tier">Assessment</div>
+        <h3>Operational Assessment</h3>
+        <div class="service-price">$1,000</div>
+        <p>A 16-page diagnostic of your operations. We analyze your workflows, team structure, technology, and financial processes then deliver specific, actionable recommendations.</p>
+        <ul class="service-deliverables">
+          <li><span class="check">&#10003;</span> Comprehensive intake and operational review</li>
+          <li><span class="check">&#10003;</span> Written assessment with findings</li>
+          <li><span class="check">&#10003;</span> Prioritized action items and roadmap</li>
           <li><span class="check">&#10003;</span> Branded deliverable you keep forever</li>
         </ul>
       </div>
+
       <div class="service-card">
-        <h3>Roadmap + Implementation</h3>
-        <p>Everything in Discovery, plus we build it. SOPs for your priority areas, implementation roadmaps with timelines and owners, and the systems your team needs to operate at the next level.</p>
-        <ul class="service-includes">
-          <li><span class="check">&#10003;</span> Everything in Discovery</li>
-          <li><span class="check">&#10003;</span> SOP development for priority areas</li>
-          <li><span class="check">&#10003;</span> Implementation with timelines and owners</li>
-          <li><span class="check">&#10003;</span> Follow-up support period</li>
+        <div class="service-tier">Strategic Partnership</div>
+        <h3>Strategic Operations Engagement</h3>
+        <div class="service-price">$2,500 <span>/month</span></div>
+        <p>A 90-day embedded partnership. Weekly strategy sessions, hands-on implementation support, and a custom operational playbook built for your business.</p>
+        <ul class="service-deliverables">
+          <li><span class="check">&#10003;</span> Everything in the Assessment</li>
+          <li><span class="check">&#10003;</span> Weekly strategy sessions</li>
+          <li><span class="check">&#10003;</span> SOP development and process documentation</li>
+          <li><span class="check">&#10003;</span> Custom operational playbook</li>
+          <li><span class="check">&#10003;</span> Change management support</li>
         </ul>
       </div>
+
       <div class="service-card">
-        <h3>Custom Operations Dashboard</h3>
-        <p>A real-time command center built for your operation. Role-based views, live task tracking, decision surfacing — no monthly SaaS fees. One build. Yours forever.</p>
-        <ul class="service-includes">
-          <li><span class="check">&#10003;</span> Full assessment included</li>
-          <li><span class="check">&#10003;</span> Custom-built real-time dashboard</li>
-          <li><span class="check">&#10003;</span> Role-based views for your org</li>
-          <li><span class="check">&#10003;</span> No recurring fees — it's yours</li>
+        <div class="service-tier">AI-Powered</div>
+        <h3>Autonomous Operations System</h3>
+        <div class="service-price">$5,000+ <span>starting</span></div>
+        <p>AI-powered operational intelligence. We build and deploy a custom system that monitors your business 24/7, generates reports automatically, and flags issues before they become problems.</p>
+        <ul class="service-deliverables">
+          <li><span class="check">&#10003;</span> Full operational assessment</li>
+          <li><span class="check">&#10003;</span> Custom AI dashboard and automation</li>
+          <li><span class="check">&#10003;</span> Automated reporting and real-time alerts</li>
+          <li><span class="check">&#10003;</span> Staff training and documentation</li>
+          <li><span class="check">&#10003;</span> No recurring fees. It's yours.</li>
         </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section id="about" class="about-section fade-up">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div>
+        <div class="about-role">Principal Consultant</div>
+        <div class="about-name">Phil Fifield</div>
+        <div class="about-bio">
+          <p>Director of Operations managing a multi-unit restaurant group with 3 locations and 85+ employees across two cities. Thirteen years of hands-on operational leadership, from front-line crew to building the systems that run the entire organization.</p>
+          <p>Built autonomous monitoring systems that process 35+ automated workflows daily, generating reports, flagging anomalies, and keeping operations running 24/7 without manual intervention.</p>
+          <p>Combines deep operational experience with cutting-edge AI technology to build systems that keep working long after the engagement ends.</p>
+        </div>
+      </div>
+      <div>
+        <div class="about-quote">
+          "Most consultants give you a binder and leave. We build systems that keep working after we're gone."
+        </div>
       </div>
     </div>
   </div>
@@ -780,28 +462,69 @@
 
 <div class="divider"></div>
 
-<!-- CTA -->
-<section class="cta-section" id="contact">
+<!-- RESULTS -->
+<section id="results" class="fade-up">
   <div class="section-inner">
-    <div class="section-tag">Let's Talk</div>
-    <h2>This is yours.<br>Let's build it.</h2>
-    <p>30-minute conversation. No pitch, no pressure. Just one question: what area of your business would you like to improve?</p>
-    <div class="cta-actions">
-      <a href="mailto:phil@bluegrassadvisorygroup.com" class="btn-primary">Schedule a Conversation</a>
+    <div class="section-label">Results</div>
+    <div class="section-heading">What we've built. What it delivered.</div>
+    <div class="section-desc">We don't do case studies with stock photos. Here are real numbers from real engagements.</div>
+    <div class="results-grid">
+      <div class="result-card">
+        <div class="result-stat">Currently managing operations for a 3-location, 85-employee restaurant group</div>
+        <div class="result-detail">Centralized operational knowledge, built cross-location systems, and documented every process so the operation runs on systems instead of memory.</div>
+      </div>
+      <div class="result-card">
+        <div class="result-stat">Built AI systems processing 35+ automated workflows daily</div>
+        <div class="result-detail">Autonomous monitoring, automated reporting, real-time alerting, and operational intelligence running 24/7 without manual intervention.</div>
+      </div>
+      <div class="result-card">
+        <div class="result-stat">Delivered first client engagement: comprehensive assessment for a $500M+ operation</div>
+        <div class="result-detail">16-page operational diagnostic with findings, identified $50K-$80K in annual recovery, and delivered a 90-day implementation roadmap.</div>
+      </div>
+      <div class="result-card">
+        <div class="result-stat">Built a full donor management platform for a 501(c)(3) at $0/month ongoing cost</div>
+        <div class="result-detail">Complete donor tracking, automated PDF receipts, analytics dashboard, and board portal. Production infrastructure with zero recurring fees.</div>
+      </div>
     </div>
-    <a href="mailto:phil@bluegrassadvisorygroup.com" class="cta-email">phil@bluegrassadvisorygroup.com</a>
-    <div class="cta-location">Lexington, Kentucky</div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section class="contact-section fade-up" id="contact">
+  <div class="section-inner">
+    <div class="section-label">Get Started</div>
+    <h2>Ready to build something<br>that actually works?</h2>
+    <p>30-minute conversation. No pitch, no pressure. We'll talk about your business, your challenges, and whether we're the right fit.</p>
+    <div class="contact-actions">
+      <a href="mailto:phil@bluegrassadvisorygroup.com" class="btn-primary">Schedule a Consultation</a>
+    </div>
+    <a href="mailto:phil@bluegrassadvisorygroup.com" class="contact-email">phil@bluegrassadvisorygroup.com</a>
+    <div class="contact-location">Lexington, Kentucky</div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
-    <div class="footer-brand"><span>Bluegrass</span> Advisory Group, LLC</div>
-    <div class="footer-right">Business Operations &middot; AI Integration &middot; Knowledge Systems</div>
+    <div class="footer-brand"><span>Bluegrass</span> Advisory Group, LLC &middot; Lexington, KY</div>
+    <div class="footer-right">&copy; 2026</div>
   </div>
 </footer>
 
 </div>
+
+<!-- SCROLL ANIMATIONS -->
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
