@@ -13,8 +13,9 @@
   --sage-dim: rgba(42,157,143,0.12);
   --warm-white: #FAF8F5;
   --cream: #F0EBE3;
-  --charcoal: #3A3A3C;
-  --stone: #8E8E93;
+  --charcoal: #1C1C1E;
+  --stone: #6E6E73;
+  --muted: #8E8E93;
   --gold: #B8860B;
   --border-dark: rgba(255,255,255,0.08);
   --border-light: rgba(0,0,0,0.06);
@@ -80,12 +81,12 @@ nav.scrolled {
   font-weight: 600 !important;
   font-size: 0.875rem !important;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
-  box-shadow: 0 2px 8px rgba(13,124,102,0.15);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08), 0 4px 12px rgba(13,124,102,0.15);
 }
 .nav-cta:hover {
   background: var(--emerald-hover) !important;
   transform: translateY(-1px) !important;
-  box-shadow: 0 4px 16px rgba(13,124,102,0.25) !important;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1), 0 8px 20px rgba(13,124,102,0.25) !important;
 }
 .mobile-toggle {
   display: none; background: none; border: none;
@@ -104,14 +105,21 @@ nav.scrolled {
 
 /* ---- PAGE TRANSITION ---- */
 .page-content {
+  /* No wrapper animation — individual elements handle their own reveal */
+}
+
+/* Hero elements use CSS animations (no JS dependency for above-the-fold) */
+@keyframes heroFadeIn {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hero-fade {
   opacity: 0;
-  transform: translateY(12px);
-  animation: pageIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  animation-delay: 0.1s;
+  animation: heroFadeIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
-@keyframes pageIn {
-  to { opacity: 1; transform: translateY(0); }
-}
+.hero-fade.delay-1 { animation-delay: 0.15s; }
+.hero-fade.delay-2 { animation-delay: 0.3s; }
+.hero-fade.delay-3 { animation-delay: 0.5s; }
 
 /* ---- HERO ---- */
 .hero {
@@ -168,12 +176,12 @@ nav.scrolled {
   font-family: var(--body);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   border: none; cursor: pointer;
-  box-shadow: 0 2px 12px rgba(13,124,102,0.15);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 4px 12px rgba(13,124,102,0.2);
 }
 .btn-primary:hover {
   background: var(--emerald-hover);
   transform: translateY(-2px);
-  box-shadow: 0 6px 24px rgba(13,124,102,0.25);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1), 0 8px 24px rgba(13,124,102,0.3);
 }
 .btn-secondary {
   display: inline-block;
@@ -194,7 +202,7 @@ nav.scrolled {
 }
 
 /* ---- SECTIONS COMMON ---- */
-section { padding: 7rem 2rem; }
+section { padding: 6rem 2rem 7.5rem; }
 .container { max-width: 1100px; margin: 0 auto; }
 .section-label {
   font-family: var(--body);
@@ -222,7 +230,11 @@ section { padding: 7rem 2rem; }
 .dark-section { background: var(--graphite); color: #fff; }
 .dark-section .section-title { color: #fff; }
 .dark-section .section-subtitle { color: rgba(255,255,255,0.6); }
-.cream-section { background: var(--cream); }
+.cream-section {
+  background: var(--cream);
+  background-image: radial-gradient(circle at 20% 50%, rgba(13,124,102,0.03) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 80%, rgba(184,134,11,0.02) 0%, transparent 40%);
+}
 
 /* ---- VALUE PROPS ---- */
 .value-grid {
@@ -237,16 +249,16 @@ section { padding: 7rem 2rem; }
   border-radius: 14px;
   padding: 2.25rem 2rem;
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+  box-shadow: 0 1px 2px rgba(28,28,30,0.04), 0 1px 3px rgba(28,28,30,0.06);
 }
 .value-card:nth-child(2) {
   padding: 2.75rem 2.25rem;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 6px rgba(28,28,30,0.04), 0 10px 20px rgba(28,28,30,0.06);
   border-color: transparent;
 }
 .value-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+  box-shadow: 0 14px 30px rgba(28,28,30,0.08), 0 24px 55px rgba(28,28,30,0.1);
 }
 .value-card .icon-wrap {
   width: 48px; height: 48px;
@@ -315,18 +327,28 @@ section { padding: 7rem 2rem; }
 /* ---- SERVICES PAGE ---- */
 .flagship-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr 1.15fr 1fr;
   gap: 2rem;
   margin-bottom: 5rem;
+  align-items: start;
+}
+/* Center flagship card gets elevated treatment */
+.flagship-card:nth-child(2) {
+  background: #fff;
+  padding: 3.25rem 2.5rem 2.5rem;
+  box-shadow: 0 4px 6px rgba(28,28,30,0.04), 0 10px 20px rgba(28,28,30,0.06);
+  border-color: transparent;
+  position: relative;
+  z-index: 1;
 }
 .flagship-card {
-  background: #fff;
+  background: var(--cream);
   border: 1px solid var(--border-light);
   border-radius: 16px;
   padding: 2.75rem 2.25rem 2.25rem;
   display: flex; flex-direction: column;
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+  box-shadow: 0 1px 2px rgba(28,28,30,0.04), 0 1px 3px rgba(28,28,30,0.06);
   position: relative;
   overflow: hidden;
 }
@@ -342,7 +364,7 @@ section { padding: 7rem 2rem; }
 .flagship-card:hover::before { transform: scaleX(1); }
 .flagship-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 16px 48px rgba(0,0,0,0.08);
+  box-shadow: 0 14px 30px rgba(28,28,30,0.08), 0 24px 55px rgba(28,28,30,0.1);
 }
 .flagship-card .card-icon {
   width: 52px; height: 52px;
@@ -431,10 +453,11 @@ section { padding: 7rem 2rem; }
   padding: 1.25rem 1.5rem;
   border: 1px solid var(--border-light);
   transition: all 0.25s;
+  box-shadow: 0 1px 2px rgba(28,28,30,0.04), 0 1px 3px rgba(28,28,30,0.06);
 }
 .additional-item:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+  box-shadow: 0 4px 6px rgba(28,28,30,0.04), 0 10px 20px rgba(28,28,30,0.06);
 }
 .additional-item h4 {
   font-family: var(--body);
@@ -534,11 +557,12 @@ section { padding: 7rem 2rem; }
   border-radius: 12px;
   background: #fff;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 2px rgba(28,28,30,0.04), 0 1px 3px rgba(28,28,30,0.06);
 }
 .methodology-card:hover {
   border-color: var(--emerald);
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+  box-shadow: 0 10px 25px rgba(28,28,30,0.06), 0 20px 48px rgba(28,28,30,0.08);
 }
 .methodology-card h4 {
   font-family: var(--heading);
