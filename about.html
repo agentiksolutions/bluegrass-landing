@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About | Bluegrass Advisory Group</title>
+<meta name="description" content="Phil Fifield, founder of Bluegrass Advisory Group. Operations leader turned consultant, building systems that run themselves.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Bluegrass <span>Advisory</span></a>
+  <div class="nav-links" id="navLinks">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="about.html" class="active">About</a>
+    <a href="contact.html" class="nav-cta">Start a Conversation</a>
+  </div>
+  <button class="mobile-toggle" id="menuToggle" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ABOUT HERO -->
+<div class="page-content">
+<section class="about-hero">
+  <div class="container">
+    <div class="about-content">
+      <p class="section-label fade-in">About</p>
+      <div class="gold-line fade-in"></div>
+      <h1 class="fade-in">Phil Fifield, Founder</h1>
+      <p class="fade-in stagger-1">I didn't start in consulting. I started in operations. Running restaurants, managing multi-unit teams, building systems from the ground up because there wasn't a playbook to follow.</p>
+      <p class="fade-in stagger-2">As Director of Operations for a multi-location restaurant group, I learned what actually works when you're responsible for the outcome. Not theories. Not frameworks. The real work of making a business run consistently, every day, across every location.</p>
+      <p class="fade-in stagger-3">I built Bluegrass Advisory Group to bring that operator's perspective to businesses that have outgrown their current systems. Whether you're managing 3 locations or 300 employees, the problem is the same: you need infrastructure that scales as fast as you do.</p>
+      <p class="fade-in stagger-4">We build dashboards, SOPs, automated reporting, and AI-powered systems. But the real deliverable is clarity. Knowing exactly where your business stands, every morning, without asking anyone.</p>
+      <p class="location fade-in stagger-5">Based in Lexington, Kentucky</p>
+    </div>
+    <div class="about-visual fade-in">
+      <div class="geometric-element">
+        <div class="geo-inner"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- METHODOLOGY -->
+<section class="cream-section">
+  <div class="container">
+    <p class="section-label fade-in">Methodology</p>
+    <h2 class="section-title fade-in">What we believe</h2>
+    <p class="section-subtitle fade-in">These aren't slogans. They're the principles that shape every engagement.</p>
+    <div class="methodology-grid">
+      <div class="methodology-card fade-in stagger-1">
+        <h4>Discovery before diagnosis</h4>
+        <p>We learn your operation before we prescribe anything. Every business is different, and cookie-cutter solutions don't survive contact with reality.</p>
+      </div>
+      <div class="methodology-card fade-in stagger-2">
+        <h4>Data over opinions</h4>
+        <p>Every recommendation is backed by what the numbers actually say. We measure first, then act. No gut feelings dressed up as strategy.</p>
+      </div>
+      <div class="methodology-card fade-in stagger-3">
+        <h4>Build, don't just advise</h4>
+        <p>We deliver working systems, not slide decks. Dashboards your team logs into. SOPs your managers reference. Tools that get used every day.</p>
+      </div>
+      <div class="methodology-card fade-in stagger-4">
+        <h4>Transfer ownership</h4>
+        <p>Your team runs it when we leave. We build for independence, not dependency. The goal is to make ourselves unnecessary.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="dark-section" style="padding: 5rem 2rem;">
+  <div class="container" style="text-align: center;">
+    <h2 class="section-title fade-in" style="color: #fff; margin-bottom: 1rem;">Let's talk about your operation</h2>
+    <p class="fade-in stagger-1" style="color: rgba(255,255,255,0.6); font-size: 1.1rem; margin-bottom: 2.5rem; max-width: 480px; margin-left: auto; margin-right: auto; line-height: 1.7;">If you're running a growing business and the systems aren't keeping up, we should talk.</p>
+    <a href="contact.html" class="btn-primary fade-in stagger-2">Start a Conversation</a>
+  </div>
+</section>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">Bluegrass <span>Advisory</span></div>
+      <p class="footer-llc">Bluegrass Advisory Group, LLC &middot; Lexington, KY</p>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="about.html">About</a>
+      <a href="contact.html" class="footer-cta-link">Schedule a Conversation</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Bluegrass Advisory Group, LLC. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  window.addEventListener('scroll', () => {
+    document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  const toggle = document.getElementById('menuToggle');
+  const links = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => {
+    toggle.classList.toggle('open');
+    links.classList.toggle('open');
+  });
+</script>
+
+</body>
+</html>

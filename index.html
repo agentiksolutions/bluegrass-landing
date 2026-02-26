@@ -4,548 +4,122 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bluegrass Advisory Group | Operational Clarity for Growing Businesses</title>
-<meta name="description" content="We build operational systems that keep working after we leave. Assessments, strategic engagements, and AI-powered operations for growing businesses.">
+<meta name="description" content="Operations-first consulting for growing businesses. Custom dashboards, AI-powered systems, and process standardization built by operators, not theorists.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --graphite: #1C1C1E;
-    --graphite-deep: #141416;
-    --graphite-light: #2C2C2E;
-    --emerald: #0D7C66;
-    --emerald-hover: #0A6553;
-    --emerald-glow: rgba(13,124,102,0.15);
-    --sage: #2A9D8F;
-    --sage-dim: rgba(42,157,143,0.12);
-    --warm-white: #FAF8F5;
-    --cream: #F0EBE3;
-    --charcoal: #3A3A3C;
-    --stone: #8E8E93;
-    --border-dark: rgba(255,255,255,0.08);
-    --border-light: rgba(0,0,0,0.06);
-    --heading: 'Playfair Display', Georgia, serif;
-    --body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  }
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: var(--body);
-    color: var(--charcoal);
-    background: var(--warm-white);
-    -webkit-font-smoothing: antialiased;
-    line-height: 1.6;
-  }
-
-  /* ---- NAV ---- */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    padding: 1.25rem 2rem;
-    background: rgba(28,28,30,0.92);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border-dark);
-    display: flex; align-items: center; justify-content: space-between;
-    transition: background 0.3s;
-  }
-  .nav-logo {
-    font-family: var(--heading);
-    font-size: 1.15rem; font-weight: 600;
-    color: #fff; text-decoration: none;
-    letter-spacing: -0.01em;
-  }
-  .nav-logo span { color: var(--sage); }
-  .nav-links { display: flex; gap: 2rem; align-items: center; }
-  .nav-links a {
-    color: rgba(255,255,255,0.7); text-decoration: none;
-    font-size: 0.875rem; font-weight: 500;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: #fff; }
-  .nav-cta {
-    background: var(--emerald) !important;
-    color: #fff !important;
-    padding: 0.5rem 1.25rem !important;
-    border-radius: 6px;
-    font-weight: 600 !important;
-    transition: background 0.2s !important;
-  }
-  .nav-cta:hover { background: var(--emerald-hover) !important; }
-  .mobile-toggle { display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; }
-  .mobile-toggle span { display: block; width: 22px; height: 2px; background: #fff; margin: 5px 0; transition: 0.3s; }
-
-  /* ---- HERO ---- */
-  .hero {
-    min-height: 100vh;
-    background: var(--graphite);
-    display: flex; align-items: center; justify-content: center;
-    position: relative; overflow: hidden;
-    padding: 8rem 2rem 6rem;
-  }
-  .hero::before {
-    content: '';
-    position: absolute; inset: 0;
-    background:
-      radial-gradient(ellipse at 20% 50%, var(--emerald-glow) 0%, transparent 50%),
-      radial-gradient(ellipse at 80% 20%, var(--sage-dim) 0%, transparent 40%);
-    pointer-events: none;
-  }
-  .hero-inner {
-    max-width: 800px; text-align: center;
-    position: relative; z-index: 1;
-  }
-  .hero h1 {
-    font-family: var(--heading);
-    font-size: clamp(2.5rem, 5.5vw, 4rem);
-    font-weight: 700;
-    color: #fff;
-    line-height: 1.15;
-    margin-bottom: 1.5rem;
-    letter-spacing: -0.02em;
-  }
-  .hero p {
-    font-size: clamp(1.05rem, 2vw, 1.25rem);
-    color: rgba(255,255,255,0.65);
-    max-width: 600px; margin: 0 auto 2.5rem;
-    line-height: 1.7;
-  }
-  .btn-primary {
-    display: inline-block;
-    background: var(--emerald);
-    color: #fff; text-decoration: none;
-    padding: 0.9rem 2.25rem;
-    border-radius: 8px;
-    font-weight: 600; font-size: 1rem;
-    transition: background 0.2s, transform 0.2s;
-    border: none; cursor: pointer;
-  }
-  .btn-primary:hover { background: var(--emerald-hover); transform: translateY(-1px); }
-
-  /* ---- SECTIONS COMMON ---- */
-  section { padding: 6rem 2rem; }
-  .container { max-width: 1100px; margin: 0 auto; }
-  .section-label {
-    font-family: var(--body);
-    font-size: 0.75rem; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 0.15em;
-    color: var(--emerald);
-    margin-bottom: 1rem;
-  }
-  .section-title {
-    font-family: var(--heading);
-    font-size: clamp(2rem, 4vw, 2.75rem);
-    font-weight: 700;
-    line-height: 1.2;
-    margin-bottom: 1.25rem;
-    letter-spacing: -0.02em;
-  }
-  .section-subtitle {
-    font-size: 1.1rem;
-    color: var(--stone);
-    max-width: 600px;
-    line-height: 1.7;
-    margin-bottom: 3rem;
-  }
-
-  /* Dark section */
-  .dark { background: var(--graphite); color: #fff; }
-  .dark .section-title { color: #fff; }
-  .dark .section-subtitle { color: rgba(255,255,255,0.6); }
-
-  /* Cream section */
-  .cream-bg { background: var(--cream); }
-
-  /* ---- SERVICES ---- */
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-  }
-  .service-card {
-    background: #fff;
-    border: 1px solid var(--border-light);
-    border-radius: 12px;
-    padding: 2.25rem 2rem;
-    transition: transform 0.25s, box-shadow 0.25s;
-    display: flex; flex-direction: column;
-  }
-  .service-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 40px rgba(0,0,0,0.06);
-  }
-  .service-tier {
-    font-size: 0.7rem; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 0.12em;
-    color: var(--emerald);
-    margin-bottom: 0.75rem;
-  }
-  .service-card h3 {
-    font-family: var(--heading);
-    font-size: 1.35rem; font-weight: 700;
-    color: var(--charcoal);
-    margin-bottom: 0.5rem;
-    line-height: 1.3;
-  }
-  .service-price {
-    font-size: 0.95rem; font-weight: 600;
-    color: var(--emerald);
-    margin-bottom: 1rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid var(--border-light);
-  }
-  .service-card p {
-    font-size: 0.95rem;
-    color: var(--stone);
-    line-height: 1.65;
-    flex: 1;
-  }
-
-  /* ---- APPROACH ---- */
-  .approach-intro {
-    font-family: var(--heading);
-    font-size: clamp(1.35rem, 3vw, 1.75rem);
-    font-weight: 500;
-    font-style: italic;
-    color: rgba(255,255,255,0.85);
-    max-width: 700px;
-    line-height: 1.5;
-    margin-bottom: 3.5rem;
-  }
-  .approach-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 2rem;
-  }
-  .approach-item {
-    padding: 1.75rem;
-    border: 1px solid var(--border-dark);
-    border-radius: 10px;
-    transition: border-color 0.3s, background 0.3s;
-  }
-  .approach-item:hover {
-    border-color: var(--emerald);
-    background: rgba(13,124,102,0.05);
-  }
-  .approach-item h4 {
-    font-family: var(--heading);
-    font-size: 1.1rem; font-weight: 600;
-    color: #fff;
-    margin-bottom: 0.5rem;
-  }
-  .approach-item p {
-    font-size: 0.9rem;
-    color: rgba(255,255,255,0.55);
-    line-height: 1.6;
-  }
-
-  /* ---- RESULTS ---- */
-  .results-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.25rem;
-  }
-  .result-item {
-    padding: 1.5rem 1.75rem;
-    border-left: 3px solid var(--emerald);
-    background: #fff;
-    border-radius: 0 8px 8px 0;
-  }
-  .result-item p {
-    font-size: 1rem;
-    color: var(--charcoal);
-    line-height: 1.6;
-  }
-
-  /* ---- ABOUT ---- */
-  .about-content {
-    max-width: 700px;
-  }
-  .about-name {
-    font-family: var(--heading);
-    font-size: 1.5rem; font-weight: 700;
-    color: var(--charcoal);
-    margin-bottom: 0.25rem;
-  }
-  .about-role {
-    font-size: 0.9rem; font-weight: 600;
-    color: var(--emerald);
-    margin-bottom: 1.5rem;
-  }
-  .about-content p {
-    font-size: 1.05rem;
-    color: var(--stone);
-    line-height: 1.75;
-    margin-bottom: 1rem;
-  }
-  .about-location {
-    font-size: 0.9rem;
-    color: var(--stone);
-    margin-top: 1.5rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--border-light);
-  }
-
-  /* ---- CONTACT ---- */
-  .contact-inner {
-    max-width: 560px;
-    margin: 0 auto;
-  }
-  .contact-inner .section-title,
-  .contact-inner .section-subtitle { text-align: center; }
-  .contact-inner .section-subtitle { margin-left: auto; margin-right: auto; }
-  .contact-email {
-    text-align: center;
-    margin-bottom: 2.5rem;
-  }
-  .contact-email a {
-    color: var(--sage);
-    font-size: 1.1rem;
-    text-decoration: none;
-    border-bottom: 1px solid rgba(42,157,143,0.3);
-    transition: border-color 0.2s;
-  }
-  .contact-email a:hover { border-color: var(--sage); }
-  .form-group { margin-bottom: 1rem; }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-  .form-group label {
-    display: block;
-    font-size: 0.8rem; font-weight: 600;
-    color: rgba(255,255,255,0.7);
-    margin-bottom: 0.4rem;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-  }
-  .form-group input,
-  .form-group textarea {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    background: var(--graphite-light);
-    border: 1px solid var(--border-dark);
-    border-radius: 8px;
-    color: #fff;
-    font-family: var(--body);
-    font-size: 0.95rem;
-    transition: border-color 0.2s;
-    outline: none;
-  }
-  .form-group input:focus,
-  .form-group textarea:focus {
-    border-color: var(--emerald);
-  }
-  .form-group input::placeholder,
-  .form-group textarea::placeholder { color: rgba(255,255,255,0.25); }
-  .form-group textarea { min-height: 120px; resize: vertical; }
-  .form-submit {
-    width: 100%;
-    margin-top: 0.5rem;
-  }
-
-  /* ---- FOOTER ---- */
-  footer {
-    background: var(--graphite-deep);
-    padding: 2.5rem 2rem;
-    text-align: center;
-    border-top: 1px solid var(--border-dark);
-  }
-  footer p {
-    font-size: 0.8rem;
-    color: rgba(255,255,255,0.35);
-  }
-
-  /* ---- ANIMATIONS ---- */
-  .fade-in {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  .fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* ---- RESPONSIVE ---- */
-  @media (max-width: 768px) {
-    nav { padding: 1rem 1.25rem; }
-    .nav-links { display: none; }
-    .mobile-toggle { display: block; }
-    .nav-links.open {
-      display: flex; flex-direction: column;
-      position: absolute; top: 100%; left: 0; right: 0;
-      background: var(--graphite);
-      padding: 1.5rem 2rem;
-      border-bottom: 1px solid var(--border-dark);
-      gap: 1.25rem;
-    }
-    section { padding: 4rem 1.25rem; }
-    .hero { padding: 7rem 1.25rem 4rem; min-height: auto; }
-    .form-row { grid-template-columns: 1fr; }
-    .services-grid { grid-template-columns: 1fr; }
-    .approach-grid { grid-template-columns: 1fr 1fr; }
-  }
-  @media (max-width: 480px) {
-    .approach-grid { grid-template-columns: 1fr; }
-  }
-</style>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">Bluegrass <span>Advisory</span></a>
+  <a href="index.html" class="nav-logo">Bluegrass <span>Advisory</span></a>
   <div class="nav-links" id="navLinks">
-    <a href="#services">Services</a>
-    <a href="#approach">Approach</a>
-    <a href="#results">Results</a>
-    <a href="#about">About</a>
-    <a href="#contact" class="nav-cta">Get in Touch</a>
+    <a href="index.html" class="active">Home</a>
+    <a href="services.html">Services</a>
+    <a href="about.html">About</a>
+    <a href="contact.html" class="nav-cta">Start a Conversation</a>
   </div>
-  <button class="mobile-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Toggle menu">
+  <button class="mobile-toggle" id="menuToggle" aria-label="Toggle menu">
     <span></span><span></span><span></span>
   </button>
 </nav>
 
 <!-- HERO -->
+<div class="page-content">
 <section class="hero">
-  <div class="hero-inner fade-in">
-    <h1>Operational Clarity for Growing Businesses</h1>
-    <p>We don't hand you a binder and leave. We build systems that keep working after we're gone.</p>
-    <a href="#contact" class="btn-primary">Schedule a Consultation</a>
+  <div class="hero-inner">
+    <h1 class="fade-in">Operational Clarity for Growing Businesses</h1>
+    <p class="fade-in stagger-1">We build the systems, dashboards, and processes that let you run your business instead of chasing it. Built by operators, not theorists.</p>
+    <a href="contact.html" class="btn-primary fade-in stagger-2">Start a Conversation</a>
   </div>
 </section>
 
-<!-- SERVICES -->
-<section id="services" style="background: var(--warm-white);">
+<!-- VALUE PROPOSITION -->
+<section class="cream-section">
   <div class="container">
-    <div class="fade-in">
-      <p class="section-label">Services</p>
-      <h2 class="section-title">Three ways to work together</h2>
-      <p class="section-subtitle">Every engagement starts with understanding your operation. We meet you where you are.</p>
-    </div>
-    <div class="services-grid">
-      <div class="service-card fade-in">
-        <p class="service-tier">Tier 1</p>
-        <h3>Operational Assessment</h3>
-        <p class="service-price">Starting at $1,000</p>
-        <p>A diagnostic of your operation across 7 dimensions: structure, systems, financials, people, process, technology, and growth readiness. You get a written report with specific, actionable recommendations &mdash; not vague advice.</p>
-      </div>
-      <div class="service-card fade-in">
-        <p class="service-tier">Tier 2</p>
-        <h3>Strategic Operations Engagement</h3>
-        <p class="service-price">$2,500 / month</p>
-        <p>A 90-day embedded partnership. Weekly strategy sessions, hands-on implementation, a custom operational playbook, and a live dashboard built for your business. We work alongside your team, not above them.</p>
-      </div>
-      <div class="service-card fade-in">
-        <p class="service-tier">Tier 3</p>
-        <h3>Autonomous Operations System</h3>
-        <p class="service-price">Starting at $5,000</p>
-        <p>AI-powered operational intelligence that monitors your business 24/7. Automated reporting, anomaly detection, proactive alerts, and a branded dashboard your whole team can use. Like having a COO that never sleeps.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- APPROACH -->
-<section id="approach" class="dark">
-  <div class="container">
-    <div class="fade-in">
-      <p class="section-label">Approach</p>
-      <p class="approach-intro">"Most consultants give you recommendations. We build the systems that execute them."</p>
-    </div>
-    <div class="approach-grid">
-      <div class="approach-item fade-in">
-        <h4>We start by listening</h4>
-        <p>Discovery before diagnosis. We learn your operation before we prescribe anything.</p>
-      </div>
-      <div class="approach-item fade-in">
-        <h4>We measure everything</h4>
-        <p>Data over opinions. Every recommendation is backed by what the numbers actually say.</p>
-      </div>
-      <div class="approach-item fade-in">
-        <h4>We build, not just advise</h4>
-        <p>Working systems, not slide decks. You get tools your team uses every day.</p>
-      </div>
-      <div class="approach-item fade-in">
-        <h4>We transfer ownership</h4>
-        <p>Your team runs it when we leave. We build for independence, not dependency.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- RESULTS -->
-<section id="results" class="cream-bg">
-  <div class="container">
-    <div class="fade-in">
-      <p class="section-label">Track Record</p>
-      <h2 class="section-title">What we've built</h2>
-      <p class="section-subtitle">Real work, real results. No hypotheticals.</p>
-    </div>
-    <div class="results-grid">
-      <div class="result-item fade-in">
-        <p>Currently managing operations for a 3-location, 85-employee restaurant group.</p>
-      </div>
-      <div class="result-item fade-in">
-        <p>Built AI-powered monitoring systems processing 35+ automated workflows daily.</p>
-      </div>
-      <div class="result-item fade-in">
-        <p>Clients include multi-state hospitality and commercial real estate operations.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section id="about" style="background: var(--warm-white);">
-  <div class="container">
-    <div class="about-content fade-in">
-      <p class="section-label">About</p>
-      <p class="about-name">Phil Fifield</p>
-      <p class="about-role">Principal</p>
-      <p>Operations leader turned consultant. I've managed multi-unit restaurant operations, built autonomous monitoring systems from scratch, and learned that the best operations run themselves.</p>
-      <p>I started Bluegrass Advisory Group to bring that approach to growing businesses &mdash; whether you're running 3 locations or 300.</p>
-      <p class="about-location">Based in Lexington, Kentucky</p>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact" class="dark">
-  <div class="container">
-    <div class="contact-inner fade-in">
-      <h2 class="section-title">Let's talk about your operation.</h2>
-      <p class="section-subtitle" style="text-align:center; margin-left:auto; margin-right:auto;">Tell us what you're working with and we'll set up a time to talk.</p>
-      <div class="contact-email">
-        <a href="mailto:phil@bluegrassadvisorygroup.com">phil@bluegrassadvisorygroup.com</a>
-      </div>
-      <form action="https://formspree.io/f/xvoeydwg" method="POST">
-        <div class="form-row">
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" placeholder="Your name" required>
-          </div>
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="you@company.com" required>
-          </div>
+    <p class="section-label fade-in">Why BAG</p>
+    <h2 class="section-title fade-in">You built something worth protecting</h2>
+    <p class="section-subtitle fade-in">Growing businesses hit a ceiling when the systems that got you here can't take you further. That's where we come in.</p>
+    <div class="value-grid">
+      <div class="value-card fade-in stagger-1">
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
         </div>
-        <div class="form-group">
-          <label for="company">Company</label>
-          <input type="text" id="company" name="company" placeholder="Company name">
+        <h3>Operational Complexity</h3>
+        <p>Multiple locations, entities, and revenue streams create blind spots. We build the infrastructure to see everything in one place.</p>
+      </div>
+      <div class="value-card fade-in stagger-2">
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
         </div>
-        <div class="form-group">
-          <label for="message">Message</label>
-          <textarea id="message" name="message" placeholder="Tell us about your operation and what you're looking to tackle."></textarea>
+        <h3>Scaling Without Systems</h3>
+        <p>Growth without process is just chaos with revenue. We standardize operations so your team can execute without you in every room.</p>
+      </div>
+      <div class="value-card fade-in stagger-3">
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
         </div>
-        <button type="submit" class="btn-primary form-submit">Send Message</button>
-      </form>
+        <h3>Too Many Spreadsheets</h3>
+        <p>If your operating reports live in email threads and shared drives, you're flying blind. We replace the noise with clarity.</p>
+      </div>
     </div>
   </div>
 </section>
+
+<!-- HOW WE WORK -->
+<section>
+  <div class="container">
+    <p class="section-label fade-in">How We Work</p>
+    <h2 class="section-title fade-in">Assessment. Strategy. Systems.</h2>
+    <p class="section-subtitle fade-in">Every engagement follows the same disciplined approach. No shortcuts, no fluff.</p>
+    <div class="process-steps">
+      <div class="process-step fade-in stagger-1">
+        <div class="step-number">01</div>
+        <h3>Assessment</h3>
+        <p>We learn your operation before we prescribe anything. Discovery interviews, data analysis, and honest evaluation across every dimension of your business.</p>
+      </div>
+      <div class="process-step fade-in stagger-2">
+        <div class="step-number">02</div>
+        <h3>Strategy</h3>
+        <p>Specific, prioritized recommendations backed by what the numbers actually say. Not a binder of best practices. A roadmap built for your reality.</p>
+      </div>
+      <div class="process-step fade-in stagger-3">
+        <div class="step-number">03</div>
+        <h3>Systems</h3>
+        <p>Working tools your team uses every day. Dashboards, SOPs, automated reports, and processes that keep running after we leave.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<section class="dark-section" style="padding: 5rem 2rem;">
+  <div class="container" style="text-align: center;">
+    <h2 class="section-title fade-in" style="color: #fff; margin-bottom: 1rem;">Ready to see what's possible?</h2>
+    <p class="fade-in stagger-1" style="color: rgba(255,255,255,0.6); font-size: 1.1rem; margin-bottom: 2.5rem; max-width: 500px; margin-left: auto; margin-right: auto; line-height: 1.7;">No pitch decks. No pressure. Just an honest conversation about your operation and what better looks like.</p>
+    <a href="contact.html" class="btn-primary fade-in stagger-2">Schedule a Conversation</a>
+  </div>
+</section>
+</div>
 
 <!-- FOOTER -->
 <footer>
-  <p>&copy; 2026 Bluegrass Advisory Group, LLC &middot; Lexington, KY</p>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">Bluegrass <span>Advisory</span></div>
+      <p class="footer-llc">Bluegrass Advisory Group, LLC &middot; Lexington, KY</p>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="about.html">About</a>
+      <a href="contact.html" class="footer-cta-link">Schedule a Conversation</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Bluegrass Advisory Group, LLC. All rights reserved.</p>
+  </div>
 </footer>
 
 <script>
@@ -558,8 +132,20 @@
       }
     });
   }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Nav scroll effect
+  window.addEventListener('scroll', () => {
+    document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Mobile menu toggle
+  const toggle = document.getElementById('menuToggle');
+  const links = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => {
+    toggle.classList.toggle('open');
+    links.classList.toggle('open');
+  });
 </script>
 
 </body>
