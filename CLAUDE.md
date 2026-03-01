@@ -49,7 +49,7 @@ Also read E:/Cortex/philip-brain/PHIL-OPERATOR-PROFILE.md for operating rules an
 ## SEO Infrastructure
 - **Canonical URLs** on all 4 pages
 - **Open Graph + Twitter Card** meta tags on all 4 pages
-- **GA4 placeholder** (G-XXXXXXXXXX) on all 4 pages — needs real measurement ID
+- **GA4 live** (G-YKB8RMQ7LS) on all 4 pages
 - **JSON-LD** structured data (ProfessionalService schema) on homepage only
 - **sitemap.xml** listing all 4 pages
 - **robots.txt** allowing all crawlers
@@ -61,8 +61,7 @@ All at `E:\Cortex\aigency\BAG\setup\`:
 - `google-business-profile-setup.md` — Business listing creation
 
 ## TODO (manual steps for Phil)
-- [ ] Create GA4 property (analytics.google.com as phil@bluegrassadvisorygroup.com)
-- [ ] Replace G-XXXXXXXXXX in all 4 HTML files with real measurement ID
+- [x] Create GA4 property — measurement ID G-YKB8RMQ7LS set in all 4 pages (commit eb96a68)
 - [ ] Verify Google Search Console ownership + submit sitemap
 - [ ] Create Google Business Profile listing
 - [ ] Create og-image.png (1200x630px) for social sharing
