@@ -1377,7 +1377,7 @@ body.dark-hero-page nav.scrolled .nav-links a.active { color: #fff; }
 }
 .lp-about-link {
   display: inline-block;
-  margin-top: 2rem;
+  margin-top: 1.25rem;
   font-family: var(--body);
   font-size: 0.95rem;
   font-weight: 600;
