@@ -12,12 +12,13 @@ Also read E:/Cortex/philip-brain/PHIL-OPERATOR-PROFILE.md for operating rules an
 - **GitHub:** https://github.com/agentiksolutions/bluegrass-landing.git
 - **Deploys via:** GitHub push → Vercel auto-deploy (static hosting)
 
-## Current State (Feb 2026)
+## Current State (Mar 2026)
 - **4-page multi-page site** with persistent navigation
 - Warm White (#FAF8F5) background, editorial consulting aesthetic
-- Fonts: Playfair Display (headings) + DM Sans (body)
+- Fonts: Playfair Display (headings) + DM Sans (body) + JetBrains Mono (accents on index)
 - Responsive with hamburger menu on mobile
 - Scroll-triggered fade-in animations via Intersection Observer
+- **SEO layer added 3/1:** canonical URLs, OG tags, GA4 placeholder, JSON-LD, sitemap.xml, robots.txt
 
 ## Site Structure
 1. **index.html (Home)** — Hero, value proposition (3 cards), how we work (3 steps), CTA band
@@ -41,6 +42,30 @@ Also read E:/Cortex/philip-brain/PHIL-OPERATOR-PROFILE.md for operating rules an
 - `services.html` — Services page (NO PRICES listed)
 - `about.html` — About page
 - `contact.html` — Contact form page
+- `sitemap.xml` — XML sitemap for search engines (4 pages)
+- `robots.txt` — Crawler directives with sitemap reference
+- `vercel.json` — cleanUrls enabled for pretty URL routing
+
+## SEO Infrastructure
+- **Canonical URLs** on all 4 pages
+- **Open Graph + Twitter Card** meta tags on all 4 pages
+- **GA4 placeholder** (G-XXXXXXXXXX) on all 4 pages — needs real measurement ID
+- **JSON-LD** structured data (ProfessionalService schema) on homepage only
+- **sitemap.xml** listing all 4 pages
+- **robots.txt** allowing all crawlers
+
+## Google Setup Guides
+All at `E:\Cortex\aigency\BAG\setup\`:
+- `google-analytics-setup.md` — GA4 property creation
+- `google-search-console-setup.md` — Verification + sitemap submission
+- `google-business-profile-setup.md` — Business listing creation
+
+## TODO (manual steps for Phil)
+- [ ] Create GA4 property (analytics.google.com as phil@bluegrassadvisorygroup.com)
+- [ ] Replace G-XXXXXXXXXX in all 4 HTML files with real measurement ID
+- [ ] Verify Google Search Console ownership + submit sitemap
+- [ ] Create Google Business Profile listing
+- [ ] Create og-image.png (1200x630px) for social sharing
 
 ## Formspree
 - **Endpoint:** `https://formspree.io/f/xvoeydwg`
