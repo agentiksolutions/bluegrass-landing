@@ -1375,6 +1375,111 @@ body.dark-hero-page nav.scrolled .nav-links a.active { color: #fff; }
   font-weight: 700;
   font-size: 1rem;
 }
+.lp-about-link {
+  display: inline-block;
+  margin-top: 2rem;
+  font-family: var(--body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--emerald);
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+.lp-about-link:hover {
+  color: var(--sage);
+}
+
+/* ---- ABOUT PAGE (full rebuild) ---- */
+.about-page-hero {
+  padding: 10rem 2rem 5rem;
+  background: var(--graphite);
+  color: #fff;
+}
+.about-page-hero .section-label { color: var(--sage); }
+.about-page-hero h1 {
+  font-family: var(--heading);
+  font-size: clamp(2.25rem, 4.5vw, 3.25rem);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.15;
+  margin-bottom: 0.5rem;
+}
+.about-page-hero .about-role {
+  font-family: var(--body);
+  font-size: 1rem;
+  color: var(--sage);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.about-section {
+  padding: 5rem 2rem 6rem;
+}
+.about-section:nth-child(odd) { background: var(--warm-white); }
+.about-section:nth-child(even) { background: var(--cream); }
+.about-section .section-title {
+  margin-bottom: 1.75rem;
+}
+.about-section .about-body {
+  font-family: var(--body);
+  font-size: 1.05rem;
+  color: var(--stone);
+  line-height: 1.8;
+  max-width: 680px;
+  margin-bottom: 1.25rem;
+}
+
+.about-diff-list {
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0 0;
+  max-width: 680px;
+}
+.about-diff-list li {
+  font-family: var(--body);
+  font-size: 1rem;
+  color: var(--charcoal);
+  padding: 0.75rem 0 0.75rem 2.25rem;
+  position: relative;
+  line-height: 1.65;
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+}
+.about-diff-list li::before {
+  content: '\2713';
+  position: absolute;
+  left: 0;
+  color: var(--emerald);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.about-cta-section {
+  padding: 5rem 2rem 6rem;
+  background: var(--graphite);
+  text-align: center;
+}
+.about-cta-section h2 {
+  font-family: var(--heading);
+  font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+  color: #fff;
+  margin-bottom: 1rem;
+}
+.about-cta-section p {
+  font-family: var(--body);
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.6);
+  max-width: 480px;
+  margin: 0 auto 2rem;
+  line-height: 1.7;
+}
+.about-cta-section .btn-primary { margin-bottom: 1.25rem; }
+.about-cta-email {
+  color: var(--sage);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.25s ease;
+}
+.about-cta-email:hover { color: var(--emerald); }
 
 /* ---- LP PEOPLE QUESTION ---- */
 .lp-people {
