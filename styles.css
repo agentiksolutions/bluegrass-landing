@@ -932,14 +932,125 @@ body.dark-hero-page nav.scrolled .nav-links a.active { color: #fff; }
   line-height: 1.7;
 }
 
-/* ---- LP TRANSFORMATION VIDEO ---- */
+/* ---- LP TRANSFORMATION (CSS Split) ---- */
 .lp-transform {
   position: relative;
-  height: 45vh;
-  min-height: 300px;
-  max-height: 500px;
+  height: 40vh;
+  min-height: 280px;
+  max-height: 450px;
   overflow: hidden;
-  background: linear-gradient(90deg, #8B6914 0%, #3D2E0A 30%, #141416 60%, #0D3D33 100%);
+  display: flex;
+}
+.lp-transform-left {
+  flex: 1;
+  background:
+    radial-gradient(ellipse at 30% 40%, rgba(184,134,11,0.25) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 70%, rgba(139,105,20,0.15) 0%, transparent 50%),
+    linear-gradient(135deg, #3D2E0A 0%, #2A1F08 40%, #1C1C1E 100%);
+  position: relative;
+  overflow: hidden;
+}
+.lp-transform-left::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(90deg, rgba(184,134,11,0.04) 0px, rgba(184,134,11,0.04) 1px, transparent 1px, transparent 40px),
+    repeating-linear-gradient(0deg, rgba(184,134,11,0.03) 0px, rgba(184,134,11,0.03) 1px, transparent 1px, transparent 35px);
+  animation: chaosShift 8s ease-in-out infinite;
+}
+@keyframes chaosShift {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); opacity: 0.6; }
+  25% { transform: translate(-3px, 2px) rotate(0.3deg); opacity: 0.8; }
+  50% { transform: translate(2px, -2px) rotate(-0.2deg); opacity: 0.5; }
+  75% { transform: translate(-1px, 3px) rotate(0.1deg); opacity: 0.7; }
+}
+.lp-transform-left::after {
+  content: '';
+  position: absolute;
+  top: 20%; left: 15%;
+  width: 70%; height: 60%;
+  background:
+    linear-gradient(45deg, rgba(184,134,11,0.08) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(184,134,11,0.06) 25%, transparent 25%),
+    linear-gradient(135deg, rgba(139,105,20,0.07) 25%, transparent 25%);
+  background-size: 20px 20px, 30px 30px, 25px 25px;
+  opacity: 0.8;
+  animation: scatterDrift 12s ease-in-out infinite alternate;
+}
+@keyframes scatterDrift {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(5px, -3px) scale(1.02); }
+}
+.lp-transform-divider {
+  width: 2px;
+  background: linear-gradient(180deg, transparent 0%, var(--emerald) 20%, var(--emerald) 80%, transparent 100%);
+  position: relative;
+  z-index: 2;
+  opacity: 0.6;
+}
+.lp-transform-right {
+  flex: 1;
+  background: linear-gradient(135deg, #141416 0%, #0D1F1B 50%, #0D2922 100%);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lp-transform-right::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 50%, rgba(13,124,102,0.12) 0%, transparent 70%);
+  animation: clarityPulse 4s ease-in-out infinite;
+}
+@keyframes clarityPulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+.lp-transform-dashboard {
+  width: 60%;
+  height: 50%;
+  border: 1px solid rgba(13,124,102,0.25);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(13,124,102,0.06) 0%, rgba(13,124,102,0.02) 100%);
+  position: relative;
+  box-shadow: 0 0 40px rgba(13,124,102,0.08);
+}
+.lp-transform-dashboard::before {
+  content: '';
+  position: absolute;
+  top: 12%; left: 8%; right: 8%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--emerald), var(--sage), transparent);
+  border-radius: 2px;
+  opacity: 0.5;
+  animation: dashLine 3s ease-in-out infinite;
+}
+@keyframes dashLine {
+  0% { width: 0; opacity: 0; }
+  50% { width: 84%; opacity: 0.5; }
+  100% { width: 84%; opacity: 0.3; }
+}
+.lp-transform-dashboard::after {
+  content: '';
+  position: absolute;
+  bottom: 15%; left: 8%;
+  width: 40%; height: 40%;
+  background:
+    repeating-linear-gradient(0deg,
+      rgba(13,124,102,0.15) 0px, rgba(13,124,102,0.15) 2px,
+      transparent 2px, transparent 12px
+    );
+  border-radius: 4px;
+  animation: barsGrow 2.5s ease-out infinite;
+}
+@keyframes barsGrow {
+  0% { transform: scaleY(0.3); opacity: 0.2; }
+  60% { transform: scaleY(1); opacity: 0.5; }
+  100% { transform: scaleY(1); opacity: 0.3; }
 }
 
 /* ---- LP EDUCATION: THE LIE ---- */
@@ -1349,7 +1460,18 @@ body.dark-hero-page nav.scrolled .nav-links a.active { color: #fff; }
   padding: 8rem 2rem;
   overflow: hidden;
   text-align: center;
-  background: linear-gradient(160deg, #1C1C1E 0%, #141416 50%, #0D3D33 100%);
+  background: var(--graphite);
+}
+.lp-cta-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 60%, rgba(13,124,102,0.18) 0%, transparent 55%);
+  animation: ctaGlow 6s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes ctaGlow {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
 }
 .lp-cta-content {
   position: relative;
@@ -1412,7 +1534,7 @@ body.dark-hero-page nav.scrolled .nav-links a.active { color: #fff; }
   .lp-problem { padding: 5rem 1.25rem 6rem; }
   .lp-pain-grid { grid-template-columns: 1fr; }
 
-  .lp-transform { height: 30vh; min-height: 200px; }
+  .lp-transform { height: 25vh; min-height: 180px; }
 
   .lp-education-lie { padding: 5rem 1.25rem; }
   .lp-education-reframe { padding: 5rem 1.25rem 6rem; }
