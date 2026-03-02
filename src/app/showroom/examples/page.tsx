@@ -12,17 +12,17 @@ export const metadata: Metadata = {
 
 const examples = [
   {
-    title: "Sly's Nubian Essentials",
+    title: "The PFSA",
     description:
-      "A clean, modern product showcase for a personal care brand. Built as a prospect demo — fully functional, mobile-responsive, zero templates.",
+      "A modern website for the Public Foundation of Stewardship Advancement. Built to showcase the organization's mission, board, and community impact — fully functional, mobile-responsive, zero templates.",
     features: [
-      "Custom product display layout",
-      "Mobile-responsive design",
-      "Brand-specific color system",
-      "Fast-loading static build",
+      "Mission and impact showcase",
+      "Board directory",
+      "Donation integration",
+      "Event calendar",
     ],
-    tag: "Product Showcase",
-    href: "/showroom/slys-nubian/",
+    tag: "Nonprofit Website",
+    href: "https://thepfsa.org",
     external: true,
   },
 ];

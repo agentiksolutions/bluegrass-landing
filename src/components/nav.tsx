@@ -29,10 +29,10 @@ export default function Nav() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 h-[68px] px-6 md:px-12 flex justify-between items-center ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 h-[68px] px-6 md:px-12 flex justify-between items-center bg-warm-white/[0.97] backdrop-blur-[16px] ${
         scrolled
-          ? "bg-warm-white/[0.97] backdrop-blur-[16px] border-b border-graphite/[0.06]"
-          : "bg-transparent border-b border-transparent"
+          ? "border-b border-graphite/[0.06]"
+          : "border-b border-transparent"
       }`}
     >
       <Link

@@ -57,14 +57,14 @@ src/components/       Shared components (nav, footer, button, card, etc.)
 src/lib/              Utilities (fonts, metadata, rate-limit, supabase, mdx)
 content/insights/     MDX blog articles
 public/videos/        Hero + architecture videos (35MB total)
-public/showroom/      Sly's Nubian static HTML demo
+public/showroom/      Legacy static HTML demos (slys-nubian still exists)
 ```
 
 ## Showroom Directory (Prospect Demos)
 - Static demos live in `public/showroom/{slug}/`
-- First instance: `public/showroom/slys-nubian/`
+- Legacy: `public/showroom/slys-nubian/` still exists on disk but is no longer linked from the site
+- Built Examples page now features The PFSA (thepfsa.org) as the primary example
 - Next.js public/ files take priority over app routes — no conflict
-- Showroom pages have zero BAG branding and are excluded from robots.txt
 
 ## Environment Variables
 ```
@@ -99,3 +99,6 @@ SUPABASE_ANON_KEY          Optional — for /api/lead
 - No Tailwind blue, no Inter/Roboto fonts
 - Keep the warm white editorial aesthetic
 - Deploy via GitHub push → Vercel auto-deploy
+- NEVER use "operator" to describe Phil or BAG — use "practitioner"
+- NEVER mention "Five Guys" anywhere on the site
+- Use "hospitality industry" not "restaurant operations"

@@ -27,7 +27,7 @@ export default function AIIntegrationPage() {
         "Businesses that know AI exists but don't know where to start",
         "Companies spending hours on tasks that could be automated",
         "Teams drowning in manual research, reporting, or admin work",
-        "Operators who want to stay ahead without becoming tech companies",
+        "Business owners who want to stay ahead without becoming tech companies",
       ]}
       showroomLink={{
         href: "/showroom/report",

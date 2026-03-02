@@ -6,7 +6,7 @@ import { getAllPosts } from "@/lib/mdx";
 export const metadata: Metadata = {
   title: "Insights",
   description:
-    "Articles on AI, business operations, web design, and modernizing your business. From operators, not theorists.",
+    "Articles on AI, business operations, web design, and modernizing your business. From practitioners, not theorists.",
 };
 
 export default function InsightsPage() {
@@ -20,7 +20,7 @@ export default function InsightsPage() {
       </h1>
       <p className="text-[17px] leading-relaxed text-stone max-w-[520px] mb-16">
         Practical takes on AI, operations, and building a business that doesn&apos;t
-        depend on you being in the building. Written by operators, not
+        depend on you being in the building. Written by practitioners, not
         theorists.
       </p>
 

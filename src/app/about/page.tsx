@@ -6,18 +6,18 @@ import CTABand from "@/components/cta-band";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Phil Fifield — 13 years in restaurant operations, now building AI tools for businesses that need to modernize. Based in Lexington, Kentucky.",
+    "Phil Fifield — over a decade in the hospitality industry, now building AI tools for businesses that need to modernize. Based in Lexington, Kentucky.",
 };
 
 const stats = [
-  { num: "13", label: "years in operations" },
-  { num: "3", label: "locations managed" },
-  { num: "85", label: "employees" },
+  { num: "10+", label: "years in hospitality" },
+  { num: "Multiple", label: "locations managed" },
+  { num: "Hundreds", label: "of employees" },
   { num: "KY", label: "based, KY focused" },
 ];
 
 const differentiators = [
-  "We still run businesses — this isn't academic",
+  "We still manage real operations — this isn't academic",
   "We build what we use ourselves, every day",
   "No recurring SaaS fees or vendor lock-in",
   "Kentucky-based, working with Kentucky businesses",
@@ -43,13 +43,13 @@ export default function AboutPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-[72px] items-start">
           <div>
             <h2 className="font-display text-3xl font-bold tracking-tight mb-6">
-              Built by an operator, not a consultant.
+              Built from experience, not theory.
             </h2>
             <p className="text-[16px] leading-relaxed text-[#555] mb-5">
-              Phil spent 13 years in restaurant operations — from crew member to
-              Director of Operations managing 3 Five Guys locations and 85
-              employees. He didn&apos;t read about running businesses in a textbook.
-              He&apos;s been in the weeds every day for over a decade.
+              Phil spent over a decade in the hospitality industry — managing
+              hundreds of employees across multiple locations. He didn&apos;t read
+              about running businesses in a textbook. He&apos;s been in the weeds
+              every day for over a decade.
             </p>
             <p className="text-[16px] leading-relaxed text-[#555] mb-5">
               Bluegrass Advisory Group exists because the tools he built for his
@@ -61,7 +61,8 @@ export default function AboutPage() {
               Today, Phil runs an autonomous operating system that manages
               workflows across multiple businesses — the same approach we bring to
               every client. We&apos;re not a software company selling licenses.
-              We&apos;re operators who build tools that make businesses run better.
+              We build tools that make businesses run better — because we use them
+              ourselves.
             </p>
           </div>
 
@@ -93,7 +94,7 @@ export default function AboutPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-[72px] items-start">
           <div>
             <h2 className="font-display text-3xl font-bold tracking-tight mb-6">
-              The operator difference.
+              The practitioner difference.
             </h2>
             <p className="text-[16px] leading-relaxed text-[#555]">
               We&apos;re not consultants who parachute in with a slide deck and

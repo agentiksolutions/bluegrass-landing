@@ -24,7 +24,7 @@ export default function DashboardsPage() {
         "Training for your team to read and use the data",
       ]}
       whoItsFor={[
-        "Multi-location operators who can't see all their numbers in one place",
+        "Multi-location businesses who can't see all their numbers in one place",
         "Business owners still running on spreadsheets and gut instinct",
         "Managers who spend hours compiling reports manually",
         "Anyone who has data in five different apps and can't connect the dots",

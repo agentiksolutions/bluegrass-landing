@@ -69,22 +69,22 @@ const showroomRooms = [
 
 const blogPosts = [
   {
-    title: "What AI Actually Does for a Small Business in 2026",
-    category: "AI Basics",
-    read: "4 min read",
-    slug: "ai-for-small-business",
-  },
-  {
-    title: "Why Your Business Needs a Dashboard, Not Another Spreadsheet",
-    category: "Operations",
-    read: "3 min read",
-    slug: "dashboard-not-spreadsheet",
-  },
-  {
-    title: "The Real Cost of an Outdated Website",
-    category: "Web",
+    title: "I Automated 35 Workflows Before Selling a Single AI Service — Here's What I Learned",
+    category: "Lessons Learned",
     read: "5 min read",
-    slug: "cost-of-outdated-website",
+    slug: "automated-35-workflows",
+  },
+  {
+    title: "The AI Trust Gap: Why Most Businesses Aren't Ready to Buy",
+    category: "Strategy",
+    read: "4 min read",
+    slug: "ai-trust-gap",
+  },
+  {
+    title: "How We Cut 12 Hours of Weekly Admin Work Across Three Locations",
+    category: "Case Study",
+    read: "6 min read",
+    slug: "cut-12-hours-admin",
   },
 ];
 
@@ -210,12 +210,13 @@ export default function HomePage() {
           <div>
             <SectionLabel>About</SectionLabel>
             <h2 className="font-display text-[34px] font-bold tracking-tight mb-5">
-              Built by an operator.
+              Built from the inside out.
             </h2>
             <p className="text-[15px] leading-relaxed text-[#666] mb-4">
-              Phil Fifield spent 13 years in restaurant operations — from crew to
-              Director of Operations. He built AI tools to run his own business
-              better. Those same tools work for yours.
+              Phil Fifield spent over a decade in the hospitality industry managing
+              hundreds of employees across multiple locations. He built AI tools to
+              solve his own operational problems first. Those same tools work for
+              your business.
             </p>
             <p className="text-[15px] leading-relaxed text-[#666] mb-7">
               Based in Lexington, working with Kentucky businesses who want to
