@@ -36,13 +36,23 @@ Also read E:/Cortex/philip-brain/PHIL-OPERATOR-PROFILE.md for operating rules an
 - Stone: #8E8E93 (muted text)
 - Gold: #B8860B (reserved for premium callouts)
 
+## Showroom Directory (Prospect Demos)
+- **Pattern:** `showroom/{slug}/` — each prospect gets a self-contained demo folder
+- **URL:** `bluegrassadvisorygroup.com/showroom/{slug}/`
+- **Structure:** Each showroom folder contains `index.html` + `images/` with all assets
+- **First instance:** `showroom/slys-nubian/` (Sly's Nubian Essentials, deployed 3/2)
+- **Convention:** Slug is lowercase-with-dashes, matching the prospect/business name
+- **No BAG branding:** Showroom pages must have zero BAG/mockup/demo fingerprints — they are client-facing
+- **Not indexed:** Showroom pages should NOT appear in sitemap.xml or be crawled (they are private demos)
+
 ## Key Files
 - `styles.css` — Shared CSS for all pages
 - `index.html` — Home page
 - `services.html` — Services page (NO PRICES listed)
 - `about.html` — About page
 - `contact.html` — Contact form page
-- `sitemap.xml` — XML sitemap for search engines (4 pages)
+- `showroom/slys-nubian/index.html` — Sly's Nubian Essentials demo page
+- `sitemap.xml` — XML sitemap for search engines (4 pages, excludes showroom)
 - `robots.txt` — Crawler directives with sitemap reference
 - `vercel.json` — cleanUrls enabled for pretty URL routing
 
