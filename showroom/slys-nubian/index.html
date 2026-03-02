@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sly's Nubian Essentials | Luxury Fragrance Oils · Lexington, KY</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#C5973B;--gold-light:#E8C878;--gold-dark:#8B6914;--black:#0A0A0A;--charcoal:#1A1A1A;--dark-gray:#2A2A2A;--cream:#F5EFE0;--cream-dark:#E8DCC8;--red:#8B2020;--red-glow:#C43030;--white:#FAFAF7;--text-muted:#9A9488}*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{font-family:'Outfit',sans-serif;background:var(--black);color:var(--cream);overflow-x:hidden}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes pulseGlow{0%,100%{box-shadow:0 0 20px rgba(197,151,59,0.3)}50%{box-shadow:0 0 40px rgba(197,151,59,0.6)}}
+.announcement{background:linear-gradient(90deg,var(--gold-dark),var(--gold),var(--gold-dark));color:var(--black);text-align:center;padding:10px 20px;font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase}
+nav{position:sticky;top:0;z-index:100;background:rgba(10,10,10,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(197,151,59,0.2);padding:0 60px;display:flex;align-items:center;justify-content:space-between;height:80px}
+.nav-logo{display:flex;align-items:center;gap:14px;text-decoration:none}
+.logo-icon{width:50px;height:50px}.logo-icon svg{width:100%;height:100%}
+.logo-text{font-family:'Cinzel',serif;font-size:20px;font-weight:700;color:var(--gold);letter-spacing:3px;line-height:1.1}
+.logo-text span{display:block;font-size:9px;font-weight:400;letter-spacing:5px;color:var(--gold-light);opacity:0.7}
+.nav-links{display:flex;gap:36px;list-style:none}
+.nav-links a{color:var(--cream);text-decoration:none;font-size:13px;font-weight:400;letter-spacing:2px;text-transform:uppercase;transition:color 0.3s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--gold);transition:width 0.3s}
+.nav-links a:hover{color:var(--gold)}.nav-links a:hover::after{width:100%}
+.nav-cta{background:transparent;border:1px solid var(--gold);color:var(--gold);padding:10px 24px;font-size:12px;font-weight:600;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:all 0.3s;text-decoration:none}
+.nav-cta:hover{background:var(--gold);color:var(--black)}
+.hero{position:relative;height:100vh;min-height:700px;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(197,151,59,0.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 30%,rgba(139,32,32,0.06) 0%,transparent 50%),radial-gradient(ellipse at 50% 80%,rgba(197,151,59,0.04) 0%,transparent 60%),var(--black)}
+.hero-texture{position:absolute;inset:0;opacity:0.4}
+.hero-line{position:absolute;background:linear-gradient(to bottom,transparent,var(--gold),transparent);opacity:0.1}
+.hero-line-1{left:15%;width:1px;top:0;bottom:0}.hero-line-2{right:15%;width:1px;top:0;bottom:0}
+.hero-line-3{left:0;right:0;height:1px;top:40%;background:linear-gradient(to right,transparent,var(--gold),transparent)}
+.hero-content{position:relative;z-index:2;animation:fadeInUp 1.2s ease}
+.hero-crown{width:60px;height:auto;margin-bottom:30px;animation:float 4s ease-in-out infinite;filter:drop-shadow(0 0 20px rgba(197,151,59,0.4))}
+.hero-pretitle{font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;color:var(--gold-light);letter-spacing:6px;text-transform:uppercase;margin-bottom:20px;opacity:0.8}
+.hero h1{font-family:'Cinzel',serif;font-size:clamp(42px,6vw,80px);font-weight:900;line-height:1.05;margin-bottom:10px;background:linear-gradient(135deg,var(--gold-light),var(--gold),var(--gold-dark),var(--gold-light));background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 6s linear infinite}
+.hero-subtitle{font-family:'Cinzel',serif;font-size:clamp(14px,2vw,20px);font-weight:400;letter-spacing:8px;text-transform:uppercase;color:var(--cream);opacity:0.6;margin-bottom:40px}
+.hero-tagline{font-family:'Cormorant Garamond',serif;font-size:22px;font-style:italic;color:var(--cream-dark);max-width:500px;margin:0 auto 50px;line-height:1.6}
+.hero-buttons{display:flex;gap:20px;justify-content:center;flex-wrap:wrap}
+.btn-primary{display:inline-block;background:var(--gold);color:var(--black);padding:16px 48px;font-size:13px;font-weight:700;letter-spacing:4px;text-transform:uppercase;text-decoration:none;transition:all 0.4s}
+.btn-primary:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 10px 30px rgba(197,151,59,0.3)}
+.btn-secondary{display:inline-block;background:transparent;color:var(--gold);padding:16px 48px;font-size:13px;font-weight:600;letter-spacing:4px;text-transform:uppercase;text-decoration:none;border:1px solid rgba(197,151,59,0.4);transition:all 0.4s}
+.btn-secondary:hover{border-color:var(--gold);background:rgba(197,151,59,0.1)}
+.hero-scroll{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);color:var(--gold);opacity:0.4;font-size:11px;letter-spacing:4px;text-transform:uppercase;animation:float 3s ease-in-out infinite}
+.social-proof{background:var(--charcoal);border-top:1px solid rgba(197,151,59,0.15);border-bottom:1px solid rgba(197,151,59,0.15);padding:24px 60px;display:flex;justify-content:center;gap:60px;flex-wrap:wrap}
+.proof-item{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--text-muted);letter-spacing:1px}
+.proof-item svg{color:var(--gold);flex-shrink:0}.proof-item strong{color:var(--cream);font-weight:600}
+.section-header{text-align:center;margin-bottom:60px}
+.section-header .overline{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:var(--gold);letter-spacing:4px;text-transform:uppercase;margin-bottom:12px}
+.section-header h2{font-family:'Cinzel',serif;font-size:clamp(28px,4vw,44px);font-weight:700;color:var(--cream);letter-spacing:3px}
+.section-header .divider{width:60px;height:2px;background:var(--gold);margin:20px auto 0}
+.about{padding:100px 60px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;max-width:1300px;margin:0 auto}
+.about-image-frame{width:100%;aspect-ratio:4/5;background:linear-gradient(135deg,var(--charcoal),var(--dark-gray));border:1px solid rgba(197,151,59,0.2);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.about-image-frame::before{content:'';position:absolute;top:-15px;left:-15px;right:15px;bottom:15px;border:1px solid rgba(197,151,59,0.15);z-index:-1}
+.about-content .overline{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:var(--gold);letter-spacing:4px;text-transform:uppercase;margin-bottom:16px}
+.about-content h2{font-family:'Cinzel',serif;font-size:36px;font-weight:700;color:var(--cream);margin-bottom:30px;line-height:1.2}
+.about-content p{font-family:'Cormorant Garamond',serif;font-size:19px;line-height:1.8;color:var(--cream-dark);margin-bottom:20px}
+.about-content .signature{font-family:'Cormorant Garamond',serif;font-size:28px;font-style:italic;color:var(--gold);margin-top:30px}
+.press{background:var(--charcoal);padding:60px;text-align:center}
+.press h3{font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:30px}
+.press-logos{display:flex;justify-content:center;gap:50px;flex-wrap:wrap;align-items:center}
+.press-item{color:var(--text-muted);font-family:'Cinzel',serif;font-size:16px;font-weight:600;opacity:0.5;transition:opacity 0.3s;text-decoration:none}
+.press-item:hover{opacity:1;color:var(--gold)}
+.pricing{padding:100px 60px;max-width:1200px;margin:0 auto}
+.pricing-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:60px}
+.price-card{background:linear-gradient(180deg,var(--charcoal),var(--dark-gray));border:1px solid rgba(197,151,59,0.15);padding:40px 30px;text-align:center;position:relative;transition:all 0.4s}
+.price-card:hover{border-color:var(--gold);transform:translateY(-4px);box-shadow:0 20px 40px rgba(0,0,0,0.4)}
+.price-card.popular{border-color:var(--gold);background:linear-gradient(180deg,rgba(197,151,59,0.08),var(--dark-gray))}
+.price-card.popular::before{content:'BEST VALUE';position:absolute;top:0;left:50%;transform:translate(-50%,-50%);background:var(--gold);color:var(--black);padding:4px 16px;font-size:10px;font-weight:700;letter-spacing:3px}
+.price-size{font-family:'Cinzel',serif;font-size:32px;font-weight:900;color:var(--gold);margin-bottom:4px}
+.price-size-label{font-size:12px;color:var(--text-muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:30px}
+.price-each{font-family:'Cinzel',serif;font-size:40px;font-weight:700;color:var(--cream)}
+.price-each sup{font-size:18px;vertical-align:super}
+.price-each-label{font-size:12px;color:var(--text-muted);margin-bottom:24px}
+.price-bundles{border-top:1px solid rgba(197,151,59,0.15);padding-top:20px;margin-top:20px}
+.price-bundle{padding:8px 0;font-size:14px;color:var(--cream-dark)}
+.price-bundle strong{color:var(--gold-light);font-weight:600}
+.catalog{padding:100px 60px;background:var(--charcoal)}
+.catalog-tabs{display:flex;justify-content:center;gap:4px;margin-bottom:50px}
+.catalog-tab{padding:14px 40px;background:transparent;border:1px solid rgba(197,151,59,0.2);color:var(--text-muted);font-size:12px;font-weight:600;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:all 0.3s}
+.catalog-tab.active,.catalog-tab:hover{background:var(--gold);color:var(--black);border-color:var(--gold)}
+.catalog-categories{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;max-width:1200px;margin:0 auto}
+.cat-group{background:var(--dark-gray);border:1px solid rgba(197,151,59,0.08);padding:28px;transition:all 0.3s}
+.cat-group:hover{border-color:rgba(197,151,59,0.2)}
+.cat-group h4{font-family:'Cinzel',serif;font-size:14px;font-weight:700;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid rgba(197,151,59,0.15)}
+.cat-group ul{list-style:none}.cat-group li{padding:5px 0;font-size:14px;color:var(--cream-dark);transition:color 0.2s;cursor:pointer}
+.cat-group li:hover{color:var(--gold)}
+.cat-group li .stock-tag{font-size:10px;background:var(--red);color:white;padding:2px 6px;border-radius:2px;margin-left:6px;font-weight:600}
+.cat-group li .new-tag{font-size:10px;background:var(--gold-dark);color:var(--black);padding:2px 6px;border-radius:2px;margin-left:6px;font-weight:700}
+.catalog-count{text-align:center;margin-top:40px;font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;color:var(--text-muted)}
+.catalog-count strong{color:var(--gold)}
+.order{padding:100px 60px;max-width:900px;margin:0 auto;text-align:center}
+.order-methods{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;margin-top:60px}
+.order-card{background:var(--charcoal);border:1px solid rgba(197,151,59,0.15);padding:40px 30px;transition:all 0.3s;text-decoration:none;display:block}
+.order-card:hover{border-color:var(--gold);transform:translateY(-4px)}
+.order-card svg{width:40px;height:40px;color:var(--gold);margin-bottom:20px}
+.order-card h4{font-family:'Cinzel',serif;font-size:16px;color:var(--cream);margin-bottom:8px;letter-spacing:1px}
+.order-card p{font-size:14px;color:var(--text-muted);line-height:1.5}
+.order-card .contact-detail{font-size:16px;color:var(--gold-light);margin-top:14px;font-weight:600}
+.location{padding:80px 60px;background:var(--charcoal)}
+.location-inner{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.location-info h3{font-family:'Cinzel',serif;font-size:24px;color:var(--cream);margin-bottom:20px}
+.location-info p{font-size:15px;color:var(--cream-dark);line-height:1.8;margin-bottom:8px}
+.location-info .hours{margin-top:20px;padding-top:20px;border-top:1px solid rgba(197,151,59,0.15)}
+.location-info .hours span{color:var(--gold);font-weight:600}
+.location-map{aspect-ratio:16/10;background:var(--dark-gray);border:1px solid rgba(197,151,59,0.15);overflow:hidden}
+footer{padding:60px;border-top:1px solid rgba(197,151,59,0.15);text-align:center}
+.footer-social{display:flex;justify-content:center;gap:24px;margin-bottom:30px}
+.footer-social a{width:44px;height:44px;border:1px solid rgba(197,151,59,0.3);display:flex;align-items:center;justify-content:center;color:var(--gold);text-decoration:none;transition:all 0.3s}
+.footer-social a:hover{background:var(--gold);color:var(--black)}
+.footer-brand{font-family:'Cinzel',serif;font-size:18px;font-weight:700;color:var(--gold);letter-spacing:4px;margin-bottom:10px}
+.footer-tagline{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;color:var(--text-muted);margin-bottom:24px}
+.footer-disclaimer{font-size:11px;color:rgba(154,148,136,0.5);max-width:700px;margin:0 auto 16px;line-height:1.7}
+.footer-copy{font-size:12px;color:var(--text-muted);opacity:0.5}
+@media(max-width:900px){nav{padding:0 24px}.nav-links{display:none}.about{grid-template-columns:1fr;padding:60px 24px;gap:40px}.pricing-grid{grid-template-columns:repeat(2,1fr)}.order-methods{grid-template-columns:1fr}.location-inner{grid-template-columns:1fr}.social-proof{gap:30px;padding:24px}.pricing,.catalog,.order{padding:60px 24px}}
+@media(max-width:600px){.pricing-grid{grid-template-columns:1fr}.catalog-tabs{flex-direction:column;align-items:center}}
+
+/* === Cart Icon & Badge === */
+.nav-right{display:flex;align-items:center;gap:16px}
+.cart-toggle{position:relative;background:none;border:none;cursor:pointer;padding:8px;color:var(--gold);transition:color 0.3s}
+.cart-toggle:hover{color:var(--gold-light)}
+.cart-toggle svg{width:24px;height:24px}
+.cart-badge{position:absolute;top:0;right:0;background:var(--gold);color:var(--black);font-size:10px;font-weight:800;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(0);transition:all 0.3s}
+.cart-badge.visible{opacity:1;transform:scale(1)}
+.cart-badge.pulse{animation:badgePulse 0.5s ease}
+@keyframes badgePulse{0%{transform:scale(1)}50%{transform:scale(1.5)}100%{transform:scale(1)}}
+
+/* === Product Modal === */
+.product-modal{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s}
+.product-modal.open{opacity:1;pointer-events:auto}
+.modal-backdrop{position:absolute;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(8px)}
+.modal-card{position:relative;background:var(--charcoal);border:1px solid rgba(197,151,59,0.3);padding:40px;max-width:440px;width:90%;transform:translateY(30px) scale(0.95);transition:transform 0.35s ease;box-shadow:0 30px 80px rgba(0,0,0,0.6)}
+.product-modal.open .modal-card{transform:translateY(0) scale(1)}
+.modal-close{position:absolute;top:16px;right:16px;background:none;border:none;color:var(--text-muted);font-size:22px;cursor:pointer;transition:color 0.2s;line-height:1}
+.modal-close:hover{color:var(--cream)}
+.modal-name{font-family:'Cinzel',serif;font-size:22px;font-weight:700;color:var(--cream);margin-bottom:6px;line-height:1.2}
+.modal-subtitle{font-size:12px;color:var(--text-muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:28px}
+.size-selector{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px}
+.size-btn{background:var(--dark-gray);border:1px solid rgba(197,151,59,0.15);color:var(--cream-dark);padding:12px 4px;text-align:center;cursor:pointer;transition:all 0.25s;font-size:13px;font-weight:500}
+.size-btn:hover{border-color:rgba(197,151,59,0.5)}
+.size-btn.active{background:rgba(197,151,59,0.12);border-color:var(--gold);color:var(--gold)}
+.size-btn .sz-label{font-weight:700;display:block;margin-bottom:2px}
+.size-btn .sz-price{font-size:11px;color:var(--text-muted)}.size-btn.active .sz-price{color:var(--gold-light)}
+.modal-bundle{font-size:13px;color:var(--gold-light);margin-bottom:24px;min-height:20px;font-style:italic}
+.qty-control{display:flex;align-items:center;gap:16px;margin-bottom:28px}
+.qty-control span{font-size:13px;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase}
+.qty-btn{width:36px;height:36px;background:var(--dark-gray);border:1px solid rgba(197,151,59,0.2);color:var(--cream);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.qty-btn:hover{border-color:var(--gold);color:var(--gold)}
+.qty-value{font-family:'Cinzel',serif;font-size:20px;font-weight:700;color:var(--cream);min-width:24px;text-align:center}
+.add-to-cart-btn{width:100%;background:var(--gold);color:var(--black);border:none;padding:16px;font-size:13px;font-weight:700;letter-spacing:4px;text-transform:uppercase;cursor:pointer;transition:all 0.3s}
+.add-to-cart-btn:hover{background:var(--gold-light);box-shadow:0 8px 24px rgba(197,151,59,0.3)}
+.add-to-cart-btn.added{background:#2E7D32;color:white;letter-spacing:2px}
+
+/* === Cart Drawer === */
+.cart-overlay{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,0.6);opacity:0;pointer-events:none;transition:opacity 0.3s}
+.cart-overlay.open{opacity:1;pointer-events:auto}
+.cart-drawer{position:fixed;top:0;right:0;bottom:0;width:400px;max-width:92vw;z-index:301;background:var(--charcoal);border-left:1px solid rgba(197,151,59,0.2);display:flex;flex-direction:column;transform:translateX(100%);transition:transform 0.35s ease;box-shadow:-10px 0 40px rgba(0,0,0,0.5)}
+.cart-drawer.open{transform:translateX(0)}
+.cart-header{display:flex;align-items:center;justify-content:space-between;padding:24px 28px;border-bottom:1px solid rgba(197,151,59,0.15)}
+.cart-header h3{font-family:'Cinzel',serif;font-size:18px;font-weight:700;color:var(--cream);letter-spacing:2px}
+.cart-close{background:none;border:none;color:var(--text-muted);font-size:22px;cursor:pointer;transition:color 0.2s}
+.cart-close:hover{color:var(--cream)}
+.cart-items{flex:1;overflow-y:auto;padding:20px 28px}
+.cart-empty{text-align:center;padding:60px 20px;color:var(--text-muted);font-style:italic;font-size:15px}
+.cart-item{display:grid;grid-template-columns:1fr auto;gap:8px;padding:16px 0;border-bottom:1px solid rgba(197,151,59,0.08);align-items:start}
+.cart-item-name{font-size:14px;font-weight:600;color:var(--cream);line-height:1.3}
+.cart-item-size{font-size:11px;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;margin-top:2px}
+.cart-item-price{font-family:'Cinzel',serif;font-size:16px;font-weight:700;color:var(--gold);text-align:right}
+.cart-item-controls{display:flex;align-items:center;gap:10px;margin-top:6px}
+.cart-item-controls .qty-btn{width:26px;height:26px;font-size:14px}
+.cart-item-controls .qty-value{font-size:15px;min-width:18px}
+.cart-item-remove{background:none;border:none;color:var(--text-muted);font-size:11px;cursor:pointer;text-transform:uppercase;letter-spacing:1px;transition:color 0.2s;margin-left:8px}
+.cart-item-remove:hover{color:var(--red-glow)}
+.cart-footer{padding:20px 28px;border-top:1px solid rgba(197,151,59,0.2);background:var(--dark-gray)}
+.cart-subtotal{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.cart-subtotal span{font-size:14px;color:var(--text-muted);letter-spacing:2px;text-transform:uppercase}
+.cart-subtotal strong{font-family:'Cinzel',serif;font-size:24px;color:var(--gold);font-weight:700}
+.place-order-btn{width:100%;background:var(--gold);color:var(--black);border:none;padding:16px;font-size:13px;font-weight:700;letter-spacing:4px;text-transform:uppercase;cursor:pointer;transition:all 0.3s}
+.place-order-btn:hover{background:var(--gold-light);box-shadow:0 6px 20px rgba(197,151,59,0.3)}
+
+/* === Order Confirmation View === */
+.order-confirm{display:none;text-align:center;padding:60px 28px}
+.order-confirm.show{display:block}
+.order-confirm-check{font-size:48px;margin-bottom:20px}
+.order-confirm h3{font-family:'Cinzel',serif;font-size:20px;color:var(--cream);margin-bottom:8px}
+.order-confirm p{font-size:14px;color:var(--text-muted);margin-bottom:28px;line-height:1.6}
+.confirm-contact{display:flex;flex-direction:column;gap:12px;margin-bottom:32px}
+.confirm-contact a{display:flex;align-items:center;gap:12px;padding:14px 20px;background:var(--dark-gray);border:1px solid rgba(197,151,59,0.15);color:var(--cream);text-decoration:none;font-size:14px;transition:all 0.25s}
+.confirm-contact a:hover{border-color:var(--gold);color:var(--gold)}
+.confirm-contact a svg{width:20px;height:20px;color:var(--gold);flex-shrink:0}
+.continue-btn{background:transparent;border:1px solid rgba(197,151,59,0.4);color:var(--gold);padding:14px 36px;font-size:12px;font-weight:600;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:all 0.3s}
+.continue-btn:hover{background:rgba(197,151,59,0.1);border-color:var(--gold)}
+
+@media(max-width:900px){.nav-right{gap:10px}.cart-drawer{width:100%;max-width:100%}}
+</style>
+</head>
+<body>
+<div class="announcement">✦ Free Local Pickup · Lexington, KY ✦ Shipping Available ✦ Custom Blends Welcome ✦</div>
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="logo-icon"><img src="./images/sly-logo.jpg" alt="Sly's Nubian Essentials" style="width:50px;height:50px;object-fit:cover;border-radius:6px;"></div>
+    <div class="logo-text">SLY'S NUBIAN<span>ESSENTIALS</span></div>
+  </a>
+  <ul class="nav-links"><li><a href="#about">Our Story</a></li><li><a href="#catalog">Fragrances</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#order">Order</a></li></ul>
+  <div class="nav-right">
+    <button class="cart-toggle" onclick="openCart()" aria-label="Shopping cart">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+      <span class="cart-badge" id="cart-badge">0</span>
+    </button>
+    <a href="tel:8593335397" class="nav-cta">Call Now</a>
+  </div>
+</nav>
+<section class="hero">
+  <div class="hero-bg"></div><div class="hero-texture"></div>
+  <div class="hero-line hero-line-1"></div><div class="hero-line hero-line-2"></div><div class="hero-line hero-line-3"></div>
+  <div class="hero-content">
+    <img class="hero-crown" src="./images/sly-logo.jpg" alt="Sly The Oil Guy" style="width:140px;height:auto;border-radius:8px;">
+    <div class="hero-pretitle">Lexington's Fragrance Royalty</div>
+    <h1>SLY'S NUBIAN<br>ESSENTIALS</h1>
+    <div class="hero-subtitle">Luxury Rooted in Culture</div>
+    <div class="hero-tagline">Designer-inspired fragrance oils, handcrafted with soul. Smell rich, spend smart.</div>
+    <div class="hero-buttons"><a href="#catalog" class="btn-primary">Browse 450+ Scents</a><a href="tel:8593335397" class="btn-secondary">Call to Order</a></div>
+  </div>
+  <div class="hero-scroll">Scroll ↓</div>
+</section>
+<div class="social-proof">
+  <div class="proof-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><span>Featured on <strong>Spectrum News 1</strong> & <strong>WKYT</strong></span></div>
+  <div class="proof-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg><span><strong>450+</strong> Fragrances Available</span></div>
+  <div class="proof-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg><span><strong>Black-Owned</strong> · Lexington, KY</span></div>
+  <div class="proof-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><span><strong>100%</strong> Natural Oil Products</span></div>
+</div>
+<section style="padding:60px;text-align:center;max-width:900px;margin:0 auto">
+  <img src="./images/product-display.png" alt="Sly's Nubian Essentials Product Collection" style="width:100%;max-width:800px;border:1px solid rgba(197,151,59,0.15);box-shadow:0 20px 60px rgba(0,0,0,0.4)">
+</section>
+<section class="pricing" id="pricing">
+  <div class="section-header"><div class="overline">Investment</div><h2>Pricing & Bundles</h2><div class="divider"></div></div>
+  <div class="pricing-grid">
+    <div class="price-card"><div class="price-size">⅓ oz</div><div class="price-size-label">Roller / Sample</div><div class="price-each"><sup>$</sup>6</div><div class="price-each-label">each</div><div class="price-bundles"><div class="price-bundle"><strong>3</strong> for $12</div><div class="price-bundle"><strong>7</strong> for $30</div></div></div>
+    <div class="price-card popular"><div class="price-size">1 oz</div><div class="price-size-label">Personal Size</div><div class="price-each"><sup>$</sup>10</div><div class="price-each-label">each</div><div class="price-bundles"><div class="price-bundle"><strong>3</strong> for $25</div><div class="price-bundle"><strong>7</strong> for $50</div></div></div>
+    <div class="price-card"><div class="price-size">2 oz</div><div class="price-size-label">Standard</div><div class="price-each"><sup>$</sup>20</div><div class="price-each-label">each</div><div class="price-bundles"><div class="price-bundle"><strong>3</strong> for $55</div><div class="price-bundle"><strong>5</strong> for $80</div></div></div>
+    <div class="price-card"><div class="price-size">4 oz</div><div class="price-size-label">Premium</div><div class="price-each"><sup>$</sup>40</div><div class="price-each-label">each</div><div class="price-bundles"><div class="price-bundle"><strong>2</strong> for $75</div></div></div>
+  </div>
+</section>
+<section class="catalog" id="catalog">
+  <div class="section-header"><div class="overline">The Collection</div><h2>Fragrance Catalog</h2><div class="divider"></div></div>
+  <div class="catalog-tabs"><button class="catalog-tab active" onclick="showCatalog('women')">Women's</button><button class="catalog-tab" onclick="showCatalog('men')">Men's</button></div>
+  <div id="women-catalog" class="catalog-categories">
+    <div class="cat-group"><h4>Chanel</h4><ul><li>Chanel Chance</li><li>Chanel Chance Tender</li><li>Chanel Gabrielle</li><li>Chanel No. 5</li><li>Coco Chanel</li><li>Coco Mademoiselle</li></ul></div>
+    <div class="cat-group"><h4>Dior · Tom Ford</h4><ul><li>Addict by Christian Dior</li><li>Hypnotic Poison</li><li>J'Adore</li><li>Miss Dior</li><li>Tom Ford Black Orchid</li><li>Tom Ford Lost Cherry</li><li>Tom Ford Rose Exposed</li><li>Tom Ford Vanilla Sex</li></ul></div>
+    <div class="cat-group"><h4>Creed · Niche Houses</h4><ul><li>Baccarat Rouge 540</li><li>Creed Aventus (W)</li><li>Creed Fleurissimo</li><li>Creed Love In White</li><li>Creed Queen of Silk</li><li>Creed Wind Flower</li><li>Delina Exclusif by Marly</li><li>Glossier YOU</li><li>Gypsy Water</li><li>Julietta Has A Gun "Mmmmm"</li><li>Louis V. Attrappe</li><li>Louis Vuitton Pacific Chill (U)</li><li>Maison Francis Kurkdjian 724 (U)</li><li>Miami Shake by Juliet Has A Gun</li><li>Mind Games Lionora (U)</li><li>Princess by Kilian</li><li>Vanilla Oudgasm</li></ul></div>
+    <div class="cat-group"><h4>Gucci</h4><ul><li>Gucci Bamboo</li><li>Gucci Flora</li><li>Gucci Flora Gorgeous</li><li>Gucci Gardenia</li><li>Gucci Guilty</li><li>Gucci Guilty Black</li><li>Gucci: The Voice Of The Snake</li></ul></div>
+    <div class="cat-group"><h4>Versace · D&amp;G</h4><ul><li>D&amp;G Devotion</li><li>D&amp;G Dolce Rose</li><li>D&amp;G Light Blue</li><li>D&amp;G The One</li><li>Dolce Gabbana</li><li>Dolce Gabbana Queen</li><li>Versace Bright Crystal</li><li>Versace Crystal Noir</li><li>Versace Dylan Blue</li><li>Versace Dylan Purple</li><li>Versace Eros</li><li>Versace Yellow Diamonds</li></ul></div>
+    <div class="cat-group"><h4>YSL · Armani · Givenchy</h4><ul><li>Donna Born in Rome</li><li>Givenchy Irresistible</li><li>Idole by Lancôme</li><li>Lancôme La Vie Est Belle</li><li>My Way by Armani</li><li>Si by Giorgio Armani</li><li>YSL Black Opium</li><li>YSL Libre</li><li>YSL Libre Flowers and Flame</li><li>YSL Mon Paris</li></ul></div>
+    <div class="cat-group"><h4>Burberry · Prada</h4><ul><li>Burberry Goddess</li><li>Burberry Her</li><li>Burberry Her Elixir</li><li>Burberry Summer (W)</li><li>Burberry Weekend</li><li>My Burberry Black</li><li>My Burberry Blush</li><li>Prada</li><li>Prada Candy</li><li>Prada Paradox</li></ul></div>
+    <div class="cat-group"><h4>Marc Jacobs · Jimmy Choo</h4><ul><li>Jimmy Choo</li><li>Jimmy Choo Fever</li><li>Jimmy Choo Floral</li><li>Jimmy Choo I Want Choo</li><li>Jimmy Choo Vanilla Love</li><li>Marc Jacobs (W)</li><li>Marc Jacobs Daisy (W)</li><li>Marc Jacobs Daisy Dream (W)</li><li>Marc Jacobs Daisy Hot Pink (W)</li><li>Marc Jacobs Daisy Paradise (W)</li><li>Marc Jacobs Daisy So Fresh</li><li>Marc Jacobs Dot</li><li>Marc Jacobs Honey</li><li>Marc Jacobs Perfect</li><li>Marc Jacobs Perfect Elixir</li></ul></div>
+    <div class="cat-group"><h4>Michael Kors · Coach · Ralph Lauren</h4><ul><li>Coach</li><li>Coach Blue (U)</li><li>Coach Dreams</li><li>Coach Floral</li><li>M Kors Wonderlust</li><li>Michael Kors</li><li>Michael Kors Gold</li><li>Michael Kors Sexy Amber (W)</li><li>Michael Kors Sexy Sunset (W)</li><li>Ralph Lauren Romance</li><li>Ralph Lauren Woman</li><li>Tory Burch</li><li>Tommy Bahama</li><li>Vince Camuto</li></ul></div>
+    <div class="cat-group"><h4>Ariana Grande · Rihanna · Nicki Minaj</h4><ul><li>Ariana Cloud</li><li>Ariana Grande Ari</li><li>Ariana Grande Cloud Intense 2.0</li><li>Ariana Grande Pink Woods</li><li>Nicki Minaj Queen</li><li>Nicki Minaj Summer</li><li>Nicki Minaj Trini Girl</li><li>Pink Friday</li><li>Pink Friday 2</li><li>Rihanna Crush</li><li>Rihanna Fenty</li><li>Rihanna Kiss</li><li>Rihanna Love</li><li>Rihanna Nude</li><li>Rihanna Reb'l Fleur</li><li>Rihanna RIRI</li></ul></div>
+    <div class="cat-group"><h4>Celebrity &amp; Pop</h4><ul><li>Beyonce Heat</li><li>Billie Eilish</li><li>ED Hardy (W)</li><li>Lady Million</li><li>Medea by Tyler Perry</li><li>Michelle Obama</li><li>Patti Labelle</li><li>Queen by Q. Latifah</li><li>Tease by Paris Hilton</li></ul></div>
+    <div class="cat-group"><h4>Victoria's Secret · BBW · Sol De Janeiro</h4><ul><li>Amber Romance (W) Vic Secret</li><li>Angel Vic Secret</li><li>BBW Amber Blush</li><li>BBW Beautiful Day</li><li>BBW Bubble Gum Pop</li><li>BBW Butter Cups and Berries</li><li>BBW Champagne Toast</li><li>BBW Into the Wild</li><li>BBW Japanese Cherry Blossom</li><li>Bombshell</li><li>Love Spell</li><li>Sol De Janeiro Brazilian Crush</li><li>Sol De Janeiro Bum Bum</li><li>Very Sexy</li></ul></div>
+    <div class="cat-group"><h4>More Designer</h4><ul><li>212 VIP Rose</li><li>Angel (Thierry Mugler)</li><li>Angel Fantasm</li><li>Barbie Fantasy</li><li>Be Delicious DKNY</li><li>Bloom</li><li>Escada Magnetism</li><li>Estee Lauder Beautiful</li><li>Estée Lauder Pleasure</li><li>Fame by Paco Rabanne</li><li>Fendi</li><li>Flower Bomb</li><li>Flower Bomb Tiger Lily</li><li>Forever Midnight</li><li>Good Girl</li><li>Good Girl Blush</li><li>Happy by Clinique</li><li>Issey Miyake</li><li>Juicy Couture</li><li>Juicy Couture I Am</li><li>J. Couture Is Sunny Hunny</li><li>Mercedes Benz</li><li>Red Door</li><li>Rose Gold by Tiffany and Co.</li><li>True Religion</li><li>Very Good Girl</li><li>Viva La Juicy</li><li>Viv La Juicy Neon</li><li>Yara by Lataffa</li><li>Yara Candy</li><li>Yara Pink</li></ul></div>
+    <div class="cat-group"><h4>Sweet &amp; Gourmand</h4><ul><li>Banana Cream</li><li>Birthday Cake</li><li>Cherry Lemonade</li><li>Cotton Candy</li><li>Creamsicle</li><li>Jolly Rancher Watermelon</li><li>Lemon Drop <span class="stock-tag">OUT OF STOCK</span></li><li>Lolly Lolly Pop</li><li>Peaches &amp; Cream</li><li>Pink Sugar</li><li>Pink Sugar Red Velvet</li><li>Pink Sugar Sparkle</li><li>Pistachio Gelato</li><li>Strawberry</li><li>Strawberry and Champagne</li><li>Strawberry Milkshake</li><li>Sweet Cookie</li><li>Tutti Frutti</li><li>Yum Boujee Marshmallow</li></ul></div>
+    <div class="cat-group"><h4>Body Oils &amp; Musk</h4><ul><li>Amber Gold</li><li>Amber Oud Gold (U)</li><li>Amber White (U)</li><li>Baby Powder</li><li>Baby Powder &amp; Honey</li><li>Black Butter Clear</li><li>Black Butter Dark</li><li>Black Coconut Fragrance (U)</li><li>Black Raspberry Vanilla</li><li>Black Sands</li><li>Black Sugar</li><li>Butt Naked</li><li>China Musk</li><li>Citrus &amp; Sage</li><li>Coco Mango</li><li>Coconut Mango Butter</li><li>Cucumber Melon</li><li>Egyptian Honey Suckle</li><li>Egyptian Musk</li><li>Eucalyptus</li><li>French Vanilla Supreme (U)</li><li>Inner Realm</li><li>Island Butter</li><li>It's Suga Honey</li><li>Jovan Musk</li><li>Juicy Peach</li><li>Lavender</li><li>Lemon Baby Powder</li><li>Lick Me All Over</li><li>Liquid Love Musk</li><li>Mango Butter</li><li>Mango Milk</li><li>Mango Pineapple</li><li>Night Queen</li><li>Paris Oud</li><li>Pear Berry</li><li>Peppermint</li><li>Pheromone</li><li>Polo Sports</li><li>Sweet Pea</li><li>Very Vanilla</li><li>Vodka on the Rocks</li><li>Wet Kisses</li><li>White Diamonds</li></ul></div>
+    <div class="cat-group"><h4>🔥 Adult Collection</h4><ul><li>Baby Cat</li><li>Back That Ass Up</li><li>Bad Girl</li><li>Bump and Grind</li><li>Eat It Raw</li><li>Eat Me Out</li><li>Freak Nasty</li><li>Hot Pink Pu$y</li><li>No Panties</li><li>Orgasm</li><li>Panty Dropper</li><li>Pussy</li><li>Sex on the Beach</li><li>Sugar Cat Pussy Deluxe</li></ul></div>
+  </div>
+  <div id="men-catalog" class="catalog-categories" style="display:none;">
+    <div class="cat-group"><h4>Creed · De Marly</h4><ul><li>Creed Absolu Aventus</li><li>Creed Aventus (M)</li><li>Creed Green Irish Tweed</li><li>Creed Millesime (M)</li><li>Creed Silver Mountain Water (M)</li><li>De Marly Layton</li><li>De Marly Pegasus</li><li>De Marly Preseus</li></ul></div>
+    <div class="cat-group"><h4>Tom Ford Collection</h4><ul><li>Tom Ford by Tom Ford</li><li>Tom Ford Bitter Peach</li><li>Tom Ford Bois Pacifique</li><li>Tom Ford Cherry Smoke</li><li>Tom Ford Extreme</li><li>Tom Ford Fuckin' Fabulous</li><li>Tom Ford Grey Vetiver</li><li>Tom Ford London</li><li>Tom Ford Lost Cherry</li><li>Tom Ford Myrrhe Mystere</li><li>Tom Ford Noir</li><li>Tom Ford Ombre Leather</li><li>Tom Ford Oud Wood</li><li>Tom Ford Rose Exposed (U)</li><li>Tom Ford Tobacco Oud</li><li>Tom Ford Tobacco Vanille</li><li>Tom Ford Tuscan Leather</li><li>Tom Ford Vanilla Sex</li></ul></div>
+    <div class="cat-group"><h4>Louis Vuitton</h4><ul><li>LV Afternoon Swim</li><li>LV California Dream</li><li>LV City of Stars</li><li>LV Imagination</li><li>LV Lemmensite</li><li>LV Lovers</li><li>LV Meteore</li><li>LV Ombre Nomad</li><li>LV Orage</li><li>LV Pacific Chill</li><li>LV Symphony</li></ul></div>
+    <div class="cat-group"><h4>Bond No. 9</h4><ul><li>Bond No. 9 Bleecker Street</li><li>Bond No. 9 Greenwich Village (M)</li><li>Bond No. 9 New York Nights</li><li>Bond No. 9 Sutton Place</li><li>Bond No. 9 Tribeca</li><li>Bond No. 9 Wall Street</li></ul></div>
+    <div class="cat-group"><h4>Chanel · Dior · Niche</h4><ul><li>724 Maison Francis Kurkdjian (U)</li><li>Baccarat Rouge 540 (U)</li><li>Chanel Bleu</li><li>Fahrenheit</li><li>Mojave Ghost</li><li>Oud Satin Mood</li><li>Sauvage</li><li>Sauvage Elixir</li><li>Straight to Heaven by Kilian</li></ul></div>
+    <div class="cat-group"><h4>1 Million · Paco Rabanne</h4><ul><li>1 Million</li><li>1 Million Elixir</li><li>1 Million Golden Oud</li><li>1 Million Intense</li><li>1 Million Lucky</li><li>1 Million Royal</li><li>Invictus Aqua</li><li>Phantom by Paco Rabanne</li></ul></div>
+    <div class="cat-group"><h4>Versace · D&amp;G</h4><ul><li>D&amp;G King</li><li>D&amp;G Light Blue</li><li>D&amp;G Light Blue Italian Love</li><li>D&amp;G The One</li><li>D&amp;G Vibe</li><li>Dolce Gabbana (M)</li><li>Dolce Gabbana Intenso (M)</li><li>Versace</li><li>Versace Black Jeans</li><li>Versace Blue Jeans</li><li>Versace Dylan Blue (M)</li><li>Versace Eros</li><li>Versace Eros Energy</li><li>Versace Eros Flame</li><li>Versace "The Dreamer"</li></ul></div>
+    <div class="cat-group"><h4>Polo · Ralph Lauren · YSL</h4><ul><li>Polo 67</li><li>Polo Black</li><li>Polo Blue Gold</li><li>Polo Deep Blue</li><li>Polo Double Black</li><li>Polo Red</li><li>Polo Red The Remix</li><li>Polo Red White and Blue</li><li>Polo Sport</li><li>Ralph's Club by Ralph Lauren</li><li>YSL "Y"</li><li>YSL Blue Homme</li><li>YSL Elixir</li><li>YSL Myslf (M)</li><li>YSL Myslf Absolu</li><li>YSL Y Eau De Parfum</li></ul></div>
+    <div class="cat-group"><h4>Gucci · Armani · Hugo Boss</h4><ul><li>Acqua Di Gio</li><li>Armani Black Code (M)</li><li>Armani Code</li><li>Code Sport by Armani</li><li>Gucci by Gucci (M)</li><li>Gucci Guilty</li><li>Gucci Guilty Black</li><li>Gucci Guilty Elixir <span class="new-tag">NEW</span></li><li>Gucci Guilty Oud (U)</li><li>Gucci II</li><li>Hugo Boss Dark Blue</li><li>Hugo Boss Red</li><li>Hugo Reversed</li></ul></div>
+    <div class="cat-group"><h4>Burberry · Givenchy</h4><ul><li>Burberry Brit</li><li>Burberry Hero</li><li>Burberry London</li><li>Burberry Touch</li><li>Mr. Burberry</li><li>Givenchy Gentleman</li><li>Givenchy Gentlemen Society</li><li>Givenchy Pi</li><li>Givenchy Play</li></ul></div>
+    <div class="cat-group"><h4>Jimmy Choo · Coach · Prada</h4><ul><li>Coach</li><li>Coach Platinum</li><li>Jimmy Choo Blue</li><li>Jimmy Choo Man Ice</li><li>Jo Malone Wood Sage</li><li>Prada Black (M)</li><li>Prada Luna Rossa Black</li><li>Prada Luna Rossa Ocean</li></ul></div>
+    <div class="cat-group"><h4>More Designer</h4><ul><li>212 VIP Black</li><li>3 AM by Sean John</li><li>50 Cent Power</li><li>Angel for Men</li><li>Anucci</li><li>Aramis</li><li>Azzaro Elixir</li><li>Azzaro The Most Wanted</li><li>Azzaro Wanted</li><li>Bad Boy</li><li>Bad Boy Cobalt Elixir</li><li>Bentley Azure</li><li>Calvin Klein Defy</li><li>CK One</li><li>Chrome Sport</li><li>Cool Water</li><li>Curve</li><li>Diesel</li><li>Drakkar</li><li>Drakkar Essence</li><li>Dunhill</li><li>Dunhill Desire</li><li>Fierce by Abercrombie and Fitch</li><li>Gold by Jay Z</li><li>Happy by Clinique</li><li>Hummer</li><li>Issey Miyake</li><li>Issey Miyake Sport</li><li>IZOD</li><li>Jean Paul Gaultier</li><li>Kenneth Cole Black</li><li>Lacoste Essential</li><li>Le Male Elixir by JPG</li><li>M Kors Extreme Speed</li><li>Marc Jacobs Bang</li><li>Mercedes Benz</li><li>Nautica Ocean</li><li>Nautica Voyage Sport</li><li>Perry Ellis 360 Red</li><li>Perry Ellis Pure Blue</li><li>Sean John Unforgivable</li><li>Super Playboy</li><li>True Religion</li><li>Usher</li><li>Valentino Born in Roma Intense</li><li>Valentino Pour Homme</li><li>Valentino Uomo Born in Roma</li><li>Very Sexy for Men</li></ul></div>
+    <div class="cat-group"><h4>Body Classics &amp; Musk</h4><ul><li>24K Royal Musk</li><li>African Musk</li><li>Al Den Ah Oud</li><li>Al Du Jannah</li><li>Baby Powder</li><li>Black Musk</li><li>Blue Nile</li><li>Blue Sugar</li><li>Bob Marley</li><li>Egyptian Musk</li><li>Golden Sand</li><li>Jamaican Fruit</li><li>Kush</li><li>Liquid Love Musk</li><li>Mecca Musk</li><li>Nag Champa</li><li>Paris Oud</li><li>Red Egyptian Musk</li><li>Sandal Wood</li><li>Superior Egyptian Musk</li><li>White Linen</li><li>White Musk</li></ul></div>
+    <div class="cat-group"><h4>🔥 Exclusives &amp; Fun</h4><ul><li>Bump and Grind</li><li>JERZEE Devil</li><li>King Freak by Sly's Nubian <span class="new-tag">HOUSE</span></li><li>Money</li><li>Money On The Street</li><li>No Diddy 🔥🔥🔥 <span class="new-tag">HOT</span></li><li>Obama</li><li>Rick Ross</li></ul></div>
+  </div>
+  <div class="catalog-count"><strong>450+</strong> fragrances available · Women's, Men's &amp; Unisex · Custom blends on request</div>
+</section>
+<section class="about" id="about">
+  <div class="about-image"><div class="about-image-frame"><img src="./images/sly-portrait.jpg" alt="Sly Noel — The Oil Guy" style="width:100%;height:100%;object-fit:cover;object-position:center top;"></div></div>
+  <div class="about-content">
+    <div class="overline">The Story</div>
+    <h2>Meet Sly —<br>The Oil Guy</h2>
+    <p>From door-to-door sales to Lexington's Greyline Station, Sly Noel has built a fragrance empire rooted in culture, community, and comeback. After overcoming a long battle with addiction through the Hope Center's recovery program, Sly channeled his passions into purpose.</p>
+    <p>Every bottle is mixed on the spot — a living experience, not a transaction. With 450+ designer-inspired scents and custom blends, Sly's Nubian Essentials isn't just a fragrance bar. It's a celebration of Black heritage, entrepreneurship, and the belief that luxury should be accessible to everyone.</p>
+    <p>Also known as DJ "Sly the King," he brings that same energy to recovery centers across Kentucky through his music and the Pain2Purpose movement.</p>
+    <div class="signature">— Sly Noel</div>
+  </div>
+</section>
+<div class="press">
+  <h3>As Featured In</h3>
+  <div class="press-logos">
+    <a href="https://spectrumnews1.com/ky/louisville/news/2023/02/14/lexington-s-triple-businessman--sly-noel-shows-success-after-addiction-" class="press-item" target="_blank">Spectrum News 1</a>
+    <a href="https://www.wkyt.com/2022/11/26/lexington-businesses-participating-small-business-saturday/" class="press-item" target="_blank">WKYT News</a>
+    <a href="https://www.lex18.com/news/covering-kentucky/lexington-hip-hop-group-brings-music-to-recovery-centers-to-inspire-hope-and-healing-ky" class="press-item" target="_blank">LEX 18</a>
+    <a href="https://www.buyblack.org/united-states-of-america/lexington/shopping/sly-s-nubian-essentials" class="press-item" target="_blank">BuyBlack.org</a>
+    <span class="press-item">Greyline Station</span>
+  </div>
+</div>
+<section class="order" id="order">
+  <div class="section-header"><div class="overline">Get Yours</div><h2>How to Order</h2><div class="divider"></div></div>
+  <div class="order-methods">
+    <a href="tel:8593335397" class="order-card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg><h4>Call or Text</h4><p>Reach Sly directly for orders and custom blends</p><div class="contact-detail">(859) 333-5397</div></a>
+    <a href="https://www.facebook.com/profile.php?id=100048109075137" target="_blank" class="order-card"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg><h4>Facebook</h4><p>DM for orders, browse photos & reviews</p><div class="contact-detail">@Sly's Nubian Essentials</div></a>
+    <a href="mailto:mr.slyynoel@hotmail.com" class="order-card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><h4>Email</h4><p>Wholesale inquiries and large orders</p><div class="contact-detail">mr.slyynoel@hotmail.com</div></a>
+  </div>
+</section>
+<section class="location">
+  <div class="location-inner">
+    <div class="location-info"><h3>Visit the Shop</h3><p>📍 1039 N Limestone<br>Lexington, KY</p><p>Inside the heart of Lexington's Northside community.</p><div class="hours"><p><span>Hours:</span> Monday – Saturday, 9am – 5pm</p><p style="margin-top:8px;font-size:13px;color:var(--text-muted)">Local pickup · Shipping nationwide · Custom blends mixed on the spot</p></div></div>
+    <div class="location-map"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3144.5!2d-84.4947!3d38.0606!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzjCsDAzJzM4LjIiTiA4NMKwMjknNDAuOSJX!5e0!3m2!1sen!2sus!4v1700000000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+  </div>
+</section>
+<footer>
+  <div class="footer-social">
+    <a href="https://www.facebook.com/profile.php?id=100048109075137" target="_blank"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+    <a href="tel:8593335397"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg></a>
+    <a href="mailto:mr.slyynoel@hotmail.com"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a>
+  </div>
+  <div class="footer-brand">SLY'S NUBIAN ESSENTIALS</div>
+  <div class="footer-tagline">Luxury Rooted in Culture · Lexington, KY</div>
+  <div class="footer-disclaimer">Name trademarks and copyrights are properties of their respective manufacturers and/or designers. Sly's Nubian Essentials has no affiliation with the manufacturers/designers of the original perfumes. Our interpretation of these fragrances was created through chemical analysis and reproduction. We do not represent our products to be original nor exact copies. All references to brand names are strictly for comparison and are inspired by them. Our fragrances are body oils and not original perfumes or colognes.</div>
+  <div class="footer-copy">© 2025 Sly's Nubian Essentials LLC · All Rights Reserved</div>
+</footer>
+<!-- Product Modal -->
+<div class="product-modal" id="product-modal">
+  <div class="modal-backdrop" onclick="closeProduct()"></div>
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeProduct()">&times;</button>
+    <div class="modal-name" id="modal-name"></div>
+    <div class="modal-subtitle">Select size &amp; quantity</div>
+    <div class="size-selector" id="size-selector">
+      <button class="size-btn" data-size=".33" onclick="selectSize('.33')"><span class="sz-label">&#8531; oz</span><span class="sz-price">$6</span></button>
+      <button class="size-btn" data-size="1" onclick="selectSize('1')"><span class="sz-label">1 oz</span><span class="sz-price">$10</span></button>
+      <button class="size-btn" data-size="2" onclick="selectSize('2')"><span class="sz-label">2 oz</span><span class="sz-price">$20</span></button>
+      <button class="size-btn" data-size="4" onclick="selectSize('4')"><span class="sz-label">4 oz</span><span class="sz-price">$40</span></button>
+    </div>
+    <div class="modal-bundle" id="modal-bundle"></div>
+    <div class="qty-control">
+      <span>Qty</span>
+      <button class="qty-btn" onclick="changeQty(-1)">&minus;</button>
+      <div class="qty-value" id="modal-qty">1</div>
+      <button class="qty-btn" onclick="changeQty(1)">+</button>
+    </div>
+    <button class="add-to-cart-btn" id="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
+  </div>
+</div>
+
+<!-- Cart Overlay + Drawer -->
+<div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cart-drawer">
+  <div class="cart-header">
+    <h3>Your Cart</h3>
+    <button class="cart-close" onclick="closeCart()">&times;</button>
+  </div>
+  <div class="cart-items" id="cart-items"></div>
+  <div class="cart-footer" id="cart-footer">
+    <div class="cart-subtotal">
+      <span>Subtotal</span>
+      <strong id="cart-total">$0</strong>
+    </div>
+    <button class="place-order-btn" onclick="placeOrder()">Place Order</button>
+  </div>
+  <div class="order-confirm" id="order-confirm">
+    <div class="order-confirm-check">&#10003;</div>
+    <h3>Order Saved!</h3>
+    <p>Contact Sly to complete your order. Reference your selections when you reach out.</p>
+    <div class="confirm-contact">
+      <a href="tel:8593335397"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>Call or Text (859) 333-5397</a>
+      <a href="https://www.facebook.com/profile.php?id=100048109075137" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>Facebook DM</a>
+      <a href="mailto:mr.slyynoel@hotmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Email mr.slyynoel@hotmail.com</a>
+    </div>
+    <button class="continue-btn" onclick="continueShopping()">Continue Shopping</button>
+  </div>
+</div>
+
+<script>
+// Catalog tab switching
+function showCatalog(t){
+  document.getElementById('women-catalog').style.display=t==='women'?'grid':'none';
+  document.getElementById('men-catalog').style.display=t==='men'?'grid':'none';
+  document.querySelectorAll('.catalog-tab').forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+// === Cart State ===
+var cart = [];
+var modalState = { name: '', size: '1', qty: 1 };
+
+var PRICES = { '.33': 6, '1': 10, '2': 20, '4': 40 };
+var SIZE_LABELS = { '.33': '\u2153 oz', '1': '1 oz', '2': '2 oz', '4': '4 oz' };
+var BUNDLES = {
+  '.33': '3 for $12 \u00b7 7 for $30',
+  '1':   '3 for $25 \u00b7 7 for $50',
+  '2':   '3 for $55 \u00b7 5 for $80',
+  '4':   '2 for $75'
+};
+
+// === Product Modal ===
+function openProduct(name) {
+  modalState.name = name;
+  modalState.size = '1';
+  modalState.qty = 1;
+  document.getElementById('modal-name').textContent = name;
+  document.getElementById('modal-qty').textContent = '1';
+  var btn = document.getElementById('add-to-cart-btn');
+  btn.textContent = 'Add to Cart';
+  btn.classList.remove('added');
+  selectSize('1');
+  document.getElementById('product-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeProduct() {
+  document.getElementById('product-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function selectSize(size) {
+  modalState.size = size;
+  document.querySelectorAll('.size-btn').forEach(function(b) {
+    b.classList.toggle('active', b.getAttribute('data-size') === size);
+  });
+  document.getElementById('modal-bundle').textContent = BUNDLES[size] || '';
+}
+
+function changeQty(delta) {
+  modalState.qty = Math.max(1, modalState.qty + delta);
+  document.getElementById('modal-qty').textContent = modalState.qty;
+}
+
+function addToCart() {
+  var name = modalState.name;
+  var size = modalState.size;
+  var qty = modalState.qty;
+  var existing = null;
+  for (var i = 0; i < cart.length; i++) {
+    if (cart[i].name === name && cart[i].size === size) { existing = cart[i]; break; }
+  }
+  if (existing) {
+    existing.qty += qty;
+  } else {
+    cart.push({ name: name, size: size, sizeLabel: SIZE_LABELS[size], price: PRICES[size], qty: qty });
+  }
+  updateBadge();
+  var btn = document.getElementById('add-to-cart-btn');
+  btn.textContent = '\u2713 Added!';
+  btn.classList.add('added');
+  setTimeout(function() { closeProduct(); }, 600);
+}
+
+// === Badge ===
+function updateBadge() {
+  var total = 0;
+  for (var i = 0; i < cart.length; i++) total += cart[i].qty;
+  var badge = document.getElementById('cart-badge');
+  badge.textContent = total;
+  if (total > 0) {
+    badge.classList.add('visible');
+    badge.classList.remove('pulse');
+    void badge.offsetWidth;
+    badge.classList.add('pulse');
+  } else {
+    badge.classList.remove('visible');
+  }
+}
+
+// === Cart Drawer ===
+function openCart() {
+  renderCart();
+  document.getElementById('cart-overlay').classList.add('open');
+  document.getElementById('cart-drawer').classList.add('open');
+  document.getElementById('order-confirm').classList.remove('show');
+  document.getElementById('cart-items').style.display = '';
+  document.getElementById('cart-footer').style.display = '';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeCart() {
+  document.getElementById('cart-overlay').classList.remove('open');
+  document.getElementById('cart-drawer').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function renderCart() {
+  var container = document.getElementById('cart-items');
+  if (cart.length === 0) {
+    container.innerHTML = '<div class="cart-empty">Your cart is empty.<br>Browse the catalog and add some scents!</div>';
+    document.getElementById('cart-footer').style.display = 'none';
+    return;
+  }
+  document.getElementById('cart-footer').style.display = '';
+  var html = '';
+  var subtotal = 0;
+  for (var i = 0; i < cart.length; i++) {
+    var item = cart[i];
+    var lineTotal = item.price * item.qty;
+    subtotal += lineTotal;
+    html += '<div class="cart-item">' +
+      '<div>' +
+        '<div class="cart-item-name">' + escHtml(item.name) + '</div>' +
+        '<div class="cart-item-size">' + escHtml(item.sizeLabel) + ' &mdash; $' + item.price + ' each</div>' +
+        '<div class="cart-item-controls">' +
+          '<button class="qty-btn" onclick="updateQty(' + i + ',-1)">&minus;</button>' +
+          '<span class="qty-value">' + item.qty + '</span>' +
+          '<button class="qty-btn" onclick="updateQty(' + i + ',1)">+</button>' +
+          '<button class="cart-item-remove" onclick="removeItem(' + i + ')">Remove</button>' +
+        '</div>' +
+      '</div>' +
+      '<div class="cart-item-price">$' + lineTotal + '</div>' +
+    '</div>';
+  }
+  container.innerHTML = html;
+  document.getElementById('cart-total').textContent = '$' + subtotal;
+}
+
+function updateQty(index, delta) {
+  cart[index].qty += delta;
+  if (cart[index].qty < 1) cart.splice(index, 1);
+  updateBadge();
+  renderCart();
+}
+
+function removeItem(index) {
+  cart.splice(index, 1);
+  updateBadge();
+  renderCart();
+}
+
+function placeOrder() {
+  document.getElementById('cart-items').style.display = 'none';
+  document.getElementById('cart-footer').style.display = 'none';
+  document.getElementById('order-confirm').classList.add('show');
+  cart = [];
+  updateBadge();
+}
+
+function continueShopping() {
+  closeCart();
+}
+
+function escHtml(s) {
+  var d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+// === Attach Click Handlers to Catalog Items ===
+(function() {
+  // Style out-of-stock items
+  document.querySelectorAll('.cat-group li').forEach(function(li) {
+    if (li.querySelector('.stock-tag')) {
+      li.style.opacity = '0.45';
+      li.style.cursor = 'not-allowed';
+    }
+  });
+
+  // Event delegation on both catalog containers
+  ['women-catalog', 'men-catalog'].forEach(function(id) {
+    var container = document.getElementById(id);
+    if (!container) return;
+    container.addEventListener('click', function(e) {
+      var li = e.target.closest('.cat-group li');
+      if (!li) return;
+      if (li.querySelector('.stock-tag')) return;
+      var clone = li.cloneNode(true);
+      var tags = clone.querySelectorAll('.new-tag, .stock-tag');
+      tags.forEach(function(t) { t.remove(); });
+      openProduct(clone.textContent.trim());
+    });
+  });
+})();
+</script>
+</body>
+</html>
