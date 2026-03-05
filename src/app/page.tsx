@@ -235,7 +235,7 @@ export default function HomePage() {
                 <span className="font-display text-2xl font-bold text-graphite/30">PF</span>
               </div>
               <p className="text-sm font-semibold text-graphite">Phil Fifield</p>
-              <p className="text-xs text-stone mt-1">Founder</p>
+              <p className="text-xs text-stone mt-1">Founder &amp; CEO</p>
             </div>
           </div>
 
