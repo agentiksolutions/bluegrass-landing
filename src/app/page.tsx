@@ -1,9 +1,9 @@
 import Link from "next/link";
+import Image from "next/image";
 import SectionLabel from "@/components/section-label";
 import Button from "@/components/button";
 import Card from "@/components/card";
 import CTABand from "@/components/cta-band";
-import VideoPlayer from "@/components/video-player";
 
 const services = [
   {
@@ -43,6 +43,7 @@ const showroomRooms = [
     desc: "Enter your business info. Get a custom report on where AI can save you time and money.",
     tag: "Interactive",
     href: "/showroom/report",
+    image: "/videos/showroom-opportunity-report.png",
   },
   {
     num: "02",
@@ -50,6 +51,7 @@ const showroomRooms = [
     desc: "See a live preview of what your business website could look like. Built in seconds.",
     tag: "Live Preview",
     href: "/showroom/website",
+    image: "/videos/showroom-website-generator.png",
   },
   {
     num: "03",
@@ -57,6 +59,7 @@ const showroomRooms = [
     desc: "Explore a sample dashboard for your industry. See your numbers the way they should look.",
     tag: "Interactive",
     href: "/showroom/dashboard",
+    image: "/videos/showroom-dashboard-demo.png",
   },
   {
     num: "04",
@@ -64,6 +67,7 @@ const showroomRooms = [
     desc: "Real sites and tools we've designed. Click through them, interact with them.",
     tag: "Portfolio",
     href: "/showroom/examples",
+    image: "/videos/showroom-built-examples.png",
   },
 ];
 
@@ -73,49 +77,63 @@ const blogPosts = [
     category: "Lessons Learned",
     read: "5 min read",
     slug: "automated-35-workflows",
+    image: "/videos/blog-automated-workflows.png",
   },
   {
     title: "The AI Trust Gap: Why Most Businesses Aren't Ready to Buy",
     category: "Strategy",
     read: "4 min read",
     slug: "ai-trust-gap",
+    image: "/videos/blog-trust-gap.png",
   },
   {
     title: "How We Cut 12 Hours of Weekly Admin Work Across Three Locations",
     category: "Case Study",
     read: "6 min read",
     slug: "cut-12-hours-admin",
+    image: "/videos/blog-cut-admin-hours.png",
   },
 ];
 
 export default function HomePage() {
   return (
     <>
-      {/* ════════ HERO ════════ */}
-      <section className="pt-[150px] pb-16 px-6 md:px-12 max-w-content mx-auto">
-        <SectionLabel>Lexington, Kentucky</SectionLabel>
-        <h1 className="font-display text-[clamp(38px,5.5vw,62px)] leading-[1.1] font-bold tracking-tight mb-7">
-          We help businesses
-          <br />
-          figure out AI.
-        </h1>
-        <p className="text-lg leading-relaxed text-[#666] max-w-[520px] mb-11">
-          Most companies know they should be doing something with AI but don&apos;t
-          know where to start. We learn your business, find what&apos;s worth
-          building, and build it.
-        </p>
-        <div className="flex gap-3 flex-wrap">
-          <Button href="/showroom">Try the Showroom</Button>
-          <Button href="/services" variant="secondary">
-            What We Do
-          </Button>
+      {/* ════════ HERO — Full-bleed video ════════ */}
+      <section className="relative min-h-screen flex items-center overflow-hidden">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src="/videos/kling-hero-bluegrass.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-graphite/55" />
+        <div className="relative z-10 px-6 md:px-12 max-w-content mx-auto w-full">
+          <SectionLabel light>Lexington, Kentucky</SectionLabel>
+          <h1 className="font-display text-[clamp(38px,5.5vw,62px)] leading-[1.1] font-bold tracking-tight mb-7 text-warm-white">
+            We help businesses
+            <br />
+            figure out AI.
+          </h1>
+          <p className="text-lg leading-relaxed text-warm-white/70 max-w-[520px] mb-11">
+            Most companies know they should be doing something with AI but don&apos;t
+            know where to start. We learn your business, find what&apos;s worth
+            building, and build it.
+          </p>
+          <div className="flex gap-3 flex-wrap">
+            <Button href="/showroom">Try the Showroom</Button>
+            <Button
+              href="/services"
+              variant="secondary"
+              className="!text-warm-white !border-warm-white/30 hover:!border-warm-white"
+            >
+              What We Do
+            </Button>
+          </div>
         </div>
       </section>
-
-      {/* Thin accent line */}
-      <div className="max-w-content mx-auto px-6 md:px-12">
-        <div className="h-px bg-gradient-to-r from-emerald/25 to-transparent" />
-      </div>
 
       {/* ════════ SHOWROOM ════════ */}
       <section className="section-padding max-w-content mx-auto">
@@ -134,6 +152,15 @@ export default function HomePage() {
           {showroomRooms.map((room) => (
             <Link key={room.num} href={room.href} className="group block">
               <Card>
+                <div className="relative -mx-9 -mt-9 mb-6 overflow-hidden rounded-t-lg">
+                  <Image
+                    src={room.image}
+                    alt={room.title}
+                    width={600}
+                    height={340}
+                    className="w-full h-[200px] object-cover group-hover:scale-[1.03] transition-transform duration-500"
+                  />
+                </div>
                 <div className="flex justify-between items-start mb-4">
                   <span className="font-display text-4xl font-bold text-[#e8e5e0] group-hover:text-emerald transition-colors leading-none">
                     {room.num}
@@ -202,10 +229,15 @@ export default function HomePage() {
       {/* ════════ ABOUT STRIP ════════ */}
       <section className="section-padding max-w-content mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-[72px] items-center">
-          <VideoPlayer
-            src="/videos/kling-hero-bluegrass.mp4"
-            label="Kentucky — Where We Work"
-          />
+          <div className="relative rounded-lg overflow-hidden bg-cream aspect-[3/4] flex items-center justify-center">
+            <div className="text-center">
+              <div className="w-28 h-28 rounded-full bg-graphite/[0.08] mx-auto mb-5 flex items-center justify-center">
+                <span className="font-display text-2xl font-bold text-graphite/30">PF</span>
+              </div>
+              <p className="text-sm font-semibold text-graphite">Phil Fifield</p>
+              <p className="text-xs text-stone mt-1">Founder</p>
+            </div>
+          </div>
 
           <div>
             <SectionLabel>About</SectionLabel>
@@ -253,14 +285,25 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {blogPosts.map((post) => (
               <Link key={post.slug} href={`/insights/${post.slug}`} className="group">
-                <article className="bg-warm-white rounded-md p-8 border border-transparent group-hover:border-emerald group-hover:-translate-y-0.5 transition-all duration-[250ms]">
-                  <span className="text-[10px] font-bold tracking-[1.5px] text-emerald uppercase">
-                    {post.category}
-                  </span>
-                  <h3 className="font-display text-lg font-bold leading-snug my-3 text-graphite">
-                    {post.title}
-                  </h3>
-                  <span className="text-xs text-[#bbb]">{post.read}</span>
+                <article className="bg-warm-white rounded-md overflow-hidden border border-transparent group-hover:border-emerald group-hover:-translate-y-0.5 transition-all duration-[250ms]">
+                  <div className="relative overflow-hidden">
+                    <Image
+                      src={post.image}
+                      alt={post.title}
+                      width={400}
+                      height={220}
+                      className="w-full h-[180px] object-cover group-hover:scale-[1.03] transition-transform duration-500"
+                    />
+                  </div>
+                  <div className="p-8">
+                    <span className="text-[10px] font-bold tracking-[1.5px] text-emerald uppercase">
+                      {post.category}
+                    </span>
+                    <h3 className="font-display text-lg font-bold leading-snug my-3 text-graphite">
+                      {post.title}
+                    </h3>
+                    <span className="text-xs text-[#bbb]">{post.read}</span>
+                  </div>
                 </article>
               </Link>
             ))}
@@ -268,8 +311,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ════════ CTA ════════ */}
-      <CTABand />
+      {/* ════════ CTA — Full-bleed video ════════ */}
+      <CTABand video="/videos/kling-architecture.mp4" />
     </>
   );
 }

@@ -6,6 +6,7 @@ interface CTABandProps {
   buttonText?: string;
   buttonHref?: string;
   dark?: boolean;
+  video?: string;
 }
 
 export default function CTABand({
@@ -14,6 +15,7 @@ export default function CTABand({
   buttonText = "Schedule a Call",
   buttonHref = "/contact",
   dark = false,
+  video,
 }: CTABandProps) {
   if (dark) {
     return (
@@ -35,6 +37,41 @@ export default function CTABand({
               Email Us
             </Button>
           </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (video) {
+    return (
+      <section className="relative py-28 px-6 md:px-12 overflow-hidden">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src={video} type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-graphite/65" />
+        <div className="relative z-10 max-w-[560px] mx-auto text-center">
+          <h2 className="font-display text-[clamp(30px,4vw,42px)] font-bold tracking-tight mb-4 text-warm-white">
+            {headline}
+          </h2>
+          <p className="text-base leading-relaxed text-warm-white/70 mb-9">
+            {subtext}
+          </p>
+          <Button href={buttonHref}>{buttonText}</Button>
+          <p className="mt-3.5 text-[13px] text-warm-white/40">
+            or email{" "}
+            <a
+              href="mailto:phil@bluegrassadvisorygroup.com"
+              className="text-sage hover:underline"
+            >
+              phil@bluegrassadvisorygroup.com
+            </a>
+          </p>
         </div>
       </section>
     );
