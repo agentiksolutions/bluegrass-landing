@@ -4,6 +4,7 @@ import SectionLabel from "@/components/section-label";
 import Button from "@/components/button";
 import Card from "@/components/card";
 import CTABand from "@/components/cta-band";
+import AutoplayVideos from "@/components/autoplay-videos";
 
 const services = [
   {
@@ -229,13 +230,19 @@ export default function HomePage() {
       {/* ════════ ABOUT STRIP ════════ */}
       <section className="section-padding max-w-content mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-[72px] items-center">
-          <div className="relative rounded-lg overflow-hidden bg-cream aspect-[3/4] flex items-center justify-center">
-            <div className="text-center">
-              <div className="w-28 h-28 rounded-full bg-graphite/[0.08] mx-auto mb-5 flex items-center justify-center">
-                <span className="font-display text-2xl font-bold text-graphite/30">PF</span>
-              </div>
-              <p className="text-sm font-semibold text-graphite">Phil Fifield</p>
-              <p className="text-xs text-stone mt-1">Founder &amp; CEO</p>
+          <div className="relative rounded-[12px] overflow-hidden aspect-[3/4]">
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover"
+            >
+              <source src="/videos/horse-track.mp4" type="video/mp4" />
+            </video>
+            <div className="absolute inset-0 bg-[rgba(28,28,30,0.15)]" />
+            <div className="absolute bottom-4 left-4 text-[11px] text-warm-white/80 tracking-[2px] uppercase font-semibold">
+              Kentucky &mdash; Where We Work
             </div>
           </div>
 
@@ -313,6 +320,8 @@ export default function HomePage() {
 
       {/* ════════ CTA — Full-bleed video ════════ */}
       <CTABand video="/videos/kling-architecture.mp4" />
+
+      <AutoplayVideos />
     </>
   );
 }

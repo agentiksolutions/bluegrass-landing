@@ -50,11 +50,11 @@ export default function CTABand({
           muted
           loop
           playsInline
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 z-0 w-full h-full object-cover pointer-events-none"
         >
           <source src={video} type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-[rgba(28,28,30,0.55)]" />
+        <div className="absolute inset-0 z-[1] bg-[rgba(28,28,30,0.55)]" />
         <div className="relative z-10 max-w-[560px] mx-auto text-center">
           <h2 className="font-display text-[clamp(30px,4vw,42px)] font-bold tracking-tight mb-4 text-warm-white">
             {headline}
