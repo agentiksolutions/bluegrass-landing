@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import SectionLabel from "@/components/section-label";
-import VideoPlayer from "@/components/video-player";
 import CTABand from "@/components/cta-band";
+import AutoplayVideos from "@/components/autoplay-videos";
 
 export const metadata: Metadata = {
   title: "About",
@@ -66,20 +66,27 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <VideoPlayer
-            src="/videos/kling-hero-bluegrass.mp4"
-            label="Kentucky — Where We Work"
-          />
+          <div className="relative rounded-[12px] overflow-hidden bg-graphite aspect-video">
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover"
+            >
+              <source src="/videos/horse-track.mp4" type="video/mp4" />
+            </video>
+          </div>
         </div>
       </section>
 
       {/* Stats */}
       <section className="bg-graphite text-warm-white py-20 px-6 md:px-12">
         <div className="max-w-content mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-10">
             {stats.map((s) => (
-              <div key={s.label}>
-                <div className="font-display text-5xl font-bold text-emerald mb-2">
+              <div key={s.label} className="min-w-0 text-center md:text-left">
+                <div className="font-display text-3xl md:text-[44px] font-bold text-emerald mb-2 leading-none">
                   {s.num}
                 </div>
                 <div className="text-sm text-stone tracking-wide">{s.label}</div>
@@ -118,11 +125,23 @@ export default function AboutPage() {
 
       {/* Architecture video */}
       <section className="py-12 px-6 md:px-12 max-w-content mx-auto">
-        <VideoPlayer
-          src="/videos/kling-architecture.mp4"
-          label="Architecture — How We Think"
-        />
+        <div className="relative rounded-lg overflow-hidden bg-graphite aspect-video">
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+          >
+            <source src="/videos/kling-architecture.mp4" type="video/mp4" />
+          </video>
+          <div className="absolute bottom-4 left-4 text-[11px] text-stone tracking-wider uppercase font-semibold">
+            Architecture &mdash; How We Think
+          </div>
+        </div>
       </section>
+
+      <AutoplayVideos />
 
       <CTABand
         headline="Let's figure out if we can help."
