@@ -6,6 +6,7 @@ import remarkGfm from "remark-gfm";
 import { getAllPosts, getPost } from "@/lib/mdx";
 import SectionLabel from "@/components/section-label";
 import CTABand from "@/components/cta-band";
+import JsonLd from "@/components/json-ld";
 
 interface Props {
   params: { slug: string };
@@ -21,6 +22,7 @@ export function generateMetadata({ params }: Props): Metadata {
   return {
     title: post.meta.title,
     description: post.meta.description,
+    alternates: { canonical: `/insights/${params.slug}` },
     openGraph: {
       title: post.meta.title,
       description: post.meta.description,
@@ -34,8 +36,30 @@ export default function InsightPostPage({ params }: Props) {
   const post = getPost(params.slug);
   if (!post) notFound();
 
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.meta.title,
+    description: post.meta.description,
+    datePublished: post.meta.date,
+    author: {
+      "@type": "Person",
+      name: "Phil Fifield",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Bluegrass Advisory Group",
+      url: "https://bluegrassadvisorygroup.com",
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `https://bluegrassadvisorygroup.com/insights/${params.slug}`,
+    },
+  };
+
   return (
     <>
+      <JsonLd data={articleJsonLd} />
       <article className="pt-[148px] pb-16 px-6 md:px-12 max-w-[720px] mx-auto">
         <Link
           href="/insights"

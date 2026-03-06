@@ -4,7 +4,8 @@ import ServicePageTemplate from "@/components/service-page-template";
 export const metadata: Metadata = {
   title: "Dashboards & Data",
   description:
-    "One screen instead of five apps. Real-time numbers that help you make decisions.",
+    "Custom business dashboards that pull your data into one screen. Real-time KPIs, automated reports, multi-location views. Lexington, Kentucky.",
+  alternates: { canonical: "/services/dashboards" },
 };
 
 export default function DashboardsPage() {
@@ -32,6 +33,26 @@ export default function DashboardsPage() {
       showroomLink={{
         href: "/showroom/dashboard",
         label: "Try the Dashboard Demo",
+      }}
+      relatedPosts={[
+        {
+          href: "/insights/cut-12-hours-admin",
+          title: "How We Cut 12 Hours of Weekly Admin Work Across Three Locations",
+          category: "Case Study",
+        },
+      ]}
+      serviceJsonLd={{
+        "@context": "https://schema.org",
+        "@type": "Service",
+        serviceType: "Dashboard Development",
+        provider: {
+          "@type": "LocalBusiness",
+          name: "Bluegrass Advisory Group",
+          url: "https://bluegrassadvisorygroup.com",
+        },
+        areaServed: "Central Kentucky",
+        description:
+          "Custom business dashboard development. Real-time KPIs, automated reports, multi-location views, and mobile-friendly data visualization.",
       }}
     />
   );

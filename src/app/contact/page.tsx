@@ -4,7 +4,8 @@ import SectionLabel from "@/components/section-label";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Get in touch with Bluegrass Advisory Group. No sales pitch, no pressure — just a conversation about your business.",
+    "Contact Bluegrass Advisory Group in Lexington, Kentucky. Free 30-minute consultation — no sales pitch, just a conversation about your business.",
+  alternates: { canonical: "/contact" },
 };
 
 export default function ContactPage() {

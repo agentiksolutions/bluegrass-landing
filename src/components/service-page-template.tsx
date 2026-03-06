@@ -1,6 +1,14 @@
+import Link from "next/link";
 import SectionLabel from "./section-label";
 import Button from "./button";
 import CTABand from "./cta-band";
+import JsonLd from "./json-ld";
+
+interface RelatedPost {
+  href: string;
+  title: string;
+  category: string;
+}
 
 interface ServicePageProps {
   label: string;
@@ -9,6 +17,8 @@ interface ServicePageProps {
   deliverables: string[];
   whoItsFor: string[];
   showroomLink?: { href: string; label: string };
+  relatedPosts?: RelatedPost[];
+  serviceJsonLd?: Record<string, unknown>;
 }
 
 export default function ServicePageTemplate({
@@ -18,9 +28,12 @@ export default function ServicePageTemplate({
   deliverables,
   whoItsFor,
   showroomLink,
+  relatedPosts,
+  serviceJsonLd,
 }: ServicePageProps) {
   return (
     <>
+      {serviceJsonLd && <JsonLd data={serviceJsonLd} />}
       {/* Hero */}
       <section className="pt-[148px] pb-16 px-6 md:px-12 max-w-content mx-auto">
         <SectionLabel>{label}</SectionLabel>
@@ -69,6 +82,29 @@ export default function ServicePageTemplate({
         <section className="py-16 px-6 md:px-12 max-w-content mx-auto text-center">
           <p className="text-stone text-sm mb-4">See it in action</p>
           <Button href={showroomLink.href}>{showroomLink.label}</Button>
+        </section>
+      )}
+
+      {/* Related articles */}
+      {relatedPosts && relatedPosts.length > 0 && (
+        <section className="py-16 px-6 md:px-12 max-w-content mx-auto">
+          <h2 className="font-display text-2xl font-bold mb-8">
+            Related articles.
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {relatedPosts.map((post) => (
+              <Link key={post.href} href={post.href} className="group">
+                <div className="p-6 bg-white rounded-lg border border-[#e8e5e0] transition-all group-hover:border-emerald group-hover:-translate-y-0.5">
+                  <span className="text-[10px] font-bold tracking-[1.5px] text-emerald uppercase">
+                    {post.category}
+                  </span>
+                  <h3 className="font-display text-lg font-bold leading-snug mt-2 text-graphite group-hover:text-emerald transition-colors">
+                    {post.title}
+                  </h3>
+                </div>
+              </Link>
+            ))}
+          </div>
         </section>
       )}
 

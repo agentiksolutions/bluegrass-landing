@@ -7,7 +7,8 @@ import CTABand from "@/components/cta-band";
 export const metadata: Metadata = {
   title: "Showroom",
   description:
-    "No signup. No sales pitch. Interactive tools that show you what AI can do for your business.",
+    "Try AI tools for your business — no signup, no sales pitch. Interactive demos for dashboards, websites, and AI reports. Lexington, KY.",
+  alternates: { canonical: "/showroom" },
 };
 
 const rooms = [

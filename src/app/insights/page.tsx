@@ -6,7 +6,8 @@ import { getAllPosts } from "@/lib/mdx";
 export const metadata: Metadata = {
   title: "Insights",
   description:
-    "Articles on AI, business operations, web design, and modernizing your business. From practitioners, not theorists.",
+    "Practical articles on AI integration, business automation, and operations consulting. Written by practitioners running real systems in Kentucky.",
+  alternates: { canonical: "/insights" },
 };
 
 export default function InsightsPage() {

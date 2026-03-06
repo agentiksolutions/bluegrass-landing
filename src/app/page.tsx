@@ -5,6 +5,7 @@ import Button from "@/components/button";
 import Card from "@/components/card";
 import CTABand from "@/components/cta-band";
 import AutoplayVideos from "@/components/autoplay-videos";
+import JsonLd from "@/components/json-ld";
 
 const services = [
   {
@@ -96,9 +97,34 @@ const blogPosts = [
   },
 ];
 
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": ["Organization", "LocalBusiness"],
+  name: "Bluegrass Advisory Group",
+  description:
+    "AI integration and business operations consulting for companies ready to modernize. Based in Lexington, Kentucky.",
+  url: "https://bluegrassadvisorygroup.com",
+  email: "phil@bluegrassadvisorygroup.com",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Lexington",
+    addressRegion: "KY",
+    addressCountry: "US",
+  },
+  areaServed: "Central Kentucky",
+  priceRange: "$",
+  serviceType: [
+    "AI Consulting",
+    "Business Operations",
+    "Web Design",
+    "Dashboard Development",
+  ],
+};
+
 export default function HomePage() {
   return (
     <>
+      <JsonLd data={organizationJsonLd} />
       {/* ════════ HERO — Full-bleed video ════════ */}
       <section className="relative min-h-screen flex items-center overflow-hidden">
         <video
@@ -261,12 +287,20 @@ export default function HomePage() {
               Based in Lexington, working with Kentucky businesses who want to
               modernize without getting sold a bunch of software they don&apos;t need.
             </p>
-            <Link
-              href="/about"
-              className="text-sm text-emerald font-semibold hover:underline"
-            >
-              More about us &rarr;
-            </Link>
+            <div className="flex gap-4 items-center">
+              <Link
+                href="/about"
+                className="text-sm text-emerald font-semibold hover:underline"
+              >
+                More about us &rarr;
+              </Link>
+              <Link
+                href="/contact"
+                className="text-sm text-stone hover:text-emerald transition-colors"
+              >
+                Get in touch
+              </Link>
+            </div>
           </div>
         </div>
       </section>

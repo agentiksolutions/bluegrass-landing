@@ -4,7 +4,8 @@ import ServicePageTemplate from "@/components/service-page-template";
 export const metadata: Metadata = {
   title: "Web Design & Development",
   description:
-    "Professional websites built for your business. Not templates — real design, real hosting, fully yours.",
+    "Custom web design for Kentucky businesses. No templates — professional sites built for speed, SEO, and conversions. Based in Lexington, KY.",
+  alternates: { canonical: "/services/web-design" },
 };
 
 export default function WebDesignPage() {
@@ -32,6 +33,26 @@ export default function WebDesignPage() {
       showroomLink={{
         href: "/showroom/website",
         label: "Try the Website Generator",
+      }}
+      relatedPosts={[
+        {
+          href: "/insights/automated-35-workflows",
+          title: "I Automated 35 Workflows Before Selling a Single AI Service",
+          category: "Lessons Learned",
+        },
+      ]}
+      serviceJsonLd={{
+        "@context": "https://schema.org",
+        "@type": "Service",
+        serviceType: "Web Design & Development",
+        provider: {
+          "@type": "LocalBusiness",
+          name: "Bluegrass Advisory Group",
+          url: "https://bluegrassadvisorygroup.com",
+        },
+        areaServed: "Central Kentucky",
+        description:
+          "Custom web design and development for businesses. Professional sites built for speed, SEO, and conversions — not templates.",
       }}
     />
   );

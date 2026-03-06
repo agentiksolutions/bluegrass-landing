@@ -4,7 +4,8 @@ import ServicePageTemplate from "@/components/service-page-template";
 export const metadata: Metadata = {
   title: "Operations Consulting",
   description:
-    "We look at how your business runs and fix what's costing you. Processes, tools, communication, all of it.",
+    "Operations consulting for Kentucky businesses. We audit your processes, tools, and communication — then fix what's costing you. Lexington, KY.",
+  alternates: { canonical: "/services/operations" },
 };
 
 export default function OperationsPage() {
@@ -29,6 +30,31 @@ export default function OperationsPage() {
         "Teams with high turnover and no onboarding system",
         "Businesses with great people but terrible processes",
       ]}
+      relatedPosts={[
+        {
+          href: "/insights/cut-12-hours-admin",
+          title: "How We Cut 12 Hours of Weekly Admin Work Across Three Locations",
+          category: "Case Study",
+        },
+        {
+          href: "/insights/automated-35-workflows",
+          title: "I Automated 35 Workflows Before Selling a Single AI Service",
+          category: "Lessons Learned",
+        },
+      ]}
+      serviceJsonLd={{
+        "@context": "https://schema.org",
+        "@type": "Service",
+        serviceType: "Operations Consulting",
+        provider: {
+          "@type": "LocalBusiness",
+          name: "Bluegrass Advisory Group",
+          url: "https://bluegrassadvisorygroup.com",
+        },
+        areaServed: "Central Kentucky",
+        description:
+          "Operations consulting for businesses. Process audits, SOP documentation, tool optimization, and automation implementation.",
+      }}
     />
   );
 }

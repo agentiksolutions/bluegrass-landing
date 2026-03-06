@@ -1,12 +1,33 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import SectionLabel from "@/components/section-label";
 import CTABand from "@/components/cta-band";
 import AutoplayVideos from "@/components/autoplay-videos";
+import JsonLd from "@/components/json-ld";
 
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Phil Fifield — over a decade in the hospitality industry, now building AI tools for businesses that need to modernize. Based in Lexington, Kentucky.",
+    "Meet Bluegrass Advisory Group — AI and operations consulting built from 13 years of real restaurant and business operations experience. Lexington, Kentucky.",
+  alternates: { canonical: "/about" },
+};
+
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Phil Fifield",
+  jobTitle: "Founder & CEO",
+  worksFor: {
+    "@type": "Organization",
+    name: "Bluegrass Advisory Group",
+    url: "https://bluegrassadvisorygroup.com",
+  },
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Lexington",
+    addressRegion: "KY",
+    addressCountry: "US",
+  },
 };
 
 const stats = [
@@ -27,6 +48,7 @@ const differentiators = [
 export default function AboutPage() {
   return (
     <>
+      <JsonLd data={personJsonLd} />
       {/* Hero */}
       <section className="bg-graphite text-warm-white pt-[148px] pb-20 px-6 md:px-12">
         <div className="max-w-content mx-auto">
@@ -63,6 +85,17 @@ export default function AboutPage() {
               every client. We&apos;re not a software company selling licenses.
               We build tools that make businesses run better — because we use them
               ourselves.
+            </p>
+            <p className="text-[16px] leading-relaxed text-[#555] mt-5">
+              Read about how we{" "}
+              <Link href="/insights/automated-35-workflows" className="text-emerald hover:underline">
+                automated 35 workflows
+              </Link>{" "}
+              before taking on a single client, or see how we{" "}
+              <Link href="/insights/cut-12-hours-admin" className="text-emerald hover:underline">
+                cut 12 hours of weekly admin
+              </Link>{" "}
+              across three locations.
             </p>
           </div>
 

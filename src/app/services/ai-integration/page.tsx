@@ -4,7 +4,8 @@ import ServicePageTemplate from "@/components/service-page-template";
 export const metadata: Metadata = {
   title: "AI Integration",
   description:
-    "AI tools built around your actual workflow. Research, reporting, document creation, customer tools.",
+    "AI integration consulting for Kentucky businesses. We implement AI tools that actually work — dashboards, automation, and operations. Lexington, KY.",
+  alternates: { canonical: "/services/ai-integration" },
 };
 
 export default function AIIntegrationPage() {
@@ -32,6 +33,31 @@ export default function AIIntegrationPage() {
       showroomLink={{
         href: "/showroom/report",
         label: "Try the AI Report Generator",
+      }}
+      relatedPosts={[
+        {
+          href: "/insights/automated-35-workflows",
+          title: "I Automated 35 Workflows Before Selling a Single AI Service",
+          category: "Lessons Learned",
+        },
+        {
+          href: "/insights/ai-trust-gap",
+          title: "The AI Trust Gap: Why Most Businesses Aren't Ready to Buy",
+          category: "Strategy",
+        },
+      ]}
+      serviceJsonLd={{
+        "@context": "https://schema.org",
+        "@type": "Service",
+        serviceType: "AI Integration Consulting",
+        provider: {
+          "@type": "LocalBusiness",
+          name: "Bluegrass Advisory Group",
+          url: "https://bluegrassadvisorygroup.com",
+        },
+        areaServed: "Central Kentucky",
+        description:
+          "AI integration consulting for businesses. Custom workflows, automation, reporting, and document generation built around your actual operations.",
       }}
     />
   );

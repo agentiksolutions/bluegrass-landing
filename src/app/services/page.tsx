@@ -7,7 +7,8 @@ import CTABand from "@/components/cta-band";
 export const metadata: Metadata = {
   title: "Services",
   description:
-    "Web design, AI integration, dashboards, and operations consulting for businesses ready to modernize.",
+    "AI integration, web design, dashboards, and operations consulting for Kentucky businesses ready to modernize. Based in Lexington, KY.",
+  alternates: { canonical: "/services" },
 };
 
 const services = [

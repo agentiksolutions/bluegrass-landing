@@ -12,14 +12,19 @@ export const siteMetadata: Metadata = {
     "We help businesses figure out AI. Web design, dashboards, AI integration, and operations consulting for companies ready to modernize. Based in Lexington, Kentucky.",
   keywords: [
     "AI consulting",
-    "business operations",
-    "web design",
-    "dashboards",
-    "Lexington Kentucky",
+    "AI consulting Kentucky",
+    "AI consulting Lexington KY",
+    "business operations consulting",
     "small business AI",
+    "web design Lexington KY",
+    "dashboard development",
+    "business automation Kentucky",
   ],
   authors: [{ name: "Phil Fifield", url: siteUrl }],
   creator: "Bluegrass Advisory Group",
+  alternates: {
+    canonical: siteUrl,
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -27,7 +32,7 @@ export const siteMetadata: Metadata = {
     siteName: "Bluegrass Advisory Group",
     title: "Bluegrass Advisory Group — AI Integration & Business Operations",
     description:
-      "We help businesses figure out AI. Web design, dashboards, AI integration, and operations consulting.",
+      "We help businesses figure out AI. Web design, dashboards, AI integration, and operations consulting. Lexington, Kentucky.",
   },
   twitter: {
     card: "summary_large_image",
