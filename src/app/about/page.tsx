@@ -123,29 +123,12 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Architecture video */}
-      <section className="py-12 px-6 md:px-12 max-w-content mx-auto">
-        <div className="relative rounded-lg overflow-hidden bg-graphite aspect-video">
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover"
-          >
-            <source src="/videos/kling-architecture.mp4" type="video/mp4" />
-          </video>
-          <div className="absolute bottom-4 left-4 text-[11px] text-stone tracking-wider uppercase font-semibold">
-            Architecture &mdash; How We Think
-          </div>
-        </div>
-      </section>
-
       <AutoplayVideos />
 
       <CTABand
         headline="Let's figure out if we can help."
         subtext="No sales pitch. No pressure. Just a conversation about your business and whether AI makes sense for where you are right now."
+        video="/videos/kling-architecture.mp4"
       />
     </>
   );
