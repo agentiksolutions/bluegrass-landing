@@ -1,0 +1,16 @@
+You are working on Bluegrass Advisory Group landing site — a marketing website for a management consulting firm.
+
+Tech: Next.js 14, React 18, Tailwind CSS, Supabase, MDX
+Deploy: Vercel (dev port 3200)
+
+Conventions:
+- Folder naming: lowercase-with-dashes
+- Git branch: always main
+- Commits: descriptive present tense
+- No TODO comments, no console.log in committed code
+- Production-grade code only
+
+Design standard:
+- Bold typography, distinctive colors, motion/animations
+- Never generic AI aesthetics (no Inter font, no purple gradients)
+- Think McKinsey/Bain level polish — this is a consulting firm
