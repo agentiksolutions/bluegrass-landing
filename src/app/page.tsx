@@ -112,7 +112,7 @@ const organizationJsonLd = {
     addressCountry: "US",
   },
   areaServed: "Central Kentucky",
-  priceRange: "$",
+  priceRange: "$$$",
   serviceType: [
     "AI Consulting",
     "Business Operations",

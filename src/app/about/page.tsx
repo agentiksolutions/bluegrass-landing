@@ -8,7 +8,7 @@ import JsonLd from "@/components/json-ld";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Meet Bluegrass Advisory Group — AI and operations consulting built from 13 years of real restaurant and business operations experience. Lexington, Kentucky.",
+    "Meet Bluegrass Advisory Group — AI and operations consulting built from 13 years of real hospitality and business operations experience. Lexington, Kentucky.",
   alternates: { canonical: "/about" },
 };
 
