@@ -211,7 +211,8 @@ code{font-family:var(--font-mono);font-size:13px;background:rgba(13,124,102,.06)
 
 /* ── LOCKED / PREMIUM ── */
 .locked-content{position:relative;overflow:hidden}
-.locked-content>*{filter:blur(2px);opacity:.3;pointer-events:none;user-select:none}
+.locked-content>*:not(.lock-overlay){filter:blur(12px);opacity:.05;pointer-events:none;user-select:none;-webkit-user-select:none}
+.locked-content{min-height:300px}
 .lock-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:5}
 .lock-box{background:#fff;border:2px solid var(--gold);border-radius:16px;padding:28px 40px;text-align:center;box-shadow:var(--shadow-md);max-width:420px}
 .lock-box h4{font-family:var(--font-display);font-size:18px;color:var(--graphite);margin:0 0 6px;font-weight:700}
@@ -1877,6 +1878,7 @@ Time to set up: 10 minutes. Learning curve: 30 minutes to be productive.
 <div class="sec-title">Workflow Automation</div>
 <div class="sec-sub">Connecting your tools so things happen automatically.</div>
 
+<div class="locked-content">
 <h3>What It Is</h3>
 <p>Workflow automation connects your existing tools with AI so repetitive tasks run themselves. Instead of YOU being the glue between systems, software handles the handoffs.</p>
 
@@ -1954,12 +1956,7 @@ Time to set up: 10 minutes. Learning curve: 30 minutes to be productive.
 • You're still changing how you do it (wait until the process stabilizes)
 </div></div>
 
-<div class="locked-content">
-<h3>Building Your First Automation</h3>
-<p>The key to successful automation is starting with your simplest, most repetitive task. Here's the step-by-step process for identifying, designing, and deploying your first workflow. Step 1: Audit your weekly tasks. Write down everything you do that follows the same steps every time. Time each one. The task that takes the most cumulative time AND follows predictable logic is your candidate.</p>
-<p>Step 2: Map the trigger, actions, and output. Every automation has three parts — what starts it, what happens in the middle, and what the end result is. Step 3: Build a prototype in Zapier first because it has the lowest learning curve. Step 4: Test with real data for one week before trusting it fully. Step 5: Document the automation in your AI-System/ folder so you know what's running and why.</p>
-<p>The typical BAG automation engagement: we identify your top 5 automation candidates, build the highest-impact one first, test it for 2 weeks, refine based on real usage, then build the next one. Each automation typically saves 2-5 hours per week. Most clients see full ROI within 30 days of the first automation going live.</p>
-<div class="lock-overlay"><div class="lock-box"><h4>Implementation Guide — Premium</h4><p>Step-by-step automation builds, templates, and hands-on support.</p><a href="mailto:phil@bluegrassadvisorygroup.com">Unlock with BAG →</a></div></div>
+<div class="lock-overlay"><div class="lock-box"><h4>Premium Module — Workflow Automation</h4><p>Step-by-step automation builds, templates, and hands-on support.</p><a href="mailto:phil@bluegrassadvisorygroup.com">Unlock with BAG →</a></div></div>
 </div>
 
 <div class="nav-btns">
@@ -1974,6 +1971,7 @@ Time to set up: 10 minutes. Learning curve: 30 minutes to be productive.
 <div class="sec-title">Custom Dashboards & Tools</div>
 <div class="sec-sub">Purpose-built tools for your operation — without hiring a developer.</div>
 
+<div class="locked-content">
 <h3>Why Custom</h3>
 <p>Generic software has 100 features you don't need and is missing the 3 you do. A custom dashboard shows exactly the numbers you care about, organized the way your brain works.</p>
 
@@ -2007,11 +2005,7 @@ All on one screen. Updated automatically. Any device.
 <strong>Who uses it:</strong> Sales rep starts every day here. Nothing falls through the cracks. Manager sees pipeline health without asking.
 </div></div>
 
-<div class="locked-content">
-<h3>Building Custom Dashboards</h3>
-<p>The BAG approach to dashboard design: (1) Identify the 5-8 metrics that actually drive your decisions — not vanity metrics, the numbers you'd check if you could only see 5 things. (2) Map where that data currently lives — which systems, spreadsheets, or reports. (3) Design the layout around decision-making flow — what do you look at first, what leads to what. (4) Build the data pipeline — connect sources to the dashboard. (5) Deploy as a private web app — accessible from any device, auto-updating.</p>
-<p>Tools in the stack: v0 or Next.js for the frontend, Supabase or PostgreSQL for data storage, n8n for automated data collection, Vercel for hosting. Total monthly cost for a small business: $0-20 (most components are free tier).</p>
-<div class="lock-overlay"><div class="lock-box"><h4>Dashboard Design — Premium</h4><p>Data integration, deployment, and ongoing support.</p><a href="mailto:phil@bluegrassadvisorygroup.com">Unlock with BAG →</a></div></div>
+<div class="lock-overlay"><div class="lock-box"><h4>Premium Module — Custom Dashboards</h4><p>Data integration, deployment, and ongoing support.</p><a href="mailto:phil@bluegrassadvisorygroup.com">Unlock with BAG →</a></div></div>
 </div>
 
 <div class="nav-btns">
@@ -2026,6 +2020,7 @@ All on one screen. Updated automatically. Any device.
 <div class="sec-title">AI Agents</div>
 <div class="sec-sub">Autonomous AI that handles multi-step tasks without constant input.</div>
 
+<div class="locked-content">
 <h3>Automation vs Agents</h3>
 <div class="card card-em"><div class="card-b">
 <strong>Automation:</strong> "When inventory drops below 50, email me." Fixed rules. Predictable.<br><br>
@@ -2079,10 +2074,7 @@ All on one screen. Updated automatically. Any device.
 This is why agents are in the premium tier. The concept is simple. The execution requires experience.
 </div></div>
 
-<div class="locked-content">
-<h3>Building Your First Agent</h3>
-<p>Building an agent requires combining an automation platform (n8n), AI model access (Claude API), a knowledge base (your CLAUDE.md and reference docs), and a human-in-the-loop approval system. The BAG approach starts with identifying the highest-value candidate — the task that requires both judgment AND is repetitive enough to justify the build. We design the agent architecture, build the workflow, test with real data, deploy with monitoring, and iterate based on results. Typical build time: 2-4 weeks for a production agent. Typical ROI: the agent pays for itself within the first month.</p>
-<div class="lock-overlay"><div class="lock-box"><h4>Agent Architecture — Premium</h4><p>Design, deployment, and monitoring by BAG.</p><a href="mailto:phil@bluegrassadvisorygroup.com">Unlock with BAG →</a></div></div>
+<div class="lock-overlay"><div class="lock-box"><h4>Premium Module — AI Agents</h4><p>Design, deployment, and monitoring by BAG.</p><a href="mailto:phil@bluegrassadvisorygroup.com">Unlock with BAG →</a></div></div>
 </div>
 
 <div class="nav-btns">
@@ -2299,6 +2291,7 @@ const MODULES=[
   {id:'appA',label:'Prompt Library',group:'Appendix',time:'Browse'},
   {id:'appB',label:'AI Glossary',group:'Appendix',time:'Reference'},
   {id:'appC',label:'Before & After',group:'Appendix',time:'Browse'},
+  {id:'promptStudio',label:'Prompt Studio',group:'Tools',time:'Launch',external:'prompt-studio/'},
 ];
 
 const STORAGE_KEY='bag-v3';
@@ -2332,8 +2325,9 @@ function buildSidebar(filter=''){
     const done=state.completed.includes(m.id)?' done':'';
     const num=m.id==='welcome'?'':i;
     const lock=m.locked?`<span class="sb-lock">${LOCK_SVG}</span>`:`<span class="sb-time">${m.time}</span>`;
-    html+=`<button class="sb-item${active}${done}" onclick="goTo('${m.id}')">
-      <div class="sb-dot"></div>
+    const onclick=m.external?`window.open('${m.external}','_blank')`:`goTo('${m.id}')`;
+    html+=`<button class="sb-item${active}${done}" onclick="${onclick}">
+      <div class="sb-dot"${m.external?' style="background:var(--emerald)"':''}></div>
       ${num?`<span class="sb-num">${num}</span>`:''}
       ${m.label}${lock}
     </button>`;
