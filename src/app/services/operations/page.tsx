@@ -30,6 +30,10 @@ export default function OperationsPage() {
         "Teams with high turnover and no onboarding system",
         "Businesses with great people but terrible processes",
       ]}
+      showroomLink={{
+        href: "/showroom",
+        label: "See It in Action",
+      }}
       relatedPosts={[
         {
           href: "/insights/cut-12-hours-admin",

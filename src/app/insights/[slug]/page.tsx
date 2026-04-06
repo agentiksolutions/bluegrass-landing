@@ -6,6 +6,7 @@ import remarkGfm from "remark-gfm";
 import { getAllPosts, getPost } from "@/lib/mdx";
 import SectionLabel from "@/components/section-label";
 import CTABand from "@/components/cta-band";
+import InlineArticleCTA from "@/components/inline-article-cta";
 import JsonLd from "@/components/json-ld";
 
 interface Props {
@@ -84,6 +85,8 @@ export default function InsightPostPage({ params }: Props) {
             options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
           />
         </div>
+
+        <InlineArticleCTA />
       </article>
 
       <CTABand

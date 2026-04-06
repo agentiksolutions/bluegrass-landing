@@ -28,7 +28,7 @@ export default function Button({
 }: ButtonProps) {
   const classes = `inline-block px-8 py-4 rounded text-[15px] font-semibold transition-all duration-200 ${variants[variant]} ${className}`;
 
-  if (external) {
+  if (external || href.startsWith("http")) {
     return (
       <a href={href} className={classes} target="_blank" rel="noopener noreferrer">
         {children}

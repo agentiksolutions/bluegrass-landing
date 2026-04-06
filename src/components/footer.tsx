@@ -26,6 +26,10 @@ const footerCols = [
         label: "phil@bluegrassadvisorygroup.com",
         href: "mailto:phil@bluegrassadvisorygroup.com",
       },
+      {
+        label: "(859) 314-3051",
+        href: "tel:+18593143051",
+      },
     ],
   },
 ];

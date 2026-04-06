@@ -13,7 +13,7 @@ export default function CTABand({
   headline = "Let's figure it out together.",
   subtext = "30 minutes. No sales pitch. Tell us about your business, ask us anything about AI. If we can help, we'll say so. If we can't, we'll say that too.",
   buttonText = "Schedule a Call",
-  buttonHref = "/contact",
+  buttonHref = "https://calendly.com/phil-bluegrassadvisorygroup/30min",
   dark = false,
   video,
 }: CTABandProps) {
@@ -27,15 +27,23 @@ export default function CTABand({
             </h3>
             <p className="text-sm text-stone leading-relaxed max-w-md">{subtext}</p>
           </div>
-          <div className="flex gap-3 shrink-0">
-            <Button href={buttonHref}>{buttonText}</Button>
-            <Button
-              href="mailto:phil@bluegrassadvisorygroup.com"
-              variant="secondary"
-              className="!text-stone !border-[#444] hover:!border-stone hover:!text-warm-white"
+          <div className="flex flex-col items-center md:items-end gap-3 shrink-0">
+            <div className="flex gap-3">
+              <Button href={buttonHref}>{buttonText}</Button>
+              <Button
+                href="mailto:phil@bluegrassadvisorygroup.com"
+                variant="secondary"
+                className="!text-stone !border-[#444] hover:!border-stone hover:!text-warm-white"
+              >
+                Email Us
+              </Button>
+            </div>
+            <a
+              href="tel:+18593143051"
+              className="text-[13px] text-stone hover:text-warm-white transition-colors duration-200"
             >
-              Email Us
-            </Button>
+              Or call (859) 314-3051
+            </a>
           </div>
         </div>
       </section>
@@ -72,6 +80,15 @@ export default function CTABand({
               phil@bluegrassadvisorygroup.com
             </a>
           </p>
+          <p className="mt-1.5 text-[13px] text-warm-white/40">
+            Or call{" "}
+            <a
+              href="tel:+18593143051"
+              className="text-sage hover:underline"
+            >
+              (859) 314-3051
+            </a>
+          </p>
         </div>
       </section>
     );
@@ -94,6 +111,15 @@ export default function CTABand({
             className="text-emerald hover:underline"
           >
             phil@bluegrassadvisorygroup.com
+          </a>
+        </p>
+        <p className="mt-1.5 text-[13px] text-[#bbb]">
+          Or call{" "}
+          <a
+            href="tel:+18593143051"
+            className="text-emerald hover:underline"
+          >
+            (859) 314-3051
           </a>
         </p>
       </div>

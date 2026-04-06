@@ -66,6 +66,17 @@ export default function Nav() {
             {link.label}
           </Link>
         ))}
+        <a
+          href="tel:+18593143051"
+          className={`text-[13px] font-medium tracking-wide transition-all duration-300 ${
+            transparent
+              ? "text-warm-white/60 hover:text-warm-white"
+              : "text-graphite opacity-50 hover:opacity-100"
+          }`}
+          aria-label="Call (859) 314-3051"
+        >
+          (859) 314-3051
+        </a>
         <Link
           href="/contact"
           className={`px-5 py-2.5 rounded text-[13px] font-semibold transition-colors duration-200 ${
@@ -114,6 +125,15 @@ export default function Nav() {
                 {link.label}
               </Link>
             ))}
+            <a
+              href="tel:+18593143051"
+              className="py-3 text-sm font-medium text-emerald hover:text-sage transition-colors flex items-center gap-2"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
+                <path fillRule="evenodd" d="M2 3.5A1.5 1.5 0 0 1 3.5 2h1.148a1.5 1.5 0 0 1 1.465 1.175l.716 3.223a1.5 1.5 0 0 1-1.052 1.767l-.933.267c-.41.117-.643.555-.48.95a11.542 11.542 0 0 0 6.254 6.254c.395.163.833-.07.95-.48l.267-.933a1.5 1.5 0 0 1 1.767-1.052l3.223.716A1.5 1.5 0 0 1 18 15.352V16.5a1.5 1.5 0 0 1-1.5 1.5H15c-1.149 0-2.263-.15-3.326-.43A13.022 13.022 0 0 1 2.43 8.326 13.019 13.019 0 0 1 2 5V3.5Z" clipRule="evenodd" />
+              </svg>
+              (859) 314-3051
+            </a>
             <Link
               href="/contact"
               className="mt-3 bg-graphite text-warm-white px-5 py-3 rounded text-sm font-semibold text-center hover:bg-emerald transition-colors"

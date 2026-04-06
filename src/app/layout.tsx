@@ -3,6 +3,7 @@ import { playfair, dmSans } from "@/lib/fonts";
 import { siteMetadata } from "@/lib/metadata";
 import Nav from "@/components/nav";
 import Footer from "@/components/footer";
+import FloatingCTA from "@/components/floating-cta";
 import Script from "next/script";
 import "./globals.css";
 
@@ -21,6 +22,7 @@ export default function RootLayout({
         <Nav />
         <main className="min-h-screen">{children}</main>
         <Footer />
+        <FloatingCTA />
 
         {/* GA4 */}
         <Script
