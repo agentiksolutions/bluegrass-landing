@@ -9,7 +9,7 @@ const links = [
   { label: "Showroom", href: "/showroom" },
   { label: "About", href: "/about" },
   { label: "Insights", href: "/insights" },
-  { label: "Contact", href: "/contact" },
+  { label: "Get Started", href: "/contact" },
 ];
 
 export default function Nav() {
@@ -85,7 +85,7 @@ export default function Nav() {
               : "bg-graphite text-warm-white hover:bg-emerald"
           }`}
         >
-          Let&apos;s Talk
+          Get Started
         </Link>
       </div>
 
@@ -138,7 +138,7 @@ export default function Nav() {
               href="/contact"
               className="mt-3 bg-graphite text-warm-white px-5 py-3 rounded text-sm font-semibold text-center hover:bg-emerald transition-colors"
             >
-              Let&apos;s Talk
+              Get Started
             </Link>
           </div>
         </div>
