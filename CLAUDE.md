@@ -18,7 +18,7 @@ Also read E:/Cortex/philip-brain/PHIL-OPERATOR-PROFILE.md for operating rules an
 - Rebuilt from static HTML to Next.js on 3/2/2026
 - AI-powered showroom with 4 interactive rooms
 - MDX blog system with 3 seed articles
-- Lead capture via Supabase + Formspree contact form
+- Lead capture via /contact form posting to /api/intake (Discovery-Kit intake pipeline)
 
 ## Site Structure (16 routes)
 ```
@@ -36,9 +36,10 @@ Also read E:/Cortex/philip-brain/PHIL-OPERATOR-PROFILE.md for operating rules an
 /about                     About Phil / BAG
 /insights                  Blog listing (MDX)
 /insights/[slug]           Individual blog posts
-/contact                   Contact form (Formspree)
+/contact                   Contact form (posts to /api/intake)
 /api/generate              POST — Anthropic API proxy (rate limited 10/hr/IP)
-/api/lead                  POST — Supabase lead capture
+/api/intake                POST — Discovery-Kit intake pipeline (live)
+/api/lead                  POST — Supabase lead capture (unused; no caller in src)
 ```
 
 ## Design System (BAG Brand Tokens)
@@ -86,12 +87,18 @@ SUPABASE_ANON_KEY          Optional — for /api/lead
 - gray-matter, next-mdx-remote, remark-gfm
 - tailwindcss, postcss, autoprefixer, @tailwindcss/typography
 
-## Formspree
+## Formspree (UNUSED — DA-119, 2026-07-12: no references in src; /contact posts to /api/intake instead)
 - **Endpoint:** `https://formspree.io/f/xvoeydwg`
 - **Contact email:** phil@bluegrassadvisorygroup.com
 
 ## Prototype Files
 - `Prototype Files/` contains 6 original React prototypes (reference only, not used in build)
+
+## Commands
+- `npm run dev` — local dev on port 3200 (`next dev --port 3200`)
+- `npm run build` — production build (`next build`)
+- `npm start` — serve the production build (`next start`)
+- Deploy: `git push` to main → Vercel auto-deploy
 
 ## Rules
 - No pricing on the website
