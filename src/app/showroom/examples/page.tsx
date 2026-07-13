@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "Built Examples",
   description:
     "Real sites and tools we've designed. Not mockups — fully functional builds you can click through and interact with.",
+  alternates: { canonical: "/showroom/examples" },
 };
 
 const examples = [

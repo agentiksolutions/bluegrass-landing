@@ -105,6 +105,7 @@ const organizationJsonLd = {
     "AI integration and business operations consulting for companies ready to modernize. Based in Lexington, Kentucky.",
   url: "https://bluegrassadvisorygroup.com",
   email: "phil@bluegrassadvisorygroup.com",
+  telephone: "+1-859-314-3051",
   address: {
     "@type": "PostalAddress",
     addressLocality: "Lexington",
