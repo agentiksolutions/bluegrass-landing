@@ -12,7 +12,7 @@ export default function InlineArticleCTA() {
       </p>
       <div className="flex flex-wrap items-center gap-4">
         <a
-          href="https://calendly.com/phil-bluegrassadvisorygroup/30min"
+          href="https://api.leadconnectorhq.com/widget/booking/y7TssImAM4rs6Ghw0mOW"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-block px-6 py-3 rounded bg-emerald text-warm-white text-[14px] font-semibold hover:bg-sage transition-colors duration-200"

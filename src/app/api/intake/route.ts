@@ -152,7 +152,7 @@ export async function POST(request: NextRequest) {
       "Bluegrass Advisory <onboarding@resend.dev>";
     const calendlyUrl =
       process.env.NEXT_PUBLIC_CALENDLY_URL ||
-      "https://calendly.com/phil-bluegrassadvisorygroup/30min";
+      "https://api.leadconnectorhq.com/widget/booking/y7TssImAM4rs6Ghw0mOW";
 
     // Notification to Phil
     const phNotification = sendResendEmail({

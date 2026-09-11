@@ -19,7 +19,7 @@ export default function FloatingCTA() {
 
   return (
     <Link
-      href="https://calendly.com/phil-bluegrassadvisorygroup/30min"
+      href="https://api.leadconnectorhq.com/widget/booking/y7TssImAM4rs6Ghw0mOW"
       target="_blank"
       rel="noopener noreferrer"
       className={`fixed bottom-6 right-6 z-40 flex items-center gap-2.5 bg-emerald text-warm-white rounded-full shadow-lg shadow-emerald/25 transition-all duration-300 hover:bg-sage hover:shadow-xl hover:shadow-sage/30 hover:-translate-y-0.5 ${

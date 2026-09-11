@@ -13,7 +13,7 @@ export default function CTABand({
   headline = "Let's figure it out together.",
   subtext = "30 minutes. No sales pitch. Tell us about your business, ask us anything about AI. If we can help, we'll say so. If we can't, we'll say that too.",
   buttonText = "Schedule a Call",
-  buttonHref = "https://calendly.com/phil-bluegrassadvisorygroup/30min",
+  buttonHref = "https://api.leadconnectorhq.com/widget/booking/y7TssImAM4rs6Ghw0mOW",
   dark = false,
   video,
 }: CTABandProps) {

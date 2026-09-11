@@ -52,7 +52,7 @@ export default function ContactPage() {
 
   const calendlyUrl =
     process.env.NEXT_PUBLIC_CALENDLY_URL ||
-    "https://calendly.com/phil-bluegrassadvisorygroup/30min";
+    "https://api.leadconnectorhq.com/widget/booking/y7TssImAM4rs6Ghw0mOW";
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
