@@ -68,6 +68,83 @@ async function sendResendEmail(payload: {
   }
 }
 
+// GoHighLevel sub-account "Bluegrass Advisory Group", pipeline "BAG Sales".
+const GHL_LOCATION = "DOntCRGh6iMCKP4fH4nr";
+const GHL_PIPELINE = "kAOFvY0OwpAagQ2Fyzwe";
+const GHL_STAGE_LEAD = "01b31e36-12f3-4103-994d-e6243ca600c2";
+const GHL_FIELD = {
+  role: "779cLhcOcwGvidGgGp6J",
+  website: "oi0adVd23Mkbxb2nRmVN",
+  revenue: "ngCmH6tYlfLlSF7G1JF5",
+  entities: "TrtubsQJytWCzLvaa45T",
+  bestTime: "9zNUz1gqN23oxYI0fyas",
+  notes: "w0aVy1SGHFwZlxBSsbjw",
+};
+
+async function ghl(path: string, method: string, payload: unknown) {
+  const token = process.env.GHL_API_TOKEN;
+  if (!token) throw new Error("GHL_API_TOKEN not configured");
+  const res = await fetch(`https://services.leadconnectorhq.com${path}`, {
+    method,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Version: "2021-07-28",
+      "Content-Type": "application/json",
+      // Cloudflare in front of the API rejects non-browser user agents.
+      "User-Agent": "Mozilla/5.0 (bluegrass-landing intake)",
+    },
+    body: payload === undefined ? undefined : JSON.stringify(payload),
+  });
+  const text = await res.text();
+  if (!res.ok) throw new Error(`GHL ${method} ${path} ${res.status}: ${text}`);
+  return text ? JSON.parse(text) : {};
+}
+
+async function pushToGoHighLevel(body: IntakePayload) {
+  const name = body.contact_name.trim();
+  const [firstName, ...rest] = name.split(/\s+/);
+  const revenue = REVENUE_LABELS[body.annual_revenue_range] || body.annual_revenue_range;
+
+  const upsert = await ghl("/contacts/upsert", "POST", {
+    locationId: GHL_LOCATION,
+    firstName,
+    lastName: rest.join(" ") || undefined,
+    name,
+    email: body.email.trim().toLowerCase(),
+    companyName: body.company_name.trim(),
+    website: body.company_website?.trim() || undefined,
+    source: "website intake",
+    tags: ["web-intake", "prospect"],
+    customFields: [
+      { id: GHL_FIELD.role, field_value: body.contact_role?.trim() || "" },
+      { id: GHL_FIELD.website, field_value: body.company_website?.trim() || "" },
+      { id: GHL_FIELD.revenue, field_value: revenue },
+      { id: GHL_FIELD.entities, field_value: body.num_entities },
+      { id: GHL_FIELD.bestTime, field_value: body.best_call_time?.trim() || "" },
+      { id: GHL_FIELD.notes, field_value: body.ai_question.trim() },
+    ],
+  });
+  const contactId: string | undefined = upsert?.contact?.id;
+  if (!contactId) throw new Error("GHL upsert returned no contact id");
+
+  // One open deal per contact. GoHighLevel refuses a second opportunity for
+  // the same contact in the same pipeline (OPPORTUNITY_NO_DUPLICATE), and its
+  // search index lags, so attempt the create and treat that refusal as done.
+  try {
+    await ghl("/opportunities/", "POST", {
+      locationId: GHL_LOCATION,
+      pipelineId: GHL_PIPELINE,
+      pipelineStageId: GHL_STAGE_LEAD,
+      contactId,
+      name: body.company_name.trim(),
+      status: "open",
+      source: "website intake",
+    });
+  } catch (err) {
+    if (!String(err).includes("OPPORTUNITY_NO_DUPLICATE")) throw err;
+  }
+}
+
 export async function POST(request: NextRequest) {
   try {
     const body = (await request.json()) as IntakePayload;
@@ -143,6 +220,11 @@ export async function POST(request: NextRequest) {
         { status: 500 },
       );
     }
+
+    // GoHighLevel CRM: upsert the contact and open a deal. Fire and forget.
+    void pushToGoHighLevel(body).catch((err) =>
+      console.error("GoHighLevel push failed:", err),
+    );
 
     // Email — fire and forget. Don't block form success on email send.
     const notificationEmail =
