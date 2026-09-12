@@ -144,26 +144,78 @@ titles.
 
 ## Live verification
 
-Run after the deploy landed.
+Captured 2026-09-11 at 22:29 ET, after the deploy landed. The og:title check is the one that
+discriminates: it read the home page's string before this change.
 
 ```
 $ curl -sI https://bluegrassadvisorygroup.com/sitemap.xml
-HTTP/2 200
-content-type: application/xml
+HTTP/1.1 200 OK
+Content-Type: application/xml
+x-vercel-cache: PRERENDER
 
-$ curl -s https://bluegrassadvisorygroup.com/robots.txt
-User-Agent: *
-Allow: /
-Disallow: /api/
+$ curl -s https://bluegrassadvisorygroup.com/sitemap.xml | grep -c "<loc>"
+17
 
-Sitemap: https://bluegrassadvisorygroup.com/sitemap.xml
-
-$ curl -s https://bluegrassadvisorygroup.com/services/dashboards | grep og:title
+$ curl -s https://bluegrassadvisorygroup.com/services/dashboards | grep -oE '<title>[^<]*</title>|<link rel="canonical"[^>]*>|<meta property="og:(title|url|image)"[^>]*>'
+<title>Dashboards &amp; Data | Bluegrass Advisory Group</title>
+<link rel="canonical" href="https://bluegrassadvisorygroup.com/services/dashboards"/>
 <meta property="og:title" content="Dashboards &amp; Data | Bluegrass Advisory Group"/>
+<meta property="og:url" content="https://bluegrassadvisorygroup.com/services/dashboards"/>
+<meta property="og:image" content="https://bluegrassadvisorygroup.com/opengraph-image"/>
 
-$ curl -s https://bluegrassadvisorygroup.com/contact | grep canonical
+$ curl -s https://bluegrassadvisorygroup.com/contact | grep -oE '<title>[^<]*</title>|<link rel="canonical"[^>]*>'
+<title>Contact | Bluegrass Advisory Group</title>
 <link rel="canonical" href="https://bluegrassadvisorygroup.com/contact"/>
+
+$ curl -s https://bluegrassadvisorygroup.com/insights/ai-trust-gap | grep -oE '<meta property="og:image"[^>]*|<meta name="twitter:card"[^>]*'
+<meta property="og:image" content="https://bluegrassadvisorygroup.com/opengraph-image"
+<meta name="twitter:card" content="summary_large_image"
 
 $ curl -s https://bluegrassadvisorygroup.com/ | grep -o ProfessionalService
 ProfessionalService
+
+$ curl -s -o /dev/null -w 'status=%{http_code} type=%{content_type} bytes=%{size_download}
+' https://bluegrassadvisorygroup.com/opengraph-image
+status=200 type=image/png bytes=36869
 ```
+
+The live `robots.txt` serves the app's rules, and Cloudflare prepends a block of its own ahead of
+them. That block is described in the next section.
+
+## Cloudflare is rewriting robots.txt, and Phil should decide whether to keep it
+
+The file the site generates is four lines. What the world actually receives is about sixty,
+because the Cloudflare zone has managed robots rules turned on. Cloudflare inserts its own
+section first, then the app's section follows underneath. Both are served. The app's
+`Disallow: /api/` and the sitemap line are intact.
+
+What Cloudflare adds:
+
+```
+User-agent: *
+Content-Signal: search=yes,ai-train=no,use=reference
+Allow: /
+
+User-agent: ClaudeBot        Disallow: /
+User-agent: GPTBot           Disallow: /
+User-agent: Google-Extended  Disallow: /
+User-agent: CCBot            Disallow: /
+User-agent: Amazonbot        Disallow: /
+User-agent: Applebot-Extended  Disallow: /
+User-agent: Bytespider       Disallow: /
+User-agent: meta-externalagent  Disallow: /
+User-agent: CloudflareBrowserRenderingCrawler  Disallow: /
+```
+
+Two things follow from that, and only the first is good news.
+
+**Google search is unaffected.** Googlebot is the crawler that builds the search index, and it is
+not in that list. `Google-Extended` governs Gemini training only. Rankings and indexing are not
+touched by any of this.
+
+**The site is closed to AI answer engines.** ChatGPT, Claude and the crawlers behind several AI
+search products are told not to read it. For most businesses that is a reasonable default. For a
+firm whose home page says "we help businesses figure out AI", it means the assistants a prospect
+is most likely to ask cannot cite BAG. That is a business call, not a technical defect, and it
+lives in the Cloudflare dashboard rather than in this repo. If Phil wants to open it, the setting
+is under the zone's AI crawler controls. Nothing here was changed.

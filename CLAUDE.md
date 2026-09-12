@@ -76,9 +76,17 @@ SUPABASE_ANON_KEY          Optional — for /api/lead
 ```
 
 ## SEO Infrastructure
-- Dynamic `sitemap.ts` — auto-includes all routes + blog posts
-- Dynamic `robots.ts` — blocks /api/ and showroom demos
-- Per-page metadata exports on all routes
+- Dynamic `sitemap.ts` — auto-includes all routes + blog posts (17 URLs)
+- Dynamic `robots.ts` — allows all, blocks /api/, points at the sitemap. Cloudflare prepends
+  its own managed block ahead of it live, which disallows ClaudeBot/GPTBot/CCBot and friends.
+  Googlebot is not affected. See `docs/seo-report-2026-09-11.md`
+- **Every page's metadata comes from `pageMeta()` in `src/lib/metadata.ts`.** Do not hand-roll a
+  page-level `openGraph` or `twitter` object: Next replaces the parent's wholesale, which silently
+  drops the OG image and the summary_large_image card. `pageMeta()` returns the complete set
+- Root metadata deliberately has NO canonical. A page without one is silent rather than wrong
+- `/contact` is a client component, so its metadata lives in `src/app/contact/layout.tsx`
+- Home page carries Organization + ProfessionalService and WebSite JSON-LD
+- The three showroom demos carry an `sr-only` H1 in their `page.tsx` shim
 - GA4 via next/script afterInteractive
 - @tailwindcss/typography for blog prose styling
 
