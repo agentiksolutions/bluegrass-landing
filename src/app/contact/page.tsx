@@ -390,7 +390,7 @@ function SuccessState({
             Book Free 30-Min Call →
           </a>
           <p className="text-[12px] text-stone mt-4">
-            Opens Calendly in a new tab. Pick a slot that works for you.
+            Opens the booking page in a new tab. Pick a slot that works for you.
           </p>
         </>
       ) : (
