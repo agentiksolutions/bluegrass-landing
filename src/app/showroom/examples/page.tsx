@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/metadata";
 import Link from "next/link";
 import SectionLabel from "@/components/section-label";
 import Card from "@/components/card";
 import CTABand from "@/components/cta-band";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Built Examples",
   description:
-    "Real sites and tools we've designed. Not mockups — fully functional builds you can click through and interact with.",
-  alternates: { canonical: "/showroom/examples" },
-};
+    "Real sites and tools we have designed. Fully functional builds you can click through and interact with.",
+  path: "/showroom/examples",
+});
 
 const examples = [
   {

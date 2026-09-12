@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/metadata";
 import ServicePageTemplate from "@/components/service-page-template";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Web Design & Development",
   description:
-    "Custom web design for Kentucky businesses. No templates — professional sites built for speed, SEO, and conversions. Based in Lexington, KY.",
-  alternates: { canonical: "/services/web-design" },
-};
+    "Custom web design for Kentucky businesses. No templates. Professional sites built for speed, SEO, and conversions. Based in Lexington, KY.",
+  path: "/services/web-design",
+});
 
 export default function WebDesignPage() {
   return (

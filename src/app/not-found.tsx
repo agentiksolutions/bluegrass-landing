@@ -4,6 +4,8 @@ import Button from "@/components/button";
 
 export const metadata: Metadata = {
   title: "Page Not Found",
+  description:
+    "That page has moved or no longer exists. Head back to the home page, the showroom, or the contact form.",
   robots: { index: false, follow: true },
 };
 

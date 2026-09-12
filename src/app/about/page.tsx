@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/metadata";
 import Link from "next/link";
 import SectionLabel from "@/components/section-label";
 import CTABand from "@/components/cta-band";
 import AutoplayVideos from "@/components/autoplay-videos";
 import JsonLd from "@/components/json-ld";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "About",
   description:
-    "Meet Bluegrass Advisory Group — AI and operations consulting built from 13 years of real hospitality and business operations experience. Lexington, Kentucky.",
-  alternates: { canonical: "/about" },
-};
+    "Meet Bluegrass Advisory Group. AI and operations consulting built from 13 years of hospitality and business operations experience. Lexington, Kentucky.",
+  path: "/about",
+});
 
 const personJsonLd = {
   "@context": "https://schema.org",

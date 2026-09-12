@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/metadata";
 import ServicePageTemplate from "@/components/service-page-template";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "AI Integration",
   description:
-    "AI integration consulting for Kentucky businesses. We implement AI tools that actually work — dashboards, automation, and operations. Lexington, KY.",
-  alternates: { canonical: "/services/ai-integration" },
-};
+    "AI integration consulting for Kentucky businesses. We build AI tools around your actual workflow: reporting, automation, and document creation. Lexington, KY.",
+  path: "/services/ai-integration",
+});
 
 export default function AIIntegrationPage() {
   return (

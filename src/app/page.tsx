@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import SectionLabel from "@/components/section-label";
@@ -6,6 +7,7 @@ import Card from "@/components/card";
 import CTABand from "@/components/cta-band";
 import AutoplayVideos from "@/components/autoplay-videos";
 import JsonLd from "@/components/json-ld";
+import { pageMeta } from "@/lib/metadata";
 
 const services = [
   {
@@ -99,13 +101,21 @@ const blogPosts = [
 
 const organizationJsonLd = {
   "@context": "https://schema.org",
-  "@type": ["Organization", "LocalBusiness"],
+  "@type": ["Organization", "ProfessionalService"],
+  "@id": "https://bluegrassadvisorygroup.com/#organization",
   name: "Bluegrass Advisory Group",
+  legalName: "Bluegrass Advisory Group, LLC",
   description:
     "AI integration and business operations consulting for companies ready to modernize. Based in Lexington, Kentucky.",
   url: "https://bluegrassadvisorygroup.com",
   email: "phil@bluegrassadvisorygroup.com",
   telephone: "+1-859-314-3051",
+  founder: {
+    "@type": "Person",
+    name: "Phil Fifield",
+  },
+  foundingDate: "2026-02-17",
+  foundingLocation: "Lexington, Kentucky",
   address: {
     "@type": "PostalAddress",
     addressLocality: "Lexington",
@@ -122,10 +132,33 @@ const organizationJsonLd = {
   ],
 };
 
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Bluegrass Advisory Group",
+  url: "https://bluegrassadvisorygroup.com",
+  publisher: { "@id": "https://bluegrassadvisorygroup.com/#organization" },
+  inLanguage: "en-US",
+};
+
+export const metadata: Metadata = {
+  ...pageMeta({
+    title: "AI Integration & Business Operations",
+    description:
+      "We help businesses figure out AI. Web design, dashboards, AI integration, and operations consulting for Kentucky companies ready to modernize. Lexington, KY.",
+    path: "/",
+  }),
+  // The home page carries the brand name first, so it skips the title template.
+  title: {
+    absolute: "Bluegrass Advisory Group: AI Integration & Business Operations",
+  },
+};
+
 export default function HomePage() {
   return (
     <>
       <JsonLd data={organizationJsonLd} />
+      <JsonLd data={websiteJsonLd} />
       {/* ════════ HERO — Full-bleed video ════════ */}
       <section className="relative min-h-screen flex items-center overflow-hidden">
         <video

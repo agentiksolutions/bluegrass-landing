@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
 export const alt =
-  "Bluegrass Advisory Group — AI Integration & Business Operations Consulting";
+  "Bluegrass Advisory Group. AI integration and business operations consulting in Lexington, Kentucky.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 

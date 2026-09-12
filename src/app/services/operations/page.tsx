@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/metadata";
 import ServicePageTemplate from "@/components/service-page-template";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Operations Consulting",
   description:
-    "Operations consulting for Kentucky businesses. We audit your processes, tools, and communication — then fix what's costing you. Lexington, KY.",
-  alternates: { canonical: "/services/operations" },
-};
+    "Operations consulting for Kentucky businesses. We audit your processes, tools, and communication, then tackle what is costing you. Lexington, KY.",
+  path: "/services/operations",
+});
 
 export default function OperationsPage() {
   return (

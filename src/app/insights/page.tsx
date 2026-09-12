@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/metadata";
 import Link from "next/link";
 import SectionLabel from "@/components/section-label";
 import { getAllPosts } from "@/lib/mdx";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Insights",
   description:
     "Practical articles on AI integration, business automation, and operations consulting. Written by practitioners running real systems in Kentucky.",
-  alternates: { canonical: "/insights" },
-};
+  path: "/insights",
+});
 
 export default function InsightsPage() {
   const posts = getAllPosts();

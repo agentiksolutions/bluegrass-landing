@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/metadata";
 import Link from "next/link";
 import SectionLabel from "@/components/section-label";
 import Card from "@/components/card";
 import CTABand from "@/components/cta-band";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Services",
   description:
     "AI integration, web design, dashboards, and operations consulting for Kentucky businesses ready to modernize. Based in Lexington, KY.",
-  alternates: { canonical: "/services" },
-};
+  path: "/services",
+});
 
 const services = [
   {

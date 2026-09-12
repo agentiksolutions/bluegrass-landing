@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/metadata";
 import ServicePageTemplate from "@/components/service-page-template";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Dashboards & Data",
   description:
     "Custom business dashboards that pull your data into one screen. Real-time KPIs, automated reports, multi-location views. Lexington, Kentucky.",
-  alternates: { canonical: "/services/dashboards" },
-};
+  path: "/services/dashboards",
+});
 
 export default function DashboardsPage() {
   return (

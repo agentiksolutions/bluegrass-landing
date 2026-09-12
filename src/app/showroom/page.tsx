@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/metadata";
 import Link from "next/link";
 import SectionLabel from "@/components/section-label";
 import Card from "@/components/card";
 import CTABand from "@/components/cta-band";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Showroom",
   description:
-    "Try AI tools for your business — no signup, no sales pitch. Interactive demos for dashboards, websites, and AI reports. Lexington, KY.",
-  alternates: { canonical: "/showroom" },
-};
+    "Try AI tools for your business with no signup and no sales pitch. Interactive demos for dashboards, websites, and AI opportunity reports. Lexington, KY.",
+  path: "/showroom",
+});
 
 const rooms = [
   {

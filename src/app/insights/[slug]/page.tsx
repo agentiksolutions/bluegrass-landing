@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/metadata";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { MDXRemote } from "next-mdx-remote/rsc";
@@ -20,17 +21,12 @@ export function generateStaticParams() {
 export function generateMetadata({ params }: Props): Metadata {
   const post = getPost(params.slug);
   if (!post) return {};
-  return {
+  return pageMeta({
     title: post.meta.title,
     description: post.meta.description,
-    alternates: { canonical: `/insights/${params.slug}` },
-    openGraph: {
-      title: post.meta.title,
-      description: post.meta.description,
-      type: "article",
-      publishedTime: post.meta.date,
-    },
-  };
+    path: `/insights/${params.slug}`,
+    article: { publishedTime: post.meta.date },
+  });
 }
 
 export default function InsightPostPage({ params }: Props) {
