@@ -49,7 +49,7 @@ Files deliberately untouched: `src/app/contact/page.tsx` and `src/app/api/intake
 | `og:image` present | 18 of 18 |
 | `twitter:card = summary_large_image` | 18 of 18 |
 | Exactly one H1 | 18 of 18 |
-| Images with alt text | 2 of 2. There are no bare `<img>` tags |
+| Images with alt text | 7 of 7 rendered images. No `<img>` without an `alt` in any built page |
 
 Served from a local production build:
 
@@ -171,8 +171,19 @@ $ curl -s https://bluegrassadvisorygroup.com/insights/ai-trust-gap | grep -oE '<
 <meta property="og:image" content="https://bluegrassadvisorygroup.com/opengraph-image"
 <meta name="twitter:card" content="summary_large_image"
 
+$ curl -s https://bluegrassadvisorygroup.com/ | grep -oE '<title>[^<]*</title>|<link rel="canonical"[^>]*>|<meta property="og:(title|url|image)"[^>]*>'
+<title>Bluegrass Advisory Group: AI Integration &amp; Business Operations</title>
+<link rel="canonical" href="https://bluegrassadvisorygroup.com"/>
+<meta property="og:title" content="AI Integration &amp; Business Operations | Bluegrass Advisory Group"/>
+<meta property="og:url" content="https://bluegrassadvisorygroup.com"/>
+<meta property="og:image" content="https://bluegrassadvisorygroup.com/opengraph-image"/>
+
 $ curl -s https://bluegrassadvisorygroup.com/ | grep -o ProfessionalService
 ProfessionalService
+ProfessionalService
+
+$ grep -rho '<img[^>]*>' .next/server/app --include='*.html' | grep -v 'alt='
+(no output: every rendered image carries an alt)
 
 $ curl -s -o /dev/null -w 'status=%{http_code} type=%{content_type} bytes=%{size_download}
 ' https://bluegrassadvisorygroup.com/opengraph-image
@@ -180,7 +191,7 @@ status=200 type=image/png bytes=36869
 ```
 
 The live `robots.txt` serves the app's rules, and Cloudflare prepends a block of its own ahead of
-them. That block is described in the next section.
+them. The full response is pasted in the next section.
 
 ## Cloudflare is rewriting robots.txt, and Phil should decide whether to keep it
 
@@ -189,22 +200,77 @@ because the Cloudflare zone has managed robots rules turned on. Cloudflare inser
 section first, then the app's section follows underneath. Both are served. The app's
 `Disallow: /api/` and the sitemap line are intact.
 
-What Cloudflare adds:
+The full response, verbatim. The app's own four lines are at the bottom, after the
+Cloudflare block.
 
 ```
+$ curl -s https://bluegrassadvisorygroup.com/robots.txt
+# As a condition of accessing this website, you agree to abide by the following
+# content signals:
+
+# (a)  If a Content-Signal = yes, you may collect content for the corresponding
+#      use.
+# (b)  If a Content-Signal = no, you may not collect content for the
+#      corresponding use.
+# (c)  If the website operator does not include a Content-Signal for a
+#      corresponding use, the website operator neither grants nor restricts
+#      permission via Content-Signal with respect to the corresponding use.
+
+# The content signals and their meanings are:
+
+# search:   building a search index and providing search results (e.g., returning
+#           hyperlinks and short excerpts from your website's contents). Search does not
+#           include providing AI-generated search summaries.
+# ai-input: inputting content into one or more AI models (e.g., retrieval
+#           augmented generation, grounding, or other real-time taking of content for
+#           generative AI search answers).
+# ai-train: training or fine-tuning AI models.
+# use:      how AI systems may consume the content (immediate, reference, or full).
+
+# ANY RESTRICTIONS EXPRESSED VIA CONTENT SIGNALS ARE EXPRESS RESERVATIONS OF
+# RIGHTS UNDER ARTICLE 4 OF THE EUROPEAN UNION DIRECTIVE 2019/790 ON COPYRIGHT
+# AND RELATED RIGHTS IN THE DIGITAL SINGLE MARKET.
+
+# BEGIN Cloudflare Managed content
+
 User-agent: *
 Content-Signal: search=yes,ai-train=no,use=reference
 Allow: /
 
-User-agent: ClaudeBot        Disallow: /
-User-agent: GPTBot           Disallow: /
-User-agent: Google-Extended  Disallow: /
-User-agent: CCBot            Disallow: /
-User-agent: Amazonbot        Disallow: /
-User-agent: Applebot-Extended  Disallow: /
-User-agent: Bytespider       Disallow: /
-User-agent: meta-externalagent  Disallow: /
-User-agent: CloudflareBrowserRenderingCrawler  Disallow: /
+User-agent: Amazonbot
+Disallow: /
+
+User-agent: Applebot-Extended
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: CloudflareBrowserRenderingCrawler
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: meta-externalagent
+Disallow: /
+
+# END Cloudflare Managed Content
+
+User-Agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://bluegrassadvisorygroup.com/sitemap.xml
 ```
 
 Two things follow from that, and only the first is good news.
