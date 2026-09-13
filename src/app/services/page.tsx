@@ -43,6 +43,17 @@ const services = [
   },
 ];
 
+const guides = [
+  { href: "/ai-assessment", label: "What an AI assessment involves" },
+  { href: "/ai-consulting-cost", label: "What drives the cost of AI consulting" },
+  { href: "/ai-tools-we-build", label: "The tools we build most often" },
+  { href: "/multi-location-dashboards", label: "Dashboards for multi-location businesses" },
+  { href: "/ai-for-hospitality", label: "AI for hospitality businesses" },
+  { href: "/ai-for-small-business-kentucky", label: "AI for Kentucky small business" },
+  { href: "/ai-consulting-lexington-ky", label: "AI consulting in Lexington, Kentucky" },
+  { href: "/faq", label: "Questions we get asked" },
+];
+
 export default function ServicesPage() {
   return (
     <>
@@ -76,6 +87,34 @@ export default function ServicesPage() {
               </Card>
             </Link>
           ))}
+        </div>
+      </section>
+
+      <section className="bg-cream py-20 px-6 md:px-12">
+        <div className="max-w-content mx-auto">
+          <h2 className="font-display text-2xl font-bold mb-3">
+            More on how we work.
+          </h2>
+          <p className="text-[15px] leading-relaxed text-[#666] max-w-[560px] mb-10">
+            Longer answers to the questions that come up before anyone signs
+            anything.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-4">
+            {guides.map((g) => (
+              <Link
+                key={g.href}
+                href={g.href}
+                className="group flex items-baseline justify-between gap-4 border-b border-[#e0dbd4] pb-3"
+              >
+                <span className="text-[15px] text-[#555] group-hover:text-emerald transition-colors">
+                  {g.label}
+                </span>
+                <span className="text-emerald opacity-0 group-hover:opacity-100 transition-opacity text-sm shrink-0">
+                  &rarr;
+                </span>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 

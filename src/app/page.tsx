@@ -318,8 +318,15 @@ export default function HomePage() {
               your business.
             </p>
             <p className="text-[15px] leading-relaxed text-[#666] mb-7">
-              Based in Lexington, working with Kentucky businesses who want to
-              modernize without getting sold a bunch of software they don&apos;t need.
+              Based in{" "}
+              <Link
+                href="/ai-consulting-lexington-ky"
+                className="text-emerald hover:underline"
+              >
+                Lexington
+              </Link>
+              , working with Kentucky businesses who want to modernize without
+              getting sold a bunch of software they don&apos;t need.
             </p>
             <div className="flex gap-4 items-center">
               <Link
