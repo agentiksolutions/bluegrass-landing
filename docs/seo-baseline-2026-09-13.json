@@ -1,0 +1,249 @@
+{
+  "captured": "2026-09-12T23:50-04:00",
+  "sitemap_count": 27,
+  "pages": [
+    {
+      "url": "https://bluegrassadvisorygroup.com",
+      "status": 200,
+      "title_len": 66,
+      "desc_len": 157,
+      "canon_ok": true,
+      "h1": 1,
+      "title": "Bluegrass Advisory Group: AI Integration &amp; Business Operations"
+    },
+    {
+      "url": "https://bluegrassadvisorygroup.com/services",
+      "status": 200,
+      "title_len": 35,
+      "desc_len": 133,
+      "canon_ok": true,
+      "h1": 1,
+      "title": "Services | Bluegrass Advisory Group"
+    },
+    {
+      "url": "https://bluegrassadvisorygroup.com/services/web-design",
+      "status": 200,
+      "title_len": 55,
+      "desc_len": 138,
+      "canon_ok": true,
+      "h1": 1,
+      "title": "Web Design &amp; Development | Bluegrass Advisory Group"
+    },
+    {
+      "url": "https://bluegrassadvisorygroup.com/services/ai-integration",
+      "status": 200,
+      "title_len": 41,
+      "desc_len": 158,
+      "canon_ok": true,
+      "h1": 1,
+      "title": "AI Integration | Bluegrass Advisory Group"
+    },
+    {
+      "url": "https://bluegrassadvisorygroup.com/services/dashboards",
+      "status": 200,
+      "title_len": 48,
+      "desc_len": 141,
+      "canon_ok": true,
+      "h1": 1,
+      "title": "Dashboards &amp; Data | Bluegrass Advisory Group"
+    },
+    {
+      "url": "https://bluegrassadvisorygroup.com/services/operations",
+      "status": 200,
+      "title_len": 48,
+      "desc_len": 145,
+      "canon_ok": true,
+      "h1": 1,
+      "title": "Operations Consulting | Bluegrass Advisory Group"
+    },
+    {
+      "url": "https://bluegrassadvisorygroup.com/showroom",
+      "status": 200,
+      "title_len": 35,
+      "desc_len": 152,
+      "canon_ok": true,
+      "h1": 1,
+      "title": "Showroom | Bluegrass Advisory Group"
+    },
+    {
+      "url": "https://bluegrassadvisorygroup.com/showroom/report",
+      "status": 200,
+      "title_len": 48,
+      "desc_len": 130,
+      "canon_ok": true,
+      "h1": 1,
+      "title": "AI Opportunity Report | Bluegrass Advisory Group"
+    },
+    {
+      "url": "https://bluegrassadvisorygroup.com/showroom/website",
+      "status": 200,
+      "title_len": 44,
+      "desc_len": 140,
+      "canon_ok": true,
+      "h1": 1,
+      "title": "Website Generator | Bluegrass Advisory Group"
+    },
+    {
+      "url": "https://bluegrassadvisorygroup.com/showroom/dashboard",
+      "status": 200,
+      "title_len": 41,
+      "desc_len": 124,
+      "canon_ok": true,
+      "h1": 1,
+      "title": "Dashboard Demo | Bluegrass Advisory Group"
+    },
+    {
+      "url": "https://bluegrassadvisorygroup.com/showroom/examples",
+      "status": 200,
+      "title_len": 41,
+      "desc_len": 103,
+      "canon_ok": true,
+      "h1": 1,
+      "title": "Built Examples | Bluegrass Advisory Group"
+    },
+    {
+      "url": "https://bluegrassadvisorygroup.com/ai-consulting-lexington-ky",
+      "status": 200,
+      "title_len": 57,
+      "desc_len": 149,
+      "canon_ok": true,
+      "h1": 1,
+      "title": "AI Consulting in Lexington, KY | Bluegrass Advisory Group"
+    },
+    {
+      "url": "https://bluegrassadvisorygroup.com/ai-assessment",
+      "status": 200,
+      "title_len": 57,
+      "desc_len": 150,
+      "canon_ok": true,
+      "h1": 1,
+      "title": "What an AI Assessment Involves | Bluegrass Advisory Group"
+    },
+    {
+      "url": "https://bluegrassadvisorygroup.com/ai-consulting-cost",
+      "status": 200,
+      "title_len": 57,
+      "desc_len": 149,
+      "canon_ok": true,
+      "h1": 1,
+      "title": "What Drives AI Consulting Cost | Bluegrass Advisory Group"
+    },
+    {
+      "url": "https://bluegrassadvisorygroup.com/ai-for-hospitality",
+      "status": 200,
+      "title_len": 56,
+      "desc_len": 143,
+      "canon_ok": true,
+      "h1": 1,
+      "title": "AI for Hospitality Businesses | Bluegrass Advisory Group"
+    },
+    {
+      "url": "https://bluegrassadvisorygroup.com/ai-for-small-business-kentucky",
+      "status": 200,
+      "title_len": 57,
+      "desc_len": 153,
+      "canon_ok": true,
+      "h1": 1,
+      "title": "AI for Kentucky Small Business | Bluegrass Advisory Group"
+    },
+    {
+      "url": "https://bluegrassadvisorygroup.com/ai-tools-we-build",
+      "status": 200,
+      "title_len": 55,
+      "desc_len": 149,
+      "canon_ok": true,
+      "h1": 1,
+      "title": "AI Tools We Build Most Often | Bluegrass Advisory Group"
+    },
+    {
+      "url": "https://bluegrassadvisorygroup.com/multi-location-dashboards",
+      "status": 200,
+      "title_len": 52,
+      "desc_len": 153,
+      "canon_ok": true,
+      "h1": 1,
+      "title": "Multi-Location Dashboards | Bluegrass Advisory Group"
+    },
+    {
+      "url": "https://bluegrassadvisorygroup.com/faq",
+      "status": 200,
+      "title_len": 53,
+      "desc_len": 147,
+      "canon_ok": true,
+      "h1": 1,
+      "title": "Frequently Asked Questions | Bluegrass Advisory Group"
+    },
+    {
+      "url": "https://bluegrassadvisorygroup.com/about",
+      "status": 200,
+      "title_len": 32,
+      "desc_len": 151,
+      "canon_ok": true,
+      "h1": 1,
+      "title": "About | Bluegrass Advisory Group"
+    },
+    {
+      "url": "https://bluegrassadvisorygroup.com/insights",
+      "status": 200,
+      "title_len": 35,
+      "desc_len": 144,
+      "canon_ok": true,
+      "h1": 1,
+      "title": "Insights | Bluegrass Advisory Group"
+    },
+    {
+      "url": "https://bluegrassadvisorygroup.com/contact",
+      "status": 200,
+      "title_len": 34,
+      "desc_len": 153,
+      "canon_ok": true,
+      "h1": 1,
+      "title": "Contact | Bluegrass Advisory Group"
+    },
+    {
+      "url": "https://bluegrassadvisorygroup.com/insights/automating-our-own-back-office",
+      "status": 200,
+      "title_len": 103,
+      "desc_len": 145,
+      "canon_ok": true,
+      "h1": 1,
+      "title": "What We Automated in Our Own Back Office First, and What It Cost Us to Learn | Bluegrass Advisory Group"
+    },
+    {
+      "url": "https://bluegrassadvisorygroup.com/insights/choosing-an-ai-consultant",
+      "status": 200,
+      "title_len": 101,
+      "desc_len": 146,
+      "canon_ok": true,
+      "h1": 1,
+      "title": "How to Choose an AI Consultant (Six Questions That Actually Separate Them) | Bluegrass Advisory Group"
+    },
+    {
+      "url": "https://bluegrassadvisorygroup.com/insights/automated-35-workflows",
+      "status": 200,
+      "title_len": 115,
+      "desc_len": 146,
+      "canon_ok": true,
+      "h1": 1,
+      "title": "I Automated 35 Workflows Before Selling a Single AI Service \u2014 Here&#x27;s What I Learned | Bluegrass Advisory Group"
+    },
+    {
+      "url": "https://bluegrassadvisorygroup.com/insights/ai-trust-gap",
+      "status": 200,
+      "title_len": 114,
+      "desc_len": 145,
+      "canon_ok": true,
+      "h1": 1,
+      "title": "The AI Trust Gap: Why Most Businesses Aren&#x27;t Ready to Buy (And What to Do Instead) | Bluegrass Advisory Group"
+    },
+    {
+      "url": "https://bluegrassadvisorygroup.com/insights/cut-12-hours-admin",
+      "status": 200,
+      "title_len": 90,
+      "desc_len": 126,
+      "canon_ok": true,
+      "h1": 1,
+      "title": "How We Cut 12 Hours of Weekly Admin Work Across Three Locations | Bluegrass Advisory Group"
+    }
+  ]
+}
