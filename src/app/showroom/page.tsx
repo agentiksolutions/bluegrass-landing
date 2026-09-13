@@ -44,7 +44,7 @@ const rooms = [
     id: "examples",
     num: "04",
     title: "Built Examples",
-    desc: "Real sites and tools we've designed. Not mockups — fully functional builds you can click through and interact with.",
+    desc: "Real sites and tools we've designed. Not mockups. Fully functional builds you can click through and interact with.",
     tag: "Portfolio",
     time: "Browse",
     href: "/showroom/examples",

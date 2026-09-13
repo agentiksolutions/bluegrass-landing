@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
     const supabaseKey = process.env.SUPABASE_ANON_KEY;
 
     if (!supabaseUrl || !supabaseKey) {
-      console.warn("Supabase not configured — lead not saved");
+      console.warn("Supabase not configured. Lead not saved");
       return NextResponse.json({ ok: true });
     }
 

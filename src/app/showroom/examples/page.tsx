@@ -16,7 +16,7 @@ const examples = [
   {
     title: "The PFSA",
     description:
-      "A modern website for the Public Foundation of Stewardship Advancement. Built to showcase the organization's mission, board, and community impact — fully functional, mobile-responsive, zero templates.",
+      "A modern website for the Public Foundation of Stewardship Advancement. Built to showcase the organization's mission, board, and community impact. Fully functional, mobile-responsive, zero templates.",
     features: [
       "Mission and impact showcase",
       "Board directory",
@@ -38,7 +38,7 @@ export default function ExamplesPage() {
           Built examples.
         </h1>
         <p className="text-[17px] leading-relaxed text-stone max-w-[520px] mb-16">
-          Real sites and tools we&apos;ve designed. Not mockups — fully
+          Real sites and tools we&apos;ve designed. Not mockups. Fully
           functional builds you can click through and interact with.
         </p>
       </div>

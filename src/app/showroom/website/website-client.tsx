@@ -214,7 +214,7 @@ export default function WebsiteGeneratorPage() {
                   This is what {formData.businessName} could look like.
                 </h3>
                 <p className="text-sm text-stone leading-relaxed max-w-[420px]">
-                  This is a quick concept — the real thing would be fully custom,
+                  This is a quick concept. The real thing would be fully custom,
                   mobile-responsive, and built to convert. Want to talk about
                   making it real?
                 </p>

@@ -64,14 +64,14 @@ const industries: Record<
     ],
     alerts: [
       { type: "warning", text: "Food cost trending up 2.3% vs last period at Store #2" },
-      { type: "action", text: "3 invoices pending review — $2,840 total" },
+      { type: "action", text: "3 invoices pending review: $2,840 total" },
       { type: "info", text: "Saturday revenue hit 6-month high" },
     ],
     tableHeaders: ["Location", "Revenue", "Food %", "Labor %", "Profit"],
     tableRows: [
-      ["Store #1 — Hamburg", "$142,600", "27.1%", "30.8%", "$18,200"],
-      ["Store #2 — Richmond Rd", "$128,400", "29.8%", "32.1%", "$14,100"],
-      ["Store #3 — Nicholasville", "$118,900", "28.2%", "30.6%", "$16,800"],
+      ["Store #1: Hamburg", "$142,600", "27.1%", "30.8%", "$18,200"],
+      ["Store #2: Richmond Rd", "$128,400", "29.8%", "32.1%", "$14,100"],
+      ["Store #3: Nicholasville", "$118,900", "28.2%", "30.6%", "$16,800"],
     ],
   },
   contractor: {
@@ -106,14 +106,14 @@ const industries: Record<
       { name: "Feb", revenue: 164000, costs: 108000 },
     ],
     alerts: [
-      { type: "warning", text: "Henderson remodel — materials 14% over estimate" },
-      { type: "action", text: "5 invoices overdue 30+ days — $18,400" },
+      { type: "warning", text: "Henderson remodel: materials 14% over estimate" },
+      { type: "action", text: "5 invoices overdue 30+ days: $18,400" },
       { type: "info", text: "February was highest revenue month in 12 months" },
     ],
     tableHeaders: ["Job", "Budget", "Spent", "Margin", "Status"],
     tableRows: [
       ["Henderson Kitchen Remodel", "$42,000", "$28,600", "31.9%", "In Progress"],
-      ["Oak Hill New Build", "$186,000", "$94,200", "—", "In Progress"],
+      ["Oak Hill New Build", "$186,000", "$94,200", "-", "In Progress"],
       ["Beaumont Bath Reno", "$18,500", "$16,800", "38.4%", "Complete"],
     ],
   },
@@ -150,8 +150,8 @@ const industries: Record<
     ],
     alerts: [
       { type: "warning", text: "Utilization dipped below 75% target this week" },
-      { type: "action", text: "4 proposals awaiting client response — $32,000 pipeline" },
-      { type: "info", text: "Client retention rate at 92% — up from 88% last quarter" },
+      { type: "action", text: "4 proposals awaiting client response: $32,000 pipeline" },
+      { type: "info", text: "Client retention rate at 92%: up from 88% last quarter" },
     ],
     tableHeaders: ["Client", "Project Value", "Hours Used", "Budget Left", "Status"],
     tableRows: [
@@ -192,9 +192,9 @@ const industries: Record<
       { name: "Feb", revenue: 38600, costs: 32000 },
     ],
     alerts: [
-      { type: "warning", text: "12 SKUs below reorder point — restock needed" },
+      { type: "warning", text: "12 SKUs below reorder point: restock needed" },
       { type: "action", text: "Weekend promo drove 34% more foot traffic vs last Saturday" },
-      { type: "info", text: "Top seller this month: Item #0442 — 186 units" },
+      { type: "info", text: "Top seller this month: Item #0442, 186 units" },
     ],
     tableHeaders: ["Category", "Revenue", "Units Sold", "Margin", "Trend"],
     tableRows: [
@@ -231,7 +231,7 @@ export default function DashboardDemoPage() {
           </h2>
           <p className="text-sm text-stone mb-8">
             See what your numbers could look like in a real dashboard. Sample
-            data — but the layout is exactly what we&apos;d build for you.
+            data. The layout is exactly what we&apos;d build for you.
           </p>
 
           <div className="flex flex-col gap-2.5">
@@ -315,7 +315,7 @@ export default function DashboardDemoPage() {
         <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-4 mb-6">
           <div className="bg-white rounded-lg p-6 border border-[#e8e5e0]">
             <div className="text-[13px] font-semibold text-graphite mb-5">
-              This Week — Daily Revenue
+              This Week: Daily Revenue
             </div>
             <ResponsiveContainer width="100%" height={200}>
               <BarChart data={data.revenueData}>
@@ -394,7 +394,7 @@ export default function DashboardDemoPage() {
         <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-4 mb-6">
           <div className="bg-white rounded-lg p-6 border border-[#e8e5e0]">
             <div className="text-[13px] font-semibold text-graphite mb-5">
-              6-Month Trend — Revenue vs Costs
+              6-Month Trend: Revenue vs Costs
             </div>
             <ResponsiveContainer width="100%" height={200}>
               <LineChart data={data.monthlyData}>

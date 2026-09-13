@@ -16,9 +16,9 @@ export default function WebDesignPage() {
       title="Your business deserves a real website."
       subtitle="Not a template with your logo slapped on it. A fully custom site designed around your business, your customers, and your goals. Built to load fast, look sharp, and convert visitors into calls."
       deliverables={[
-        "Custom design — no templates, no drag-and-drop builders",
+        "Custom design: no templates, no drag-and-drop builders",
         "Mobile-responsive layout that works on every device",
-        "SEO foundation — proper structure, meta tags, page speed optimization",
+        "SEO foundation: proper structure, meta tags, page speed optimization",
         "Contact forms, maps, and lead capture built in",
         "Hosting setup and domain configuration",
         "Google Business Profile and analytics integration",
@@ -53,7 +53,7 @@ export default function WebDesignPage() {
         },
         areaServed: "Central Kentucky",
         description:
-          "Custom web design and development for businesses. Professional sites built for speed, SEO, and conversions — not templates.",
+          "Custom web design and development for businesses. Professional sites built for speed, SEO, and conversions. Not templates.",
       }}
     />
   );

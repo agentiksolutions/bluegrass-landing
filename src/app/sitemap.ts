@@ -4,7 +4,7 @@ import { getAllPosts } from "@/lib/mdx";
 const baseUrl = "https://bluegrassadvisorygroup.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  // Build-time date — refreshes on every deploy so lastmod is never stale.
+  // Build-time date. Refreshes on every deploy so lastmod is never stale.
   const lastModified = new Date();
   const staticPages = [
     { url: baseUrl, lastModified, changeFrequency: "weekly" as const, priority: 1.0 },

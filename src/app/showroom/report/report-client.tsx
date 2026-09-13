@@ -203,7 +203,7 @@ export default function ReportPage() {
             Bluegrass <span className="text-emerald">Advisory</span>
           </div>
           <p className="text-sm text-stone">
-            AI Opportunity Report — Free, instant, no signup
+            AI Opportunity Report: Free, instant, no signup
           </p>
         </div>
 

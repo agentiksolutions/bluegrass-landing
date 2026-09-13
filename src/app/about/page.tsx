@@ -39,7 +39,7 @@ const stats = [
 ];
 
 const differentiators = [
-  "We still manage real operations — this isn't academic",
+  "We still manage real operations. This isn't academic",
   "We build what we use ourselves, every day",
   "No recurring SaaS fees or vendor lock-in",
   "Kentucky-based, working with Kentucky businesses",
@@ -69,7 +69,7 @@ export default function AboutPage() {
               Built from experience, not theory.
             </h2>
             <p className="text-[16px] leading-relaxed text-[#555] mb-5">
-              Phil spent over a decade in the hospitality industry — managing
+              Phil spent over a decade in the hospitality industry, managing
               hundreds of employees across multiple locations. He didn&apos;t read
               about running businesses in a textbook. He&apos;s been in the weeds
               every day for over a decade.
@@ -77,14 +77,14 @@ export default function AboutPage() {
             <p className="text-[16px] leading-relaxed text-[#555] mb-5">
               Bluegrass Advisory Group exists because the tools he built for his
               own operation solve the same problems every growing business faces.
-              We don&apos;t sell theory. We sell what works — because we use it
+              We don&apos;t sell theory. We sell what works, because we use it
               ourselves, every day.
             </p>
             <p className="text-[16px] leading-relaxed text-[#555]">
               Today, Phil runs an autonomous operating system that manages
-              workflows across multiple businesses — the same approach we bring to
+              workflows across multiple businesses, the same approach we bring to
               every client. We&apos;re not a software company selling licenses.
-              We build tools that make businesses run better — because we use them
+              We build tools that make businesses run better, because we use them
               ourselves.
             </p>
             <p className="text-[16px] leading-relaxed text-[#555] mt-5">

@@ -30,17 +30,17 @@ const initialState: FormState = {
 const REVENUE_OPTIONS = [
   { value: "", label: "Select range" },
   { value: "under_1m", label: "Under $1M" },
-  { value: "1m_to_5m", label: "$1M – $5M" },
-  { value: "5m_to_15m", label: "$5M – $15M" },
-  { value: "15m_to_50m", label: "$15M – $50M" },
+  { value: "1m_to_5m", label: "$1M-$5M" },
+  { value: "5m_to_15m", label: "$5M-$15M" },
+  { value: "15m_to_50m", label: "$15M-$50M" },
   { value: "over_50m", label: "Over $50M" },
 ];
 
 const ENTITIES_OPTIONS = [
   { value: "", label: "Select" },
   { value: "1", label: "1" },
-  { value: "2-3", label: "2 – 3" },
-  { value: "4-7", label: "4 – 7" },
+  { value: "2-3", label: "2-3" },
+  { value: "4-7", label: "4-7" },
   { value: "8+", label: "8+" },
 ];
 
@@ -96,7 +96,7 @@ export default function ContactPage() {
   return (
     <section className="pt-[148px] pb-24 px-6 md:px-12 max-w-content mx-auto">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-start">
-        {/* Left column — info */}
+        {/* Left column: info */}
         <div>
           <SectionLabel>Get Started</SectionLabel>
           <h1 className="font-display text-4xl leading-tight font-bold tracking-tight mb-6">
@@ -104,8 +104,8 @@ export default function ContactPage() {
           </h1>
           <p className="text-base leading-relaxed text-charcoal mb-8">
             No sales pitch. No pressure. A few quick questions, then a free
-            30-minute intro call to scope what makes sense for your business —
-            or honestly tell you if AI isn&apos;t your bottleneck right now.
+            30-minute intro call to scope what makes sense for your business, or
+            honestly tell you if AI isn&apos;t your bottleneck right now.
           </p>
 
           <div className="text-[15px] text-stone space-y-3 mb-10">
@@ -146,7 +146,7 @@ export default function ContactPage() {
               <li>I review and reply within 24 hours</li>
               <li>We schedule a free 30-min call</li>
               <li>
-                You get an honest recommendation — Quickstart, Strategic
+                You get an honest recommendation: Quickstart, Strategic
                 Roadmap, ongoing advisory, or sometimes &ldquo;you don&apos;t
                 need us right now.&rdquo;
               </li>
@@ -154,7 +154,7 @@ export default function ContactPage() {
           </div>
         </div>
 
-        {/* Right column — form or success */}
+        {/* Right column: form or success */}
         <div className="bg-white p-10 rounded-lg border border-graphite/[0.06]">
           {submitted ? (
             <SuccessState
@@ -379,7 +379,7 @@ function SuccessState({
       {calendlyUrl ? (
         <>
           <div className="text-[13px] font-semibold tracking-wide text-emerald uppercase mb-3">
-            Skip the email — book your intro call now
+            Skip the email. Book your intro call now
           </div>
           <a
             href={calendlyUrl}
@@ -396,7 +396,7 @@ function SuccessState({
       ) : (
         <div className="bg-cream p-5 rounded-md text-[14px] text-charcoal leading-relaxed">
           I&apos;ll be in touch within 24 hours to schedule the call. Check
-          your inbox — confirmation should land within the next minute or two.
+          your inbox. Confirmation should land within the next minute or two.
         </div>
       )}
 

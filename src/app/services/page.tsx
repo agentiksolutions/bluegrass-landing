@@ -16,14 +16,14 @@ const services = [
   {
     num: "01",
     title: "Web Design & Development",
-    desc: "Professional sites built for your business. Not templates — real design, real hosting, fully yours.",
+    desc: "Professional sites built for your business. Not templates. Real design, real hosting, fully yours.",
     icon: "◈",
     href: "/services/web-design",
   },
   {
     num: "02",
     title: "AI Integration",
-    desc: "Research, reporting, document creation, customer tools — built around your actual workflow.",
+    desc: "Research, reporting, document creation, and customer tools. Built around your actual workflow.",
     icon: "◉",
     href: "/services/ai-integration",
   },
@@ -64,7 +64,7 @@ export default function ServicesPage() {
         </h1>
         <p className="text-lg leading-relaxed text-[#666] max-w-[600px] mb-16">
           Most businesses we talk to aren&apos;t sure what AI can do for them.
-          That&apos;s fine — that&apos;s exactly where we start. We learn your
+          That&apos;s fine. That&apos;s exactly where we start. We learn your
           business first, then figure out where AI actually helps.
         </p>
       </section>

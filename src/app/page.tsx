@@ -14,14 +14,14 @@ const services = [
     num: "01",
     title: "Web Design & Development",
     brief:
-      "Professional sites built for your business. Not templates — real design, real hosting, fully yours.",
+      "Professional sites built for your business. Not templates. Real design, real hosting, fully yours.",
     href: "/services/web-design",
   },
   {
     num: "02",
     title: "AI Integration",
     brief:
-      "Research, reporting, document creation, customer tools — built around your actual workflow.",
+      "Research, reporting, document creation, and customer tools. Built around your actual workflow.",
     href: "/services/ai-integration",
   },
   {
@@ -77,7 +77,7 @@ const showroomRooms = [
 
 const blogPosts = [
   {
-    title: "I Automated 35 Workflows Before Selling a Single AI Service — Here's What I Learned",
+    title: "I Automated 35 Workflows Before Selling a Single AI Service. Here's What I Learned",
     category: "Lessons Learned",
     read: "5 min read",
     slug: "automated-35-workflows",
@@ -159,7 +159,7 @@ export default function HomePage() {
     <>
       <JsonLd data={organizationJsonLd} />
       <JsonLd data={websiteJsonLd} />
-      {/* ════════ HERO — Full-bleed video ════════ */}
+      {/* ════════ HERO: Full-bleed video ════════ */}
       <section className="relative min-h-screen flex items-center overflow-hidden">
         <video
           autoPlay
@@ -302,7 +302,7 @@ export default function HomePage() {
             </video>
             <div className="absolute inset-0 bg-[rgba(28,28,30,0.15)]" />
             <div className="absolute bottom-4 left-4 text-[11px] text-warm-white/80 tracking-[2px] uppercase font-semibold">
-              Kentucky &mdash; Where We Work
+              Kentucky: Where We Work
             </div>
           </div>
 
@@ -393,7 +393,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ════════ CTA — Full-bleed video ════════ */}
+      {/* ════════ CTA: Full-bleed video ════════ */}
       <CTABand video="/videos/kling-architecture.mp4" />
 
       <AutoplayVideos />

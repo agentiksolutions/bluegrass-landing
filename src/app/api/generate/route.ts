@@ -25,7 +25,7 @@ const websitePrompt = (formData: {
   whatYouDo: string;
   location: string;
   vibe: string;
-}) => `You are a web designer for Bluegrass Advisory Group. Generate website content for a small business. Be specific to their actual business — no generic filler. Write like a human, not a marketing bot.
+}) => `You are a web designer for Bluegrass Advisory Group. Generate website content for a small business. Be specific to their actual business. No generic filler. Write like a human, not a marketing bot.
 
 Business: ${formData.businessName}
 What they do: ${formData.whatYouDo}
