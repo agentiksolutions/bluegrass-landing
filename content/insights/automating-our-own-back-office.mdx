@@ -1,0 +1,61 @@
+---
+title: "What We Automated in Our Own Back Office First, and What It Cost Us to Learn"
+description: "The order we built things in, the three mistakes that cost the most time, and why the approval step is the part nobody wants and everybody needs."
+category: "Case Study"
+date: "2026-09-12"
+readTime: "7 min read"
+---
+
+We have written before about [cutting 12 hours of weekly admin work across three locations](/insights/cut-12-hours-admin). That article is about the result. This one is about the order we did it in and the parts we got wrong, because the sequence turned out to matter more than any individual build.
+
+Everything below runs on our own operations, in a hospitality business with three locations and in the consulting practice. Nothing here is a client system.
+
+## We started with the mail, because the mail was drowning us
+
+One inbox received invoices and operational notices from more than twenty vendors. Before anything could be coded or paid, somebody had to read each one, work out which location it belonged to, and decide whether it needed attention today.
+
+That job was nobody's job. It landed on whoever opened the inbox first, which meant it landed late.
+
+The build reads the inbox on a schedule, classifies each message by what it is and which location it concerns, and puts the ones needing a decision in front of a person. It does not pay anything. It does not reply to anyone. It sorts, and it flags what it is unsure about.
+
+Two things surprised us. The first is that accuracy depends almost entirely on how consistently a sender formats what they send, so a new vendor costs a round of tuning and an old one costs nothing. The second is that the value was not the sorting. The value was that nothing sat unread for four days anymore.
+
+## Then meetings, because the decisions kept evaporating
+
+The weekly management meeting happened, decisions got made, and by Thursday people remembered them differently. Everyone has this problem and almost nobody solves it, because solving it means somebody has to take notes, and the person best placed to take them is the person running the meeting.
+
+The meeting is now transcribed automatically, and a summary comes back with decisions and action items attached to names. Last week's items appear at the top of this week's summary with their status, which is the part that actually changed behavior. An action item that follows you into the next meeting gets done.
+
+The limit here is real and worth stating. Transcription tracks audio quality, and the summary occasionally reads "yeah we are working on that" as a completed task. A person reads it before it goes anywhere. That has never been negotiable.
+
+## Then the weekly update, which we did not expect to matter
+
+The meeting summary fed the next build almost by accident. A weekly internal update goes out before the Tuesday management meeting, assembled from inputs the business already produces, in the same format every week.
+
+What made it work was not the writing. It was that the update carries forward the previous week's commitments, so accountability has a mechanism instead of a memory. Before this, follow-up depended on somebody caring enough to bring it up. Now it is in the document whether anyone brings it up or not.
+
+## The three things that cost us the most
+
+**Building for the interesting problem instead of the frequent one.** Our first instinct was to automate the hardest task in the business. The hardest task happened twice a month. The mail happened every day. Frequency beats difficulty every time, and it took us longer than it should have to accept that.
+
+**Assuming failure would be obvious.** Early on, a workflow stopped pulling one of its data sources and produced output that looked completely normal, just slightly thinner. Nobody noticed for days, because the report still arrived. Since then, everything we build is designed to say out loud when a source went missing, rather than quietly producing less. A system that fails silently is worse than one that fails loudly, because you go on trusting it while it is wrong.
+
+**Wanting a system to be finished.** None of these were right on the first pass. The mail classifier needed weeks of corrections before it earned any trust. Budget for the tuning, or the thing gets abandoned in week two and written off as a failed experiment when it was actually an unfinished one.
+
+## The approval step is the whole thing
+
+Every system described above proposes, and a person decides. No message reaches an outside party, no document publishes, and no record changes because an automation was confident.
+
+This is slower. It is also the reason we have never had to walk something back. The pattern we use starts everything at "show me", and a tool only earns a wider boundary after months of being right. Somebody widens it deliberately. It never defaults to on.
+
+When business owners tell us their real fear about AI, it is almost never that it will not work. It is that it will do something embarrassing on their behalf. That fear is correct, and the architecture is the answer to it, rather than a promise that the model is good.
+
+## What we would do differently
+
+Start smaller. One job, running for a month, before touching a second one. We built too many things in parallel early and spent more time maintaining half-finished work than the finished work was saving us.
+
+Write down what the numbers mean before building anything that displays them. Most of the pain in reporting is not the report. It is two systems that disagree about what a week is.
+
+And keep a list of what each system will not do, from the first day. We started writing those limits down for clients, and then noticed that having written them was making our own decisions about what to build next much faster.
+
+If you want the version of this conversation applied to your business rather than ours, that is what [an assessment](/ai-assessment) is for.
