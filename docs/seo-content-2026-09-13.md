@@ -119,6 +119,11 @@ two polls returned 404, which was the deploy still building.
 | https://bluegrassadvisorygroup.com/insights/automating-our-own-back-office | 200 | yes |
 | https://bluegrassadvisorygroup.com/sitemap.xml | 200 | 27 entries |
 
+Re-fetched at 23:48 ET after the final push, against the deploy that is live now:
+`/ai-consulting-lexington-ky` returns 200 and `/faq` still serves its own canonical. The inbound
+links were checked in live HTML at the same time: `/services` renders all eight guide hrefs, the
+home page renders the footer FAQ link and the Lexington link.
+
 ## Internal linking
 
 Each new page links to at least two existing pages in its body copy and in a closing link block.
