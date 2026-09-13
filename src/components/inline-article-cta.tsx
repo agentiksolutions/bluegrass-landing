@@ -7,7 +7,7 @@ export default function InlineArticleCTA() {
         Want results like this for your business?
       </p>
       <p className="text-[15px] leading-relaxed text-[#666] mb-5">
-        Let&apos;s talk — no pitch, just a conversation about what&apos;s
+        Let&apos;s talk. No pitch, just a conversation about what&apos;s
         possible for your operation.
       </p>
       <div className="flex flex-wrap items-center gap-4">
