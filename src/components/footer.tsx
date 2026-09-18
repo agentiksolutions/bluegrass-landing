@@ -14,6 +14,7 @@ const footerCols = [
     title: "Company",
     items: [
       { label: "About", href: "/about" },
+      { label: "How we work", href: "/how-we-work" },
       { label: "Showroom", href: "/showroom" },
       { label: "Insights", href: "/insights" },
       { label: "FAQ", href: "/faq" },
