@@ -17,3 +17,6 @@ dist
 # misc
 *.tsbuildinfo
 next-env.d.ts
+
+# Hero exploration clips (2026-09-20). Masters live in E:/Cortex/_tmp/bag-video; about 73 MB.
+public/videos/hero-*.mp4
