@@ -1,6 +1,6 @@
 "use client";
 
-// Scattered dots gather into the firm's full name, hold to be read, then settle into a lattice — messy operations becoming structure.
+// Scattered dots gather into the firm's full name, hold to be read, then settle into a lattice: messy operations becoming structure.
 
 import { useEffect, useRef } from "react";
 

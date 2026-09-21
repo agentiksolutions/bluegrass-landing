@@ -1,4 +1,4 @@
-// The name starts slightly misted and loosely tracked, then gathers into a tight lockup as a gold rule draws from the center — messy operations pulled into still, finished order.
+// The name starts slightly misted and loosely tracked, then gathers into a tight lockup as a gold rule draws from the center: messy operations pulled into still, finished order.
 "use client";
 
 const CSS = `
