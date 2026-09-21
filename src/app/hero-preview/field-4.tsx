@@ -203,7 +203,7 @@ function build(w: number, h: number, seed: number) {
   const fillPts = thin(sampled.fill, w < 560 ? 7 : 9, 70);
   const raw = [...edgePts, ...fillPts];
   const goldN = 3;
-  const rightRank = [...raw.keys()].sort((i, j) => raw[j].x - raw[i].x);
+  const rightRank = raw.map((_, i) => i).sort((i, j) => raw[j].x - raw[i].x);
   const gold = new Set(rightRank.slice(0, goldN));
   const rules = makeRules(w, h);
   const nodes: Node[] = raw.map((p, i) => ({

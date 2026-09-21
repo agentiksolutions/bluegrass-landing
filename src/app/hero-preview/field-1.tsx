@@ -151,7 +151,7 @@ function buildParticles(w: number, h: number, seed: number): Particle[] {
   }
 
   const restOf = new Set<number>();
-  for (const i of goldIdx) restOf.add(i);
+  goldIdx.forEach((i) => restOf.add(i)); // forEach, not for-of: this project's tsconfig target rejects Set iteration
   if (letters.length && rest.length) {
     const stride = Math.max(1, Math.floor(letters.length / rest.length));
     for (let i = 0; i < letters.length && restOf.size < rest.length; i += stride) {
