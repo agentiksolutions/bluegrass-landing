@@ -58,6 +58,10 @@ src/components/       Shared components (nav, footer, button, card, etc.)
 src/lib/              Utilities (fonts, metadata, rate-limit, supabase, mdx)
 content/insights/     MDX blog articles
 public/videos/        Hero + architecture videos (35MB total)
+                      2026-09-20: a hero exploration is PARKED on branch `hero-explorations` (unmerged) with a
+                      preview-only page at /hero-preview. Its clips live in E:/Cortex/_tmp/bag-video and are
+                      deliberately uncommitted. Index: philip-brain/BAG/hero-explorations-reference-2026-09-20.md.
+                      Decided: the hero says the full name on ONE line, the header logo stays "Bluegrass Advisory".
 public/showroom/      Legacy static HTML demos (slys-nubian still exists)
 ```
 
