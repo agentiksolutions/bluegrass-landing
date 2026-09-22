@@ -10,7 +10,7 @@ const STATUS_CANCELLED = "Cancelled";
 
 type Json = Record<string, unknown>;
 
-export function verifyCalSignature(
+function verifyCalSignature(
   rawBody: string,
   header: string | null,
   secret: string
@@ -24,7 +24,7 @@ export function verifyCalSignature(
   return timingSafeEqual(a, b);
 }
 
-export function etDate(iso: string): string {
+function etDate(iso: string): string {
   const parts = new Intl.DateTimeFormat("en-US", {
     timeZone: "America/New_York",
     year: "numeric",
@@ -35,7 +35,7 @@ export function etDate(iso: string): string {
   return `${pick("year")}-${pick("month")}-${pick("day")}`;
 }
 
-export function etStamp(iso: string): string {
+function etStamp(iso: string): string {
   return new Intl.DateTimeFormat("en-US", {
     timeZone: "America/New_York",
     dateStyle: "medium",
@@ -43,7 +43,7 @@ export function etStamp(iso: string): string {
   }).format(new Date(iso));
 }
 
-export function hoursBetween(startIso: string, endIso: string): number {
+function hoursBetween(startIso: string, endIso: string): number {
   const ms = new Date(endIso).getTime() - new Date(startIso).getTime();
   if (!Number.isFinite(ms) || ms <= 0) return 0;
   return Math.round((ms / 3600000) * 100) / 100;
@@ -57,7 +57,7 @@ function text(value: unknown): string {
   return typeof value === "string" ? value.trim() : "";
 }
 
-export function eventTitle(payload: Json): string {
+function eventTitle(payload: Json): string {
   const title = text(payload.title);
   if (title) return title;
   const eventType = asRecord(payload.eventType);
@@ -66,7 +66,7 @@ export function eventTitle(payload: Json): string {
   return text(payload.type) || "booking";
 }
 
-export function firstAttendee(payload: Json): { name: string; email: string } {
+function firstAttendee(payload: Json): { name: string; email: string } {
   const list = Array.isArray(payload.attendees) ? payload.attendees : [];
   for (const item of list) {
     const row = asRecord(item);
@@ -96,12 +96,12 @@ function responseLines(payload: Json): string {
   return lines.join("\n");
 }
 
-export function visitName(attendeeName: string, title: string, companyName: string): string {
+function visitName(attendeeName: string, title: string, companyName: string): string {
   const who = companyName || attendeeName || "Guest";
   return `${who} - ${title}`;
 }
 
-export function notesBody(
+function notesBody(
   uid: string,
   attendeeName: string,
   email: string,
@@ -119,7 +119,7 @@ export function notesBody(
   return lines.join("\n");
 }
 
-export function createdFields(
+function createdFields(
   payload: Json,
   companyName: string
 ): { visit: string; date: string; status: string; hours: number; notes: string; email: string } {
