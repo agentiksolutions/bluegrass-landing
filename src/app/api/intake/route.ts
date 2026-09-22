@@ -68,80 +68,88 @@ async function sendResendEmail(payload: {
   }
 }
 
-// GoHighLevel sub-account "Bluegrass Advisory Group", pipeline "BAG Sales".
-const GHL_LOCATION = "DOntCRGh6iMCKP4fH4nr";
-const GHL_PIPELINE = "kAOFvY0OwpAagQ2Fyzwe";
-const GHL_STAGE_LEAD = "01b31e36-12f3-4103-994d-e6243ca600c2";
-const GHL_FIELD = {
-  role: "779cLhcOcwGvidGgGp6J",
-  website: "oi0adVd23Mkbxb2nRmVN",
-  revenue: "ngCmH6tYlfLlSF7G1JF5",
-  entities: "TrtubsQJytWCzLvaa45T",
-  bestTime: "9zNUz1gqN23oxYI0fyas",
-  notes: "w0aVy1SGHFwZlxBSsbjw",
-};
+// Airtable "BAG CRM" base: one Contact plus one Pipeline row at Stage Lead.
+// Email is the dedupe key on Contacts; company name is the key on Pipeline.
+const AT_BASE = "appOBDNbuSrxIfpqr";
+const AT_CONTACTS = "tblpmoLXuqyLr1Cjd";
+const AT_PIPELINE = "tblbx8PVXPHeNKFwF";
 
-async function ghl(path: string, method: string, payload: unknown) {
-  const token = process.env.GHL_API_TOKEN;
-  if (!token) throw new Error("GHL_API_TOKEN not configured");
-  const res = await fetch(`https://services.leadconnectorhq.com${path}`, {
+async function airtable(path: string, method: string, payload?: unknown) {
+  const token = process.env.AIRTABLE_PAT;
+  if (!token) throw new Error("AIRTABLE_PAT not configured");
+  const res = await fetch(`https://api.airtable.com/v0/${AT_BASE}/${path}`, {
     method,
     headers: {
       Authorization: `Bearer ${token}`,
-      Version: "2021-07-28",
       "Content-Type": "application/json",
-      // Cloudflare in front of the API rejects non-browser user agents.
-      "User-Agent": "Mozilla/5.0 (bluegrass-landing intake)",
     },
     body: payload === undefined ? undefined : JSON.stringify(payload),
   });
   const text = await res.text();
-  if (!res.ok) throw new Error(`GHL ${method} ${path} ${res.status}: ${text}`);
+  if (!res.ok) throw new Error(`Airtable ${method} ${path} ${res.status}: ${text}`);
   return text ? JSON.parse(text) : {};
 }
 
-async function pushToGoHighLevel(body: IntakePayload) {
-  const name = body.contact_name.trim();
-  const [firstName, ...rest] = name.split(/\s+/);
+function quote(s: string): string {
+  return s.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+}
+
+async function findOne(table: string, formula: string): Promise<string | undefined> {
+  const q = new URLSearchParams({ filterByFormula: formula, maxRecords: "1" });
+  const data = await airtable(`${table}?${q}`, "GET");
+  return data?.records?.[0]?.id;
+}
+
+async function pushToAirtable(body: IntakePayload) {
+  const email = body.email.trim().toLowerCase();
+  const company = body.company_name.trim();
   const revenue = REVENUE_LABELS[body.annual_revenue_range] || body.annual_revenue_range;
+  const intake = [
+    `Website intake ${new Date().toISOString().slice(0, 10)}`,
+    `Website: ${body.company_website?.trim() || "(not provided)"}`,
+    `Revenue: ${revenue}`,
+    `Entities: ${body.num_entities}`,
+    `Best call time: ${body.best_call_time?.trim() || "(not provided)"}`,
+    "",
+    body.ai_question.trim(),
+  ].join("\n");
 
-  const upsert = await ghl("/contacts/upsert", "POST", {
-    locationId: GHL_LOCATION,
-    firstName,
-    lastName: rest.join(" ") || undefined,
-    name,
-    email: body.email.trim().toLowerCase(),
-    companyName: body.company_name.trim(),
-    website: body.company_website?.trim() || undefined,
-    source: "website intake",
-    tags: ["web-intake", "prospect"],
-    customFields: [
-      { id: GHL_FIELD.role, field_value: body.contact_role?.trim() || "" },
-      { id: GHL_FIELD.website, field_value: body.company_website?.trim() || "" },
-      { id: GHL_FIELD.revenue, field_value: revenue },
-      { id: GHL_FIELD.entities, field_value: body.num_entities },
-      { id: GHL_FIELD.bestTime, field_value: body.best_call_time?.trim() || "" },
-      { id: GHL_FIELD.notes, field_value: body.ai_question.trim() },
-    ],
-  });
-  const contactId: string | undefined = upsert?.contact?.id;
-  if (!contactId) throw new Error("GHL upsert returned no contact id");
-
-  // One open deal per contact. GoHighLevel refuses a second opportunity for
-  // the same contact in the same pipeline (OPPORTUNITY_NO_DUPLICATE), and its
-  // search index lags, so attempt the create and treat that refusal as done.
-  try {
-    await ghl("/opportunities/", "POST", {
-      locationId: GHL_LOCATION,
-      pipelineId: GHL_PIPELINE,
-      pipelineStageId: GHL_STAGE_LEAD,
-      contactId,
-      name: body.company_name.trim(),
-      status: "open",
-      source: "website intake",
+  // Pipeline row: reuse if the company already exists, else create at Lead.
+  let pipelineId = await findOne(AT_PIPELINE, `LOWER({Name})="${quote(company.toLowerCase())}"`);
+  if (!pipelineId) {
+    const created = await airtable(AT_PIPELINE, "POST", {
+      fields: {
+        Name: company,
+        Type: "Prospect",
+        Stage: "Lead",
+        Health: "New",
+        "Engagement Type": "TBD",
+        "Next Action": "Reply to website intake",
+        "Next Action Date": new Date().toISOString().slice(0, 10),
+        "Intake Contact (raw)": intake,
+      },
+      typecast: true,
     });
-  } catch (err) {
-    if (!String(err).includes("OPPORTUNITY_NO_DUPLICATE")) throw err;
+    pipelineId = created.id;
+  } else {
+    await airtable(`${AT_PIPELINE}/${pipelineId}`, "PATCH", {
+      fields: { "Intake Contact (raw)": intake },
+    });
+  }
+
+  // Contact: match on email, else create; always link to the company.
+  const contactId = await findOne(AT_CONTACTS, `LOWER({Email})="${quote(email)}"`);
+  const contactFields = {
+    Name: body.contact_name.trim(),
+    Email: email,
+    Role: body.contact_role?.trim() || undefined,
+    Company: [pipelineId],
+    Notes: intake,
+  };
+  if (contactId) {
+    await airtable(`${AT_CONTACTS}/${contactId}`, "PATCH", { fields: { Company: [pipelineId], Notes: intake } });
+  } else {
+    await airtable(AT_CONTACTS, "POST", { fields: contactFields, typecast: true });
   }
 }
 
@@ -221,9 +229,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // GoHighLevel CRM: upsert the contact and open a deal. Fire and forget.
-    void pushToGoHighLevel(body).catch((err) =>
-      console.error("GoHighLevel push failed:", err),
+    // Airtable CRM: contact plus pipeline row. Fire and forget.
+    void pushToAirtable(body).catch((err) =>
+      console.error("Airtable push failed:", err),
     );
 
     // Email — fire and forget. Don't block form success on email send.
