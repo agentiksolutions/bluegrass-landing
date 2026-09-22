@@ -229,8 +229,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Airtable CRM: contact plus pipeline row. Fire and forget.
-    void pushToAirtable(body).catch((err) =>
+    // Airtable CRM: contact plus pipeline row. Awaited, because the function
+    // is frozen once the response goes out and a detached write gets cut off.
+    await pushToAirtable(body).catch((err) =>
       console.error("Airtable push failed:", err),
     );
 
