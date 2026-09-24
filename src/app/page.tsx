@@ -4,7 +4,6 @@ import Image from "next/image";
 import Button from "@/components/button";
 import CTABand from "@/components/cta-band";
 import JsonLd from "@/components/json-ld";
-import NetworkBand from "@/components/network-band";
 import { pageMeta } from "@/lib/metadata";
 import { photos } from "@/lib/photos";
 import { BOOKING_URL } from "@/lib/site";
@@ -59,14 +58,6 @@ export const metadata: Metadata = {
   },
 };
 
-// Placeholder photographs of Central Kentucky, all public domain. Source, author and licence
-// are recorded in public/images/brand/CREDITS.md. Swap these for Phil's own photographs.
-const kentucky = [
-  { src: "/images/brand/limestone-lane.webp", alt: "A gravel farm lane running between dry-stacked limestone walls and plank fencing", w: 1200, h: 900 },
-  { src: "/images/brand/kentucky-barn.webp", alt: "A weathered grey tobacco barn standing on a Kentucky pasture", w: 1200, h: 900 },
-  { src: "/images/brand/stone-wall-creek.webp", alt: "A dry-stacked limestone wall along a creek below a line of trees", w: 1200, h: 800 },
-];
-
 const services = [
   { label: "Websites", href: "/services/web-design" },
   { label: "AI tools", href: "/services/ai-integration" },
@@ -80,98 +71,93 @@ export default function HomePage() {
       <JsonLd data={organizationJsonLd} />
       <JsonLd data={websiteJsonLd} />
 
-      {/* First screen: the mark and the photograph carry it, the words sit in one strip below. */}
-      <section className="pt-16 lg:pt-[72px]">
-        <div className="grid grid-cols-1 grid-rows-[minmax(0,3fr)_minmax(0,2fr)] h-[68svh] min-h-[440px] lg:grid-cols-[minmax(0,42fr)_minmax(0,58fr)] lg:grid-rows-1 lg:h-[max(440px,calc(100svh-72px-13rem))]">
-          <div className="bg-band flex items-center justify-center px-8 py-6 lg:py-10 order-2 lg:order-1">
-            <Image
-              src="/brand/mark-nodes.png"
-              alt="The Bluegrass Advisory Group mark: Kentucky in blue with a network of white nodes and a star on Lexington"
-              width={887}
-              height={399}
-              priority
-              sizes="(min-width: 1024px) 560px, 86vw"
-              className="w-[min(88%,560px)] h-auto"
-            />
-          </div>
-          <div className="relative min-w-0 order-1 lg:order-2">
-            <Image
-              src={photos.phil.src}
-              alt={photos.phil.alt}
-              fill
-              priority
-              sizes="(min-width: 1024px) 62vw, 100vw"
-              className="object-cover object-top"
-            />
-          </div>
-        </div>
-        <div className="bg-band border-t border-line px-4 md:px-10 py-6 lg:py-7">
-          <div className="max-w-[1360px] mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-5">
-            <h1 className="font-display text-[30px] sm:text-[38px] lg:text-[46px] leading-[1.06] font-bold tracking-tight text-ink [overflow-wrap:anywhere]">
+      {/* Hero: Kentucky at dawn, edge to edge, with the headline over it.
+          ponytail: one <video> file. A Seedance clip can replace hero.mp4 and hero-poster.webp
+          without touching this markup. motion-reduce:hidden leaves the poster showing. */}
+      <section className="relative h-[88svh] min-h-[520px] mt-16 lg:mt-[72px] overflow-hidden bg-ink">
+        <Image
+          src="/images/brand/hero-poster.webp"
+          alt="Dawn mist over a Kentucky horse farm, a plank fence running away toward the ridge"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          poster="/images/brand/hero-poster.webp"
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover motion-reduce:hidden"
+        >
+          <source src="/videos/hero.webm" type="video/webm" />
+          <source src="/videos/hero.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/25 to-ink/10" />
+        <div className="absolute inset-x-0 bottom-0 px-4 md:px-10 pb-12 md:pb-16">
+          <div className="max-w-[1360px] mx-auto">
+            <h1 className="font-display text-[38px] sm:text-[58px] lg:text-[84px] leading-[0.98] font-bold tracking-tight text-white max-w-[16ch] [text-wrap:balance]">
               I build AI systems for Kentucky businesses.
             </h1>
-            <Button href={BOOKING_URL} className="self-start shrink-0">
+            <Button href={BOOKING_URL} className="mt-8">
               Book a call
             </Button>
           </div>
         </div>
       </section>
 
-      {/* Central Kentucky, full bleed. */}
-      <Image
-        src="/images/brand/bluegrass-fenceline.webp"
-        alt="Plank fencing running across open bluegrass pasture under a wide Kentucky sky"
-        width={1800}
-        height={771}
-        sizes="100vw"
-        className="w-full h-[30svh] min-h-[200px] lg:h-[min(46vh,420px)] object-cover"
-      />
+      {/* Quiet. The mark, and nothing else. */}
+      <section className="bg-band px-4 md:px-10 py-20 md:py-32 flex justify-center">
+        <Image
+          src="/brand/mark.svg"
+          alt="The Bluegrass Advisory Group mark: Kentucky in blue with a network of white nodes and a star on Lexington"
+          width={982}
+          height={441}
+          sizes="(min-width: 1024px) 720px, 82vw"
+          className="w-[min(82%,720px)] h-auto"
+        />
+      </section>
 
-      {/* Phil's own words, on the blue. */}
-      <section className="relative bg-blue overflow-hidden">
-        <NetworkBand className="absolute inset-0 w-full h-full" />
-        <blockquote className="relative max-w-[1160px] mx-auto px-4 md:px-10 py-20 md:py-28">
-          <p className="font-display text-[34px] md:text-[56px] leading-[1.06] font-bold tracking-tight text-white max-w-[15ch]">
+      {/* His own words, over the limestone country. */}
+      <section className="relative min-h-[70svh] flex items-end overflow-hidden bg-ink">
+        <Image
+          src="/images/brand/ky-limestone.webp"
+          alt="A dry-stacked limestone wall along a Kentucky lane at blue hour"
+          fill
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/35 to-transparent" />
+        <blockquote className="relative w-full max-w-[1360px] mx-auto px-4 md:px-10 py-16 md:py-24">
+          <p className="font-display text-[32px] md:text-[62px] leading-[1.02] font-bold tracking-tight text-white max-w-[17ch]">
             &ldquo;We gave the store managers their time back.&rdquo;
           </p>
-          <cite className="block mt-6 not-italic font-display text-[15px] text-white/75">
+          <cite className="block mt-6 not-italic font-display text-[15px] text-white/70">
             Phil Fifield, Lexington, Kentucky
           </cite>
         </blockquote>
       </section>
 
-      {/* Three more of the same country, edge to edge. */}
-      <div className="grid grid-cols-1 sm:grid-cols-3">
-        {kentucky.map((k) => (
-          <Image
-            key={k.src}
-            src={k.src}
-            alt={k.alt}
-            width={k.w}
-            height={k.h}
-            sizes="(min-width: 640px) 34vw, 100vw"
-            className="w-full h-[30svh] sm:h-[26vw] lg:h-[22vw] object-cover"
-          />
-        ))}
-      </div>
-
-      {/* What I build. Four words, four pages. */}
-      <section className="px-4 md:px-10 py-16 md:py-24">
-        <div className="max-w-[1160px] mx-auto">
-          <p className="font-display text-[14px] uppercase tracking-[0.14em] text-muted">
+      {/* Quiet. Four things, four pages. */}
+      <section className="px-4 md:px-10 py-20 md:py-32">
+        <div className="max-w-[1360px] mx-auto">
+          <p className="font-display text-[13px] uppercase tracking-[0.18em] text-muted">
             What I build
           </p>
-          <ul className="mt-6 border-t border-line">
+          <ul className="mt-8 border-t border-line">
             {services.map((s) => (
               <li key={s.href} className="border-b border-line">
                 <Link
                   href={s.href}
-                  className="group flex items-baseline justify-between gap-6 py-5 md:py-7"
+                  className="group flex items-baseline justify-between gap-6 py-6 md:py-9"
                 >
-                  <span className="font-display text-[28px] md:text-[42px] leading-none font-bold tracking-tight text-ink group-hover:text-blue">
+                  <span className="font-display text-[32px] md:text-[56px] leading-none font-bold tracking-tight text-ink group-hover:text-blue">
                     {s.label}
                   </span>
-                  <span aria-hidden="true" className="font-display text-[22px] text-line group-hover:text-blue">
+                  <span aria-hidden="true" className="font-display text-[24px] text-line group-hover:text-blue">
                     &rarr;
                   </span>
                 </Link>
@@ -181,36 +167,68 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Work. The photographs of the restaurant client live on the case study itself. */}
-      <section className="bg-band px-4 md:px-10 py-16 md:py-24">
-        <div className="max-w-[1160px] mx-auto">
-          <Link href="/work" className="font-display text-[14px] uppercase tracking-[0.14em] text-muted hover:text-blue">
-            Work
-          </Link>
-          <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <Link href="/work/pfsa" className="group block bg-white rounded overflow-hidden">
+      {/* A breath of open country. */}
+      <Image
+        src="/images/brand/ky-hills.webp"
+        alt="Rolling Central Kentucky hills at golden hour"
+        width={1600}
+        height={900}
+        sizes="100vw"
+        className="w-full h-[42svh] min-h-[260px] lg:h-[min(62vh,560px)] object-cover"
+      />
+
+      {/* Work. Two photographs, edge to edge, no boxes. */}
+      <section className="pt-20 md:pt-32">
+        <p className="max-w-[1360px] mx-auto px-4 md:px-10 font-display text-[13px] uppercase tracking-[0.18em] text-muted">
+          Work
+        </p>
+        <div className="mt-8 grid grid-cols-1 lg:grid-cols-2">
+          <Link href="/work/pfsa" className="group block">
+            <div className="relative h-[46svh] min-h-[300px] lg:h-[52vh] overflow-hidden bg-ink">
               <Image
                 src={photos.pfsaSite.src}
                 alt={photos.pfsaSite.alt}
-                width={photos.pfsaSite.width}
-                height={photos.pfsaSite.height}
-                sizes="(min-width: 1024px) 560px, 100vw"
-                className="w-full h-auto border-b border-line"
+                fill
+                sizes="(min-width: 1024px) 50vw, 100vw"
+                className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
               />
-              <p className="p-6 font-display text-[22px] md:text-[26px] leading-tight font-bold text-ink group-hover:text-blue">
-                The PFSA, a Lexington nonprofit
-              </p>
-            </Link>
-            <Link
-              href="/work/restaurant-franchisee"
-              className="group relative flex items-end bg-blue rounded overflow-hidden min-h-[260px] p-6"
-            >
-              <NetworkBand className="absolute inset-0 w-full h-full" />
-              <p className="relative font-display text-[22px] md:text-[26px] leading-tight font-bold text-white group-hover:text-white/80">
-                A Five Guys franchisee in Central Kentucky
-              </p>
-            </Link>
-          </div>
+            </div>
+            <p className="px-4 md:px-10 py-6 font-display text-[22px] md:text-[28px] leading-tight font-bold text-ink group-hover:text-blue">
+              The PFSA, a Lexington nonprofit
+            </p>
+          </Link>
+          <Link href="/work/restaurant-franchisee" className="group block">
+            <div className="relative h-[46svh] min-h-[300px] lg:h-[52vh] overflow-hidden bg-ink">
+              <Image
+                src="/images/brand/work-franchisee.webp"
+                alt="A Kentucky main street at first light"
+                fill
+                sizes="(min-width: 1024px) 50vw, 100vw"
+                className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+              />
+            </div>
+            <p className="px-4 md:px-10 py-6 font-display text-[22px] md:text-[28px] leading-tight font-bold text-ink group-hover:text-blue">
+              A Five Guys franchisee in Central Kentucky
+            </p>
+          </Link>
+        </div>
+      </section>
+
+      {/* Who is behind it. Small, and late. */}
+      <section className="bg-band px-4 md:px-10 py-20 md:py-28">
+        <div className="max-w-[1360px] mx-auto flex flex-col sm:flex-row sm:items-center gap-8 md:gap-14">
+          <Image
+            src={photos.phil.src}
+            alt={photos.phil.alt}
+            width={photos.phil.width}
+            height={photos.phil.height}
+            sizes="(min-width: 640px) 300px, 60vw"
+            className="w-[60%] max-w-[300px] sm:w-[300px] shrink-0 h-auto rounded"
+          />
+          <p className="text-[19px] md:text-[23px] leading-relaxed text-body max-w-[48ch]">
+            I run operations for a Five Guys franchisee in Central Kentucky and I am president of
+            The PFSA, a Lexington nonprofit.
+          </p>
         </div>
       </section>
 
