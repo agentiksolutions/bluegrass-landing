@@ -53,12 +53,12 @@ export default function CostPage() {
         <h1 className="font-display text-[clamp(36px,5vw,52px)] leading-[1.1] font-bold tracking-tight mb-4">
           What drives the cost.
         </h1>
-        <p className="text-lg leading-relaxed text-[#666] max-w-[620px] mb-4">
+        <p className="text-lg leading-relaxed text-charcoal max-w-[620px] mb-4">
           Two businesses can ask for the same thing and get numbers that are
           nowhere near each other. Six things account for almost all of that gap,
           and you can work out roughly where you sit before you ever talk to us.
         </p>
-        <p className="text-[15px] leading-relaxed text-[#666] max-w-[620px] mb-16">
+        <p className="text-[15px] leading-relaxed text-charcoal max-w-[620px] mb-16">
           We do not publish a price list. A number quoted before anyone
           understands the scope has to be padded to be safe, and you would be
           paying for the padding.
@@ -70,7 +70,7 @@ export default function CostPage() {
           {drivers.map((d) => (
             <div
               key={d.num}
-              className="grid grid-cols-[44px_1fr] gap-6 py-7 border-t border-[#e8e5e0]"
+              className="grid grid-cols-[44px_1fr] gap-6 py-7 border-t border-line"
             >
               <span className="font-display text-[13px] font-bold text-emerald pt-1">
                 {d.num}
@@ -79,13 +79,13 @@ export default function CostPage() {
                 <h2 className="font-display text-xl font-bold mb-2">
                   {d.title}
                 </h2>
-                <p className="text-[15px] leading-relaxed text-[#666] max-w-[620px]">
+                <p className="text-[15px] leading-relaxed text-charcoal max-w-[620px]">
                   {d.body}
                 </p>
               </div>
             </div>
           ))}
-          <div className="border-t border-[#e8e5e0]" />
+          <div className="border-t border-line" />
         </div>
       </section>
 
@@ -94,18 +94,18 @@ export default function CostPage() {
           <h2 className="font-display text-2xl font-bold mb-6">
             How the number gets set.
           </h2>
-          <p className="text-[15px] leading-relaxed text-[#666] mb-4">
+          <p className="text-[15px] leading-relaxed text-charcoal mb-4">
             You get fixed numbers. The work breaks into phases and each phase
             gets a firm price before you commit to it, so you are deciding on one
             piece at a time with the previous piece already in your hands.
           </p>
-          <p className="text-[15px] leading-relaxed text-[#666] mb-4">
+          <p className="text-[15px] leading-relaxed text-charcoal mb-4">
             An assessment is priced on scope at the start and does not move. A
             build is priced once we know what is being built, which is usually
             what the assessment is for. If a phase turns out to be smaller than
             it looked, the price comes down.
           </p>
-          <p className="text-[15px] leading-relaxed text-[#666]">
+          <p className="text-[15px] leading-relaxed text-charcoal">
             The sequence itself is on{" "}
             <Link href="/ai-assessment" className="text-emerald hover:underline">
               the assessment page
@@ -120,16 +120,16 @@ export default function CostPage() {
           <h2 className="font-display text-2xl font-bold mb-6">
             How to make it cost less.
           </h2>
-          <p className="text-[15px] leading-relaxed text-[#666] mb-4">
+          <p className="text-[15px] leading-relaxed text-charcoal mb-4">
             Bring one problem instead of ten. The fastest engagements start with
             a single job that eats hours every week, get that running, and
             expand from something that already works.
           </p>
-          <p className="text-[15px] leading-relaxed text-[#666] mb-4">
+          <p className="text-[15px] leading-relaxed text-charcoal mb-4">
             Tidy what you already have. An hour spent putting your documents and
             exports in one folder saves more than an hour of ours.
           </p>
-          <p className="text-[15px] leading-relaxed text-[#666]">
+          <p className="text-[15px] leading-relaxed text-charcoal">
             Decide who decides. The engagements that drift are the ones where
             the person who has to approve the work was never in the room.
           </p>

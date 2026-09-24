@@ -1,127 +1,43 @@
 import Button from "./button";
+import { BOOKING_URL, EMAIL, PHONE, PHONE_HREF } from "@/lib/site";
 
 interface CTABandProps {
   headline?: string;
   subtext?: string;
   buttonText?: string;
   buttonHref?: string;
-  dark?: boolean;
-  video?: string;
 }
 
+// One closing band for every page: limestone, a plain offer, the booking link.
 export default function CTABand({
-  headline = "Let's figure it out together.",
-  subtext = "30 minutes. No sales pitch. Tell us about your business, ask us anything about AI. If we can help, we'll say so. If we can't, we'll say that too.",
-  buttonText = "Schedule a Call",
-  buttonHref = "https://cal.com/philip-fifield/intro",
-  dark = false,
-  video,
+  headline = "Tell me what takes up your week.",
+  subtext = "Book a 30-minute call. We talk through your business, and I tell you whether I can help.",
+  buttonText = "Book a call",
+  buttonHref = BOOKING_URL,
 }: CTABandProps) {
-  if (dark) {
-    return (
-      <section className="bg-graphite py-14 px-6 md:px-12">
-        <div className="max-w-content mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-          <div>
-            <h3 className="font-display text-2xl font-bold text-warm-white mb-2">
-              {headline}
-            </h3>
-            <p className="text-sm text-stone leading-relaxed max-w-md">{subtext}</p>
-          </div>
-          <div className="flex flex-col items-center md:items-end gap-3 shrink-0">
-            <div className="flex gap-3">
-              <Button href={buttonHref}>{buttonText}</Button>
-              <Button
-                href="mailto:phil@bluegrassadvisorygroup.com"
-                variant="secondary"
-                className="!text-stone !border-[#444] hover:!border-stone hover:!text-warm-white"
-              >
-                Email Us
-              </Button>
-            </div>
-            <a
-              href="tel:+18593143051"
-              className="text-[13px] text-stone hover:text-warm-white transition-colors duration-200"
-            >
-              Or call (859) 314-3051
-            </a>
-          </div>
-        </div>
-      </section>
-    );
-  }
-
-  if (video) {
-    return (
-      <section className="relative py-28 px-6 md:px-12 overflow-hidden">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 z-0 w-full h-full object-cover pointer-events-none"
-        >
-          <source src={video} type="video/mp4" />
-        </video>
-        <div className="absolute inset-0 z-[1] bg-[rgba(28,28,30,0.55)]" />
-        <div className="relative z-10 max-w-[560px] mx-auto text-center">
-          <h2 className="font-display text-[clamp(30px,4vw,42px)] font-bold tracking-tight mb-4 text-warm-white">
+  return (
+    <section className="bg-band px-4 md:px-10 py-16 md:py-20">
+      <div className="max-w-[1160px] mx-auto flex flex-col md:flex-row md:items-end md:justify-between gap-8">
+        <div className="max-w-[560px]">
+          <h2 className="font-display text-[30px] md:text-[36px] leading-tight font-bold tracking-tight text-ink">
             {headline}
           </h2>
-          <p className="text-base leading-relaxed text-warm-white/70 mb-9">
-            {subtext}
-          </p>
+          <p className="mt-3 text-[18px] leading-relaxed text-body">{subtext}</p>
+        </div>
+        <div className="font-display text-[15px] text-ink">
           <Button href={buttonHref}>{buttonText}</Button>
-          <p className="mt-3.5 text-[13px] text-warm-white/40">
-            or email{" "}
-            <a
-              href="mailto:phil@bluegrassadvisorygroup.com"
-              className="text-sage hover:underline"
-            >
-              phil@bluegrassadvisorygroup.com
+          <p className="mt-4">
+            Or call{" "}
+            <a href={PHONE_HREF} className="text-blue underline underline-offset-2">
+              {PHONE}
             </a>
           </p>
-          <p className="mt-1.5 text-[13px] text-warm-white/40">
-            Or call{" "}
-            <a
-              href="tel:+18593143051"
-              className="text-sage hover:underline"
-            >
-              (859) 314-3051
+          <p className="mt-1">
+            <a href={`mailto:${EMAIL}`} className="text-blue underline underline-offset-2">
+              {EMAIL}
             </a>
           </p>
         </div>
-      </section>
-    );
-  }
-
-  return (
-    <section className="section-padding">
-      <div className="max-w-[560px] mx-auto text-center">
-        <h2 className="font-display text-[38px] font-bold tracking-tight mb-4">
-          {headline}
-        </h2>
-        <p className="text-base leading-relaxed text-stone mb-9">{subtext}</p>
-        <Button href={buttonHref} variant="dark">
-          {buttonText}
-        </Button>
-        <p className="mt-3.5 text-[13px] text-[#bbb]">
-          or email{" "}
-          <a
-            href="mailto:phil@bluegrassadvisorygroup.com"
-            className="text-emerald hover:underline"
-          >
-            phil@bluegrassadvisorygroup.com
-          </a>
-        </p>
-        <p className="mt-1.5 text-[13px] text-[#bbb]">
-          Or call{" "}
-          <a
-            href="tel:+18593143051"
-            className="text-emerald hover:underline"
-          >
-            (859) 314-3051
-          </a>
-        </p>
       </div>
     </section>
   );

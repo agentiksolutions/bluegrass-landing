@@ -14,11 +14,11 @@ export default function DashboardsPage() {
     <ServicePageTemplate
       label="Dashboards & Data"
       title="Your numbers, in one place."
-      subtitle="Stop digging through five apps to figure out how your business is doing. We build dashboards that pull your data together, update automatically, and show you what matters — not just numbers, but decisions."
+      subtitle="Stop digging through five apps to figure out how your business is doing. We build dashboards that pull your data together, update automatically, and show you what matters for the decisions you make."
       deliverables={[
         "Custom dashboard design based on your actual KPIs",
         "Real-time data connections to your existing systems",
-        "Automated reports — daily, weekly, or on-demand",
+        "Automated reports: daily, weekly, or on demand",
         "Alert system for metrics that need attention",
         "Multi-location comparison views",
         "Mobile-friendly so you can check numbers anywhere",
@@ -37,9 +37,9 @@ export default function DashboardsPage() {
       }}
       relatedPosts={[
         {
-          href: "/insights/cut-12-hours-admin",
-          title: "How We Cut 12 Hours of Weekly Admin Work Across Three Locations",
-          category: "Case Study",
+          href: "/work/restaurant-franchisee",
+          title: "Three stores, one manager portal",
+          category: "Case study",
         },
       ]}
       serviceJsonLd={{

@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
-import { pageMeta } from "@/lib/metadata";
+import Image from "next/image";
 import Link from "next/link";
-import SectionLabel from "@/components/section-label";
+import { pageMeta } from "@/lib/metadata";
 import CTABand from "@/components/cta-band";
-import AutoplayVideos from "@/components/autoplay-videos";
 import JsonLd from "@/components/json-ld";
+import { photos } from "@/lib/photos";
 
 export const metadata: Metadata = pageMeta({
   title: "About",
   description:
-    "Meet Bluegrass Advisory Group. AI and operations consulting built from 13 years of hospitality and business operations experience. Lexington, Kentucky.",
+    "Phil Fifield runs operations for a Five Guys franchisee in Central Kentucky, is president of The PFSA, a Lexington nonprofit, and built the AI systems he runs them with.",
   path: "/about",
 });
 
@@ -17,7 +17,7 @@ const personJsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Phil Fifield",
-  jobTitle: "Founder & CEO",
+  jobTitle: "Founder & Principal",
   worksFor: {
     "@type": "Organization",
     name: "Bluegrass Advisory Group",
@@ -31,139 +31,93 @@ const personJsonLd = {
   },
 };
 
-const stats = [
-  { num: "10+", label: "years in hospitality" },
-  { num: "Multiple", label: "locations managed" },
-  { num: "Hundreds", label: "of employees" },
-  { num: "KY", label: "based, KY focused" },
-];
-
-const differentiators = [
-  "We still manage real operations — this isn't academic",
-  "We build what we use ourselves, every day",
-  "No recurring SaaS fees or vendor lock-in",
-  "Kentucky-based, working with Kentucky businesses",
-  "We tell you if something isn't worth doing",
+const beliefs = [
+  "I develop the tool, I give them the tool, and then they use the tool.",
+  "Solving it at the expense of having to maintain it isn't saving any time. I'm just switching roles.",
+  "Now I check it. I don't just send it off.",
 ];
 
 export default function AboutPage() {
   return (
     <>
       <JsonLd data={personJsonLd} />
-      {/* Hero */}
-      <section className="bg-graphite text-warm-white pt-[148px] pb-20 px-6 md:px-12">
-        <div className="max-w-content mx-auto">
-          <SectionLabel light>About</SectionLabel>
-          <h1 className="font-display text-[clamp(40px,5.5vw,58px)] leading-[1.1] font-bold tracking-tight mb-4">
-            Phil Fifield
-          </h1>
-          <p className="text-lg text-[#aaa]">Founder & CEO</p>
-        </div>
-      </section>
 
-      {/* Origin story */}
-      <section className="py-20 px-6 md:px-12 max-w-content mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-[72px] items-start">
-          <div>
-            <h2 className="font-display text-3xl font-bold tracking-tight mb-6">
-              Built from experience, not theory.
-            </h2>
-            <p className="text-[16px] leading-relaxed text-[#555] mb-5">
-              Phil spent over a decade in the hospitality industry — managing
-              hundreds of employees across multiple locations. He didn&apos;t read
-              about running businesses in a textbook. He&apos;s been in the weeds
-              every day for over a decade.
-            </p>
-            <p className="text-[16px] leading-relaxed text-[#555] mb-5">
-              Bluegrass Advisory Group exists because the tools he built for his
-              own operation solve the same problems every growing business faces.
-              We don&apos;t sell theory. We sell what works — because we use it
-              ourselves, every day.
-            </p>
-            <p className="text-[16px] leading-relaxed text-[#555]">
-              Today, Phil runs an autonomous operating system that manages
-              workflows across multiple businesses — the same approach we bring to
-              every client. We&apos;re not a software company selling licenses.
-              We build tools that make businesses run better — because we use them
-              ourselves.
-            </p>
-            <p className="text-[16px] leading-relaxed text-[#555] mt-5">
-              Read about how we{" "}
-              <Link href="/insights/automated-35-workflows" className="text-emerald hover:underline">
-                automated 35 workflows
-              </Link>{" "}
-              before taking on a single client, or see how we{" "}
-              <Link href="/insights/cut-12-hours-admin" className="text-emerald hover:underline">
-                cut 12 hours of weekly admin
-              </Link>{" "}
-              across three locations.
-            </p>
+      {/* First screen: the photograph carries it. */}
+      <section className="pt-16 lg:pt-[72px] bg-band">
+        <div className="grid grid-cols-1 lg:grid-cols-[auto_minmax(0,1fr)]">
+          <div className="relative w-full h-[max(360px,calc(52svh))] lg:h-[calc(100svh-72px)] lg:w-[min(calc(100svh-72px),62vw)] lg:min-h-[480px] lg:min-w-[480px]">
+            <Image
+              src={photos.phil.src}
+              alt={photos.phil.alt}
+              fill
+              priority
+              sizes="(min-width: 1024px) 62vw, 100vw"
+              className="object-cover object-[40%_top]"
+            />
           </div>
-
-          <div className="relative rounded-[12px] overflow-hidden bg-graphite aspect-video">
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="absolute inset-0 w-full h-full object-cover"
-            >
-              <source src="/videos/horse-track.mp4" type="video/mp4" />
-            </video>
+          <div className="px-4 md:px-10 py-8 lg:py-12 flex flex-col justify-center">
+            <h1 className="font-display text-[40px] lg:text-[54px] leading-[1.03] font-bold tracking-tight text-ink">
+              Phil Fifield
+            </h1>
+            <p className="mt-3 font-display text-[18px] text-muted">
+              Founder &amp; Principal, Bluegrass Advisory Group
+            </p>
+            <p className="mt-6 text-[20px] leading-relaxed text-body max-w-[34ch]">
+              I run operations for a Five Guys franchisee in Central Kentucky and build AI systems for
+              Kentucky businesses.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="bg-graphite text-warm-white py-20 px-6 md:px-12">
-        <div className="max-w-content mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-10">
-            {stats.map((s) => (
-              <div key={s.label} className="min-w-0 text-center md:text-left">
-                <div className="font-display text-3xl md:text-[44px] font-bold text-emerald mb-2 leading-none">
-                  {s.num}
-                </div>
-                <div className="text-sm text-stone tracking-wide">{s.label}</div>
-              </div>
+      <section className="px-4 md:px-10 py-16 md:py-20">
+        <div className="max-w-[1160px] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] gap-10 lg:gap-16 items-start">
+          <div className="text-[19px] leading-relaxed text-body space-y-5 max-w-[62ch]">
+            <p>
+              I am president of The PFSA, a nonprofit in Lexington. I started Bluegrass Advisory Group
+              in 2026 to build for other Kentucky businesses what I built for the stores and for the
+              nonprofit.
+            </p>
+            <p>
+              The people who use those systems do not need to know anything about AI. The store
+              managers open one portal for their numbers, their checklists and the weekly newsletter.
+              The PFSA board has a portal for donations, receipts and meeting minutes.
+            </p>
+            <p>
+              See the <Link href="/work" className="text-blue underline underline-offset-2">work</Link>, or
+              read <Link href="/services" className="text-blue underline underline-offset-2">what I build</Link>.
+            </p>
+          </div>
+          <figure>
+            <Image
+              src={photos.team.src}
+              alt={photos.team.alt}
+              width={photos.team.width}
+              height={photos.team.height}
+              sizes="(min-width: 1024px) 520px, 100vw"
+              className="w-full h-auto rounded"
+            />
+            <figcaption className="mt-3 font-display text-[15px] text-muted">
+              Seated, with part of the store team at a hiring fair.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section className="bg-band px-4 md:px-10 py-16 md:py-20">
+        <div className="max-w-[1160px] mx-auto">
+          <h2 className="font-display text-[28px] font-bold tracking-tight text-ink">How I work</h2>
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+            {beliefs.map((b) => (
+              <blockquote key={b} className="border-t border-ink/20 pt-4">
+                <p className="font-display text-[20px] leading-snug font-medium text-ink">&ldquo;{b}&rdquo;</p>
+              </blockquote>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Differentiators */}
-      <section className="py-20 px-6 md:px-12 max-w-content mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-[72px] items-start">
-          <div>
-            <h2 className="font-display text-3xl font-bold tracking-tight mb-6">
-              The practitioner difference.
-            </h2>
-            <p className="text-[16px] leading-relaxed text-[#555]">
-              We&apos;re not consultants who parachute in with a slide deck and
-              leave. We build real things, implement them, and make sure they work.
-              If it doesn&apos;t save you time or money, we don&apos;t build it.
-            </p>
-          </div>
-
-          <div className="space-y-4">
-            {differentiators.map((d) => (
-              <div key={d} className="flex items-center gap-3">
-                <span className="w-5 h-5 rounded-full bg-emerald/10 flex items-center justify-center shrink-0">
-                  <span className="w-2 h-2 rounded-full bg-emerald" />
-                </span>
-                <span className="text-[15px] text-[#555]">{d}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <AutoplayVideos />
-
-      <CTABand
-        headline="Let's figure out if we can help."
-        subtext="No sales pitch. No pressure. Just a conversation about your business and whether AI makes sense for where you are right now."
-        video="/videos/kling-architecture.mp4"
-      />
+      <CTABand headline="Tell me about your business." />
     </>
   );
 }

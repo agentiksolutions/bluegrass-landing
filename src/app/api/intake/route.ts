@@ -14,9 +14,9 @@ type IntakePayload = {
 
 const REVENUE_LABELS: Record<string, string> = {
   under_1m: "Under $1M",
-  "1m_to_5m": "$1M – $5M",
-  "5m_to_15m": "$5M – $15M",
-  "15m_to_50m": "$15M – $50M",
+  "1m_to_5m": "$1M to $5M",
+  "5m_to_15m": "$5M to $15M",
+  "15m_to_50m": "$15M to $50M",
   over_50m: "Over $50M",
 };
 
@@ -188,7 +188,7 @@ export async function POST(request: NextRequest) {
 
     if (!supabaseUrl || !supabaseKey) {
       console.error(
-        "Supabase env vars missing — intake form cannot save submissions",
+        "Supabase env vars missing: intake form cannot save submissions",
       );
       return NextResponse.json(
         { error: "Server configuration error. Please email phil directly." },
@@ -235,7 +235,7 @@ export async function POST(request: NextRequest) {
       console.error("Airtable push failed:", err),
     );
 
-    // Email — fire and forget. Don't block form success on email send.
+    // Email: fire and forget. Don't block form success on email send.
     const notificationEmail =
       process.env.BAG_NOTIFICATION_EMAIL || "phil@bluegrassadvisorygroup.com";
     const fromAddress =
@@ -250,7 +250,7 @@ export async function POST(request: NextRequest) {
       from: fromAddress,
       to: [notificationEmail],
       reply_to: body.email,
-      subject: `New BAG intake — ${body.contact_name} @ ${body.company_name}`,
+      subject: `New BAG intake: ${body.contact_name} @ ${body.company_name}`,
       html: `
         <div style="font-family: -apple-system, system-ui, sans-serif; max-width: 600px; line-height: 1.6;">
           <h2 style="color: #1C1C1E; border-bottom: 2px solid #0D7C66; padding-bottom: 8px;">New BAG intake</h2>
@@ -281,7 +281,7 @@ export async function POST(request: NextRequest) {
       from: fromAddress,
       to: [body.email],
       reply_to: notificationEmail,
-      subject: "We received your inquiry — Bluegrass Advisory Group",
+      subject: "We received your inquiry",
       html: `
         <div style="font-family: -apple-system, system-ui, sans-serif; max-width: 600px; line-height: 1.6; color: #3A3A3C;">
           <h2 style="color: #1C1C1E;">Thanks, ${escapeHtml(body.contact_name.split(" ")[0])}.</h2>
@@ -299,7 +299,7 @@ export async function POST(request: NextRequest) {
             <li>Phil reviews your submission</li>
             <li>You receive a tier recommendation + one-page scope within 24 hours</li>
             <li>Free 30-min intro call to walk through it</li>
-            <li>You decide: engage, defer, or skip — no pressure</li>
+            <li>You decide whether to go ahead, wait, or skip it</li>
           </ol>
 
           <p style="margin-top: 24px;">Questions in the meantime? Reply to this email or write to <a href="mailto:phil@bluegrassadvisorygroup.com" style="color: #0D7C66;">phil@bluegrassadvisorygroup.com</a>.</p>
@@ -308,7 +308,7 @@ export async function POST(request: NextRequest) {
 
           <p style="font-size: 13px; color: #888;">
             <strong style="color: #1C1C1E;">Bluegrass Advisory Group</strong><br>
-            AI Operations Consulting — Lexington, Kentucky<br>
+            AI Operations Consulting, Lexington, Kentucky<br>
             <a href="https://bluegrassadvisorygroup.com" style="color: #0D7C66;">bluegrassadvisorygroup.com</a> · (859) 314-3051
           </p>
         </div>

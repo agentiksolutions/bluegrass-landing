@@ -58,18 +58,17 @@ export default function HospitalityPage() {
         <h1 className="font-display text-[clamp(36px,5vw,52px)] leading-[1.1] font-bold tracking-tight mb-4">
           AI for hospitality businesses.
         </h1>
-        <p className="text-lg leading-relaxed text-[#666] max-w-[620px] mb-4">
-          This is the industry we came out of. Phil spent more than a decade in
-          hospitality operations, managing hundreds of employees across multiple
-          locations, and the first tools we ever built were built to fix that job.
+        <p className="text-lg leading-relaxed text-charcoal max-w-[620px] mb-4">
+          Phil runs operations for a Five Guys franchisee in Central Kentucky,
+          and the first tools we built were built for that job.
         </p>
-        <p className="text-[15px] leading-relaxed text-[#666] max-w-[620px] mb-16">
-          You can read the specifics in{" "}
+        <p className="text-[15px] leading-relaxed text-charcoal max-w-[620px] mb-16">
+          You can read the specifics in the{" "}
           <Link
-            href="/insights/cut-12-hours-admin"
+            href="/work/restaurant-franchisee"
             className="text-emerald hover:underline"
           >
-            how we cut 12 hours of weekly admin work across three locations
+            case study on the franchisee&apos;s three stores
           </Link>
           .
         </p>
@@ -83,10 +82,10 @@ export default function HospitalityPage() {
           {weeklyReality.map((w) => (
             <div
               key={w}
-              className="flex items-start gap-3 p-5 bg-white rounded-lg border border-[#e8e5e0]"
+              className="flex items-start gap-3 p-5 bg-white rounded-lg border border-line"
             >
               <span className="w-2 h-2 rounded-full bg-emerald mt-1.5 shrink-0" />
-              <span className="text-[15px] leading-relaxed text-[#555]">{w}</span>
+              <span className="text-[15px] leading-relaxed text-charcoal">{w}</span>
             </div>
           ))}
         </div>
@@ -103,7 +102,7 @@ export default function HospitalityPage() {
                 <h3 className="font-display text-lg font-bold mb-3">
                   {b.title}
                 </h3>
-                <p className="text-[14px] leading-relaxed text-[#666]">
+                <p className="text-[14px] leading-relaxed text-charcoal">
                   {b.body}
                 </p>
               </Card>
@@ -120,7 +119,7 @@ export default function HospitalityPage() {
             </h2>
             <div className="space-y-4">
               {limits.map((l) => (
-                <p key={l} className="text-[15px] leading-relaxed text-[#666]">
+                <p key={l} className="text-[15px] leading-relaxed text-charcoal">
                   &bull; {l}
                 </p>
               ))}
@@ -130,7 +129,7 @@ export default function HospitalityPage() {
             <h2 className="font-display text-2xl font-bold mb-6">
               Where a hospitality engagement starts.
             </h2>
-            <p className="text-[15px] leading-relaxed text-[#666] mb-4">
+            <p className="text-[15px] leading-relaxed text-charcoal mb-4">
               With a conversation about where the hours go, then{" "}
               <Link
                 href="/ai-assessment"
@@ -141,7 +140,7 @@ export default function HospitalityPage() {
               if the scope justifies one. Single-location operations often skip
               straight to building one thing and living with it for a month.
             </p>
-            <p className="text-[15px] leading-relaxed text-[#666]">
+            <p className="text-[15px] leading-relaxed text-charcoal">
               Multi-location operations usually start with the numbers, because
               until every location reports the same way, nothing downstream can
               be trusted.
@@ -165,7 +164,7 @@ export default function HospitalityPage() {
           {
             href: "/ai-tools-we-build",
             label: "The tools we build most often",
-            blurb: "The full list, with the honest limits on each one.",
+            blurb: "The full list, with the limits on each one.",
           },
           {
             href: "/ai-consulting-lexington-ky",

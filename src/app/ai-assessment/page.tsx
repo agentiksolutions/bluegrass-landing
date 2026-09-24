@@ -88,12 +88,12 @@ export default function AIAssessmentPage() {
         <h1 className="font-display text-[clamp(36px,5vw,52px)] leading-[1.1] font-bold tracking-tight mb-4">
           What an AI assessment involves.
         </h1>
-        <p className="text-lg leading-relaxed text-[#666] max-w-[620px] mb-4">
+        <p className="text-lg leading-relaxed text-charcoal max-w-[620px] mb-4">
           Most firms will quote you a build before they understand the business.
           An assessment is the step that makes the build worth paying for, and it
           stands on its own if you never hire anyone to do the work.
         </p>
-        <p className="text-[15px] leading-relaxed text-[#666] max-w-[620px] mb-16">
+        <p className="text-[15px] leading-relaxed text-charcoal max-w-[620px] mb-16">
           Here is the whole sequence, start to finish.
         </p>
       </section>
@@ -103,7 +103,7 @@ export default function AIAssessmentPage() {
           {steps.map((s) => (
             <div
               key={s.num}
-              className="grid grid-cols-[44px_1fr] gap-6 py-7 border-t border-[#e8e5e0]"
+              className="grid grid-cols-[44px_1fr] gap-6 py-7 border-t border-line"
             >
               <span className="font-display text-[13px] font-bold text-emerald pt-1">
                 {s.num}
@@ -112,13 +112,13 @@ export default function AIAssessmentPage() {
                 <h2 className="font-display text-xl font-bold mb-2">
                   {s.title}
                 </h2>
-                <p className="text-[15px] leading-relaxed text-[#666] max-w-[620px]">
+                <p className="text-[15px] leading-relaxed text-charcoal max-w-[620px]">
                   {s.body}
                 </p>
               </div>
             </div>
           ))}
-          <div className="border-t border-[#e8e5e0]" />
+          <div className="border-t border-line" />
         </div>
       </section>
 
@@ -127,7 +127,7 @@ export default function AIAssessmentPage() {
           <h2 className="font-display text-2xl font-bold mb-4">
             Five ways an assessment can end.
           </h2>
-          <p className="text-[15px] leading-relaxed text-[#666] max-w-[620px] mb-10">
+          <p className="text-[15px] leading-relaxed text-charcoal max-w-[620px] mb-10">
             Every assessment lands on one of these. The fifth one is the reason
             the other four are worth reading: a roadmap that always recommends
             buying more from the firm that wrote it is a sales document.
@@ -136,12 +136,12 @@ export default function AIAssessmentPage() {
             {outcomes.map((o) => (
               <div
                 key={o.label}
-                className="p-6 bg-white rounded-lg border border-[#e8e5e0]"
+                className="p-6 bg-white rounded-lg border border-line"
               >
                 <h3 className="font-display text-lg font-bold mb-2">
                   {o.label}
                 </h3>
-                <p className="text-[14px] leading-relaxed text-[#666]">
+                <p className="text-[14px] leading-relaxed text-charcoal">
                   {o.body}
                 </p>
               </div>
@@ -156,13 +156,13 @@ export default function AIAssessmentPage() {
             <h2 className="font-display text-2xl font-bold mb-6">
               How long it takes.
             </h2>
-            <p className="text-[15px] leading-relaxed text-[#666] mb-4">
+            <p className="text-[15px] leading-relaxed text-charcoal mb-4">
               Signing to readout is about a week when the scope is one department
               or one decision. Two to three weeks when it covers a whole company.
               Four to six when it covers several entities and the people running
               them have to be interviewed separately.
             </p>
-            <p className="text-[15px] leading-relaxed text-[#666]">
+            <p className="text-[15px] leading-relaxed text-charcoal">
               The price is fixed before you sign, and it is set by how much of
               the business is in scope. What moves it is covered on{" "}
               <Link
@@ -182,7 +182,7 @@ export default function AIAssessmentPage() {
               {notIncluded.map((n) => (
                 <p
                   key={n}
-                  className="text-[15px] leading-relaxed text-[#666]"
+                  className="text-[15px] leading-relaxed text-charcoal"
                 >
                   &bull; {n}
                 </p>

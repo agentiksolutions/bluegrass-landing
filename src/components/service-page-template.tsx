@@ -40,7 +40,7 @@ export default function ServicePageTemplate({
         <h1 className="font-display text-[clamp(36px,5vw,52px)] leading-[1.1] font-bold tracking-tight mb-5">
           {title}
         </h1>
-        <p className="text-lg leading-relaxed text-[#666] max-w-[560px]">
+        <p className="text-lg leading-relaxed text-charcoal max-w-[560px]">
           {subtitle}
         </p>
       </section>
@@ -52,10 +52,10 @@ export default function ServicePageTemplate({
           {deliverables.map((d) => (
             <div
               key={d}
-              className="flex items-start gap-3 p-5 bg-white rounded-lg border border-[#e8e5e0]"
+              className="flex items-start gap-3 p-5 bg-white rounded-lg border border-line"
             >
               <span className="w-2 h-2 rounded-full bg-emerald mt-1.5 shrink-0" />
-              <span className="text-[15px] leading-relaxed text-[#555]">{d}</span>
+              <span className="text-[15px] leading-relaxed text-charcoal">{d}</span>
             </div>
           ))}
         </div>
@@ -69,7 +69,7 @@ export default function ServicePageTemplate({
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {whoItsFor.map((w) => (
-              <p key={w} className="text-[15px] leading-relaxed text-[#666]">
+              <p key={w} className="text-[15px] leading-relaxed text-charcoal">
                 &bull; {w}
               </p>
             ))}
@@ -94,7 +94,7 @@ export default function ServicePageTemplate({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {relatedPosts.map((post) => (
               <Link key={post.href} href={post.href} className="group">
-                <div className="p-6 bg-white rounded-lg border border-[#e8e5e0] transition-all group-hover:border-emerald group-hover:-translate-y-0.5">
+                <div className="p-6 bg-white rounded-lg border border-line transition-all group-hover:border-emerald group-hover:-translate-y-0.5">
                   <span className="text-[10px] font-bold tracking-[1.5px] text-emerald uppercase">
                     {post.category}
                   </span>

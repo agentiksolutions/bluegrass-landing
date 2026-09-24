@@ -14,11 +14,11 @@ export default function WebDesignPage() {
     <ServicePageTemplate
       label="Web Design & Development"
       title="Your business deserves a real website."
-      subtitle="Not a template with your logo slapped on it. A fully custom site designed around your business, your customers, and your goals. Built to load fast, look sharp, and convert visitors into calls."
+      subtitle="A custom site designed around your business, your customers, and your goals. Built to load fast, look sharp, and convert visitors into calls."
       deliverables={[
-        "Custom design — no templates, no drag-and-drop builders",
+        "Custom design, built for your business",
         "Mobile-responsive layout that works on every device",
-        "SEO foundation — proper structure, meta tags, page speed optimization",
+        "SEO foundation: proper structure, meta tags, page speed optimization",
         "Contact forms, maps, and lead capture built in",
         "Hosting setup and domain configuration",
         "Google Business Profile and analytics integration",
@@ -37,9 +37,9 @@ export default function WebDesignPage() {
       }}
       relatedPosts={[
         {
-          href: "/insights/automated-35-workflows",
-          title: "I Automated 35 Workflows Before Selling a Single AI Service",
-          category: "Lessons Learned",
+          href: "/work/pfsa",
+          title: "A back office for a Lexington nonprofit",
+          category: "Case study",
         },
       ]}
       serviceJsonLd={{
@@ -53,7 +53,7 @@ export default function WebDesignPage() {
         },
         areaServed: "Central Kentucky",
         description:
-          "Custom web design and development for businesses. Professional sites built for speed, SEO, and conversions — not templates.",
+          "Custom web design and development for businesses. Professional sites built for speed, SEO, and conversions.",
       }}
     />
   );
