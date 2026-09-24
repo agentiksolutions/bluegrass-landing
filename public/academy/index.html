@@ -70,9 +70,9 @@ body{font-family:var(--font-body);background:var(--warm-white);color:var(--charc
 .sb-search input::placeholder{color:rgba(255,255,255,.25)}
 .sb-group{padding:0 12px;margin-bottom:20px}
 .sb-label{font-size:10px;font-weight:700;color:var(--stone);text-transform:uppercase;letter-spacing:1.2px;padding:0 10px;margin-bottom:6px}
-.sb-item{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:var(--radius-sm);cursor:pointer;font-size:13px;font-weight:500;color:rgba(255,255,255,.4);border:none;background:none;width:100%;text-align:left;transition:all .15s;font-family:var(--font-display);border-left:3px solid transparent}
+.sb-item{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:var(--radius-sm);cursor:pointer;font-size:13px;font-weight:500;color:rgba(255,255,255,.4);border:none;background:none;width:100%;text-align:left;transition:all .15s;font-family:var(--font-display)}
 .sb-item:hover{background:rgba(255,255,255,.04);color:rgba(255,255,255,.65)}
-.sb-item.active{background:rgba(0,51,160,.1);color:var(--emerald);font-weight:700;border-left-color:var(--emerald)}
+.sb-item.active{background:rgba(0,51,160,.1);color:var(--emerald);font-weight:700}
 .sb-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;background:rgba(255,255,255,.12);transition:all .2s}
 .sb-item.active .sb-dot{background:var(--emerald);box-shadow:0 0 6px rgba(0,51,160,.3)}
 .sb-item.done .sb-dot{background:var(--emerald)}
@@ -107,9 +107,9 @@ li{margin-bottom:6px;font-size:14px;line-height:1.65}
 /* ── CARDS ── */
 .card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:22px 24px;margin-bottom:12px;box-shadow:var(--shadow-sm);transition:box-shadow .15s}
 .card:hover{box-shadow:var(--shadow-md)}
-.card-em{border-left:3px solid var(--emerald)}
-.card-gold{border-left:3px solid var(--gold)}
-.card-red{border-left:3px solid var(--red)}
+.card-em{border:1px solid rgba(0,51,160,.22)}
+.card-gold{border:1px solid rgba(200,150,10,.26)}
+.card-red{border:1px solid rgba(201,64,64,.24)}
 .card-t{font-size:15px;font-weight:700;color:var(--graphite);margin-bottom:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .card-b{font-size:14px;color:#555;line-height:1.75}
 .card-b strong{color:var(--graphite)}
@@ -129,7 +129,7 @@ li{margin-bottom:6px;font-size:14px;line-height:1.65}
 .co-em{background:rgba(0,51,160,.05);border:1px solid rgba(0,51,160,.12)}
 .co-gold{background:rgba(200,150,10,.05);border:1px solid rgba(200,150,10,.12)}
 .co-red{background:rgba(201,64,64,.05);border:1px solid rgba(201,64,64,.12)}
-.co-icon{font-size:17px;flex-shrink:0;margin-top:1px}
+
 
 /* ── CODE BLOCKS ── */
 .code{background:var(--graphite);border:1px solid var(--border-dark);border-radius:var(--radius);padding:20px 22px;margin:14px 0;overflow-x:auto;font-family:var(--font-mono);font-size:12.5px;line-height:1.85;color:rgba(255,255,255,.5);white-space:pre}
@@ -329,7 +329,7 @@ code{font-family:var(--font-mono);font-size:13px;background:rgba(0,51,160,.06);c
     <div class="prog-track"><div class="prog-fill" id="progFill"></div></div>
     <span class="prog-pct" id="progPct">0%</span>
   </div>
-  <a class="topbar-cta" href="mailto:phil@bluegrassadvisorygroup.com">Talk to BAG →</a>
+  <a class="topbar-cta" href="mailto:phil@bluegrassadvisorygroup.com">Book a call →</a>
 </div>
 
 <!-- ═══════════════════════════════════════════════════════
@@ -361,7 +361,6 @@ code{font-family:var(--font-mono);font-size:13px;background:rgba(0,51,160,.06);c
 <p>This program was built by <strong>Bluegrass Advisory Group</strong> for business owners, managers, and operators who want to understand AI: not the hype, the real thing. What it does. What it doesn't. How to use it today to save time, make better decisions, and build things you couldn't build before.</p>
 
 <div class="co co-em">
-<div class="co-icon">📌</div>
 <div><strong>What this is NOT.</strong> This is not a computer science course. It's not about coding. It's not about replacing your job. It's a practical playbook for using AI tools to work faster, think clearer, and run your operation better. If you can write an email and use a spreadsheet, you can do everything in this course.</div>
 </div>
 
@@ -431,7 +430,6 @@ code{font-family:var(--font-mono);font-size:13px;background:rgba(0,51,160,.06);c
 </div>
 
 <div class="co co-em">
-<div class="co-icon">→</div>
 <div><strong>Do at least one right now.</strong> The gap between "knowing about AI" and "using AI" closes the moment you send your first real prompt. Pick the one closest to something you need today.</div>
 </div>
 
@@ -593,7 +591,7 @@ They're fast. They're knowledgeable. They're eager. But they need <em>your conte
 </tbody>
 </table>
 
-<div class="co co-em"><div class="co-icon">→</div><div><strong>Action:</strong> Sign up for Claude Pro at $20/month. Use it for 30 days. If it doesn't save you at least 2 hours a week, cancel. It will.</div></div>
+<div class="co co-em"><div><strong>Action:</strong> Sign up for Claude Pro at $20/month. Use it for 30 days. If it doesn't save you at least 2 hours a week, cancel. It will.</div></div>
 
 <h3>The Tool Progression</h3>
 <p>Don't sign up for 15 tools. Add tools as your skills grow. Here's the sequence:</p>
@@ -610,7 +608,7 @@ They're fast. They're knowledgeable. They're eager. But they need <em>your conte
 <div class="card-b"><strong>AI-powered search with cited sources.</strong> Unlike Claude, Perplexity searches the live internet. Use Claude for thinking. Use Perplexity for facts. Together they cover 90% of your needs.<br><strong>Pro tip:</strong> When Claude tells you a statistic, verify it in Perplexity. Takes 10 seconds.</div>
 </div>
 
-<div class="co co-em"><div class="co-icon">→</div><div><strong>Week 1 cost: $20/month.</strong> That's it. Master these two first.</div></div>
+<div class="co co-em"><div><strong>Week 1 cost: $20/month.</strong> That's it. Master these two first.</div></div>
 
 <h4>Stage 2: Organizing (Week 3-4)</h4>
 
@@ -692,7 +690,7 @@ They're fast. They're knowledgeable. They're eager. But they need <em>your conte
 </tbody>
 </table>
 
-<div class="co co-gold"><div class="co-icon">⚠️</div><div><strong>The trap:</strong> Don't jump to Stage 4 before mastering Stage 1. People sign up for 8 tools, learn none well, and conclude "AI isn't useful." It is: but only when you go deep on one before going wide.</div></div>
+<div class="co co-gold"><div><strong>The trap:</strong> Don't jump to Stage 4 before mastering Stage 1. People sign up for 8 tools, learn none well, and conclude "AI isn't useful." It is: but only when you go deep on one before going wide.</div></div>
 
 <h3>Where AI Still Fails (Be Honest About This)</h3>
 <p>If you use AI for these things without verification, you'll get burned. Not maybe. Will.</p>
@@ -707,7 +705,7 @@ They're fast. They're knowledgeable. They're eager. But they need <em>your conte
 
 <div class="card card-red"><div class="card-t">Emotional / Relationship Decisions</div><div class="card-b">"Should I fire this person?": AI can help you structure the conversation and document the issues. But the actual judgment call about a person's livelihood should be yours, informed by the full context only you have.</div></div>
 
-<div class="co co-em"><div class="co-icon">→</div><div><strong>Rule of thumb:</strong> Use AI to draft, analyze, and think. Use humans to verify, decide, and deliver. The combination is unbeatable. Either one alone has gaps.</div></div>
+<div class="co co-em"><div><strong>Rule of thumb:</strong> Use AI to draft, analyze, and think. Use humans to verify, decide, and deliver. The combination is unbeatable. Either one alone has gaps.</div></div>
 
 <h3>Quiz: Module 2</h3>
 <div class="qz" data-quiz="q3"><div class="qz-q">What's the recommended starting stack for Week 1?</div><div class="qz-opts">
@@ -789,7 +787,7 @@ timeline, and draft the customer email announcing it.
 Don't hedge. Tell me what to do.</div></div>
 <p style="font-size:13px;color:var(--stone)"><strong>Output:</strong> Complete pricing strategy, dollar recommendation, tiered approach, timeline, and a ready-to-send email. You just saved a $500 consulting session.</p>
 
-<div class="co co-em"><div class="co-icon">→</div><div><strong>The pattern:</strong> Each level adds one layer. The jump from Level 1 to Level 4 takes an extra 60 seconds of typing and produces 10x better output.</div></div>
+<div class="co co-em"><div><strong>The pattern:</strong> Each level adds one layer. The jump from Level 1 to Level 4 takes an extra 60 seconds of typing and produces 10x better output.</div></div>
 
 <h3>Bad vs Good: Across Industries</h3>
 
@@ -889,7 +887,7 @@ Don't hedge. Tell me what to do.</div></div>
 <div class="card card-red"><div class="card-t">One giant prompt</div><div class="card-b">15 requests in one message. Break complex tasks into steps: first outline, then sections, then review.</div></div>
 <div class="card card-red"><div class="card-t">Treating AI as infallible</div><div class="card-b">Copying output without reading it. AI can get facts wrong and use awkward phrasing. Always review.</div></div>
 
-<div class="co co-gold"><div class="co-icon">⚠️</div><div><strong>Privacy:</strong> Never paste SSNs, passwords, or confidential customer data into any AI tool. Claude Pro doesn't train on your conversations, but data hygiene is non-negotiable.</div></div>
+<div class="co co-gold"><div><strong>Privacy:</strong> Never paste SSNs, passwords, or confidential customer data into any AI tool. Claude Pro doesn't train on your conversations, but data hygiene is non-negotiable.</div></div>
 
 <h3>When AI Gives You Bad Output: Troubleshooting</h3>
 <p>AI isn't magic. Sometimes the output is wrong, generic, or useless. Here's how to diagnose and fix it:</p>
@@ -1197,7 +1195,7 @@ Biggest challenge: [describe]</div></div>
 
 <div class="card card-em"><div class="card-t">Industry Trends Briefing</div><div class="card-b"><strong>Prompt:</strong> "Give me a 5-minute briefing on the current state of [industry]. Cover: the 3 biggest trends affecting small/mid operators, what the top performers are doing differently, one technology shift I should pay attention to, and the biggest risk most operators are ignoring. Write for a [role] who reads one industry article per month, not per day."</div></div>
 
-<div class="co co-em"><div class="co-icon">→</div><div><strong>Exercise:</strong> Pick 3 prompts closest to your work. Open Claude. Copy, customize with your details, send. The gap between knowing and using is one prompt.</div></div>
+<div class="co co-em"><div><strong>Exercise:</strong> Pick 3 prompts closest to your work. Open Claude. Copy, customize with your details, send. The gap between knowing and using is one prompt.</div></div>
 
 <h3>AI by Role: What to Use It For First</h3>
 <p>Based on your role, here's the highest-ROI starting point:</p>
@@ -1261,24 +1259,24 @@ Biggest challenge: [describe]</div></div>
 <h3>Part 1: File Structure</h3>
 
 <div class="code">
-<span class="cm">📁 One root folder. Everything lives here.</span>
+<span class="cm">One root folder. Everything lives here.</span>
 <span class="cm">│</span>
-<span class="fld">├── 📁 Company/</span>              <span class="cm">← your employer or business</span>
-<span class="cm">│   </span><span class="fld">├── 📁 SOPs/</span>            <span class="cm">← procedures</span>
-<span class="cm">│   </span><span class="fld">├── 📁 Templates/</span>       <span class="cm">← reusable docs</span>
-<span class="cm">│   </span><span class="fld">├── 📁 Data/</span>            <span class="cm">← exports, reports</span>
-<span class="cm">│   </span><span class="fld">├── 📁 Projects/</span>        <span class="cm">← one folder per initiative</span>
-<span class="cm">│   </span><span class="fld">└── 📁 Reference/</span>       <span class="cm">← manuals, specs</span>
+<span class="fld">├── Company/</span>              <span class="cm">← your employer or business</span>
+<span class="cm">│   </span><span class="fld">├── SOPs/</span>            <span class="cm">← procedures</span>
+<span class="cm">│   </span><span class="fld">├── Templates/</span>       <span class="cm">← reusable docs</span>
+<span class="cm">│   </span><span class="fld">├── Data/</span>            <span class="cm">← exports, reports</span>
+<span class="cm">│   </span><span class="fld">├── Projects/</span>        <span class="cm">← one folder per initiative</span>
+<span class="cm">│   </span><span class="fld">└── Reference/</span>       <span class="cm">← manuals, specs</span>
 <span class="cm">│</span>
-<span class="fld">├── 📁 AI-System/</span>             <span class="cm">← your knowledge system</span>
+<span class="fld">├── AI-System/</span>             <span class="cm">← your knowledge system</span>
 <span class="cm">│   </span><span class="fl">├── CLAUDE.md</span>          <span class="hl">← AI standing orders</span>
 <span class="cm">│   </span><span class="fl">├── MEMORY.md</span>          <span class="hl">← brain index</span>
 <span class="cm">│   </span><span class="fl">├── DECISION-LOG.md</span>    <span class="hl">← why you decided what</span>
-<span class="cm">│   </span><span class="fld">├── 📁 memory/</span>         <span class="hl">← topic files</span>
-<span class="cm">│   </span><span class="fld">└── 📁 sessions/</span>       <span class="hl">← session logs</span>
+<span class="cm">│   </span><span class="fld">├── memory/</span>         <span class="hl">← topic files</span>
+<span class="cm">│   </span><span class="fld">└── sessions/</span>       <span class="hl">← session logs</span>
 <span class="cm">│</span>
-<span class="fld">├── 📁 AI-Prompts/</span>            <span class="cm">← prompts that worked</span>
-<span class="fld">└── 📁 Learning/</span>              <span class="cm">← courses, notes</span>
+<span class="fld">├── AI-Prompts/</span>            <span class="cm">← prompts that worked</span>
+<span class="fld">└── Learning/</span>              <span class="cm">← courses, notes</span>
 </div>
 
 <div class="card card-em"><div class="card-t">File Rules</div><div class="card-b">
@@ -1301,7 +1299,7 @@ Biggest challenge: [describe]</div></div>
 </tbody>
 </table>
 
-<div class="co co-em"><div class="co-icon">💡</div><div><strong>Markdown (.md)</strong> = simple text format. <code># Heading</code>, <code>**bold**</code>, <code>- bullet</code>. AI reads/writes it perfectly. Open with Notepad or download Obsidian (free) for a better experience.</div></div>
+<div class="co co-em"><div><strong>Markdown (.md)</strong> = simple text format. <code># Heading</code>, <code>**bold**</code>, <code>- bullet</code>. AI reads/writes it perfectly. Open with Notepad or download Obsidian (free) for a better experience.</div></div>
 
 <h3>Part 2: Your AI Knowledge System</h3>
 <p>This is the architecture that makes AI <strong>compound</strong>: where every session builds on the last.</p>
@@ -1367,7 +1365,7 @@ Biggest challenge: [describe]</div></div>
 Paste CLAUDE.md into Claude Project instructions. Paste MEMORY.md when starting conversations that need context. The system compounds: AI gets better at helping you because it always has your latest context.
 </div></div>
 
-<div class="co co-gold"><div class="co-icon">⚠️</div><div><strong>This is the beginner version.</strong> The full implementation: automated memory, structured handoffs, vault syncing, AI agents that maintain their own context: is what BAG builds for clients.</div></div>
+<div class="co co-gold"><div><strong>This is the beginner version.</strong> The full implementation: automated memory, structured handoffs, vault syncing, AI agents that maintain their own context: is what BAG builds for clients.</div></div>
 
 <h3>Getting Started with Obsidian</h3>
 <p>Obsidian is the recommended tool for housing your AI knowledge system. Here's a step-by-step walkthrough:</p>
@@ -1386,7 +1384,7 @@ Paste CLAUDE.md into Claude Project instructions. Paste MEMORY.md when starting 
 
 <div class="card card-em"><div class="card-t">Step 7: Mobile (Optional, $5/mo)</div><div class="card-b">Obsidian Sync ($5/mo) keeps your vault synced across all devices with end-to-end encryption. Access your knowledge system from your phone. Edit notes on the go. Not required: but very useful if you work from multiple devices.</div></div>
 
-<div class="co co-em"><div class="co-icon">→</div><div><strong>Time to set up:</strong> 10 minutes. Learning curve: 30 minutes to be productive. The free version does everything you need. You can use Obsidian for years without paying a cent.</div></div>
+<div class="co co-em"><div><strong>Time to set up:</strong> 10 minutes. Learning curve: 30 minutes to be productive. The free version does everything you need. You can use Obsidian for years without paying a cent.</div></div>
 
 <h3>The Knowledge Flywheel</h3>
 <p>Here's how all the pieces feed each other:</p>
@@ -1486,7 +1484,7 @@ Paste CLAUDE.md into Claude Project instructions. Paste MEMORY.md when starting 
 <div class="card card-em"><div class="card-t">When You Don't Know How to Build a Pivot Table</div><div class="card-b"><strong>Prompt:</strong> "I have a spreadsheet with these columns: [list them]. I want to see [describe what you want: e.g., 'total sales by salesperson by month' or 'average order size by product category']. Walk me through creating a pivot table in [Excel/Google Sheets] step by step. Include: which field goes in Rows, Columns, and Values. Include screenshots descriptions so I can follow along visually."<br><br>
 <strong>Why this works:</strong> Claude gives you exact drag-and-drop instructions specific to YOUR column names. No more generic YouTube tutorials where the example data doesn't match yours.</div></div>
 
-<div class="co co-gold"><div class="co-icon">⚠️</div><div><strong>Always verify calculations.</strong> AI is great at writing formulas and finding trends, but spot-check the math. Verify Claude's SUM against Excel's SUM on a few rows. Check one formula result manually before applying it to 500 rows.</div></div>
+<div class="co co-gold"><div><strong>Always verify calculations.</strong> AI is great at writing formulas and finding trends, but spot-check the math. Verify Claude's SUM against Excel's SUM on a few rows. Check one formula result manually before applying it to 500 rows.</div></div>
 
 <h3>Quiz: Module 7</h3>
 <div class="qz" data-quiz="q9"><div class="qz-q">What file format is best for uploading data to Claude?</div><div class="qz-opts">
@@ -1617,7 +1615,7 @@ Here's the process:
 6. Check restrooms: restock, clean, lights off<br>
 7. Set alarm. Lock all doors. Verify locked by pulling handle<br>
 8. Text closing photo of locked door to manager group chat<br><br>
-⚠️ If cash variance is over $10, call the manager before leaving.
+<strong>Warning:</strong> If cash variance is over $10, call the manager before leaving.
 </div></div>
 
 <div class="card card-em"><div class="card-t">Mini-SOP: New Client Setup</div><div class="card-b" style="font-size:13px">
@@ -1871,7 +1869,7 @@ Time to set up: 10 minutes. Learning curve: 30 minutes to be productive.
 <li><strong>Week 12:</strong> 15+ saved prompts. You're generating in minutes what used to take hours. Your AI-Prompts folder is a competitive advantage: nobody else in your industry has it.</li>
 </ul>
 
-<div class="co co-em"><div class="co-icon">→</div><div><strong>This is the inflection point.</strong> Most people use AI casually for months and plateau. People who build this system break through that plateau. The architecture is the difference between AI being "kind of helpful" and AI being "how did I ever work without this."</div></div>
+<div class="co co-em"><div><strong>This is the inflection point.</strong> Most people use AI casually for months and plateau. People who build this system break through that plateau. The architecture is the difference between AI being "kind of helpful" and AI being "how did I ever work without this."</div></div>
 
 <h3>Quiz: Module 10</h3>
 <div class="qz" data-quiz="q13"><div class="qz-q">What's the difference between a "light session" and a "heavy session"?</div><div class="qz-opts">
@@ -2076,7 +2074,7 @@ All on one screen. Updated automatically. Any device.
 </div>
 </div>
 
-<div class="co co-em"><div class="co-icon">→</div><div><strong>This isn't science fiction.</strong> Every agent described above is running in real businesses right now. The technology exists. The platforms are mature. The cost is accessible. What's needed is the architecture, the setup, and the expertise to make it reliable. That's what BAG does.</div></div>
+<div class="co co-em"><div><strong>This isn't science fiction.</strong> Every agent described above is running in real businesses right now. The technology exists. The platforms are mature. The cost is accessible. What's needed is the architecture, the setup, and the expertise to make it reliable. That's what BAG does.</div></div>
 
 <h3>Why Agents Require Careful Setup</h3>
 <div class="card card-gold"><div class="card-b">
@@ -2159,7 +2157,7 @@ No hourly billing. No vague "consulting." Specific deliverables, specific timeli
 <div style="display:inline-block;background:#fff;border:2px solid var(--emerald);border-radius:20px;padding:36px 48px;box-shadow:var(--shadow-md);max-width:500px">
 <div style="font-family:var(--font-display);font-size:24px;font-weight:700;color:var(--graphite);margin-bottom:8px">Ready for the Next Level?</div>
 <p style="font-size:14px;color:var(--stone);margin-bottom:20px">BAG builds custom AI systems for businesses. We take you from where this course ends to a fully integrated operation.</p>
-<a href="mailto:phil@bluegrassadvisorygroup.com" style="display:inline-block;background:var(--emerald);color:#fff;padding:14px 36px;border-radius:10px;text-decoration:none;font-weight:700;font-size:15px">Talk to BAG →</a>
+<a href="mailto:phil@bluegrassadvisorygroup.com" style="display:inline-block;background:var(--emerald);color:#fff;padding:14px 36px;border-radius:10px;text-decoration:none;font-weight:700;font-size:15px">Book a call →</a>
 <p style="font-size:12px;color:var(--stone);margin-top:14px;margin-bottom:0">phil@bluegrassadvisorygroup.com</p>
 </div>
 </div>
@@ -2213,7 +2211,7 @@ No hourly billing. No vague "consulting." Specific deliverables, specific timeli
 <h3>3. Process Document</h3>
 <div class="ba">
 <div class="ba-col ba-before"><div class="ba-label">Before</div>When stuff comes in, check it against the PO. Put it where it goes. Let someone know if something is wrong. Make sure you sign for it.</div>
-<div class="ba-col ba-after"><div class="ba-label">After</div><strong>Inventory Receiving SOP</strong><br>Version 1.0 | Owner: Warehouse Manager<br><br><strong>Purpose:</strong> Ensure every shipment is verified, inspected, and properly stored.<br><br><strong>Procedure:</strong><br>1. Verify PO number on packing slip against open orders<br>2. Count all pallets/boxes <strong>before</strong> signing the BOL<br>3. Note any visible damage on the BOL before the driver leaves<br>4. Move shipment to receiving/staging area<br>5. Open and inspect each item for concealed damage<br>6. Verify quantities match packing slip<br>7. Scan each item into inventory system<br>8. Place items in assigned rack location<br>9. Update rack label if stock level changed significantly<br>10. File packing slip in the daily receiving binder<br><br>⚠️ Never sign BOL before counting: you lose leverage on shortages<br>⚠️ Never shelve damaged items: set aside and report immediately<br>⚠️ Two people for any item over 50 lbs</div>
+<div class="ba-col ba-after"><div class="ba-label">After</div><strong>Inventory Receiving SOP</strong><br>Version 1.0 | Owner: Warehouse Manager<br><br><strong>Purpose:</strong> Ensure every shipment is verified, inspected, and properly stored.<br><br><strong>Procedure:</strong><br>1. Verify PO number on packing slip against open orders<br>2. Count all pallets/boxes <strong>before</strong> signing the BOL<br>3. Note any visible damage on the BOL before the driver leaves<br>4. Move shipment to receiving/staging area<br>5. Open and inspect each item for concealed damage<br>6. Verify quantities match packing slip<br>7. Scan each item into inventory system<br>8. Place items in assigned rack location<br>9. Update rack label if stock level changed significantly<br>10. File packing slip in the daily receiving binder<br><br><strong>Warning:</strong> Never sign BOL before counting: you lose leverage on shortages<br><strong>Warning:</strong> Never shelve damaged items: set aside and report immediately<br><strong>Warning:</strong> Two people for any item over 50 lbs</div>
 </div>
 <p style="font-size:13px;color:var(--stone);margin-top:8px"><strong>What changed:</strong> Vague instructions ("put it where it goes") became specific, numbered steps anyone can follow. Safety notes added. Accountability built in. A new hire could follow this on day one.</p>
 
