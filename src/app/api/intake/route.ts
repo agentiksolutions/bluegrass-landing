@@ -265,7 +265,7 @@ export async function POST(request: NextRequest) {
             <tr><td style="font-weight: 600; color: #3A3A3C;">Best call time</td><td>${escapeHtml(body.best_call_time || "(not provided)")}</td></tr>
           </table>
           <h3 style="color: #1C1C1E; margin-top: 24px;">AI question / need</h3>
-          <div style="background: #FAF8F5; padding: 16px; border-left: 3px solid #0D7C66; border-radius: 4px;">
+          <div style="background: #FAF8F5; padding: 16px; border-radius: 4px;">
             ${escapeHtml(body.ai_question).replace(/\n/g, "<br>")}
           </div>
           <p style="color: #888; font-size: 13px; margin-top: 24px;">

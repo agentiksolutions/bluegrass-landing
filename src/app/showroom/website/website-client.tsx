@@ -168,10 +168,9 @@ export default function WebsiteGeneratorPage() {
                 {siteData.sections.map((section, i) => (
                   <div
                     key={i}
-                    className="p-7"
-                    style={{
-                      borderTop: `3px solid ${i === 0 ? accent : "#eee"}`,
-                    }}
+                    // No colored edge strips (Phil, 2026-09-24): a full hairline on every card.
+                    className="p-7 rounded"
+                    style={{ border: "1px solid #eee" }}
                   >
                     <h3
                       className={`${headingFont} text-lg font-bold mb-2.5`}

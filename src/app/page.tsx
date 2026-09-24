@@ -59,6 +59,14 @@ export const metadata: Metadata = {
   },
 };
 
+// Placeholder photographs of Central Kentucky, all public domain. Source, author and licence
+// are recorded in public/images/brand/CREDITS.md. Swap these for Phil's own photographs.
+const kentucky = [
+  { src: "/images/brand/limestone-lane.webp", alt: "A gravel farm lane running between dry-stacked limestone walls and plank fencing", w: 1200, h: 900 },
+  { src: "/images/brand/kentucky-barn.webp", alt: "A weathered grey tobacco barn standing on a Kentucky pasture", w: 1200, h: 900 },
+  { src: "/images/brand/stone-wall-creek.webp", alt: "A dry-stacked limestone wall along a creek below a line of trees", w: 1200, h: 800 },
+];
+
 const services = [
   { label: "Websites", href: "/services/web-design" },
   { label: "AI tools", href: "/services/ai-integration" },
@@ -109,6 +117,16 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Central Kentucky, full bleed. */}
+      <Image
+        src="/images/brand/bluegrass-fenceline.webp"
+        alt="Plank fencing running across open bluegrass pasture under a wide Kentucky sky"
+        width={1800}
+        height={771}
+        sizes="100vw"
+        className="w-full h-[30svh] min-h-[200px] lg:h-[min(46vh,420px)] object-cover"
+      />
+
       {/* Phil's own words, on the blue. */}
       <section className="relative bg-blue overflow-hidden">
         <NetworkBand className="absolute inset-0 w-full h-full" />
@@ -121,6 +139,21 @@ export default function HomePage() {
           </cite>
         </blockquote>
       </section>
+
+      {/* Three more of the same country, edge to edge. */}
+      <div className="grid grid-cols-1 sm:grid-cols-3">
+        {kentucky.map((k) => (
+          <Image
+            key={k.src}
+            src={k.src}
+            alt={k.alt}
+            width={k.w}
+            height={k.h}
+            sizes="(min-width: 640px) 34vw, 100vw"
+            className="w-full h-[30svh] sm:h-[26vw] lg:h-[22vw] object-cover"
+          />
+        ))}
+      </div>
 
       {/* What I build. Four words, four pages. */}
       <section className="px-4 md:px-10 py-16 md:py-24">

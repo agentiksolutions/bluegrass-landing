@@ -205,10 +205,11 @@ const industries: Record<
   },
 };
 
+// No colored edge strips (Phil, 2026-09-24). A tint and a full hairline carry the alert type.
 const alertStyles = {
-  warning: { border: "border-l-gold", bg: "bg-gold/[0.06]" },
-  action: { border: "border-l-emerald", bg: "bg-emerald/[0.06]" },
-  info: { border: "border-l-stone", bg: "bg-stone/[0.06]" },
+  warning: { border: "border-gold/40", bg: "bg-gold/[0.06]" },
+  action: { border: "border-emerald/40", bg: "bg-emerald/[0.06]" },
+  info: { border: "border-stone/40", bg: "bg-stone/[0.06]" },
 };
 
 export default function DashboardDemoPage() {
@@ -458,7 +459,7 @@ export default function DashboardDemoPage() {
                 return (
                   <div
                     key={i}
-                    className={`px-3.5 py-3 rounded-md ${s.bg} border-l-[3px] ${s.border} text-xs leading-relaxed text-charcoal`}
+                    className={`px-3.5 py-3 rounded-md ${s.bg} border ${s.border} text-xs leading-relaxed text-charcoal`}
                   >
                     {alert.text}
                   </div>

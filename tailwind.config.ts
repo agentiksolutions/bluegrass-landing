@@ -36,6 +36,16 @@ const config: Config = {
       maxWidth: {
         content: "960px",
       },
+      // No colored edge strips (Phil, 2026-09-24). The typography plugin runs a 4px bar down
+      // the side of every blog quote; the italic and the whitespace carry it instead.
+      // A rule in globals.css cannot do this: plugin component CSS outranks @layer base.
+      typography: {
+        DEFAULT: {
+          css: {
+            blockquote: { borderInlineStartWidth: "0", paddingInlineStart: "0" },
+          },
+        },
+      },
       animation: {
         "fade-in": "fadeIn 0.6s ease-out forwards",
         "slide-up": "slideUp 0.6s ease-out forwards",
