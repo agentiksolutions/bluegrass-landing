@@ -82,7 +82,7 @@ export default function AIToolsPage() {
               <p className="text-[15px] leading-relaxed text-charcoal max-w-[680px] mb-4">
                 {t.what}
               </p>
-              <p className="text-[14px] leading-relaxed text-stone max-w-[680px] border-l-2 border-emerald/30 pl-4">
+              <p className="text-[14px] leading-relaxed text-stone max-w-[680px]">
                 {t.limit}
               </p>
             </div>
