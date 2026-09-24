@@ -21,10 +21,18 @@ Before these go live: Tyler's OK on store photos (franchise brand); written OK f
 
 ## Logo
 
-The header, footer and browser-tab icon use the interim F3 lockup (star-only mark) from
-`Brand/logo-2026-09-23/final/`. The final star-and-nodes mark is still being drawn. To swap it,
-replace `public/brand/logo.svg` and `src/app/icon.svg`, and update `RATIO` in
-`src/components/logo.tsx` if the shape changes.
+The official logo (Grok concept 1, picked by Phil at 00:00 on 2026-09-24) is in place. Every file is a
+byte copy from `Brand/logo-2026-09-23/official/`:
+
+- Header and footer: `public/brand/logo.svg` = `logo-lockup-small.svg` (star-only mark). Both render
+  under 150 px tall, where the node network does not read, so neither uses the nodes version.
+- Browser tab: `src/app/icon.svg` = `favicon.svg`. Apple home-screen icon: `src/app/apple-icon.png` =
+  `apple-touch-icon-180.png`.
+- Link preview card: `src/app/opengraph-image.png`, a static 1200 x 630 image with the full
+  star-and-nodes lockup (`logo-lockup-1200.png`) and the same words as the old generated card, set in
+  Hanken Grotesk and Newsreader. It replaced `opengraph-image.tsx`.
+- `public/brand/bag-email-signature-logo.png` is still the old logo and is kept on purpose: the live
+  Gmail signature loads it from the site. Swap it only when the signature is redone.
 
 ## Privacy Notice and Terms of Service (drafts)
 
