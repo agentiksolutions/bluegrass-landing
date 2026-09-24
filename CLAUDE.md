@@ -114,10 +114,10 @@ SUPABASE_ANON_KEY          Optional — for /api/lead
 
 ## Rules
 - No pricing on the website
-- No case studies or testimonials
+- Case studies allowed (Phil, 2026-09-23): PFSA by name; the restaurant client only as "a Five Guys franchisee in Central Kentucky" until its owner agrees to be named. Quotes on the site are Phil's own words; no client testimonials without written permission
 - No Tailwind blue, no Inter/Roboto fonts
 - Keep the warm white editorial aesthetic
 - Deploy via GitHub push → Vercel auto-deploy
-- NEVER use "operator" to describe Phil or BAG — use "practitioner"
-- NEVER mention "Five Guys" anywhere on the site
+- "Operator" is allowed for Phil (Phil, 2026-09-23)
+- "Five Guys" only as "a Five Guys franchisee in Central Kentucky" (Phil, 2026-09-23). Never imply Five Guys endorses the firm; never name Barton Restaurant Group
 - Use "hospitality industry" not "restaurant operations"
