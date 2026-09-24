@@ -1266,7 +1266,9 @@ input, textarea, select { font-family:var(--font-display); }
    so those use a light blue (8.2:1 on #161B22) */
 :root{--blue-on-dark:#9DB2E8}
 .sidebar-logo h1 span,.sidebar-nav button.active{color:var(--blue-on-dark)}
-.sidebar-nav button.active{background:rgba(157,178,232,.1);border-left-color:var(--blue-on-dark)}
+.sidebar-nav button.active{background:rgba(157,178,232,.1);border-left-color:transparent}
+/* Brand 2026-09-24: no colored edge strips on cards or panels; a thin neutral border instead */
+.missing-card,[style*="border-left:3px"]{border-left:1px solid var(--border)!important}
 </style>
 </head>
 <body>
