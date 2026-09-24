@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import SectionLabel from "@/components/section-label";
+import Link from "next/link";
+import Image from "next/image";
+import { photos } from "@/lib/photos";
 
 type FormState = {
   contact_name: string;
@@ -28,19 +30,19 @@ const initialState: FormState = {
 };
 
 const REVENUE_OPTIONS = [
-  { value: "", label: "Select range" },
+  { value: "", label: "Choose" },
   { value: "under_1m", label: "Under $1M" },
-  { value: "1m_to_5m", label: "$1M – $5M" },
-  { value: "5m_to_15m", label: "$5M – $15M" },
-  { value: "15m_to_50m", label: "$15M – $50M" },
+  { value: "1m_to_5m", label: "$1M to $5M" },
+  { value: "5m_to_15m", label: "$5M to $15M" },
+  { value: "15m_to_50m", label: "$15M to $50M" },
   { value: "over_50m", label: "Over $50M" },
 ];
 
 const ENTITIES_OPTIONS = [
-  { value: "", label: "Select" },
+  { value: "", label: "Choose" },
   { value: "1", label: "1" },
-  { value: "2-3", label: "2 – 3" },
-  { value: "4-7", label: "4 – 7" },
+  { value: "2-3", label: "2 to 3" },
+  { value: "4-7", label: "4 to 7" },
   { value: "8+", label: "8+" },
 ];
 
@@ -94,68 +96,25 @@ export default function ContactPage() {
   };
 
   return (
-    <section className="pt-[148px] pb-24 px-6 md:px-12 max-w-content mx-auto">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-start">
-        {/* Left column — info */}
+    <section className="pt-28 lg:pt-32 pb-20 px-4 md:px-10 max-w-[1160px] mx-auto">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-20 gap-y-10 items-start">
         <div>
-          <SectionLabel>Get Started</SectionLabel>
-          <h1 className="font-display text-4xl leading-tight font-bold tracking-tight mb-6">
-            Let&apos;s figure out if we can help.
+          <h1 className="font-display text-[36px] lg:text-[44px] leading-tight font-bold tracking-tight text-ink">
+            Let&apos;s see if I can help.
           </h1>
-          <p className="text-base leading-relaxed text-charcoal mb-8">
-            No sales pitch. No pressure. A few quick questions, then a free
-            30-minute intro call to scope what makes sense for your business —
-            or honestly tell you if AI isn&apos;t your bottleneck right now.
-          </p>
-
-          <div className="text-[15px] text-stone space-y-3 mb-10">
-            <div>
-              <strong className="text-graphite">Email:</strong>{" "}
-              <a
-                href="mailto:phil@bluegrassadvisorygroup.com"
-                className="text-emerald hover:underline"
-              >
-                phil@bluegrassadvisorygroup.com
-              </a>
-            </div>
-            <div>
-              <strong className="text-graphite">Phone:</strong>{" "}
-              <a
-                href="tel:+18593143051"
-                className="text-emerald hover:underline"
-              >
-                (859) 314-3051
-              </a>
-            </div>
-            <div>
-              <strong className="text-graphite">Based in:</strong> Lexington,
-              Kentucky
-            </div>
-            <div>
-              <strong className="text-graphite">Response time:</strong> Within
-              24 hours
-            </div>
-          </div>
-
-          <div className="bg-cream p-6 rounded-lg border border-graphite/[0.06]">
-            <div className="text-[12px] font-semibold tracking-wide text-emerald uppercase mb-2">
-              What happens next
-            </div>
-            <ol className="text-[14px] text-charcoal leading-relaxed space-y-2 list-decimal list-inside">
-              <li>You submit this form (~3 min)</li>
-              <li>I review and reply within 24 hours</li>
-              <li>We schedule a free 30-min call</li>
-              <li>
-                You get an honest recommendation — Quickstart, Strategic
-                Roadmap, ongoing advisory, or sometimes &ldquo;you don&apos;t
-                need us right now.&rdquo;
-              </li>
-            </ol>
-          </div>
+          {/* The person who reads the form. Laptop only; on a phone the form comes first. */}
+          <Image
+            src={photos.phil.src}
+            alt={photos.phil.alt}
+            width={photos.phil.width}
+            height={photos.phil.height}
+            sizes="440px"
+            className="hidden lg:block mt-8 w-full max-w-[440px] h-auto rounded"
+          />
         </div>
 
-        {/* Right column — form or success */}
-        <div className="bg-white p-10 rounded-lg border border-graphite/[0.06]">
+        {/* Form: second on a phone, right-hand column on a laptop. */}
+        <div className="bg-white p-6 md:p-10 rounded border border-line lg:col-start-2 lg:row-start-1">
           {submitted ? (
             <SuccessState
               calendlyUrl={calendlyUrl}
@@ -166,8 +125,8 @@ export default function ContactPage() {
               {/* Name + Role row */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-[13px] font-semibold text-graphite mb-2 tracking-wide">
-                    Your Name
+                  <label className="block font-display text-[14px] font-semibold text-ink mb-2">
+                    Name
                   </label>
                   <input
                     type="text"
@@ -175,12 +134,12 @@ export default function ContactPage() {
                     value={form.contact_name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-graphite/[0.08] rounded-md text-[15px] bg-warm-white outline-none focus:border-emerald transition-colors"
+                    className="w-full px-4 py-3 border border-line rounded text-[15px] bg-white outline-none focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-[13px] font-semibold text-graphite mb-2 tracking-wide">
-                    Your Role
+                  <label className="block font-display text-[14px] font-semibold text-ink mb-2">
+                    Role
                   </label>
                   <input
                     type="text"
@@ -188,14 +147,14 @@ export default function ContactPage() {
                     value={form.contact_role}
                     onChange={handleChange}
                     placeholder="CEO, COO, Operator..."
-                    className="w-full px-4 py-3 border border-graphite/[0.08] rounded-md text-[15px] bg-warm-white outline-none focus:border-emerald transition-colors"
+                    className="w-full px-4 py-3 border border-line rounded text-[15px] bg-white outline-none focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
                   />
                 </div>
               </div>
 
               {/* Email */}
               <div>
-                <label className="block text-[13px] font-semibold text-graphite mb-2 tracking-wide">
+                <label className="block font-display text-[14px] font-semibold text-ink mb-2">
                   Email
                 </label>
                 <input
@@ -204,15 +163,15 @@ export default function ContactPage() {
                   value={form.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border border-graphite/[0.08] rounded-md text-[15px] bg-warm-white outline-none focus:border-emerald transition-colors"
+                  className="w-full px-4 py-3 border border-line rounded text-[15px] bg-white outline-none focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
                 />
               </div>
 
               {/* Company name + Website row */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-[13px] font-semibold text-graphite mb-2 tracking-wide">
-                    Company Name
+                  <label className="block font-display text-[14px] font-semibold text-ink mb-2">
+                    Company
                   </label>
                   <input
                     type="text"
@@ -220,23 +179,20 @@ export default function ContactPage() {
                     value={form.company_name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-graphite/[0.08] rounded-md text-[15px] bg-warm-white outline-none focus:border-emerald transition-colors"
+                    className="w-full px-4 py-3 border border-line rounded text-[15px] bg-white outline-none focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-[13px] font-semibold text-graphite mb-2 tracking-wide">
-                    Website{" "}
-                    <span className="text-stone font-normal text-[12px]">
-                      (optional)
-                    </span>
+                  <label className="block font-display text-[14px] font-semibold text-ink mb-2">
+                    Website
                   </label>
                   <input
                     type="text"
                     name="company_website"
                     value={form.company_website}
                     onChange={handleChange}
-                    placeholder="example.com"
-                    className="w-full px-4 py-3 border border-graphite/[0.08] rounded-md text-[15px] bg-warm-white outline-none focus:border-emerald transition-colors"
+                    placeholder="example.com (optional)"
+                    className="w-full px-4 py-3 border border-line rounded text-[15px] bg-white outline-none focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
                   />
                 </div>
               </div>
@@ -244,15 +200,15 @@ export default function ContactPage() {
               {/* Revenue + Entities row */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-[13px] font-semibold text-graphite mb-2 tracking-wide">
-                    Annual Revenue
+                  <label className="block font-display text-[14px] font-semibold text-ink mb-2">
+                    Revenue
                   </label>
                   <select
                     name="annual_revenue_range"
                     value={form.annual_revenue_range}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-graphite/[0.08] rounded-md text-[15px] bg-warm-white outline-none focus:border-emerald transition-colors"
+                    className="w-full px-4 py-3 border border-line rounded text-[15px] bg-white outline-none focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
                   >
                     {REVENUE_OPTIONS.map((opt) => (
                       <option key={opt.value} value={opt.value}>
@@ -262,15 +218,15 @@ export default function ContactPage() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-[13px] font-semibold text-graphite mb-2 tracking-wide">
-                    Entities / Business Units
+                  <label className="block font-display text-[14px] font-semibold text-ink mb-2">
+                    Locations
                   </label>
                   <select
                     name="num_entities"
                     value={form.num_entities}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-graphite/[0.08] rounded-md text-[15px] bg-warm-white outline-none focus:border-emerald transition-colors"
+                    className="w-full px-4 py-3 border border-line rounded text-[15px] bg-white outline-none focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
                   >
                     {ENTITIES_OPTIONS.map((opt) => (
                       <option key={opt.value} value={opt.value}>
@@ -283,8 +239,8 @@ export default function ContactPage() {
 
               {/* AI Question */}
               <div>
-                <label className="block text-[13px] font-semibold text-graphite mb-2 tracking-wide">
-                  What&apos;s your biggest AI question or need?
+                <label className="block font-display text-[14px] font-semibold text-ink mb-2">
+                  What do you need?
                 </label>
                 <textarea
                   name="ai_question"
@@ -293,25 +249,22 @@ export default function ContactPage() {
                   required
                   rows={4}
                   placeholder="A few sentences on what you're trying to figure out, what you've tried, what's blocking you..."
-                  className="w-full px-4 py-3 border border-graphite/[0.08] rounded-md text-[15px] bg-warm-white outline-none focus:border-emerald transition-colors resize-none"
+                  className="w-full px-4 py-3 border border-line rounded text-[15px] bg-white outline-none focus:border-blue focus:ring-1 focus:ring-blue transition-colors resize-none"
                 />
               </div>
 
               {/* Best time */}
               <div>
-                <label className="block text-[13px] font-semibold text-graphite mb-2 tracking-wide">
-                  Best time for a 30-min call{" "}
-                  <span className="text-stone font-normal text-[12px]">
-                    (optional)
-                  </span>
+                <label className="block font-display text-[14px] font-semibold text-ink mb-2">
+                  Best time to call
                 </label>
                 <input
                   type="text"
                   name="best_call_time"
                   value={form.best_call_time}
                   onChange={handleChange}
-                  placeholder="Weekday mornings ET, Tuesday/Thursday afternoons..."
-                  className="w-full px-4 py-3 border border-graphite/[0.08] rounded-md text-[15px] bg-warm-white outline-none focus:border-emerald transition-colors"
+                  placeholder="Optional, e.g. weekday mornings"
+                  className="w-full px-4 py-3 border border-line rounded text-[15px] bg-white outline-none focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
                 />
               </div>
 
@@ -326,17 +279,55 @@ export default function ContactPage() {
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full bg-graphite text-warm-white px-6 py-4 rounded-md text-[15px] font-semibold tracking-wide hover:bg-emerald transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-blue text-white px-6 py-4 rounded font-display text-[16px] font-semibold hover:bg-blue-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {submitting ? "Submitting..." : "Submit & Schedule Call"}
+                {submitting ? "Sending..." : "Send"}
               </button>
 
-              <p className="text-[12px] text-stone text-center leading-relaxed">
-                Your information stays confidential. Used only to scope and
-                respond to your inquiry.
+              <p className="font-display text-[14px] text-muted text-center leading-relaxed">
+                By submitting, you agree to our{" "}
+                <Link href="/terms" className="text-blue underline underline-offset-2">Terms</Link> and{" "}
+                <Link href="/privacy" className="text-blue underline underline-offset-2">Privacy Notice</Link>.
+                We use your answers only to reply to you.
               </p>
             </form>
           )}
+        </div>
+
+        <div className="font-display">
+          <p className="text-[17px] text-body mb-6">
+            If AI is not what your business needs right now, I will tell you.
+          </p>
+          <div className="text-[16px] text-body space-y-2">
+            <div>
+              <span className="font-semibold text-ink">Email:</span>{" "}
+              <a href="mailto:phil@bluegrassadvisorygroup.com" className="text-blue underline underline-offset-2">
+                phil@bluegrassadvisorygroup.com
+              </a>
+            </div>
+            <div>
+              <span className="font-semibold text-ink">Phone:</span>{" "}
+              <a href="tel:+18593143051" className="text-blue underline underline-offset-2">
+                (859) 314-3051
+              </a>
+            </div>
+            <div>
+              <span className="font-semibold text-ink">Based in:</span> Lexington, Kentucky
+            </div>
+            <div>
+              <span className="font-semibold text-ink">Reply:</span> within 24 hours
+            </div>
+          </div>
+
+          <div className="mt-8 bg-band p-6 rounded">
+            <h2 className="text-[16px] font-semibold text-ink mb-3">What happens next</h2>
+            <ol className="text-[16px] text-body leading-relaxed space-y-1.5 list-decimal list-inside">
+              <li>You send this form. It takes about three minutes.</li>
+              <li>I reply within 24 hours.</li>
+              <li>We set up a free 30-minute call.</li>
+              <li>You get a recommendation, and sometimes it is to wait.</li>
+            </ol>
+          </div>
         </div>
       </div>
     </section>
@@ -372,14 +363,13 @@ function SuccessState({
       </h2>
 
       <p className="text-[15px] text-charcoal leading-relaxed mb-8 max-w-sm mx-auto">
-        Your submission is in. I&apos;ll review it and reply within 24 hours
-        with a tier recommendation and a one-page scope.
+        Your answers are in. I&apos;ll read them and reply within 24 hours.
       </p>
 
       {calendlyUrl ? (
         <>
           <div className="text-[13px] font-semibold tracking-wide text-emerald uppercase mb-3">
-            Skip the email — book your intro call now
+            Or book your call now
           </div>
           <a
             href={calendlyUrl}
@@ -387,7 +377,7 @@ function SuccessState({
             rel="noopener noreferrer"
             className="inline-block bg-graphite text-warm-white px-6 py-4 rounded-md text-[15px] font-semibold tracking-wide hover:bg-emerald transition-colors"
           >
-            Book Free 30-Min Call →
+            Book a 30-minute call
           </a>
           <p className="text-[12px] text-stone mt-4">
             Opens the booking page in a new tab. Pick a slot that works for you.
@@ -396,7 +386,7 @@ function SuccessState({
       ) : (
         <div className="bg-cream p-5 rounded-md text-[14px] text-charcoal leading-relaxed">
           I&apos;ll be in touch within 24 hours to schedule the call. Check
-          your inbox — confirmation should land within the next minute or two.
+          your inbox. A confirmation email should arrive in the next minute or two.
         </div>
       )}
 

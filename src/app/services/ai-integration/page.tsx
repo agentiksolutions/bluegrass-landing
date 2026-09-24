@@ -14,13 +14,13 @@ export default function AIIntegrationPage() {
     <ServicePageTemplate
       label="AI Integration"
       title="AI that actually fits your business."
-      subtitle="Not a chatbot on your website. Real tools that do real work — research, reporting, document creation, customer communication — trained on your business, not generic templates."
+      subtitle="Not a chatbot on your website. Real tools that do real work: research, reporting, document creation and customer communication, trained on your business."
       deliverables={[
-        "AI readiness assessment — where it makes sense and where it doesn't",
+        "AI readiness assessment: where it makes sense and where it doesn't",
         "Custom AI workflows for your specific use cases",
         "Document generation and report automation",
         "Internal research and data analysis tools",
-        "Customer communication automation (not spam — real value)",
+        "Customer communication automation your customers will want to read",
         "Integration with your existing tools and systems",
         "Staff training so your team actually uses it",
         "Ongoing support and refinement as your needs change",
@@ -37,9 +37,9 @@ export default function AIIntegrationPage() {
       }}
       relatedPosts={[
         {
-          href: "/insights/automated-35-workflows",
-          title: "I Automated 35 Workflows Before Selling a Single AI Service",
-          category: "Lessons Learned",
+          href: "/work/restaurant-franchisee",
+          title: "Three stores, one manager portal",
+          category: "Case study",
         },
         {
           href: "/insights/ai-trust-gap",

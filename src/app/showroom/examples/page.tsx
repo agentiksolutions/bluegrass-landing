@@ -16,7 +16,7 @@ const examples = [
   {
     title: "The PFSA",
     description:
-      "A modern website for the Public Foundation of Stewardship Advancement. Built to showcase the organization's mission, board, and community impact — fully functional, mobile-responsive, zero templates.",
+      "A modern website for the Public Foundation for Stewardship Advancement. Built to showcase the organization's mission, board, and community impact. Fully functional and mobile-responsive.",
     features: [
       "Mission and impact showcase",
       "Board directory",
@@ -38,8 +38,8 @@ export default function ExamplesPage() {
           Built examples.
         </h1>
         <p className="text-[17px] leading-relaxed text-stone max-w-[520px] mb-16">
-          Real sites and tools we&apos;ve designed. Not mockups — fully
-          functional builds you can click through and interact with.
+          Real sites and tools we&apos;ve designed: working builds you can click
+          through and interact with.
         </p>
       </div>
 
@@ -58,7 +58,7 @@ export default function ExamplesPage() {
               </p>
               <ul className="mb-8 space-y-2">
                 {ex.features.map((f) => (
-                  <li key={f} className="flex items-center gap-2 text-sm text-[#666]">
+                  <li key={f} className="flex items-center gap-2 text-sm text-charcoal">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald shrink-0" />
                     {f}
                   </li>
@@ -82,7 +82,6 @@ export default function ExamplesPage() {
       </div>
 
       <CTABand
-        dark
         headline="Want something like this?"
         subtext="Tell us about your business. We'll show you what we'd build."
       />

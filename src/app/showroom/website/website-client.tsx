@@ -214,7 +214,7 @@ export default function WebsiteGeneratorPage() {
                   This is what {formData.businessName} could look like.
                 </h3>
                 <p className="text-sm text-stone leading-relaxed max-w-[420px]">
-                  This is a quick concept — the real thing would be fully custom,
+                  This is a quick concept. The real thing would be fully custom,
                   mobile-responsive, and built to convert. Want to talk about
                   making it real?
                 </p>
@@ -233,7 +233,7 @@ export default function WebsiteGeneratorPage() {
             {showEmailCapture && !emailSent && (
               <div className="mt-6 pt-6 border-t border-[#333] flex gap-3 items-end">
                 <div className="flex-1">
-                  <label className="text-xs text-[#666] block mb-1.5">
+                  <label className="text-xs text-charcoal block mb-1.5">
                     Your email
                   </label>
                   <input
@@ -282,24 +282,24 @@ export default function WebsiteGeneratorPage() {
                 setEmailSent(false);
                 setShowEmailCapture(false);
               }}
-              className="text-[#666] text-[13px] hover:text-warm-white transition-colors cursor-pointer"
+              className="text-charcoal text-[13px] hover:text-warm-white transition-colors cursor-pointer"
             >
               Generate another
             </button>
             <button
               onClick={() => generateSite()}
-              className="border border-[#444] text-[#aaa] px-5 py-2 rounded text-xs cursor-pointer hover:border-stone hover:text-warm-white transition-colors"
+              className="border border-[#444] text-stone px-5 py-2 rounded text-xs cursor-pointer hover:border-stone hover:text-warm-white transition-colors"
             >
               Regenerate with same info
             </button>
           </div>
 
           <div className="text-center mt-12 pt-6 border-t border-[#333]">
-            <span className="font-display text-sm text-[#666]">
+            <span className="font-display text-sm text-charcoal">
               Bluegrass <span className="text-emerald">Advisory</span>
             </span>
             <span className="text-[11px] text-[#444] mx-2.5">&middot;</span>
-            <span className="text-[11px] text-[#555]">Lexington, Kentucky</span>
+            <span className="text-[11px] text-charcoal">Lexington, Kentucky</span>
           </div>
         </div>
       </div>
@@ -351,7 +351,7 @@ export default function WebsiteGeneratorPage() {
                 onChange={(e) =>
                   setFormData({ ...formData, businessName: e.target.value })
                 }
-                className="w-full px-[18px] py-3.5 border-2 border-[#e0ddd8] rounded-md text-[15px] bg-white outline-none focus:border-emerald transition-colors"
+                className="w-full px-[18px] py-3.5 border-2 border-line rounded-md text-[15px] bg-white outline-none focus:border-emerald transition-colors"
                 autoFocus
               />
             </div>
@@ -367,7 +367,7 @@ export default function WebsiteGeneratorPage() {
                 onChange={(e) =>
                   setFormData({ ...formData, whatYouDo: e.target.value })
                 }
-                className="w-full px-[18px] py-3.5 border-2 border-[#e0ddd8] rounded-md text-[15px] bg-white outline-none focus:border-emerald transition-colors resize-y"
+                className="w-full px-[18px] py-3.5 border-2 border-line rounded-md text-[15px] bg-white outline-none focus:border-emerald transition-colors resize-y"
               />
             </div>
 
@@ -382,7 +382,7 @@ export default function WebsiteGeneratorPage() {
                 onChange={(e) =>
                   setFormData({ ...formData, location: e.target.value })
                 }
-                className="w-full px-[18px] py-3.5 border-2 border-[#e0ddd8] rounded-md text-[15px] bg-white outline-none focus:border-emerald transition-colors"
+                className="w-full px-[18px] py-3.5 border-2 border-line rounded-md text-[15px] bg-white outline-none focus:border-emerald transition-colors"
               />
             </div>
           </div>
@@ -406,7 +406,7 @@ export default function WebsiteGeneratorPage() {
                   className={`p-[18px_20px] rounded-md text-left transition-all cursor-pointer border-2 ${
                     formData.vibe === v.id
                       ? "border-emerald bg-emerald/[0.04]"
-                      : "border-[#e0ddd8] bg-white"
+                      : "border-line bg-white"
                   }`}
                 >
                   <div

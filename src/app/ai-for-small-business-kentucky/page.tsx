@@ -33,7 +33,7 @@ const firstBuilds = [
 ];
 
 const readiness = [
-  "A task that eats real hours every week. If you cannot name one, the honest move is to wait.",
+  "A task that eats real hours every week. If you cannot name one, the right move is to wait.",
   "Somebody who will actually use the thing. A tool the owner builds and nobody opens is money spent on a demo.",
   "Your existing documents, however messy. SOPs, price lists, vendor terms, the spreadsheet you keep reworking.",
   "A willingness to change one habit. Every build that stuck changed how somebody starts their day.",
@@ -47,12 +47,12 @@ export default function KentuckySmallBusinessPage() {
         <h1 className="font-display text-[clamp(36px,5vw,52px)] leading-[1.1] font-bold tracking-tight mb-4">
           Where the first dollar goes.
         </h1>
-        <p className="text-lg leading-relaxed text-[#666] max-w-[620px] mb-4">
+        <p className="text-lg leading-relaxed text-charcoal max-w-[620px] mb-4">
           Most small business owners we talk to have heard for two years that AI
           is going to change everything, have tried a chatbot once, and have no
           idea what they are supposed to do on Monday.
         </p>
-        <p className="text-[15px] leading-relaxed text-[#666] max-w-[620px] mb-16">
+        <p className="text-[15px] leading-relaxed text-charcoal max-w-[620px] mb-16">
           The useful version of this is smaller than the headlines suggest. You
           pick one job that eats hours, you automate that one job, and you live
           with it for a month before touching anything else.
@@ -63,7 +63,7 @@ export default function KentuckySmallBusinessPage() {
         <h2 className="font-display text-2xl font-bold mb-4">
           The four things people build first.
         </h2>
-        <p className="text-[15px] leading-relaxed text-[#666] max-w-[620px] mb-10">
+        <p className="text-[15px] leading-relaxed text-charcoal max-w-[620px] mb-10">
           Almost every small business we set up starts with one of these. They
           are cheap to build, they pay back in time rather than in a spreadsheet
           projection, and you can tell within two weeks whether it worked.
@@ -72,7 +72,7 @@ export default function KentuckySmallBusinessPage() {
           {firstBuilds.map((b) => (
             <Card key={b.title} className="!p-8 h-full">
               <h3 className="font-display text-lg font-bold mb-3">{b.title}</h3>
-              <p className="text-[14px] leading-relaxed text-[#666]">{b.body}</p>
+              <p className="text-[14px] leading-relaxed text-charcoal">{b.body}</p>
             </Card>
           ))}
         </div>
@@ -87,10 +87,10 @@ export default function KentuckySmallBusinessPage() {
             {readiness.map((r) => (
               <div
                 key={r}
-                className="flex items-start gap-3 p-5 bg-white rounded-lg border border-[#e8e5e0]"
+                className="flex items-start gap-3 p-5 bg-white rounded-lg border border-line"
               >
                 <span className="w-2 h-2 rounded-full bg-emerald mt-1.5 shrink-0" />
-                <span className="text-[15px] leading-relaxed text-[#555]">
+                <span className="text-[15px] leading-relaxed text-charcoal">
                   {r}
                 </span>
               </div>
@@ -104,17 +104,17 @@ export default function KentuckySmallBusinessPage() {
           <h2 className="font-display text-2xl font-bold mb-6">
             When we tell people to buy nothing.
           </h2>
-          <p className="text-[15px] leading-relaxed text-[#666] mb-4">
+          <p className="text-[15px] leading-relaxed text-charcoal mb-4">
             It happens on plenty of intro calls. A business with three employees
             and a process that lives in one person&apos;s head does not have an AI
             problem. Automating a broken process gets you a faster broken process.
           </p>
-          <p className="text-[15px] leading-relaxed text-[#666] mb-4">
+          <p className="text-[15px] leading-relaxed text-charcoal mb-4">
             When that is the answer, you get it on the call along with a couple of
             free resources, and we go our separate ways. It costs us a sale and it
             is the only version of this business worth running.
           </p>
-          <p className="text-[15px] leading-relaxed text-[#666]">
+          <p className="text-[15px] leading-relaxed text-charcoal">
             If you want the longer version of how we reach that conclusion, it is
             on{" "}
             <Link href="/ai-assessment" className="text-emerald hover:underline">

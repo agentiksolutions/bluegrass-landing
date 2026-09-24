@@ -1,81 +1,63 @@
 import Link from "next/link";
+import Logo from "./logo";
+import { EMAIL, LINKEDIN, PHONE, PHONE_HREF } from "@/lib/site";
 
-const footerCols = [
-  {
-    title: "Services",
-    items: [
-      { label: "Web Design", href: "/services/web-design" },
-      { label: "AI Integration", href: "/services/ai-integration" },
-      { label: "Dashboards", href: "/services/dashboards" },
-      { label: "Operations", href: "/services/operations" },
-    ],
-  },
-  {
-    title: "Company",
-    items: [
-      { label: "About", href: "/about" },
-      { label: "Showroom", href: "/showroom" },
-      { label: "Insights", href: "/insights" },
-      { label: "FAQ", href: "/faq" },
-      { label: "Contact", href: "/contact" },
-    ],
-  },
-  {
-    title: "Connect",
-    items: [
-      {
-        label: "phil@bluegrassadvisorygroup.com",
-        href: "mailto:phil@bluegrassadvisorygroup.com",
-      },
-      {
-        label: "(859) 314-3051",
-        href: "tel:+18593143051",
-      },
-    ],
-  },
+const siteLinks = [
+  { label: "Work", href: "/work" },
+  { label: "Services", href: "/services" },
+  { label: "About", href: "/about" },
+  { label: "Showroom", href: "/showroom" },
+  { label: "Academy", href: "/academy" },
+  { label: "Blog", href: "/insights" },
+  { label: "FAQ", href: "/faq" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export default function Footer() {
   return (
-    <footer className="bg-graphite pt-14 pb-7 px-6 md:px-12 text-stone">
-      <div className="max-w-content mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr_1fr] gap-10 mb-10">
-          {/* Brand */}
+    <footer className="bg-band border-t border-line px-4 md:px-10 pt-12 pb-8 font-display text-ink">
+      <div className="max-w-[1160px] mx-auto">
+        <div className="flex flex-col md:flex-row md:justify-between gap-8">
           <div>
-            <div className="font-display text-lg text-warm-white mb-2.5">
-              Bluegrass <span className="text-emerald">Advisory</span>
-            </div>
-            <p className="text-xs leading-relaxed text-[#555] max-w-[260px]">
-              AI integration and business operations for companies ready to
-              modernize.
-            </p>
-            <p className="text-xs text-[#444] mt-2.5">Lexington, Kentucky</p>
+            <Logo height={52} className="max-w-full h-auto" />
+            <p className="mt-4 text-[15px]">Bluegrass Advisory Group, LLC</p>
+            <p className="text-[15px] text-muted">Lexington, Kentucky</p>
           </div>
+          <div className="text-[15px] space-y-1.5">
+            <a href={PHONE_HREF} className="block hover:text-blue">
+              {PHONE}
+            </a>
+            <a href={`mailto:${EMAIL}`} className="block hover:text-blue">
+              {EMAIL}
+            </a>
+            <a href={LINKEDIN} target="_blank" rel="noopener noreferrer" className="block hover:text-blue">
+              LinkedIn
+            </a>
+          </div>
+        </div>
 
-          {/* Link columns */}
-          {footerCols.map((col) => (
-            <div key={col.title}>
-              <div className="text-[11px] font-semibold tracking-[1.5px] text-[#555] uppercase mb-3.5">
-                {col.title}
-              </div>
-              {col.items.map((item) => (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className="block text-xs text-[#777] mb-2 hover:text-warm-white transition-colors duration-200"
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </div>
+        <nav aria-label="Footer" className="mt-10 flex flex-wrap gap-x-6 gap-y-2 text-[15px]">
+          {siteLinks.map((l) => (
+            <Link key={l.href} href={l.href} className="whitespace-nowrap hover:text-blue">
+              {l.label}
+            </Link>
           ))}
-        </div>
+        </nav>
 
-        {/* Bottom bar */}
-        <div className="border-t border-[#2a2a2a] pt-5 flex flex-col md:flex-row justify-between text-[11px] text-[#444] gap-2">
+        <div className="mt-8 pt-5 border-t border-line flex flex-col md:flex-row md:justify-between gap-2 text-[13.5px] text-muted">
           <span>&copy; {new Date().getFullYear()} Bluegrass Advisory Group, LLC</span>
-          <span>Business Operations &middot; AI Integration &middot; Lexington, KY</span>
+          <span className="flex gap-5">
+            <Link href="/privacy" className="hover:text-blue underline underline-offset-2">
+              Privacy Notice
+            </Link>
+            <Link href="/terms" className="hover:text-blue underline underline-offset-2">
+              Terms of Service
+            </Link>
+          </span>
         </div>
+        <p className="mt-3 text-[13.5px] text-muted">
+          Bluegrass Advisory Group is independent and not affiliated with or endorsed by Five Guys.
+        </p>
       </div>
     </footer>
   );

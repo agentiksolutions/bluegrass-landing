@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import { playfair, dmSans } from "@/lib/fonts";
+import { hanken, newsreader } from "@/lib/fonts";
 import { siteMetadata } from "@/lib/metadata";
 import Nav from "@/components/nav";
 import Footer from "@/components/footer";
-import FloatingCTA from "@/components/floating-cta";
 import Script from "next/script";
 import "./globals.css";
 
@@ -17,12 +16,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${playfair.variable} ${dmSans.variable}`}>
+    <html lang="en" className={`${hanken.variable} ${newsreader.variable}`}>
       <body className="font-body text-graphite bg-warm-white">
         <Nav />
         <main className="min-h-screen">{children}</main>
         <Footer />
-        <FloatingCTA />
 
         {/* GA4 */}
         <Script

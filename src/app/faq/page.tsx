@@ -83,7 +83,7 @@ export default function FAQPage() {
         <h1 className="font-display text-[clamp(36px,5vw,52px)] leading-[1.1] font-bold tracking-tight mb-4">
           Questions we get asked.
         </h1>
-        <p className="text-lg leading-relaxed text-[#666] max-w-[620px] mb-16">
+        <p className="text-lg leading-relaxed text-charcoal max-w-[620px] mb-16">
           These are the ten that come up on almost every intro call, answered the
           way we answer them on the phone.
         </p>
@@ -92,11 +92,11 @@ export default function FAQPage() {
       <section className="px-6 md:px-12 pb-20 max-w-content mx-auto">
         <div className="flex flex-col">
           {faqs.map((f) => (
-            <div key={f.q} className="py-8 border-t border-[#e8e5e0]">
+            <div key={f.q} className="py-8 border-t border-line">
               <h2 className="font-display text-xl font-bold mb-3 max-w-[680px]">
                 {f.q}
               </h2>
-              <p className="text-[15px] leading-relaxed text-[#666] max-w-[680px]">
+              <p className="text-[15px] leading-relaxed text-charcoal max-w-[680px]">
                 {f.a}
               </p>
               {f.link && (
@@ -109,7 +109,7 @@ export default function FAQPage() {
               )}
             </div>
           ))}
-          <div className="border-t border-[#e8e5e0]" />
+          <div className="border-t border-line" />
         </div>
       </section>
 
