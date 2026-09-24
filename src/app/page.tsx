@@ -111,6 +111,33 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* What changes for the owner */}
+      <section className="px-4 md:px-10 pt-16 md:pt-20">
+        <div className="max-w-[1160px] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-8 lg:gap-16">
+          <h2 className="font-display text-[28px] md:text-[34px] leading-tight font-bold tracking-tight text-ink">
+            Your people get the benefit without learning AI.
+          </h2>
+          <div className="text-[18px] leading-relaxed text-body space-y-4">
+            <p>
+              If you run more than one location, your managers ask you the same questions every week.
+              I build one place where they find the answer: this week&apos;s numbers, the checklists,
+              who to call when the ice machine stops working. They use it, and I keep it running.
+            </p>
+            <p>
+              Every project gets a firm price before it starts. I ask for read-only access to your
+              systems, and a person approves anything that goes out.
+            </p>
+            <nav aria-label="Services" className="pt-2 flex flex-wrap gap-x-6 gap-y-2 font-display text-[16px]">
+              {services.map((s) => (
+                <Link key={s.href} href={s.href} className="text-blue underline underline-offset-2 whitespace-nowrap">
+                  {s.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
+        </div>
+      </section>
+
       {/* Work */}
       <section id="work" className="px-4 md:px-10 py-16 md:py-20">
         <div className="max-w-[1160px] mx-auto">
@@ -163,33 +190,6 @@ export default function HomePage() {
                 </cite>
               </blockquote>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* What changes for the owner */}
-      <section className="px-4 md:px-10 pb-16 md:pb-20">
-        <div className="max-w-[1160px] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-8 lg:gap-16 border-t border-line pt-12">
-          <h2 className="font-display text-[28px] md:text-[34px] leading-tight font-bold tracking-tight text-ink">
-            Your people get the benefit without learning AI.
-          </h2>
-          <div className="text-[18px] leading-relaxed text-body space-y-4">
-            <p>
-              If you run more than one location, your managers ask you the same questions every week.
-              I build one place where they find the answer: this week&apos;s numbers, the checklists,
-              who to call when the ice machine stops working. They use it, and I keep it running.
-            </p>
-            <p>
-              Every project gets a firm price before it starts. I ask for read-only access to your
-              systems, and a person approves anything that goes out.
-            </p>
-            <nav aria-label="Services" className="pt-2 flex flex-wrap gap-x-6 gap-y-2 font-display text-[16px]">
-              {services.map((s) => (
-                <Link key={s.href} href={s.href} className="text-blue underline underline-offset-2 whitespace-nowrap">
-                  {s.label}
-                </Link>
-              ))}
-            </nav>
           </div>
         </div>
       </section>

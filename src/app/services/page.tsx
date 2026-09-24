@@ -56,7 +56,7 @@ export default function ServicesPage() {
               What I build for your business
             </h1>
             <p className="mt-5 text-[19px] leading-relaxed text-body max-w-[36ch]">
-              The same kinds of systems I built for a Five Guys franchisee in Central Kentucky.
+              For owners who want their managers to find answers without calling them.
             </p>
           </div>
           {/* Desktop: one store, whole building in frame. Phone: both stores, uncropped. */}
