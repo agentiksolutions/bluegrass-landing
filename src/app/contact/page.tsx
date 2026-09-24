@@ -288,7 +288,6 @@ export default function ContactPage() {
                 By submitting, you agree to our{" "}
                 <Link href="/terms" className="text-blue underline underline-offset-2">Terms</Link> and{" "}
                 <Link href="/privacy" className="text-blue underline underline-offset-2">Privacy Notice</Link>.
-                We use your answers only to reply to you.
               </p>
             </form>
           )}

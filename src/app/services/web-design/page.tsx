@@ -14,7 +14,7 @@ export default function WebDesignPage() {
     <ServicePageTemplate
       label="Web Design & Development"
       title="Your business deserves a real website."
-      subtitle="Not a template with your logo slapped on it. A fully custom site designed around your business, your customers, and your goals. Built to load fast, look sharp, and convert visitors into calls."
+      subtitle="A custom site designed around your business, your customers, and your goals. Built to load fast, look sharp, and convert visitors into calls."
       deliverables={[
         "Custom design, built for your business",
         "Mobile-responsive layout that works on every device",

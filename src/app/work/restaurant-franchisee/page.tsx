@@ -75,7 +75,7 @@ export default function FranchiseeCaseStudy() {
         </figure>
       </section>
 
-      <CaseClose note="Bluegrass Advisory Group is independent and not affiliated with or endorsed by Five Guys." />
+      <CaseClose />
     </>
   );
 }

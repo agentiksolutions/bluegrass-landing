@@ -14,7 +14,7 @@ export default function AIIntegrationPage() {
     <ServicePageTemplate
       label="AI Integration"
       title="AI that actually fits your business."
-      subtitle="Not a chatbot on your website. Real tools that do real work: research, reporting, document creation and customer communication, trained on your business."
+      subtitle="Tools that do real work: research, reporting, document creation and customer communication, set up around how your business runs."
       deliverables={[
         "AI readiness assessment: where it makes sense and where it doesn't",
         "Custom AI workflows for your specific use cases",

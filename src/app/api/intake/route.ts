@@ -281,7 +281,7 @@ export async function POST(request: NextRequest) {
       from: fromAddress,
       to: [body.email],
       reply_to: notificationEmail,
-      subject: "We received your inquiry, Bluegrass Advisory Group",
+      subject: "We received your inquiry",
       html: `
         <div style="font-family: -apple-system, system-ui, sans-serif; max-width: 600px; line-height: 1.6; color: #3A3A3C;">
           <h2 style="color: #1C1C1E;">Thanks, ${escapeHtml(body.contact_name.split(" ")[0])}.</h2>

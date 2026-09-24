@@ -91,7 +91,7 @@ export default function ShowroomPage() {
               <p className="text-sm leading-relaxed text-stone mb-6">
                 {room.desc}
               </p>
-              <span className="text-[13px] font-semibold text-emerald opacity-0 group-hover:opacity-100 transition-opacity">
+              <span className="text-[13px] font-semibold text-emerald group-hover:underline underline-offset-2">
                 Try it now &rarr;
               </span>
             </Card>

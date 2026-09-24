@@ -12,7 +12,12 @@ Before these go live: Tyler's OK on store photos (franchise brand); written OK f
   building. Decide whether that is acceptable before it goes live.
 - `public/photos/pfsa-website.jpg` is a screenshot of the public PFSA home page (www.thepfsa.org),
   taken 2026-09-23. It shows no people and no donor data.
-- All photos were resized and saved without their original metadata, so no GPS data ships.
+- All photos were resized and saved without their original metadata. Checked after saving: every
+  file in `public/photos/` has an empty EXIF block, so no GPS data ships.
+- The hiring-fair photo uses `object-position: 12% 50%` in the home hero, not center. The hero box
+  is narrower than the photo, so only the sides crop. At center the woman on the left loses her
+  shoulder on a phone; at 12% all four people stay whole and the group sits in the middle of the
+  frame. The sign on the right is what gets cut.
 
 ## Logo
 
@@ -60,15 +65,27 @@ Open questions kept out of the rendered pages:
 
 ## For Phil to decide
 
-- The post "What We Automated in Our Own Back Office First" says no document publishes because an
+- On the live site, the post "What We Automated in Our Own Back Office First" says no document publishes because an
   automation was confident, and that the practice has never had to walk something back. The case
   study facts sheet records the weekly newsletter publishing automatically at 05:00 and three
   numbers retracted on 2026-09-15. It also says "more than twenty vendors", which has no source.
-  The post was left as it is apart from one dead link.
+  On this branch the "never had to walk something back" sentence was cut and "more than twenty
+  vendors" became "many vendors". The rest of the post, including the 05:00 publishing question,
+  is for Phil.
 - The dashboard demo in the showroom labels its sample restaurant stores "Hamburg", "Richmond Rd"
   and "Nicholasville". Next to the franchisee case study, those names point toward the real
   stores. Consider neutral names.
 - The Academy and Prompt Studio came back from `academy-restore` without restyling. They carry
   272 and 537 em dashes, and the Academy's sample prompts use "crew" and "subcontractors".
-- About (194 words) and Services (165 words) came in under the word targets of about 280 and 210.
+- About (194 words) and Services (162 words) came in under the word targets of about 280 and 210.
   The first-screen and photo targets are met.
+
+## Scorecard (Jev, same scripts and rubric as the live-site baseline)
+
+Home, Services, About and FAQ text from the local build, scored twice and averaged: 8.23 overall
+against 8.28 for the live site. The audit counts a gap under 0.24 as a tie. Audience (+0.54),
+Credibility (+0.48) and Referral (+0.25) went up. Focus & Consistency fell 1.15, most likely
+because the pages now name all of Phil's roles (the franchisee and The PFSA) as he asked.
+Client-Centered Messaging is 5.54, still the weakest category and below the audit's bar of 7.
+The redesign text was captured with Playwright rather than the browser agent, so read the
+comparison as a direction.

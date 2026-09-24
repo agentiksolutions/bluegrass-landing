@@ -77,7 +77,7 @@ export default function ExamplesPage() {
         </div>
 
         <p className="text-center text-[13px] text-stone mt-12">
-          More examples coming soon. Each one is a real build, not a template.
+          More examples coming soon. Each one is a real build.
         </p>
       </div>
 
