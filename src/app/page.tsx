@@ -4,6 +4,7 @@ import Image from "next/image";
 import Button from "@/components/button";
 import CTABand from "@/components/cta-band";
 import JsonLd from "@/components/json-ld";
+import { KenBurns, Magnetic, MarkDraw, Marquee, ParallaxBand, Reveal, RisingWords } from "@/components/motion";
 import { pageMeta } from "@/lib/metadata";
 import { photos } from "@/lib/photos";
 import { BOOKING_URL } from "@/lib/site";
@@ -15,7 +16,7 @@ const organizationJsonLd = {
   name: "Bluegrass Advisory Group",
   legalName: "Bluegrass Advisory Group, LLC",
   description:
-    "AI systems and operations consulting for Kentucky businesses. Based in Lexington, Kentucky.",
+    "The AI partner for Central Kentucky businesses: classes and workshops, AI tools and dashboards built for your business, and support after they are running.",
   url: "https://bluegrassadvisorygroup.com",
   email: "phil@bluegrassadvisorygroup.com",
   telephone: "+1-859-314-3051",
@@ -33,7 +34,7 @@ const organizationJsonLd = {
   },
   areaServed: "Central Kentucky",
   priceRange: "$$$",
-  serviceType: ["AI Consulting", "Business Operations", "Web Design", "Dashboard Development"],
+  serviceType: ["AI Training", "AI Consulting", "Business Operations", "Dashboard Development"],
 };
 
 const websiteJsonLd = {
@@ -47,22 +48,49 @@ const websiteJsonLd = {
 
 export const metadata: Metadata = {
   ...pageMeta({
-    title: "AI Systems for Kentucky Businesses",
+    title: "Your AI Partner in Central Kentucky",
     description:
-      "Phil Fifield builds AI systems for Kentucky businesses. He runs operations for a Five Guys franchisee in Central Kentucky and is president of The PFSA, a Lexington nonprofit.",
+      "Bluegrass Advisory Group teaches your team, builds your AI tools and dashboards, and supports them after. Lexington, Kentucky.",
     path: "/",
   }),
   // The home page carries the brand name first, so it skips the title template.
   title: {
-    absolute: "Bluegrass Advisory Group: AI Systems for Kentucky Businesses",
+    absolute: "Bluegrass Advisory Group: Your AI Partner in Central Kentucky",
   },
 };
 
-const services = [
-  { label: "Websites", href: "/services/web-design" },
-  { label: "AI tools", href: "/services/ai-integration" },
-  { label: "Dashboards", href: "/services/dashboards" },
-  { label: "Operations", href: "/services/operations" },
+const pillars = [
+  {
+    title: "Education",
+    line: "Classes and workshops for owners and teams.",
+    href: "/academy",
+    img: "/images/brand/pillar-education.webp",
+    alt: "A small workshop in a plain meeting room, people seated facing a presenter",
+  },
+  {
+    title: "Build",
+    line: "AI tools, automations and dashboards made for your business.",
+    href: "/services/ai-integration",
+    img: "/images/brand/pillar-build.webp",
+    alt: "Two people looking at a large wall monitor showing a dashboard",
+  },
+  {
+    title: "Support",
+    line: "We keep it running and pick up when you call.",
+    href: "/services/operations",
+    img: "/images/brand/pillar-support.webp",
+    alt: "A person at a desk wearing a headset, seen from behind",
+  },
+];
+
+// The strip that slides between sections. Illustrative only: nobody in these is a client.
+const strip = [
+  { src: "/images/brand/strip-table.webp", alt: "Two people at a table with a laptop and a printed sheet" },
+  { src: "/images/brand/strip-hands.webp", alt: "Hands annotating a printed chart beside a notebook" },
+  { src: "/images/brand/ky-hills.webp", alt: "Rolling Central Kentucky hills at golden hour" },
+  { src: "/images/brand/strip-room.webp", alt: "A small meeting room after a session" },
+  { src: "/images/brand/work-franchisee.webp", alt: "A Kentucky main street at first light" },
+  { src: "/images/brand/pillar-education.webp", alt: "A workshop in progress" },
 ];
 
 export default function HomePage() {
@@ -71,58 +99,112 @@ export default function HomePage() {
       <JsonLd data={organizationJsonLd} />
       <JsonLd data={websiteJsonLd} />
 
-      {/* Hero: Kentucky at dawn, edge to edge, with the headline over it.
-          ponytail: one <video> file. A Seedance clip can replace hero.mp4 and hero-poster.webp
-          without touching this markup. motion-reduce:hidden leaves the poster showing. */}
-      <section className="relative h-[88svh] min-h-[520px] mt-16 lg:mt-[72px] overflow-hidden bg-ink">
-        <Image
-          src="/images/brand/hero-poster.webp"
-          alt="Dawn mist over a Kentucky horse farm, a plank fence running away toward the ridge"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-        />
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          poster="/images/brand/hero-poster.webp"
-          aria-hidden="true"
-          className="absolute inset-0 w-full h-full object-cover motion-reduce:hidden"
-        >
-          <source src="/videos/hero.webm" type="video/webm" />
-          <source src="/videos/hero.mp4" type="video/mp4" />
-        </video>
-        <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/25 to-ink/10" />
+      {/* Hero: Kentucky at dawn, edge to edge.
+          ponytail: hero.mp4 + hero-poster.webp are one swappable pair. A Seedance clip
+          drops in by replacing the two files. motion-reduce:hidden leaves the poster. */}
+      <section className="relative h-[90svh] min-h-[540px] mt-16 lg:mt-[72px] overflow-hidden bg-ink">
+        <KenBurns>
+          <Image
+            src="/images/brand/hero-poster.webp"
+            alt="Dawn mist over a Kentucky horse farm, a plank fence running away toward the ridge"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
+          />
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            poster="/images/brand/hero-poster.webp"
+            aria-hidden="true"
+            className="absolute inset-0 w-full h-full object-cover motion-reduce:hidden"
+          >
+            <source src="/videos/hero.webm" type="video/webm" />
+            <source src="/videos/hero.mp4" type="video/mp4" />
+          </video>
+        </KenBurns>
+        <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/30 to-ink/10" />
         <div className="absolute inset-x-0 bottom-0 px-4 md:px-10 pb-12 md:pb-16">
           <div className="max-w-[1360px] mx-auto">
-            <h1 className="font-display text-[38px] sm:text-[58px] lg:text-[84px] leading-[0.98] font-bold tracking-tight text-white max-w-[16ch] [text-wrap:balance]">
-              I build AI systems for Kentucky businesses.
+            <h1 className="font-display text-[40px] sm:text-[62px] lg:text-[88px] leading-[0.96] font-bold tracking-tight text-white max-w-[15ch]">
+              <RisingWords text="Your AI partner in Central Kentucky." />
             </h1>
-            <Button href={BOOKING_URL} className="mt-8">
-              Book a call
-            </Button>
+            <Reveal delay={0.55} y={16}>
+              <p className="mt-6 text-[19px] md:text-[23px] leading-snug text-white/85 max-w-[42ch]">
+                We teach your team, build your tools, and support them after.
+              </p>
+              <Magnetic>
+                <Button href={BOOKING_URL} className="mt-8">
+                  Book a call
+                </Button>
+              </Magnetic>
+            </Reveal>
           </div>
         </div>
       </section>
 
-      {/* Quiet. The mark, and nothing else. */}
+      {/* Three pillars. Alternating full rows, the picture sliding in from its own side. */}
+      <section className="py-20 md:py-28">
+        {pillars.map((p, i) => (
+          <Link
+            key={p.href}
+            href={p.href}
+            // The picture keeps the wide column on both sides of the alternation.
+            className={`group grid grid-cols-1 items-center ${
+              i % 2
+                ? "lg:grid-cols-[minmax(0,42fr)_minmax(0,58fr)]"
+                : "lg:grid-cols-[minmax(0,58fr)_minmax(0,42fr)]"
+            } ${i > 0 ? "mt-16 md:mt-24" : ""}`}
+          >
+            <ParallaxBand
+              className={`h-[44svh] min-h-[280px] lg:h-[58vh] ${i % 2 ? "lg:order-2" : ""}`}
+              distance={42}
+            >
+              <Image
+                src={p.img}
+                alt={p.alt}
+                fill
+                sizes="(min-width: 1024px) 58vw, 100vw"
+                className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+              />
+            </ParallaxBand>
+            <Reveal className={`px-4 md:px-10 py-10 lg:py-0 ${i % 2 ? "lg:order-1" : ""}`} delay={0.1}>
+              <h2 className="font-display text-[40px] md:text-[64px] leading-none font-bold tracking-tight text-ink group-hover:text-blue">
+                {p.title}
+              </h2>
+              <p className="mt-5 text-[19px] md:text-[22px] leading-snug text-body max-w-[34ch]">
+                {p.line}
+              </p>
+            </Reveal>
+          </Link>
+        ))}
+      </section>
+
+      {/* The strip. Pictures only. */}
+      <Marquee>
+        {strip.map((s) => (
+          <Image
+            key={s.src}
+            src={s.src}
+            alt={s.alt}
+            width={520}
+            height={293}
+            sizes="380px"
+            className="h-[180px] md:h-[240px] w-auto rounded object-cover"
+          />
+        ))}
+      </Marquee>
+
+      {/* Quiet. The mark draws itself. */}
       <section className="bg-band px-4 md:px-10 py-20 md:py-32 flex justify-center">
-        <Image
-          src="/brand/mark.svg"
-          alt="The Bluegrass Advisory Group mark: Kentucky in blue with a network of white nodes and a star on Lexington"
-          width={982}
-          height={441}
-          sizes="(min-width: 1024px) 720px, 82vw"
-          className="w-[min(82%,720px)] h-auto"
-        />
+        <MarkDraw className="w-[min(82%,720px)] h-auto" />
       </section>
 
       {/* His own words, over the limestone country. */}
-      <section className="relative min-h-[70svh] flex items-end overflow-hidden bg-ink">
+      <ParallaxBand className="min-h-[70svh] flex items-end bg-ink" distance={70}>
         <Image
           src="/images/brand/ky-limestone.webp"
           alt="A dry-stacked limestone wall along a Kentucky lane at blue hour"
@@ -130,83 +212,48 @@ export default function HomePage() {
           sizes="100vw"
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/35 to-transparent" />
+      </ParallaxBand>
+      <div className="relative -mt-[70svh] min-h-[70svh] flex items-end pointer-events-none">
+        <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/30 to-transparent" />
         <blockquote className="relative w-full max-w-[1360px] mx-auto px-4 md:px-10 py-16 md:py-24">
-          <p className="font-display text-[32px] md:text-[62px] leading-[1.02] font-bold tracking-tight text-white max-w-[17ch]">
-            &ldquo;We gave the store managers their time back.&rdquo;
-          </p>
-          <cite className="block mt-6 not-italic font-display text-[15px] text-white/70">
-            Phil Fifield, Lexington, Kentucky
-          </cite>
+          <Reveal>
+            <p className="font-display text-[32px] md:text-[62px] leading-[1.02] font-bold tracking-tight text-white max-w-[17ch]">
+              &ldquo;We gave the store managers their time back.&rdquo;
+            </p>
+            <cite className="block mt-6 not-italic font-display text-[15px] text-white/70">
+              Phil Fifield
+            </cite>
+          </Reveal>
         </blockquote>
-      </section>
+      </div>
 
-      {/* Quiet. Four things, four pages. */}
-      <section className="px-4 md:px-10 py-20 md:py-32">
-        <div className="max-w-[1360px] mx-auto">
-          <p className="font-display text-[13px] uppercase tracking-[0.18em] text-muted">
-            What I build
-          </p>
-          <ul className="mt-8 border-t border-line">
-            {services.map((s) => (
-              <li key={s.href} className="border-b border-line">
-                <Link
-                  href={s.href}
-                  className="group flex items-baseline justify-between gap-6 py-6 md:py-9"
-                >
-                  <span className="font-display text-[32px] md:text-[56px] leading-none font-bold tracking-tight text-ink group-hover:text-blue">
-                    {s.label}
-                  </span>
-                  <span aria-hidden="true" className="font-display text-[24px] text-line group-hover:text-blue">
-                    &rarr;
-                  </span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      {/* A breath of open country. */}
-      <Image
-        src="/images/brand/ky-hills.webp"
-        alt="Rolling Central Kentucky hills at golden hour"
-        width={1600}
-        height={900}
-        sizes="100vw"
-        className="w-full h-[42svh] min-h-[260px] lg:h-[min(62vh,560px)] object-cover"
-      />
-
-      {/* Work. Two photographs, edge to edge, no boxes. */}
-      <section className="pt-20 md:pt-32">
-        <p className="max-w-[1360px] mx-auto px-4 md:px-10 font-display text-[13px] uppercase tracking-[0.18em] text-muted">
-          Work
-        </p>
-        <div className="mt-8 grid grid-cols-1 lg:grid-cols-2">
+      {/* Work. Two photographs, edge to edge. */}
+      <section className="pt-20 md:pt-28">
+        <div className="grid grid-cols-1 lg:grid-cols-2">
           <Link href="/work/pfsa" className="group block">
-            <div className="relative h-[46svh] min-h-[300px] lg:h-[52vh] overflow-hidden bg-ink">
+            <ParallaxBand className="h-[46svh] min-h-[300px] lg:h-[52vh] bg-ink" distance={34}>
               <Image
                 src={photos.pfsaSite.src}
                 alt={photos.pfsaSite.alt}
                 fill
                 sizes="(min-width: 1024px) 50vw, 100vw"
-                className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+                className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.04]"
               />
-            </div>
+            </ParallaxBand>
             <p className="px-4 md:px-10 py-6 font-display text-[22px] md:text-[28px] leading-tight font-bold text-ink group-hover:text-blue">
               The PFSA, a Lexington nonprofit
             </p>
           </Link>
           <Link href="/work/restaurant-franchisee" className="group block">
-            <div className="relative h-[46svh] min-h-[300px] lg:h-[52vh] overflow-hidden bg-ink">
+            <ParallaxBand className="h-[46svh] min-h-[300px] lg:h-[52vh] bg-ink" distance={34}>
               <Image
                 src="/images/brand/work-franchisee.webp"
                 alt="A Kentucky main street at first light"
                 fill
                 sizes="(min-width: 1024px) 50vw, 100vw"
-                className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
               />
-            </div>
+            </ParallaxBand>
             <p className="px-4 md:px-10 py-6 font-display text-[22px] md:text-[28px] leading-tight font-bold text-ink group-hover:text-blue">
               A Five Guys franchisee in Central Kentucky
             </p>
@@ -216,23 +263,22 @@ export default function HomePage() {
 
       {/* Who is behind it. Small, and late. */}
       <section className="bg-band px-4 md:px-10 py-20 md:py-28">
-        <div className="max-w-[1360px] mx-auto flex flex-col sm:flex-row sm:items-center gap-8 md:gap-14">
+        <Reveal className="max-w-[1360px] mx-auto flex flex-col sm:flex-row sm:items-center gap-8 md:gap-14">
           <Image
             src={photos.phil.src}
             alt={photos.phil.alt}
             width={photos.phil.width}
             height={photos.phil.height}
             sizes="(min-width: 640px) 300px, 60vw"
-            className="w-[60%] max-w-[300px] sm:w-[300px] shrink-0 h-auto rounded"
+            className="w-[58%] max-w-[300px] sm:w-[300px] shrink-0 h-auto rounded"
           />
-          <p className="text-[19px] md:text-[23px] leading-relaxed text-body max-w-[48ch]">
-            I run operations for a Five Guys franchisee in Central Kentucky and I am president of
-            The PFSA, a Lexington nonprofit.
+          <p className="text-[20px] md:text-[26px] leading-snug text-body max-w-[26ch]">
+            Phil Fifield, Lexington, Kentucky.
           </p>
-        </div>
+        </Reveal>
       </section>
 
-      <CTABand subtext="Thirty minutes, and I tell you whether I can help." />
+      <CTABand headline="Book a 30-minute call." subtext="" />
     </>
   );
 }

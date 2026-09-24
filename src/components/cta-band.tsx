@@ -22,7 +22,7 @@ export default function CTABand({
           <h2 className="font-display text-[30px] md:text-[36px] leading-tight font-bold tracking-tight text-ink">
             {headline}
           </h2>
-          <p className="mt-3 text-[18px] leading-relaxed text-body">{subtext}</p>
+          {subtext && <p className="mt-3 text-[18px] leading-relaxed text-body">{subtext}</p>}
         </div>
         <div className="font-display text-[15px] text-ink">
           <Button href={buttonHref}>{buttonText}</Button>

@@ -68,6 +68,8 @@ interface PageMetaInput {
   path: string;
   /** Set for blog posts. */
   article?: { publishedTime: string };
+  /** Root-relative image to use as the social card instead of the site-wide one. */
+  image?: { url: string; alt: string };
 }
 
 /**
@@ -80,15 +82,20 @@ export function pageMeta({
   description,
   path,
   article,
+  image,
 }: PageMetaInput): Metadata {
   const socialTitle = `${title} | ${brand}`;
+  // A blog post shares its own cover. Everything else shares the site card.
+  const cardImages = image
+    ? [{ url: image.url, width: 1280, height: 720, alt: image.alt }]
+    : ogImages;
   const shared = {
     locale: "en_US" as const,
     url: `${siteUrl}${path}`,
     siteName: brand,
     title: socialTitle,
     description,
-    images: ogImages,
+    images: cardImages,
   };
 
   return {
@@ -102,7 +109,7 @@ export function pageMeta({
       card: "summary_large_image",
       title: socialTitle,
       description,
-      images: ogImages,
+      images: cardImages,
     },
   };
 }

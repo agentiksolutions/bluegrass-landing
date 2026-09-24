@@ -11,6 +11,24 @@ export interface PostMeta {
   category: string;
   date: string;
   readTime: string;
+  /** Path under public/, e.g. /images/insights/foo.webp. Required: see requireCover. */
+  cover: string;
+  coverAlt: string;
+}
+
+// Every post carries its own picture (Phil, 2026-09-24: "All blog posts should have a
+// picture on them"). A post without one fails the build here rather than shipping a
+// blank card, because the blog index, the post page and the Open Graph card all read it.
+function requireCover(slug: string, data: Record<string, unknown>): string {
+  const cover = typeof data.cover === "string" ? data.cover.trim() : "";
+  if (!cover) {
+    throw new Error(
+      `content/insights/${slug}.mdx has no "cover" in its frontmatter. ` +
+        `Add cover: "/images/insights/<file>.webp" and coverAlt: "<description>", ` +
+        `and credit the image in public/images/brand/CREDITS.md.`,
+    );
+  }
+  return cover;
 }
 
 export function getAllPosts(): PostMeta[] {
@@ -29,6 +47,8 @@ export function getAllPosts(): PostMeta[] {
       category: data.category || "General",
       date: data.date || "",
       readTime: data.readTime || "3 min read",
+      cover: requireCover(slug, data),
+      coverAlt: data.coverAlt || data.title || slug,
     };
   });
 
@@ -52,6 +72,8 @@ export function getPost(slug: string): { meta: PostMeta; content: string } | nul
       category: data.category || "General",
       date: data.date || "",
       readTime: data.readTime || "3 min read",
+      cover: requireCover(slug, data),
+      coverAlt: data.coverAlt || data.title || slug,
     },
     content,
   };

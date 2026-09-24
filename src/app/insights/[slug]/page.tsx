@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { pageMeta } from "@/lib/metadata";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import { getAllPosts, getPost } from "@/lib/mdx";
@@ -26,6 +27,7 @@ export function generateMetadata({ params }: Props): Metadata {
     description: post.meta.description,
     path: `/insights/${params.slug}`,
     article: { publishedTime: post.meta.date },
+    image: { url: post.meta.cover, alt: post.meta.coverAlt },
   });
 }
 
@@ -39,6 +41,7 @@ export default function InsightPostPage({ params }: Props) {
     headline: post.meta.title,
     description: post.meta.description,
     datePublished: post.meta.date,
+    image: [`https://bluegrassadvisorygroup.com${post.meta.cover}`],
     author: {
       "@type": "Person",
       name: "Phil Fifield",
@@ -57,7 +60,19 @@ export default function InsightPostPage({ params }: Props) {
   return (
     <>
       <JsonLd data={articleJsonLd} />
-      <article className="pt-[148px] pb-16 px-6 md:px-12 max-w-[720px] mx-auto">
+      {/* Every post carries a picture (Phil, 2026-09-24). */}
+      <figure className="pt-16 lg:pt-[72px]">
+        <Image
+          src={post.meta.cover}
+          alt={post.meta.coverAlt}
+          width={1280}
+          height={720}
+          priority
+          sizes="100vw"
+          className="w-full h-[38svh] min-h-[240px] lg:h-[46vh] object-cover"
+        />
+      </figure>
+      <article className="pt-14 pb-16 px-6 md:px-12 max-w-[720px] mx-auto">
         <Link
           href="/insights"
           className="text-[13px] text-stone hover:text-emerald transition-colors mb-8 inline-block"

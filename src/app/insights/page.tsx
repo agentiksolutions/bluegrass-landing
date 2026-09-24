@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { pageMeta } from "@/lib/metadata";
 import Link from "next/link";
+import Image from "next/image";
+import { Reveal } from "@/components/motion";
 import SectionLabel from "@/components/section-label";
 import { getAllPosts } from "@/lib/mdx";
 
@@ -26,9 +28,21 @@ export default function InsightsPage() {
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {posts.map((post) => (
-          <Link key={post.slug} href={`/insights/${post.slug}`} className="group">
-            <article className="bg-white rounded-lg p-8 border border-line h-full transition-all duration-[250ms] group-hover:border-emerald group-hover:-translate-y-0.5 group-hover:shadow-[0_8px_30px_rgba(0,0,0,0.04)]">
+        {posts.map((post, i) => (
+          <Reveal key={post.slug} delay={i * 0.07}>
+           <Link href={`/insights/${post.slug}`} className="group block h-full">
+            <article className="bg-white rounded-lg overflow-hidden border border-line h-full transition-all duration-[250ms] group-hover:border-emerald group-hover:-translate-y-0.5 group-hover:shadow-[0_8px_30px_rgba(0,0,0,0.04)]">
+              <div className="overflow-hidden">
+                <Image
+                  src={post.cover}
+                  alt={post.coverAlt}
+                  width={1280}
+                  height={720}
+                  sizes="(min-width: 1024px) 380px, 100vw"
+                  className="w-full aspect-[16/9] object-cover transition-transform duration-500 group-hover:scale-[1.05]"
+                />
+              </div>
+              <div className="p-8">
               <span className="text-[10px] font-bold tracking-[1.5px] text-emerald uppercase">
                 {post.category}
               </span>
@@ -39,8 +53,10 @@ export default function InsightsPage() {
                 {post.description}
               </p>
               <span className="text-xs text-stone">{post.readTime}</span>
+              </div>
             </article>
-          </Link>
+           </Link>
+          </Reveal>
         ))}
       </div>
 

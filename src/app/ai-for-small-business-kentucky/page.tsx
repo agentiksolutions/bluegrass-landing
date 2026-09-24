@@ -49,8 +49,8 @@ export default function KentuckySmallBusinessPage() {
         </h1>
         <p className="text-lg leading-relaxed text-charcoal max-w-[620px] mb-4">
           Most small business owners we talk to have heard for two years that AI
-          is going to change everything, have tried a chatbot once, and have no
-          idea what they are supposed to do on Monday.
+          is going to change everything, have tried a chatbot once, and still do
+          not know which job in their business it should do first.
         </p>
         <p className="text-[15px] leading-relaxed text-charcoal max-w-[620px] mb-16">
           The useful version of this is smaller than the headlines suggest. You
