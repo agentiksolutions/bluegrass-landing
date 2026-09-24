@@ -105,7 +105,7 @@ export default function ReportPage() {
             {report.opportunities.map((opp, i) => (
               <div
                 key={i}
-                className="bg-white rounded-lg p-7 mb-4 border border-[#e8e5e0]"
+                className="bg-white rounded-lg p-7 mb-4 border border-line"
               >
                 <div className="flex justify-between items-start mb-3">
                   <h3 className="font-display text-xl font-bold">{opp.title}</h3>
@@ -117,7 +117,7 @@ export default function ReportPage() {
                     {opp.impact} Impact
                   </span>
                 </div>
-                <p className="text-sm leading-relaxed text-[#666] mb-3">
+                <p className="text-sm leading-relaxed text-charcoal mb-3">
                   {opp.description}
                 </p>
                 <div className="text-[13px] font-semibold text-emerald">
@@ -134,7 +134,7 @@ export default function ReportPage() {
             <p className="text-[15px] leading-relaxed">{report.quickWin}</p>
           </div>
 
-          <div className="border-t border-[#e0ddd8] pt-7 mb-10">
+          <div className="border-t border-line pt-7 mb-10">
             <div className="text-xs font-semibold tracking-[2px] text-stone uppercase mb-3">
               The Bottom Line
             </div>
@@ -147,7 +147,7 @@ export default function ReportPage() {
             <h3 className="font-display text-2xl font-bold mb-3">
               Want to dig deeper?
             </h3>
-            <p className="text-sm text-[#aaa] mb-6 leading-relaxed">
+            <p className="text-sm text-stone mb-6 leading-relaxed">
               This report is a starting point. A 30-minute conversation gives us
               enough to tell you exactly what&apos;s worth building and what it
               would cost.
@@ -158,7 +158,7 @@ export default function ReportPage() {
             >
               Schedule a Free Call
             </a>
-            <p className="text-xs text-[#666] mt-3">
+            <p className="text-xs text-charcoal mt-3">
               phil@bluegrassadvisorygroup.com
             </p>
           </div>
@@ -182,7 +182,7 @@ export default function ReportPage() {
             </button>
           </div>
 
-          <div className="text-center mt-10 pt-6 border-t border-[#e8e5e0]">
+          <div className="text-center mt-10 pt-6 border-t border-line">
             <span className="font-display text-base text-graphite">
               Bluegrass <span className="text-emerald">Advisory</span>
             </span>
@@ -203,7 +203,7 @@ export default function ReportPage() {
             Bluegrass <span className="text-emerald">Advisory</span>
           </div>
           <p className="text-sm text-stone">
-            AI Opportunity Report — Free, instant, no signup
+            AI Opportunity Report: free, instant, no signup
           </p>
         </div>
 
@@ -235,7 +235,7 @@ export default function ReportPage() {
               onChange={(e) =>
                 setFormData({ ...formData, businessName: e.target.value })
               }
-              className="w-full p-4 border-2 border-[#e0ddd8] rounded-md text-base bg-white outline-none focus:border-emerald transition-colors"
+              className="w-full p-4 border-2 border-line rounded-md text-base bg-white outline-none focus:border-emerald transition-colors"
               autoFocus
             />
             <div className="mt-6">
@@ -249,7 +249,7 @@ export default function ReportPage() {
                 onChange={(e) =>
                   setFormData({ ...formData, employees: e.target.value })
                 }
-                className="w-[120px] p-4 border-2 border-[#e0ddd8] rounded-md text-base bg-white outline-none focus:border-emerald transition-colors"
+                className="w-[120px] p-4 border-2 border-line rounded-md text-base bg-white outline-none focus:border-emerald transition-colors"
               />
             </div>
           </div>
@@ -272,7 +272,7 @@ export default function ReportPage() {
                   className={`px-5 py-3 rounded-md text-sm transition-all cursor-pointer border-2 ${
                     formData.industry === ind
                       ? "border-emerald bg-emerald/[0.06] text-emerald font-semibold"
-                      : "border-[#e0ddd8] bg-white text-[#666]"
+                      : "border-line bg-white text-charcoal"
                   }`}
                 >
                   {ind}
@@ -291,7 +291,7 @@ export default function ReportPage() {
                     className={`px-5 py-3 rounded-md text-sm transition-all cursor-pointer border-2 ${
                       formData.locations === n
                         ? "border-emerald bg-emerald/[0.06] text-emerald font-semibold"
-                        : "border-[#e0ddd8] bg-white text-[#666]"
+                        : "border-line bg-white text-charcoal"
                     }`}
                   >
                     {n}
@@ -319,7 +319,7 @@ export default function ReportPage() {
                   className={`px-5 py-3 rounded-md text-sm text-left transition-all cursor-pointer border-2 ${
                     formData.painPoint === pp
                       ? "border-emerald bg-emerald/[0.06] text-emerald font-semibold"
-                      : "border-[#e0ddd8] bg-white text-[#666]"
+                      : "border-line bg-white text-charcoal"
                   }`}
                 >
                   {pp}

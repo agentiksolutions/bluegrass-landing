@@ -44,7 +44,7 @@ const rooms = [
     id: "examples",
     num: "04",
     title: "Built Examples",
-    desc: "Real sites and tools we've designed. Not mockups — fully functional builds you can click through and interact with.",
+    desc: "Real sites and tools we've designed: working builds you can click through and interact with.",
     tag: "Portfolio",
     time: "Browse",
     href: "/showroom/examples",
@@ -79,7 +79,7 @@ export default function ShowroomPage() {
                   <span className="text-[10px] font-bold tracking-[1.5px] text-emerald uppercase bg-emerald/[0.07] px-2.5 py-1 rounded-[3px]">
                     {room.tag}
                   </span>
-                  <span className="text-[10px] font-semibold tracking-wider text-[#999] uppercase bg-[#f5f4f2] px-2.5 py-1 rounded-[3px]">
+                  <span className="text-[10px] font-semibold tracking-wider text-stone uppercase bg-[#f5f4f2] px-2.5 py-1 rounded-[3px]">
                     {room.time}
                   </span>
                 </div>
@@ -91,7 +91,7 @@ export default function ShowroomPage() {
               <p className="text-sm leading-relaxed text-stone mb-6">
                 {room.desc}
               </p>
-              <span className="text-[13px] font-semibold text-emerald opacity-0 group-hover:opacity-100 transition-opacity">
+              <span className="text-[13px] font-semibold text-emerald group-hover:underline underline-offset-2">
                 Try it now &rarr;
               </span>
             </Card>
@@ -101,7 +101,6 @@ export default function ShowroomPage() {
 
       {/* Bottom CTA */}
       <CTABand
-        dark
         headline="Seen enough?"
         subtext="30 minutes. No pitch. Tell us about your business and we'll tell you what's worth building."
       />

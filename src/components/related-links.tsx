@@ -23,11 +23,11 @@ export default function RelatedLinks({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {links.map((l) => (
           <Link key={l.href} href={l.href} className="group">
-            <div className="p-6 bg-white rounded-lg border border-[#e8e5e0] h-full transition-all group-hover:border-emerald group-hover:-translate-y-0.5">
+            <div className="p-6 bg-white rounded-lg border border-line h-full transition-all group-hover:border-emerald group-hover:-translate-y-0.5">
               <h3 className="font-display text-lg font-bold leading-snug text-graphite group-hover:text-emerald transition-colors">
                 {l.label}
               </h3>
-              <p className="text-sm leading-relaxed text-[#888] mt-2">{l.blurb}</p>
+              <p className="text-sm leading-relaxed text-stone mt-2">{l.blurb}</p>
             </div>
           </Link>
         ))}

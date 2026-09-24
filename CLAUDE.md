@@ -34,6 +34,9 @@ Also read E:/Cortex/philip-brain/PHIL-OPERATOR-PROFILE.md for operating rules an
 /showroom/dashboard        Room 3: Dashboard Demo (recharts, client-side)
 /showroom/examples         Room 4: Built Examples
 /about                     About Phil / BAG
+/work                      Case studies: /work/restaurant-franchisee, /work/pfsa
+/privacy, /terms           Draft legal pages (noindex, "Draft" notice)
+/academy                   Static Academy + Prompt Studio in public/ (rewrites in next.config.mjs)
 /insights                  Blog listing (MDX)
 /insights/[slug]           Individual blog posts
 /contact                   Contact form (posts to /api/intake)
@@ -42,14 +45,15 @@ Also read E:/Cortex/philip-brain/PHIL-OPERATOR-PROFILE.md for operating rules an
 /api/lead                  POST — Supabase lead capture (unused; no caller in src)
 ```
 
-## Design System (BAG Brand Tokens)
-- Graphite: #1C1C1E (dark sections, footer)
-- Emerald: #0D7C66 (primary accent, CTAs)
-- Sage: #2A9D8F (secondary accent)
-- Warm White: #FAF8F5 (main background)
-- Cream: #F0EBE3 (alternating sections)
-- Gold: #D4A017 (alert/warning callouts)
-- Fonts: Playfair Display (headings) + DM Sans (body) via next/font/google
+## Design System (locked 2026-09-23, Brand/BRAND-DECISIONS-2026-09-23.md)
+- UK blue #0033A0 (buttons, links, logo), blue-dark #002677 (hover), tint #E6EBF6 (one panel per page)
+- Limestone #F2F1EC (header, bands, footer), white #FFFFFF (page), ink #161B22, body #3B4350, muted #5A6370, line #D9D8D1
+- Fonts: Hanken Grotesk (headlines, UI) + Newsreader (reading text) via next/font/google (`src/lib/fonts.ts`)
+- The legacy Tailwind names (emerald, sage, graphite, cream, warm-white, stone, charcoal) are aliases to the new
+  values in `tailwind.config.ts`, so untouched pages follow the new palette
+- Logo: one component, `src/components/logo.tsx`, file `public/brand/logo.svg`
+- Photos: `src/lib/photos.ts`. Show them whole and centered; never cut through people or crop tight on Phil
+- Words: first screen 30 or fewer on every page, headline 7 or fewer, home 300 or fewer
 
 ## Key Directories
 ```
@@ -57,11 +61,8 @@ src/app/              App Router pages
 src/components/       Shared components (nav, footer, button, card, etc.)
 src/lib/              Utilities (fonts, metadata, rate-limit, supabase, mdx)
 content/insights/     MDX blog articles
-public/videos/        Hero + architecture videos (35MB total)
-                      2026-09-20: a hero exploration is PARKED on branch `hero-explorations` (unmerged) with a
-                      preview-only page at /hero-preview. Its clips live in E:/Cortex/_tmp/bag-video and are
-                      deliberately uncommitted. Index: philip-brain/BAG/hero-explorations-reference-2026-09-20.md.
-                      Decided: the hero says the full name on ONE line, the header logo stays "Bluegrass Advisory".
+public/photos/        Real photos (staging approval only, see STAGING-NOTES.md). The generated videos were removed 2026-09-23
+content/legal/        Draft Terms and Privacy Notice rendered at /terms and /privacy (not attorney reviewed)
 public/showroom/      Legacy static HTML demos (slys-nubian still exists)
 ```
 
@@ -116,7 +117,7 @@ SUPABASE_ANON_KEY          Optional — for /api/lead
 - No pricing on the website
 - Case studies allowed (Phil, 2026-09-23): PFSA by name; the restaurant client only as "a Five Guys franchisee in Central Kentucky" until its owner agrees to be named. Quotes on the site are Phil's own words; no client testimonials without written permission
 - No Tailwind blue, no Inter/Roboto fonts
-- Keep the warm white editorial aesthetic
+- Keep the limestone and white editorial look (the warm white palette was retired 2026-09-23)
 - Deploy via GitHub push → Vercel auto-deploy
 - "Operator" is allowed for Phil (Phil, 2026-09-23)
 - "Five Guys" only as "a Five Guys franchisee in Central Kentucky" (Phil, 2026-09-23). Never imply Five Guys endorses the firm; never name Barton Restaurant Group

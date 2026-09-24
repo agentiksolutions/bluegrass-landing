@@ -82,12 +82,12 @@ export default function LexingtonPage() {
         <h1 className="font-display text-[clamp(36px,5vw,52px)] leading-[1.1] font-bold tracking-tight mb-4">
           AI consulting in Lexington.
         </h1>
-        <p className="text-lg leading-relaxed text-[#666] max-w-[600px] mb-6">
+        <p className="text-lg leading-relaxed text-charcoal max-w-[600px] mb-6">
           We are based here. Most of the businesses we work with sit inside an
           hour of downtown, so we can be in your building watching how the work
           actually moves before anyone talks about building something.
         </p>
-        <p className="text-[15px] leading-relaxed text-[#666] max-w-[600px] mb-16">
+        <p className="text-[15px] leading-relaxed text-charcoal max-w-[600px] mb-16">
           The starting point is a 30-minute call. Book one from the{" "}
           <Link href="/contact" className="text-emerald hover:underline">
             contact page
@@ -98,7 +98,7 @@ export default function LexingtonPage() {
 
       <section className="px-6 md:px-12 pb-20 max-w-content mx-auto">
         <h2 className="font-display text-2xl font-bold mb-6">Where we work.</h2>
-        <p className="text-[15px] leading-relaxed text-[#666] max-w-[620px] mb-8">
+        <p className="text-[15px] leading-relaxed text-charcoal max-w-[620px] mb-8">
           Central Kentucky, in person. Lexington and the counties around it are
           close enough for a half day on site, and that is usually how an
           engagement starts.
@@ -113,7 +113,7 @@ export default function LexingtonPage() {
             </span>
           ))}
         </div>
-        <p className="text-[15px] leading-relaxed text-[#666] max-w-[620px]">
+        <p className="text-[15px] leading-relaxed text-charcoal max-w-[620px]">
           We work with businesses elsewhere in Kentucky over screen share. The
           work is the same. You lose the part where we walk your floor, which
           matters more in some businesses than others.
@@ -129,16 +129,16 @@ export default function LexingtonPage() {
             {whatWeHear.map((w) => (
               <div
                 key={w}
-                className="flex items-start gap-3 p-5 bg-white rounded-lg border border-[#e8e5e0]"
+                className="flex items-start gap-3 p-5 bg-white rounded-lg border border-line"
               >
                 <span className="w-2 h-2 rounded-full bg-emerald mt-1.5 shrink-0" />
-                <span className="text-[15px] leading-relaxed text-[#555]">
+                <span className="text-[15px] leading-relaxed text-charcoal">
                   {w}
                 </span>
               </div>
             ))}
           </div>
-          <p className="text-[15px] leading-relaxed text-[#666] max-w-[620px] mt-8">
+          <p className="text-[15px] leading-relaxed text-charcoal max-w-[620px] mt-8">
             None of those are AI problems on their face. That is why we start
             with{" "}
             <Link href="/ai-assessment" className="text-emerald hover:underline">
@@ -157,7 +157,7 @@ export default function LexingtonPage() {
             <span className="font-display text-2xl font-bold text-[#e8e5e0] leading-none pt-0.5">
               01
             </span>
-            <p className="text-[15px] leading-relaxed text-[#555]">
+            <p className="text-[15px] leading-relaxed text-charcoal">
               A 30-minute call. We ask which parts of the business are in play,
               what tools you run day to day, and who else has to agree before
               anything happens. Nothing gets sold on that call.
@@ -167,7 +167,7 @@ export default function LexingtonPage() {
             <span className="font-display text-2xl font-bold text-[#e8e5e0] leading-none pt-0.5">
               02
             </span>
-            <p className="text-[15px] leading-relaxed text-[#555]">
+            <p className="text-[15px] leading-relaxed text-charcoal">
               Within a day you get an email with a recommendation and the reason
               behind it. Sometimes the recommendation is that you do not need us
               yet, with a couple of free things to go read instead.
@@ -177,7 +177,7 @@ export default function LexingtonPage() {
             <span className="font-display text-2xl font-bold text-[#e8e5e0] leading-none pt-0.5">
               03
             </span>
-            <p className="text-[15px] leading-relaxed text-[#555]">
+            <p className="text-[15px] leading-relaxed text-charcoal">
               If it is a fit, you get a fixed price for the next phase before you
               commit to it. Every phase after that works the same way.
             </p>
@@ -209,7 +209,7 @@ export default function LexingtonPage() {
             href: "/about",
             label: "About Phil Fifield",
             blurb:
-              "A decade in hospitality operations before any of this was a firm.",
+              "What he runs today, and the systems he built to run it.",
           },
         ]}
       />

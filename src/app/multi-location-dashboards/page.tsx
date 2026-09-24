@@ -37,12 +37,12 @@ export default function MultiLocationDashboardsPage() {
         <h1 className="font-display text-[clamp(36px,5vw,52px)] leading-[1.1] font-bold tracking-tight mb-4">
           Every location on one screen.
         </h1>
-        <p className="text-lg leading-relaxed text-[#666] max-w-[620px] mb-4">
+        <p className="text-lg leading-relaxed text-charcoal max-w-[620px] mb-4">
           At one site you can walk the floor and know how the week is going. At
           three or more you are reading about it later, in reports that arrive on
           different days in different shapes.
         </p>
-        <p className="text-[15px] leading-relaxed text-[#666] max-w-[620px] mb-16">
+        <p className="text-[15px] leading-relaxed text-charcoal max-w-[620px] mb-16">
           This is the version of{" "}
           <Link
             href="/services/dashboards"
@@ -62,10 +62,10 @@ export default function MultiLocationDashboardsPage() {
           {whatBreaks.map((w) => (
             <div
               key={w}
-              className="flex items-start gap-3 p-5 bg-white rounded-lg border border-[#e8e5e0]"
+              className="flex items-start gap-3 p-5 bg-white rounded-lg border border-line"
             >
               <span className="w-2 h-2 rounded-full bg-emerald mt-1.5 shrink-0" />
-              <span className="text-[15px] leading-relaxed text-[#555]">{w}</span>
+              <span className="text-[15px] leading-relaxed text-charcoal">{w}</span>
             </div>
           ))}
         </div>
@@ -78,7 +78,7 @@ export default function MultiLocationDashboardsPage() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {whatYouSee.map((w) => (
-              <p key={w} className="text-[15px] leading-relaxed text-[#666]">
+              <p key={w} className="text-[15px] leading-relaxed text-charcoal">
                 &bull; {w}
               </p>
             ))}
@@ -94,19 +94,19 @@ export default function MultiLocationDashboardsPage() {
           <h2 className="font-display text-2xl font-bold mb-6">
             The hard part is not the screen.
           </h2>
-          <p className="text-[15px] leading-relaxed text-[#666] mb-4">
+          <p className="text-[15px] leading-relaxed text-charcoal mb-4">
             Building a dashboard is the easy half. The half that takes the time
             is getting two systems to agree on what a number means, because one
             counts a void and the other does not, or one runs a week
             Monday to Sunday and the other Sunday to Saturday.
           </p>
-          <p className="text-[15px] leading-relaxed text-[#666] mb-4">
+          <p className="text-[15px] leading-relaxed text-charcoal mb-4">
             So the first pass is always definitions. We write down what each
             metric counts, where it comes from, and which system wins when two of
             them disagree. That document is worth more than the dashboard, and it
             is the reason the dashboard gets trusted.
           </p>
-          <p className="text-[15px] leading-relaxed text-[#666]">
+          <p className="text-[15px] leading-relaxed text-charcoal">
             If your locations report in different shapes today, that work comes
             first, and it is usually the recommendation that comes out of{" "}
             <Link href="/ai-assessment" className="text-emerald hover:underline">
@@ -130,9 +130,9 @@ export default function MultiLocationDashboardsPage() {
             blurb: "The industry where most of these get built.",
           },
           {
-            href: "/insights/cut-12-hours-admin",
-            label: "Cutting 12 hours of weekly admin",
-            blurb: "What came off the calendar across three locations.",
+            href: "/work/restaurant-franchisee",
+            label: "Case study: three stores, one manager portal",
+            blurb: "One place for store results, checklists and training status.",
           },
           {
             href: "/ai-consulting-cost",
