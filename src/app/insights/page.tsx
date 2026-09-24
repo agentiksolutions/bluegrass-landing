@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { pageMeta } from "@/lib/metadata";
 import Link from "next/link";
 import Image from "next/image";
-import { Reveal } from "@/components/motion";
+import { BlurFade } from "@/components/ui-motion/blur-fade";
 import SectionLabel from "@/components/section-label";
 import { getAllPosts } from "@/lib/mdx";
 
@@ -29,7 +29,7 @@ export default function InsightsPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {posts.map((post, i) => (
-          <Reveal key={post.slug} delay={i * 0.07}>
+          <BlurFade key={post.slug} inView delay={i * 0.08} direction="up" offset={12}>
            <Link href={`/insights/${post.slug}`} className="group block h-full">
             <article className="bg-white rounded-lg overflow-hidden border border-line h-full transition-all duration-[250ms] group-hover:border-emerald group-hover:-translate-y-0.5 group-hover:shadow-[0_8px_30px_rgba(0,0,0,0.04)]">
               <div className="overflow-hidden">
@@ -56,7 +56,7 @@ export default function InsightsPage() {
               </div>
             </article>
            </Link>
-          </Reveal>
+          </BlurFade>
         ))}
       </div>
 

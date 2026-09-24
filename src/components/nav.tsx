@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Logo from "./logo";
+import CenterUnderline from "@/components/ui-motion/center-underline";
 import { BOOKING_URL } from "@/lib/site";
 
 const links = [
@@ -39,11 +40,11 @@ export default function Nav() {
               href={link.href}
               className={`whitespace-nowrap hover:text-blue ${active(link.href) ? "text-blue" : ""}`}
             >
-              {link.label}
+              <CenterUnderline>{link.label}</CenterUnderline>
             </Link>
           ))}
           <a href="tel:+18593143051" className="whitespace-nowrap hover:text-blue">
-            (859) 314-3051
+            <CenterUnderline>(859) 314-3051</CenterUnderline>
           </a>
         </nav>
 

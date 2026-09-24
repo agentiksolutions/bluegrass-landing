@@ -4,7 +4,14 @@ import Image from "next/image";
 import Button from "@/components/button";
 import CTABand from "@/components/cta-band";
 import JsonLd from "@/components/json-ld";
-import { KenBurns, Magnetic, MarkDraw, Marquee, ParallaxBand, Reveal, RisingWords } from "@/components/motion";
+import { KenBurns, ParallaxBand } from "@/components/motion";
+import { AnimatedGroup } from "@/components/ui-motion/animated-group";
+import { BlurFade } from "@/components/ui-motion/blur-fade";
+import { Marquee } from "@/components/ui-motion/marquee";
+import PathDrawing from "@/components/ui-motion/path-drawing";
+import RollingTextButton from "@/components/ui-motion/rolling-text-button";
+import VerticalCutReveal from "@/components/ui-motion/vertical-cut-reveal";
+import { MARK } from "@/lib/mark-geometry";
 import { pageMeta } from "@/lib/metadata";
 import { photos } from "@/lib/photos";
 import { BOOKING_URL } from "@/lib/site";
@@ -130,24 +137,29 @@ export default function HomePage() {
         <div className="absolute inset-x-0 bottom-0 px-4 md:px-10 pb-12 md:pb-16">
           <div className="max-w-[1360px] mx-auto">
             <h1 className="font-display text-[40px] sm:text-[62px] lg:text-[88px] leading-[0.96] font-bold tracking-tight text-white max-w-[15ch]">
-              <RisingWords text="Your AI partner in Central Kentucky." />
+              <VerticalCutReveal splitBy="words" staggerDuration={0.055} staggerFrom="first">
+                Your AI partner in Central Kentucky.
+              </VerticalCutReveal>
             </h1>
-            <Reveal delay={0.55} y={16}>
+            <BlurFade delay={0.5} direction="up" offset={10}>
               <p className="mt-6 text-[19px] md:text-[23px] leading-snug text-white/85 max-w-[42ch]">
                 We teach your team, build your tools, and support them after.
               </p>
-              <Magnetic>
-                <Button href={BOOKING_URL} className="mt-8">
-                  Book a call
-                </Button>
-              </Magnetic>
-            </Reveal>
+            </BlurFade>
+            <BlurFade delay={0.68} direction="up" offset={10}>
+              <RollingTextButton
+                href={BOOKING_URL}
+                className="mt-8 inline-flex items-center gap-2 rounded bg-blue px-6 py-3.5 font-display text-[15px] font-semibold text-white transition-colors hover:bg-blue-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
+                Book a call
+              </RollingTextButton>
+            </BlurFade>
           </div>
         </div>
       </section>
 
       {/* Three pillars. Alternating full rows, the picture sliding in from its own side. */}
-      <section className="py-20 md:py-28">
+      <AnimatedGroup as="section" className="py-20 md:py-28" preset="blur-slide" inView>
         {pillars.map((p, i) => (
           <Link
             key={p.href}
@@ -171,20 +183,20 @@ export default function HomePage() {
                 className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
               />
             </ParallaxBand>
-            <Reveal className={`px-4 md:px-10 py-10 lg:py-0 ${i % 2 ? "lg:order-1" : ""}`} delay={0.1}>
+            <div className={`px-4 md:px-10 py-10 lg:py-0 ${i % 2 ? "lg:order-1" : ""}`}>
               <h2 className="font-display text-[40px] md:text-[64px] leading-none font-bold tracking-tight text-ink group-hover:text-blue">
                 {p.title}
               </h2>
               <p className="mt-5 text-[19px] md:text-[22px] leading-snug text-body max-w-[34ch]">
                 {p.line}
               </p>
-            </Reveal>
+            </div>
           </Link>
         ))}
-      </section>
+      </AnimatedGroup>
 
       {/* The strip. Pictures only. */}
-      <Marquee>
+      <Marquee pauseOnHover repeat={2} className="[--duration:58s] [--gap:1rem] py-0">
         {strip.map((s) => (
           <Image
             key={s.src}
@@ -200,7 +212,25 @@ export default function HomePage() {
 
       {/* Quiet. The mark draws itself. */}
       <section className="bg-band px-4 md:px-10 py-20 md:py-32 flex justify-center">
-        <MarkDraw className="w-[min(82%,720px)] h-auto" />
+        <div className="relative w-[min(82%,720px)]">
+          {/* PathDrawing strokes its paths and cannot fill one, so the solid state and the
+              star sit behind it in a plain SVG on the same viewBox. */}
+          <BlurFade inView offset={0} duration={0.7} className="absolute inset-0">
+            <svg viewBox={MARK.viewBox} className="w-full h-auto" aria-hidden="true">
+              <path d={MARK.state} fill="#0033A0" />
+              <path d={MARK.star} fill="#FFFFFF" />
+            </svg>
+          </BlurFade>
+          <PathDrawing
+            viewBox={MARK.viewBox}
+            title="The Bluegrass Advisory Group mark: Kentucky in blue with a network of white nodes and a star on Lexington"
+            paths={MARK.lines.map(([x1, y1, x2, y2]) => ({ d: `M${x1},${y1} L${x2},${y2}`, stroke: "#FFFFFF" }))}
+            nodes={MARK.circles.map(([cx, cy, r]) => ({ cx, cy, r, fill: "#FFFFFF" }))}
+            strokeWidth={3.6}
+            stagger={0.012}
+            className="relative w-full h-auto"
+          />
+        </div>
       </section>
 
       {/* His own words, over the limestone country. */}
@@ -216,14 +246,14 @@ export default function HomePage() {
       <div className="relative -mt-[70svh] min-h-[70svh] flex items-end pointer-events-none">
         <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/30 to-transparent" />
         <blockquote className="relative w-full max-w-[1360px] mx-auto px-4 md:px-10 py-16 md:py-24">
-          <Reveal>
+          <BlurFade inView direction="up" offset={14} duration={0.7}>
             <p className="font-display text-[32px] md:text-[62px] leading-[1.02] font-bold tracking-tight text-white max-w-[17ch]">
               &ldquo;We gave the store managers their time back.&rdquo;
             </p>
             <cite className="block mt-6 not-italic font-display text-[15px] text-white/70">
               Phil Fifield
             </cite>
-          </Reveal>
+          </BlurFade>
         </blockquote>
       </div>
 
@@ -263,7 +293,7 @@ export default function HomePage() {
 
       {/* Who is behind it. Small, and late. */}
       <section className="bg-band px-4 md:px-10 py-20 md:py-28">
-        <Reveal className="max-w-[1360px] mx-auto flex flex-col sm:flex-row sm:items-center gap-8 md:gap-14">
+        <BlurFade inView direction="up" offset={14} className="max-w-[1360px] mx-auto flex flex-col sm:flex-row sm:items-center gap-8 md:gap-14">
           <Image
             src={photos.phil.src}
             alt={photos.phil.alt}
@@ -275,7 +305,7 @@ export default function HomePage() {
           <p className="text-[20px] md:text-[26px] leading-snug text-body max-w-[26ch]">
             Phil Fifield, Lexington, Kentucky.
           </p>
-        </Reveal>
+        </BlurFade>
       </section>
 
       <CTABand headline="Book a 30-minute call." subtext="" />
