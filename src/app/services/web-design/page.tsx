@@ -37,9 +37,9 @@ export default function WebDesignPage() {
       }}
       relatedPosts={[
         {
-          href: "/insights/automated-35-workflows",
-          title: "I Automated 35 Workflows Before Selling a Single AI Service",
-          category: "Lessons Learned",
+          href: "/insights/choosing-an-ai-consultant",
+          title: "How to Choose an AI Consultant (Six Questions That Actually Separate Them)",
+          category: "Strategy",
         },
       ]}
       serviceJsonLd={{

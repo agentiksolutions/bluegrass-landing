@@ -88,15 +88,11 @@ export default function AboutPage() {
               ourselves.
             </p>
             <p className="text-[16px] leading-relaxed text-[#555] mt-5">
-              Read about how we{" "}
-              <Link href="/insights/automated-35-workflows" className="text-emerald hover:underline">
-                automated 35 workflows
-              </Link>{" "}
-              before taking on a single client, or see how we{" "}
-              <Link href="/insights/cut-12-hours-admin" className="text-emerald hover:underline">
-                cut 12 hours of weekly admin
-              </Link>{" "}
-              across three locations.
+              Read about the systems we built for ourselves first in our{" "}
+              <Link href="/insights" className="text-emerald hover:underline">
+                insights
+              </Link>
+              .
             </p>
           </div>
 

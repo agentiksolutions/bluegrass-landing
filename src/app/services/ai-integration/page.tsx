@@ -37,9 +37,9 @@ export default function AIIntegrationPage() {
       }}
       relatedPosts={[
         {
-          href: "/insights/automated-35-workflows",
-          title: "I Automated 35 Workflows Before Selling a Single AI Service",
-          category: "Lessons Learned",
+          href: "/insights/automating-our-own-back-office",
+          title: "What We Automated in Our Own Back Office First, and What It Cost Us to Learn",
+          category: "Case Study",
         },
         {
           href: "/insights/ai-trust-gap",

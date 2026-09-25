@@ -64,12 +64,9 @@ export default function HospitalityPage() {
           locations, and the first tools we ever built were built to fix that job.
         </p>
         <p className="text-[15px] leading-relaxed text-[#666] max-w-[620px] mb-16">
-          You can read the specifics in{" "}
-          <Link
-            href="/insights/cut-12-hours-admin"
-            className="text-emerald hover:underline"
-          >
-            how we cut 12 hours of weekly admin work across three locations
+          You can read what we built for our own operations in our{" "}
+          <Link href="/insights" className="text-emerald hover:underline">
+            insights
           </Link>
           .
         </p>
