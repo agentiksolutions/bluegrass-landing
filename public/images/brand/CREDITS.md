@@ -57,3 +57,27 @@ them without touching any code.
 `public/photos/phil-fifield.jpg` is Phil, and he approved it on 2026-09-24 as an exception to the
 no-AI-imagery rule. The three photographs of the restaurant client are not on the home page; they
 are on `/work` and `/work/restaurant-franchisee`.
+
+## Stock photographs, home page draft (2026-09-25, branch `homepage-apax-model`)
+
+Free photographs from Unsplash under the Unsplash License (free for commercial use, no
+permission needed, credit appreciated). Downloaded 2026-09-25, resized to 1600 px wide and saved
+as WebP with no metadata. Files are in `public/images/stock/`. **Nobody in these pictures is a
+client, a team member or a person giving a testimonial.** They are placeholders for Phil's own
+photographs and are marked for replacement.
+
+| File | Where it is used | Photographer | Source |
+|---|---|---|---|
+| `hero-team-screen.webp` | Home hero | Vitaly Gariev | https://unsplash.com/photos/Y32qbykD69g |
+| `education-class.webp` | Education row, and the strip | Nguyen Dang Hoang Nhu | https://unsplash.com/photos/tlnXTrg6D3s |
+| `build-laptop.webp` | Build row | Fatemeh Rezvani | https://unsplash.com/photos/MnPWB-ybjHQ |
+| `support-laptop.webp` | Support row | Swello | https://unsplash.com/photos/4Ya_nyKge5k |
+| `ai-team-laptop.webp` | AI section | Jud Mackrill | https://unsplash.com/photos/Of_m3hMsoAA |
+| `case-dashboard.webp` | Restaurant franchisee result card | 1981 Digital | https://unsplash.com/photos/yqaskj8lQBE |
+| `strip-team.webp` | The strip | Vitaly Gariev | https://unsplash.com/photos/yd_RKGH_RH4 |
+| `strip-colleagues.webp` | The strip | Marcel Petzold | https://unsplash.com/photos/pIspBgjGx1M |
+| `strip-workshop.webp` | The strip | UX Indonesia | https://unsplash.com/photos/zwaFDXF3vWc |
+| `strip-meeting.webp` | The strip | Vitaly Gariev | https://unsplash.com/photos/Cnsh9WwhVCw |
+
+On this branch the home page no longer uses the Grok Kentucky images or the hero video. Those
+files stay on disk because other pages and the main branch still reference them.
