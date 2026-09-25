@@ -77,10 +77,10 @@ const showroomRooms = [
 
 const blogPosts = [
   {
-    title: "I Automated 35 Workflows Before Selling a Single AI Service — Here's What I Learned",
-    category: "Lessons Learned",
-    read: "5 min read",
-    slug: "automated-35-workflows",
+    title: "What We Automated in Our Own Back Office First, and What It Cost Us to Learn",
+    category: "Case Study",
+    read: "7 min read",
+    slug: "automating-our-own-back-office",
     image: "/videos/blog-automated-workflows.png",
   },
   {
@@ -91,10 +91,10 @@ const blogPosts = [
     image: "/videos/blog-trust-gap.png",
   },
   {
-    title: "How We Cut 12 Hours of Weekly Admin Work Across Three Locations",
-    category: "Case Study",
+    title: "How to Choose an AI Consultant (Six Questions That Actually Separate Them)",
+    category: "Strategy",
     read: "6 min read",
-    slug: "cut-12-hours-admin",
+    slug: "choosing-an-ai-consultant",
     image: "/videos/blog-cut-admin-hours.png",
   },
 ];

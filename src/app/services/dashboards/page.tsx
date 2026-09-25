@@ -37,8 +37,8 @@ export default function DashboardsPage() {
       }}
       relatedPosts={[
         {
-          href: "/insights/cut-12-hours-admin",
-          title: "How We Cut 12 Hours of Weekly Admin Work Across Three Locations",
+          href: "/insights/automating-our-own-back-office",
+          title: "What We Automated in Our Own Back Office First, and What It Cost Us to Learn",
           category: "Case Study",
         },
       ]}

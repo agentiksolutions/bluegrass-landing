@@ -37,14 +37,14 @@ export default function OperationsPage() {
       }}
       relatedPosts={[
         {
-          href: "/insights/cut-12-hours-admin",
-          title: "How We Cut 12 Hours of Weekly Admin Work Across Three Locations",
+          href: "/insights/automating-our-own-back-office",
+          title: "What We Automated in Our Own Back Office First, and What It Cost Us to Learn",
           category: "Case Study",
         },
         {
-          href: "/insights/automated-35-workflows",
-          title: "I Automated 35 Workflows Before Selling a Single AI Service",
-          category: "Lessons Learned",
+          href: "/insights/choosing-an-ai-consultant",
+          title: "How to Choose an AI Consultant (Six Questions That Actually Separate Them)",
+          category: "Strategy",
         },
       ]}
       serviceJsonLd={{

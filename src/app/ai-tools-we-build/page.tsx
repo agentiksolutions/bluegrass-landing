@@ -151,8 +151,8 @@ export default function AIToolsPage() {
             blurb: "The same tools, arranged for a multi-location operation.",
           },
           {
-            href: "/insights/automated-35-workflows",
-            label: "35 workflows before the first client",
+            href: "/insights",
+            label: "Insights",
             blurb: "What we learned building all of this for ourselves first.",
           },
         ]}

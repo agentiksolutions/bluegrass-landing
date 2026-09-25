@@ -130,9 +130,9 @@ export default function MultiLocationDashboardsPage() {
             blurb: "The industry where most of these get built.",
           },
           {
-            href: "/insights/cut-12-hours-admin",
-            label: "Cutting 12 hours of weekly admin",
-            blurb: "What came off the calendar across three locations.",
+            href: "/insights",
+            label: "Insights",
+            blurb: "What we automated in our own back office, and in what order.",
           },
           {
             href: "/ai-consulting-cost",
