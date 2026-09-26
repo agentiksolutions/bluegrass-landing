@@ -7,8 +7,9 @@ import { buildWeb, OUTLINE, STAR, type Web } from "@/lib/kentucky-web";
 // The home hero: Kentucky as a fine web. Several hundred evenly spaced points fill the state
 // edge to edge, joined by hairline strands that never leave the outline (src/lib/kentucky-web.ts).
 // On load the web spins out from Lexington strand by strand, the border closes, and the star
-// lights last. Afterwards the web sways slowly in depth, leans toward the cursor, and now and
-// then a faint pulse of light runs along a few strands. Scrolling on tilts it back and loosens
+// lights last. Afterwards the web sways slowly in depth and leans toward the cursor, short
+// signals of light keep travelling along chains of strands, and every few seconds a brighter
+// burst ripples out of Lexington. Scrolling on tilts it back and loosens
 // it. Everything is vector-drawn at the device pixel ratio, so it stays sharp at any zoom.
 // Pauses off screen. Reduced motion gets the same web as a static SVG.
 
@@ -25,6 +26,14 @@ const STAR_FILL = "#F2F5FB";
 const SPIN = [0.25, 3.0] as const; // strands spin out from Lexington
 const CLOSE = [2.3, 3.4] as const; // the border closes
 const IGNITE = 3.5; // the star lights
+
+// Signals.
+const TAIL = 1.3; // comet tail length, in strands
+const SLICES = 7; // tail drawn in tapering slices
+const FLARE = 0.3; // seconds a junction glows after a signal passes
+const GLOW_SCALE = 0.25; // the glow layer is drawn at a quarter of CSS size
+const P0 = [0, 0];
+const P1 = [0, 0];
 
 const clamp01 = (v: number) => (v < 0 ? 0 : v > 1 ? 1 : v);
 const easeOut = (t: number) => (t >= 1 ? 1 : 1 - Math.pow(2, -10 * t)); // expo, no overshoot
@@ -67,6 +76,8 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
       drift[3 * i + 2] = (f - 0.3) * 1.6;
     }
 
+    const glow = document.createElement("canvas");
+    const gctx = glow.getContext("2d");
     let cw = 0, ch = 0, dpr = 1, fit = 1, ox = 0, oy = 0;
     const resize = () => {
       dpr = Math.min(window.devicePixelRatio || 1, 3);
@@ -74,6 +85,8 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
       ch = canvas.clientHeight;
       canvas.width = Math.round(cw * dpr);
       canvas.height = Math.round(ch * dpr);
+      glow.width = Math.max(1, Math.round(cw * GLOW_SCALE));
+      glow.height = Math.max(1, Math.round(ch * GLOW_SCALE));
       const wide = cw >= 768;
       fit = Math.min((cw * (wide ? 0.84 : 0.94)) / W, (ch * (wide ? 0.6 : 0.42)) / H);
       ox = cw * (wide ? 0.54 : 0.5);
@@ -106,22 +119,45 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
       out[1] = oy + y2 * k * fit;
     };
 
-    // Shimmer: a short run of light along a chain of connected strands.
-    type Pulse = { chain: number[]; born: number; life: number };
+    // Signals: short runs of light travelling along chains of 3 to 6 strands, several live at
+    // once, plus now and then a brighter burst out of Lexington along a few outward paths.
+    type Pulse = { chain: number[]; born: number; life: number; bright: boolean };
     const pulses: Pulse[] = [];
-    let nextPulse = IGNITE + 1.6;
+    const phone = window.innerWidth < 768;
+    const MAX_LIVE = phone ? 6 : 12;
+    let nextPulse = IGNITE + 0.8;
+    let nextBurst = IGNITE + 2.5;
     let seed = 7;
     const rand = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
-    const spawn = (t: number) => {
-      let at = (rand() * n) | 0;
+    let hub = 0;
+    for (let i = 1; i < n; i++)
+      if (Math.hypot(web.x[i] - STAR[0], web.y[i] - STAR[1]) < Math.hypot(web.x[hub] - STAR[0], web.y[hub] - STAR[1])) hub = i;
+    // Walk 3 to 6 strands. `outward` prefers points further from Lexington, so bursts ripple out.
+    const walk = (from: number, strands: number, outward: boolean) => {
+      let at = from;
       const chain = [at];
-      for (let k = 0; k < 6; k++) {
-        const next = web.neighbours[at].filter((m) => !chain.includes(m));
+      for (let k = 0; k < strands; k++) {
+        let next = web.neighbours[at].filter((m) => !chain.includes(m));
+        if (outward) {
+          const out = next.filter((m) => web.depth[m] > web.depth[at]);
+          if (out.length) next = out;
+        }
         if (!next.length) break;
         at = next[(rand() * next.length) | 0];
         chain.push(at);
       }
-      if (chain.length > 3) pulses.push({ chain, born: t, life: 2.6 });
+      return chain;
+    };
+    const spawn = (t: number) => {
+      const chain = walk((rand() * n) | 0, 3 + ((rand() * 4) | 0), false);
+      if (chain.length > 3) pulses.push({ chain, born: t, life: 0.6 + chain.length * 0.22, bright: false });
+    };
+    const burst = (t: number) => {
+      const paths = phone ? 3 : 4 + ((rand() * 3) | 0);
+      for (let k = 0; k < paths; k++) {
+        const chain = walk(hub, 5 + ((rand() * 2) | 0), true);
+        if (chain.length > 2) pulses.push({ chain, born: t + k * 0.05, life: 0.6 + chain.length * 0.17, bright: true });
+      }
     };
 
     let raf = 0;
@@ -161,23 +197,46 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
       ctx.lineCap = "round";
       const hair = 0.65 / dpr; // 0.65 device pixels
 
-      // Strands, spinning out from the nearer-to-Lexington end.
-      ctx.strokeStyle = SILK;
-      ctx.lineWidth = hair;
+      // Strands, spinning out from the nearer-to-Lexington end. Each length bucket becomes one
+      // path, drawn twice: once wide into a quarter-size glow layer (soft by nature, so it can be
+      // small and cheap) that is added underneath, then as the silk hairline on top. The web
+      // reads as lit fibre while the strands stay fine.
+      const paths: Path2D[] = [];
       for (let b = 0; b < BUCKETS.length; b++) {
-        ctx.globalAlpha = BUCKETS[b] * fade;
-        ctx.beginPath();
+        const path = new Path2D();
         for (let e = 0; e < edgeCount; e++) {
           if (bucket[e] !== b) continue;
           const a = web.edges[2 * e];
           const z = web.edges[2 * e + 1];
           const p = easeOut(clamp01((t - lit(a)) / (hop * 2.2)));
           if (p <= 0) continue;
-          ctx.moveTo(sx[a], sy[a]);
-          ctx.lineTo(sx[a] + (sx[z] - sx[a]) * p, sy[a] + (sy[z] - sy[a]) * p);
+          path.moveTo(sx[a], sy[a]);
+          path.lineTo(sx[a] + (sx[z] - sx[a]) * p, sy[a] + (sy[z] - sy[a]) * p);
         }
-        ctx.stroke();
+        paths.push(path);
       }
+      if (gctx) {
+        gctx.setTransform(GLOW_SCALE, 0, 0, GLOW_SCALE, 0, 0);
+        gctx.clearRect(0, 0, cw, ch);
+        gctx.strokeStyle = SILK;
+        gctx.lineWidth = 3.2;
+        gctx.lineCap = "round";
+        paths.forEach((path, b) => {
+          gctx.globalAlpha = BUCKETS[b] * 0.5 * fade;
+          gctx.stroke(path);
+        });
+        ctx.globalCompositeOperation = "lighter";
+        ctx.globalAlpha = 0.55;
+        ctx.imageSmoothingEnabled = true;
+        ctx.drawImage(glow, 0, 0, cw, ch);
+        ctx.globalCompositeOperation = "source-over";
+      }
+      ctx.strokeStyle = SILK;
+      ctx.lineWidth = hair;
+      paths.forEach((path, b) => {
+        ctx.globalAlpha = BUCKETS[b] * fade;
+        ctx.stroke(path);
+      });
 
       // The border: one slightly brighter continuous hairline, closing both ways from the
       // point nearest Lexington.
@@ -209,13 +268,19 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
         ctx.fillRect(sx[i] - size / 2, sy[i] - size / 2, size, size);
       }
 
-      // Shimmer.
-      if (t > nextPulse && pulses.length < 3) {
-        spawn(t);
-        nextPulse = t + 0.9 + rand() * 1.4;
+      // Signals.
+      if (t > nextPulse) {
+        if (pulses.filter((p) => !p.bright).length < MAX_LIVE) spawn(t);
+        nextPulse = t + (phone ? 0.25 : 0.08) + rand() * (phone ? 0.35 : 0.2);
       }
-      ctx.strokeStyle = PALE;
-      ctx.lineWidth = 1 / dpr;
+      if (t > nextBurst) {
+        burst(t);
+        nextBurst = t + 5.5 + rand() * 4;
+      }
+      // Each signal is a comet: a bright head with a tail that tapers to a hairline, added on
+      // top of the web, and each junction it passes flares for a moment.
+      ctx.globalCompositeOperation = "lighter";
+      ctx.lineCap = "round";
       for (let q = pulses.length - 1; q >= 0; q--) {
         const pu = pulses[q];
         const u = (t - pu.born) / pu.life;
@@ -223,23 +288,64 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
           pulses.splice(q, 1);
           continue;
         }
-        const segs = pu.chain.length - 1;
-        const head = easeInOut(u) * (segs + 0.6);
-        ctx.globalAlpha = Math.sin(Math.PI * u) * 0.8 * fade;
-        ctx.beginPath();
-        for (let k = 0; k < segs; k++) {
-          const from = Math.max(k, head - 0.6);
-          const to = Math.min(k + 1, head);
-          if (to <= from) continue;
-          const a = pu.chain[k];
-          const z = pu.chain[k + 1];
-          const f0 = from - k;
-          const f1 = to - k;
-          ctx.moveTo(sx[a] + (sx[z] - sx[a]) * f0, sy[a] + (sy[z] - sy[a]) * f0);
-          ctx.lineTo(sx[a] + (sx[z] - sx[a]) * f1, sy[a] + (sy[z] - sy[a]) * f1);
+        if (u <= 0) continue;
+        const ch = pu.chain;
+        const segs = ch.length - 1;
+        const span = segs + TAIL;
+        const head = u * span; // constant speed, like a signal
+        const secPerStrand = pu.life / span;
+        // Quick fade in and out; no hard on/off, so nothing strobes.
+        const env = Math.min(1, u / 0.1) * Math.min(1, (1 - u) / 0.25) * fade;
+        const peak = 1;
+        const at = (v: number, o: number[]) => {
+          const k = Math.min(segs - 1, Math.max(0, Math.floor(v)));
+          const f = Math.min(1, Math.max(0, v - k));
+          o[0] = sx[ch[k]] + (sx[ch[k + 1]] - sx[ch[k]]) * f;
+          o[1] = sy[ch[k]] + (sy[ch[k + 1]] - sy[ch[k]]) * f;
+        };
+        ctx.strokeStyle = pu.bright ? STAR_FILL : PALE;
+        for (let j = 0; j < SLICES; j++) {
+          const v0 = head - TAIL + (TAIL * j) / SLICES;
+          const v1 = head - TAIL + (TAIL * (j + 1)) / SLICES;
+          const lo = Math.max(0, v0);
+          const hi = Math.min(segs, v1);
+          if (hi <= lo) continue;
+          const w = (j + 1) / SLICES; // 0 at the tail end, 1 at the head
+          ctx.globalAlpha = env * peak * w * w;
+          ctx.lineWidth = (0.6 + w * (pu.bright ? 2.6 : 2.2)) / dpr;
+          ctx.beginPath();
+          at(lo, P0);
+          ctx.moveTo(P0[0], P0[1]);
+          for (let k = Math.floor(lo) + 1; k < hi; k++) ctx.lineTo(sx[ch[k]], sy[ch[k]]);
+          at(hi, P1);
+          ctx.lineTo(P1[0], P1[1]);
+          ctx.stroke();
         }
-        ctx.stroke();
+        // The head: a bright point riding the front of the tail.
+        if (head < segs) {
+          at(head, P1);
+          const r = (pu.bright ? 1.8 : 1.4) / dpr;
+          ctx.globalAlpha = env;
+          ctx.fillStyle = STAR_FILL;
+          ctx.fillRect(P1[0] - r, P1[1] - r, 2 * r, 2 * r);
+        }
+        // Junction flares: brief soft light where the head passed through a node.
+        for (let k = 1; k <= segs; k++) {
+          const since = (head - k) * secPerStrand;
+          if (since < 0 || since > FLARE) continue;
+          const f = 1 - since / FLARE;
+          const r = ((pu.bright ? 14 : 9) * (0.6 + 0.4 * f)) / dpr;
+          const x = sx[ch[k]];
+          const y = sy[ch[k]];
+          const g = ctx.createRadialGradient(x, y, 0, x, y, r);
+          g.addColorStop(0, pu.bright ? STAR_FILL : PALE);
+          g.addColorStop(1, "rgba(157,182,245,0)");
+          ctx.globalAlpha = env * peak * f * 0.9;
+          ctx.fillStyle = g;
+          ctx.fillRect(x - r, y - r, 2 * r, 2 * r);
+        }
       }
+      ctx.globalCompositeOperation = "source-over";
 
       // The Lexington star lights last, with one ring of light running out from it.
       const ignite = easeOut(clamp01((t - IGNITE) / 0.9));
