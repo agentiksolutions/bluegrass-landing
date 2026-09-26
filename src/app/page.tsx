@@ -3,16 +3,18 @@ import Link from "next/link";
 import Image from "next/image";
 import CTABand from "@/components/cta-band";
 import JsonLd from "@/components/json-ld";
-import { KenBurns, ParallaxBand } from "@/components/motion";
+import LoopVideo from "@/components/loop-video";
+import MarkNetwork from "@/components/mark-network";
+import { KenBurns, ParallaxBand, TraceRule } from "@/components/motion";
 import { AnimatedGroup } from "@/components/ui-motion/animated-group";
 import { BlurFade } from "@/components/ui-motion/blur-fade";
 import { Marquee } from "@/components/ui-motion/marquee";
 import { NumberTicker } from "@/components/ui-motion/number-ticker";
-import PathDrawing from "@/components/ui-motion/path-drawing";
+import { BorderTrail } from "@/components/ui-motion/border-trail";
 import RollingTextButton from "@/components/ui-motion/rolling-text-button";
 import { TextReveal } from "@/components/ui-motion/text-reveal";
+import { TextScramble } from "@/components/ui-motion/text-scramble";
 import VerticalCutReveal from "@/components/ui-motion/vertical-cut-reveal";
-import { MARK } from "@/lib/mark-geometry";
 import { getAllPosts } from "@/lib/mdx";
 import { pageMeta } from "@/lib/metadata";
 import { photos } from "@/lib/photos";
@@ -100,7 +102,15 @@ const problems = [
   "You have AI questions and nobody to ask.",
 ];
 
-const services = [
+const services: {
+  title: string;
+  line: string;
+  names: string;
+  href: string;
+  img: string;
+  alt: string;
+  video?: string;
+}[] = [
   {
     title: "Education",
     line: "Classes and workshops for owners and their teams.",
@@ -116,6 +126,7 @@ const services = [
     href: "/services/ai-integration",
     img: "/images/stock/build-laptop.webp",
     alt: "Hands on a laptop showing code, with notes on the table beside it",
+    video: "hands-checklist",
   },
   {
     title: "Support",
@@ -164,8 +175,12 @@ export default function HomePage() {
             sizes="100vw"
             className="object-cover"
           />
+          {/* Grok-made aerial of Lexington at sunrise, 1280x720. The still above stays as the fallback. */}
+          <LoopVideo name="lexington-aerial" poster="/images/stock/lexington-aerial-poster.webp" eager />
         </KenBurns>
-        <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/45 to-ink/15" />
+        {/* Flat shades for legibility: ink, plus a low UK blue tint over the 720p clip. */}
+        <div className="absolute inset-0 bg-ink/50" />
+        <div className="absolute inset-0 bg-blue/[0.12]" />
         <div className="absolute inset-x-0 bottom-0 px-4 md:px-10 pb-12 md:pb-16">
           <div className="max-w-[1360px] mx-auto">
             <h1 className="font-display text-[40px] sm:text-[62px] lg:text-[88px] leading-[0.96] font-bold tracking-tight text-white max-w-[15ch]">
@@ -195,6 +210,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* The mark assembles as the visitor scrolls: outline, network from Lexington, star last. */}
+      <MarkNetwork />
 
       {/* 2. Proof figures. */}
       <section className="px-4 md:px-10 py-14 md:py-20 border-b border-line">
@@ -250,13 +268,14 @@ export default function HomePage() {
       <section className="bg-band px-4 md:px-10 py-20 md:py-28">
         <div className="max-w-[1360px] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] gap-10 lg:gap-20">
           <BlurFade inView direction="up" offset={12}>
-            <h2 className="font-display text-[36px] md:text-[56px] leading-none font-bold tracking-tight text-ink">
-              What we help with
-            </h2>
+          <TextScramble as="h2" className="font-display text-[36px] md:text-[56px] leading-none font-bold tracking-tight text-ink">
+              {"What we help with"}
+            </TextScramble>
           </BlurFade>
           <AnimatedGroup as="ul" preset="blur-slide" inView className="divide-y divide-line border-y border-line">
             {problems.map((p) => (
-              <li key={p} className="py-5 md:py-6 font-display text-[20px] md:text-[26px] leading-snug text-ink">
+              <li key={p} className="relative py-5 md:py-6 font-display text-[20px] md:text-[26px] leading-snug text-ink">
+                <TraceRule delay={problems.indexOf(p) * 0.12} />
                 {p}
               </li>
             ))}
@@ -267,9 +286,9 @@ export default function HomePage() {
       {/* 5. How we help. Alternating full rows, the picture drifting against the scroll. */}
       <section id="how-we-help" className="py-20 md:py-28 scroll-mt-20">
         <BlurFade inView direction="up" offset={12} className="px-4 md:px-10 max-w-[1360px] mx-auto mb-12 md:mb-16">
-          <h2 className="font-display text-[36px] md:text-[56px] leading-none font-bold tracking-tight text-ink">
-            How we help
-          </h2>
+          <TextScramble as="h2" className="font-display text-[36px] md:text-[56px] leading-none font-bold tracking-tight text-ink">
+              {"How we help"}
+            </TextScramble>
         </BlurFade>
         {services.map((s, i) => (
           <Link
@@ -284,6 +303,11 @@ export default function HomePage() {
             <ParallaxBand
               className={`h-[44svh] min-h-[280px] lg:h-[56vh] ${i % 2 ? "lg:order-2" : ""}`}
               distance={42}
+              frame={
+                <div className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-focus-visible:opacity-100">
+                  <BorderTrail className="bg-blue" size={120} />
+                </div>
+              }
             >
               <Image
                 src={s.img}
@@ -292,6 +316,7 @@ export default function HomePage() {
                 sizes="(min-width: 1024px) 58vw, 100vw"
                 className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
               />
+              {s.video && <LoopVideo name={s.video} poster={`/images/stock/${s.video}-poster.webp`} />}
             </ParallaxBand>
             <BlurFade
               inView
@@ -335,6 +360,7 @@ export default function HomePage() {
               sizes="(min-width: 1024px) 50vw, 100vw"
               className="object-cover"
             />
+            <LoopVideo name="office-dashboard" poster="/images/stock/office-dashboard-poster.webp" />
           </ParallaxBand>
           <BlurFade inView direction="up" offset={14}>
             <h2 className="font-display text-[36px] md:text-[52px] leading-[1.02] font-bold tracking-tight text-ink max-w-[16ch]">
@@ -356,35 +382,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* The mark draws itself. */}
-      <section className="bg-band px-4 md:px-10 py-20 md:py-28 flex justify-center">
-        <div className="relative w-[min(78%,640px)]">
-          {/* PathDrawing strokes its paths and cannot fill one, so the solid state and the
-              star sit behind it in a plain SVG on the same viewBox. */}
-          <BlurFade inView offset={0} duration={0.7} className="absolute inset-0">
-            <svg viewBox={MARK.viewBox} className="w-full h-auto" aria-hidden="true">
-              <path d={MARK.state} fill="#0033A0" />
-              <path d={MARK.star} fill="#FFFFFF" />
-            </svg>
-          </BlurFade>
-          <PathDrawing
-            viewBox={MARK.viewBox}
-            title="The Bluegrass Advisory Group mark: Kentucky in blue with a network of white nodes and a star on Lexington"
-            paths={MARK.lines.map(([x1, y1, x2, y2]) => ({ d: `M${x1},${y1} L${x2},${y2}`, stroke: "#FFFFFF" }))}
-            nodes={MARK.circles.map(([cx, cy, r]) => ({ cx, cy, r, fill: "#FFFFFF" }))}
-            strokeWidth={3.6}
-            stagger={0.012}
-            className="relative w-full h-auto"
-          />
-        </div>
-      </section>
-
       {/* 7. Results. */}
       <section className="pt-20 md:pt-28">
         <BlurFade inView direction="up" offset={12} className="px-4 md:px-10 max-w-[1360px] mx-auto mb-10 md:mb-14">
-          <h2 className="font-display text-[36px] md:text-[56px] leading-none font-bold tracking-tight text-ink">
-            Recent work
-          </h2>
+          <TextScramble as="h2" className="font-display text-[36px] md:text-[56px] leading-none font-bold tracking-tight text-ink">
+              {"Recent work"}
+            </TextScramble>
         </BlurFade>
         <div className="grid grid-cols-1 lg:grid-cols-2">
           <Link href="/work/pfsa" className="group block">

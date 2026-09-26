@@ -3,6 +3,7 @@ import { hanken, newsreader } from "@/lib/fonts";
 import { siteMetadata } from "@/lib/metadata";
 import Nav from "@/components/nav";
 import Footer from "@/components/footer";
+import { ScrollProgress } from "@/components/ui-motion/scroll-progress";
 import Script from "next/script";
 import "./globals.css";
 
@@ -19,6 +20,7 @@ export default function RootLayout({
     <html lang="en" className={`${hanken.variable} ${newsreader.variable}`}>
       <body className="font-body text-graphite bg-warm-white">
         <Nav />
+        <ScrollProgress className="fixed z-[60] h-[2px] bg-blue" />
         <main className="min-h-screen">{children}</main>
         <Footer />
 

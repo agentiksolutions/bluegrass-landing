@@ -21,10 +21,13 @@ export function ParallaxBand({
   children,
   className = "",
   distance = 60,
+  frame,
 }: {
   children: React.ReactNode;
   className?: string;
   distance?: number;
+  /** Drawn on the band's own edge, outside the drifting picture. */
+  frame?: React.ReactNode;
 }) {
   const still = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
@@ -48,6 +51,7 @@ export function ParallaxBand({
       <motion.div className="absolute -inset-y-[12%] inset-x-0" style={still ? undefined : { y }}>
         {children}
       </motion.div>
+      {frame}
     </motion.div>
   );
 }
@@ -64,5 +68,24 @@ export function KenBurns({ children }: { children: React.ReactNode }) {
     >
       {children}
     </motion.div>
+  );
+}
+
+/** A blue light that runs along a divider rule once, left to right, when it scrolls into view. */
+export function TraceRule({ delay = 0 }: { delay?: number }) {
+  const still = useReducedMotion();
+  if (still) return null;
+  return (
+    <motion.span
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-x-0 -top-px h-px origin-left bg-blue"
+      initial={{ scaleX: 0, opacity: 1 }}
+      whileInView={{ scaleX: 1, opacity: [1, 1, 0] }}
+      viewport={{ once: true, margin: "-12% 0px" }}
+      transition={{
+        scaleX: { duration: 1.1, ease: EASE, delay },
+        opacity: { duration: 2.2, times: [0, 0.6, 1], ease: "easeOut", delay },
+      }}
+    />
   );
 }
