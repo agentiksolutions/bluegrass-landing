@@ -82,11 +82,12 @@ const figures = [
 ];
 
 // Client logos go in only with each client's written permission.
-const logoSlots = [
-  "[The PFSA logo: Phil to approve]",
-  "[Client logo: with permission]",
-  "[Client logo: with permission]",
-  "[Client logo: with permission]",
+// PFSA logo: the official file from pfsa-donor-tracker/public/pfsa-logo.png, cropped.
+const logoSlots: { label: string; src?: string }[] = [
+  { label: "The Public Foundation for Stewardship Advancement", src: "/images/logos/pfsa-logo.webp" },
+  { label: "[Client logo: with permission]" },
+  { label: "[Client logo: with permission]" },
+  { label: "[Client logo: with permission]" },
 ];
 
 // Sourced: Engagement Catalog "right tier if" lines, and brand decision item 36.
@@ -225,9 +226,13 @@ export default function HomePage() {
           {logoSlots.map((l, i) => (
             <div
               key={i}
-              className="flex h-[96px] w-[260px] items-center justify-center rounded border border-dashed border-line px-4 text-center font-display text-[14px] text-muted"
+              className={`flex h-[96px] w-[260px] items-center justify-center rounded border border-line px-4 text-center font-display text-[14px] text-muted ${l.src ? "bg-white" : "border-dashed"}`}
             >
-              {l}
+              {l.src ? (
+                <Image src={l.src} alt={l.label} width={863} height={719} className="h-[80px] w-auto" />
+              ) : (
+                l.label
+              )}
             </div>
           ))}
         </Marquee>
