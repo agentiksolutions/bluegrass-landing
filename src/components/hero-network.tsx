@@ -136,6 +136,7 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
     const phone = window.innerWidth < 768;
     const AMBIENT_MAX = phone ? 16 : 44; // live ambient heads
     const CASCADE_MAX = phone ? 60 : 200; // live cascade heads
+    const RELAY_MAX = phone ? 14 : 36; // live neuron-to-neuron pulses
     // Load shedding: when frames run long (over about 20 ms), fewer heads are allowed until the
     // frame time recovers. `load` scales both caps between 35% and 100%.
     let load = 1;
@@ -143,6 +144,7 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
     let lastNow = -1;
     let AMBIENT = AMBIENT_MAX;
     let CASCADE_CAP = CASCADE_MAX;
+    let RELAY_CAP = RELAY_MAX;
     let seed = 7;
     const rand = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
     let hub = 0;
@@ -163,13 +165,25 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
     const heads: Head[] = [];
     let ambientLive = 0;
     let cascadeLive = 0;
+    let relayLive = 0;
+    // Neural behaviour. A relay pulse arriving at a point makes that point fire a beat later
+    // (flare first, then send), and the strand it crossed stays lit as a completed link for
+    // 0.4 to 0.8 s. Two pulses reaching a point within 0.15 s is a collision: a brighter fire and
+    // a bigger burst. Now and then a local cluster of 15 to 40 points fires in quick succession.
+    const holdUntil = new Float32Array(edgeCount); // a completed link holds its heat until then
+    const lastHit = new Float32Array(n).fill(-9);
+    const lastFire = new Float32Array(n).fill(-9); // a point that just fired rests before sending again
+    type Fire = { node: number; from: number; at: number; left: number; big: boolean; link: number };
+    const fires: Fire[] = [];
+    let nextCluster = IGNITE + 3;
     let wave = 0;
     let nextCascade = IGNITE + 1.0;
     const launch = (a: number, b: number, born: number, speed: number, power: number, left: number, w: number) => {
       const e = edgeOf[a].get(b);
       if (e === undefined) return;
       heads.push({ a, b, e, born, dur: 1 / speed, power, left, wave: w });
-      if (w) cascadeLive++;
+      if (w > 0) cascadeLive++;
+      else if (w < 0) relayLive++;
       else ambientLive++;
     };
     const pick = <T,>(list: T[]) => list[(rand() * list.length) | 0];
@@ -178,7 +192,16 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
       heat[h.e] = Math.max(heat[h.e], h.power);
       nodeHeat[h.b] = Math.max(nodeHeat[h.b], h.power);
       const speed = 1 / h.dur;
-      if (h.wave) {
+      if (h.wave < 0) {
+        // Relay: the link completes and holds, the point takes the charge, then fires.
+        holdUntil[h.e] = Math.max(holdUntil[h.e], t + 0.4 + rand() * 0.4);
+        const big = t - lastHit[h.b] < 0.15;
+        lastHit[h.b] = t;
+        nodeHeat[h.b] = Math.max(nodeHeat[h.b], 0.5);
+        fires.push({ node: h.b, from: h.a, at: t + 0.07 + rand() * 0.07, left: h.left, big, link: -1 });
+        return;
+      }
+      if (h.wave > 0) {
         // Cascades only move outward and avoid points the wave already passed. When a sibling
         // got there first, the branch still carries on outward, so the surge reaches the border.
         const outward = web.neighbours[h.b].filter((m) => web.depth[m] > web.depth[h.b]);
@@ -214,6 +237,50 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
       const fast = rand() < 0.65;
       const speed = fast ? 30 + rand() * 35 : 8 + rand() * 8;
       launch(a, pick(nb), t, speed, fast ? 1 : 0.5 + rand() * 0.25, fast ? 8 + ((rand() * 10) | 0) : 3 + ((rand() * 5) | 0), 0);
+    };
+    // A point fires: flare, then send pulses down some of its other strands.
+    const fire = (f: Fire) => {
+      nodeHeat[f.node] = Math.max(nodeHeat[f.node], f.big ? 1.7 : 1.1);
+      if (f.link >= 0) {
+        heat[f.link] = Math.max(heat[f.link], 0.9);
+        holdUntil[f.link] = Math.max(holdUntil[f.link], f.at + 0.35 + rand() * 0.35);
+      }
+      // Refractory rest: a point that sent in the last 0.6 s only flares, so activity cannot
+      // loop in one spot. Every chain ends because `left` only ever counts down.
+      if (f.left <= 0 || relayLive >= RELAY_CAP || f.at - lastFire[f.node] < 0.6) return;
+      lastFire[f.node] = f.at;
+      const next = web.neighbours[f.node].filter((m) => m !== f.from);
+      const sends = f.big ? 3 + (rand() < 0.5 ? 1 : 0) : 1 + (rand() < 0.45 ? 1 : 0) + (rand() < 0.12 ? 1 : 0);
+      for (let k = 0; k < sends && next.length; k++) {
+        const m = next.splice((rand() * next.length) | 0, 1)[0];
+        launch(f.node, m, f.at, 9 + rand() * 8, f.big ? 1.1 : 0.85, f.left - 1, -1);
+      }
+    };
+    // A thought forming: a local cluster fires outward from one point in quick succession.
+    const cluster = (t: number) => {
+      const root = (rand() * n) | 0;
+      const size = 15 + ((rand() * 26) | 0);
+      const parent = new Map<number, number>([[root, -1]]);
+      const order = [root];
+      const hop = new Map<number, number>([[root, 0]]);
+      for (let q = 0; q < order.length && order.length < size; q++)
+        for (const m of web.neighbours[order[q]]) {
+          if (parent.has(m) || order.length >= size) continue;
+          parent.set(m, order[q]);
+          hop.set(m, (hop.get(order[q]) || 0) + 1);
+          order.push(m);
+        }
+      for (const v of order) {
+        const pa = parent.get(v)!;
+        fires.push({
+          node: v,
+          from: pa,
+          at: t + (hop.get(v) || 0) * 0.08 + rand() * 0.05,
+          left: 0,
+          big: false,
+          link: pa >= 0 ? edgeOf[v].get(pa) ?? -1 : -1,
+        });
+      }
     };
     const cascade = (t: number) => {
       wave = (wave % 4000000000) + 1;
@@ -304,9 +371,9 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
     const RUN_TAIL = 46; // drawing units of lit border behind a runner's head
 
     let lastT = 0;
-    const HOT = [0.06, 0.25, 0.55]; // heat bands, each drawn as one batched path
-    const HOT_ALPHA = [0.3, 0.6, 0.95];
-    const NODE_SIZE = [1.6, 2.4, 3.4]; // device pixels
+    const HOT = [0.06, 0.25, 0.55, 1.3]; // heat bands, each drawn as one batched path; the top one is a collision
+    const HOT_ALPHA = [0.3, 0.6, 0.95, 1];
+    const NODE_SIZE = [1.6, 2.4, 3.4, 4.8]; // device pixels
 
     let raf = 0;
     let running = false;
@@ -323,6 +390,7 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
       else if (frameMs < 17.5) load = Math.min(1, load + 0.002);
       AMBIENT = Math.round(AMBIENT_MAX * load);
       CASCADE_CAP = Math.round(CASCADE_MAX * load);
+      RELAY_CAP = Math.round(RELAY_MAX * load);
       const t = (now - start - paused) / 1000;
       const heroH = canvas.parentElement?.offsetHeight || ch;
       const s = clamp01(window.scrollY / (heroH * 0.85));
@@ -380,6 +448,15 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
       lastT = t;
       if (t > IGNITE + 0.4) {
         for (let k = 0; k < 4 && ambientLive < AMBIENT; k++) spark(t);
+        // New neural activity starts where a point fires on its own.
+        if (relayLive < RELAY_CAP * 0.6 && rand() < dt * (phone ? 5 : 12)) {
+          const v = (rand() * n) | 0;
+          fires.push({ node: v, from: -1, at: t, left: 3 + ((rand() * 3) | 0), big: false, link: -1 });
+        }
+        if (t > nextCluster) {
+          cluster(t);
+          nextCluster = t + 2.5 + rand() * 3;
+        }
         if (t > nextCascade) {
           cascade(t);
           nextCascade = t + 2 + rand() * 1.5;
@@ -389,7 +466,15 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
       }
       const kE = Math.exp(-dt / EDGE_DECAY);
       const kN = Math.exp(-dt / NODE_DECAY);
-      for (let e = 0; e < edgeCount; e++) heat[e] *= kE;
+      for (let e = 0; e < edgeCount; e++) if (t > holdUntil[e]) heat[e] *= kE;
+      for (let q = 0; q < fires.length; ) {
+        if (fires[q].at <= t) {
+          const f = fires[q];
+          fires[q] = fires[fires.length - 1];
+          fires.pop();
+          fire(f);
+        } else q++;
+      }
       for (let i = 0; i < n; i++) nodeHeat[i] *= kN;
       // Fast heads cross several strands per frame, so arrivals are resolved in a loop: a child
       // that is already finished is handled in the same frame.
@@ -398,7 +483,8 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
         if (t - h.born >= h.dur) {
           heads[q] = heads[heads.length - 1];
           heads.pop();
-          if (h.wave) cascadeLive--;
+          if (h.wave > 0) cascadeLive--;
+          else if (h.wave < 0) relayLive--;
           else ambientLive--;
           arrive(h, h.born + h.dur);
         } else q++;
@@ -407,7 +493,7 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
       for (let e = 0; e < edgeCount; e++) {
         const v = heat[e] * fade;
         if (v < HOT[0]) continue;
-        const band = v >= HOT[2] ? 2 : v >= HOT[1] ? 1 : 0;
+        const band = v >= HOT[3] ? 3 : v >= HOT[2] ? 2 : v >= HOT[1] ? 1 : 0;
         const a = web.edges[2 * e];
         const z = web.edges[2 * e + 1];
         hotEdges[band].moveTo(sx[a], sy[a]);
@@ -430,7 +516,7 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
       for (let i = 0; i < n; i++) {
         const v = nodeHeat[i] * fade;
         if (v < HOT[0]) continue;
-        const band = v >= HOT[2] ? 2 : v >= HOT[1] ? 1 : 0;
+        const band = v >= HOT[3] ? 3 : v >= HOT[2] ? 2 : v >= HOT[1] ? 1 : 0;
         const size = NODE_SIZE[band] / dpr;
         hotNodes[band].rect(sx[i] - size / 2, sy[i] - size / 2, size, size);
         const r = 2.5 + 2 * band; // CSS px, round so the soft glow stays round
