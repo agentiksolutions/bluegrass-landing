@@ -117,8 +117,9 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
     // Projected screen positions, refreshed once per frame.
     const sx = new Float32Array(n);
     const sy = new Float32Array(n);
-    const FOCAL = 1400;
-    let cosX = 1, sinX = 0, cosY = 1, sinY = 0;
+    // A shorter focal length gives a hint of perspective, so the state reads as suspended in space.
+    const FOCAL = 950;
+    let cosX = 1, sinX = 0, cosY = 1, sinY = 0, cosZ = 1, sinZ = 0, bob = 0;
     const out = [0, 0];
     const project = (x: number, y: number, z: number) => {
       const x1 = x * cosY + z * sinY;
@@ -126,8 +127,11 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
       const y2 = y * cosX - z1 * sinX;
       const z2 = y * sinX + z1 * cosX;
       const k = FOCAL / (FOCAL + z2);
-      out[0] = ox + x1 * k * fit;
-      out[1] = oy + y2 * k * fit;
+      // A slight roll in the picture plane, then the vertical bob.
+      const px = x1 * k * fit;
+      const py = y2 * k * fit;
+      out[0] = ox + px * cosZ - py * sinZ;
+      out[1] = oy + bob + px * sinZ + py * cosZ;
     };
 
     // Energy through the web: heads run strand to strand and fork at junctions like a nervous
@@ -399,9 +403,15 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
 
       ex += (mx - ex) * 0.04;
       ey += (my - ey) * 0.04;
-      const ry = Math.sin(t * 0.13) * 0.07 + ex * 0.14;
-      const rx = 0.16 + Math.sin(t * 0.09) * 0.03 + ey * 0.07 + sc * 0.95;
+      // The float: the whole state turns a few degrees, tilts and rolls slowly, and bobs, on
+      // unrelated slow periods so the motion never visibly repeats. The cursor lean and the
+      // scroll tilt ride on top.
+      const ry = Math.sin(t * 0.21) * 0.11 + Math.sin(t * 0.083 + 1.3) * 0.05 + ex * 0.14;
+      const rx = 0.2 + Math.sin(t * 0.17 + 0.6) * 0.06 + ey * 0.07 + sc * 0.95;
+      const rz = Math.sin(t * 0.11 + 2.1) * 0.022;
+      bob = (Math.sin(t * 0.47) * 7 + Math.sin(t * 0.19 + 0.8) * 4) * Math.min(1, fit * 1.4);
       cosX = Math.cos(rx); sinX = Math.sin(rx); cosY = Math.cos(ry); sinY = Math.sin(ry);
+      cosZ = Math.cos(rz); sinZ = Math.sin(rz);
 
       const spread = sc * 420;
       for (let i = 0; i < n; i++) {
