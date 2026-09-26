@@ -81,13 +81,3 @@ photographs and are marked for replacement.
 
 On this branch the home page no longer uses the Grok Kentucky images or the hero video. Those
 files stay on disk because other pages and the main branch still reference them.
-
-## Grok Imagine clips (2026-09-26)
-
-Made with Grok Imagine for this branch. Nobody in them is a client or a team member. Each is 1280x720, 8 seconds, looping, re-encoded to WebM and MP4 with a first-frame poster.
-
-| File | Where | Shows |
-|---|---|---|
-| `videos/lexington-aerial.*` | Home hero | Downtown Lexington and horse-farm fences at sunrise, from the air |
-| `videos/hands-checklist.*` | Home, Build row | Hands on a laptop checking off a list |
-| `videos/office-dashboard.*` | Home, AI section | Two people at a table with a dashboard on a laptop |

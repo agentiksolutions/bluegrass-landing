@@ -14,7 +14,7 @@ export default function LegalPage({ file }: { file: "terms" | "privacy" }) {
       >
         Draft. This page has not been reviewed by an attorney and is not in effect.
       </p>
-      <div className="prose prose-lg max-w-none prose-headings:font-display prose-headings:tracking-tight prose-headings:text-ink prose-p:text-body prose-li:text-body prose-a:text-blue">
+      <div className="prose prose-invert prose-lg max-w-none prose-headings:font-display prose-headings:tracking-tight prose-headings:text-ink prose-p:text-body prose-li:text-body prose-a:text-blue">
         <MDXRemote source={source} />
       </div>
     </article>

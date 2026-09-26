@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="en" className={`${hanken.variable} ${newsreader.variable}`}>
       <body className="font-body text-graphite bg-warm-white">
         <Nav />
-        <ScrollProgress className="fixed z-[60] h-[2px] bg-blue" />
+        <ScrollProgress className="fixed top-16 lg:top-[72px] z-[60] h-px bg-[#81A7F8]" />
         <main className="min-h-screen">{children}</main>
         <Footer />
 

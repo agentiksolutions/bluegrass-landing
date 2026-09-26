@@ -90,7 +90,7 @@ export default function InsightPostPage({ params }: Props) {
           <span>{post.meta.readTime}</span>
         </div>
 
-        <div className="prose prose-stone prose-lg max-w-none prose-headings:font-display prose-headings:tracking-tight prose-a:text-emerald prose-a:no-underline hover:prose-a:underline prose-strong:text-graphite">
+        <div className="prose prose-stone prose-invert prose-lg max-w-none prose-headings:font-display prose-headings:tracking-tight prose-a:text-emerald prose-a:no-underline hover:prose-a:underline prose-strong:text-graphite">
           <MDXRemote
             source={post.content}
             options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}

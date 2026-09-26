@@ -71,21 +71,70 @@ export function KenBurns({ children }: { children: React.ReactNode }) {
   );
 }
 
-/** A blue light that runs along a divider rule once, left to right, when it scrolls into view. */
-export function TraceRule({ delay = 0 }: { delay?: number }) {
+/** Hero headline: each word comes up out of a blur, once, as the page opens. */
+export function BlurWords({ text, delay = 0.35 }: { text: string; delay?: number }) {
   const still = useReducedMotion();
-  if (still) return null;
+  const words = text.split(" ");
   return (
-    <motion.span
+    <>
+      <span className="sr-only">{text}</span>
+      <span aria-hidden="true">
+        {words.map((w, i) => (
+          <motion.span
+            key={i}
+            className="inline-block"
+            initial={still ? false : { opacity: 0, filter: "blur(14px)", y: 10 }}
+            animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+            transition={{ duration: 1.4, ease: EASE, delay: delay + i * 0.09 }}
+          >
+            {w}
+            {i < words.length - 1 ? " " : ""}
+          </motion.span>
+        ))}
+      </span>
+    </>
+  );
+}
+
+/** Content that fades in once after the hero headline. */
+export function FadeIn({
+  children,
+  delay = 0,
+  className = "",
+}: {
+  children: React.ReactNode;
+  delay?: number;
+  className?: string;
+}) {
+  const still = useReducedMotion();
+  return (
+    <motion.div
+      className={className}
+      initial={still ? false : { opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1.2, ease: EASE, delay }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+/**
+ * One hairline that runs down the left edge of the page below the hero and fills with blue
+ * as the visitor scrolls, tying each section to the next. Reduced motion shows it filled.
+ */
+export function ScrollThread() {
+  const still = useReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start 0.85", "end end"] });
+  const scaleY = useSpring(scrollYProgress, { stiffness: 80, damping: 26, mass: 0.5 });
+  return (
+    <div
+      ref={ref}
       aria-hidden="true"
-      className="pointer-events-none absolute inset-x-0 -top-px h-px origin-left bg-blue"
-      initial={{ scaleX: 0, opacity: 1 }}
-      whileInView={{ scaleX: 1, opacity: [1, 1, 0] }}
-      viewport={{ once: true, margin: "-12% 0px" }}
-      transition={{
-        scaleX: { duration: 1.1, ease: EASE, delay },
-        opacity: { duration: 2.2, times: [0, 0.6, 1], ease: "easeOut", delay },
-      }}
-    />
+      className="pointer-events-none absolute left-5 top-0 bottom-0 hidden w-px bg-line md:block"
+    >
+      <motion.div className="h-full w-full origin-top bg-[#81A7F8]" style={{ scaleY: still ? 1 : scaleY }} />
+    </div>
   );
 }
