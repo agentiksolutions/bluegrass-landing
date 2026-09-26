@@ -3,15 +3,17 @@
 import { useEffect, useRef, useState } from "react";
 import { MARK } from "@/lib/mark-geometry";
 import { buildWeb, OUTLINE, STAR, type Web } from "@/lib/kentucky-web";
+import { COUNTY_ARCS, FAYETTE } from "@/lib/ky-counties";
 
-// The home hero: Kentucky as a fine web. Several hundred evenly spaced points fill the state
-// edge to edge, joined by hairline strands that never leave the outline (src/lib/kentucky-web.ts).
-// On load the web spins out from Lexington strand by strand, the border closes, and the star
-// lights last. Afterwards the web sways slowly in depth and leans toward the cursor, short
-// signals of light keep travelling along chains of strands, and every few seconds a brighter
-// burst ripples out of Lexington. Scrolling on tilts it back and loosens
-// it. Everything is vector-drawn at the device pixel ratio, so it stays sharp at any zoom.
-// Pauses off screen. Reduced motion gets the same web as a static SVG.
+// The home hero: Kentucky as a fine web of about 2,400 points that fills the state edge to edge
+// (src/lib/kentucky-web.ts). On load the web spins out from Lexington strand by strand, the
+// border closes and the star lights. Then the 120 county borders draw in once, outward from
+// Fayette County, with a bright leading edge that settles faint (src/lib/ky-counties.ts).
+// Energy runs through it all the time: fast streaks that fork at junctions, cascades that
+// crack outward from Lexington every few seconds, and pulses racing along the county lines.
+// The web sways slowly, leans toward the cursor, and tilts back and loosens on scroll. It is
+// vector-drawn at the device pixel ratio, pauses off screen, and reduced motion gets a static
+// SVG of the same web and counties.
 
 const W = 980;
 const H = 440;
@@ -29,8 +31,18 @@ const IGNITE = 3.5; // the star lights
 
 // Energy. Heads travel along strands and fork at junctions; strands and nodes they touch
 // keep a heat value that jumps up on contact (fast attack) and decays (slow release).
-const EDGE_DECAY = 0.42; // seconds; heat falls to about 10% in one second
-const NODE_DECAY = 0.28;
+const EDGE_DECAY = 0.3; // seconds; a struck strand snaps bright and is dark again in under a second
+const NODE_DECAY = 0.16; // junction flashes snap on and die fast
+
+// County borders: after the web assembles, the 120 counties draw in once, outward from Fayette,
+// with a brighter leading edge that settles faint. A touch wider than a strand so they read
+// under the web.
+const TINT = "#81A7F8";
+const REVEAL = [4.2, 9.4] as const;
+const COUNTY_LEVELS = 8;
+const COUNTY_PEAK = 0.95;
+const COUNTY_REST = 0.46;
+const COUNTY_SETTLE = 1.1; // seconds for a freshly drawn border to settle
 const GLOW_SCALE = 0.25; // the glow layer is drawn at a quarter of CSS size
 
 const clamp01 = (v: number) => (v < 0 ? 0 : v > 1 ? 1 : v);
@@ -122,8 +134,8 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
     // system. Ambient sparks keep something moving everywhere; every 3 to 5 seconds a cascade
     // leaves Lexington, branches outward and reaches the border.
     const phone = window.innerWidth < 768;
-    const AMBIENT_MAX = phone ? 12 : 32; // live ambient heads
-    const CASCADE_MAX = phone ? 40 : 140; // live cascade heads
+    const AMBIENT_MAX = phone ? 16 : 44; // live ambient heads
+    const CASCADE_MAX = phone ? 60 : 200; // live cascade heads
     // Load shedding: when frames run long (over about 20 ms), fewer heads are allowed until the
     // frame time recovers. `load` scales both caps between 35% and 100%.
     let load = 1;
@@ -152,7 +164,7 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
     let ambientLive = 0;
     let cascadeLive = 0;
     let wave = 0;
-    let nextCascade = IGNITE + 1.2;
+    let nextCascade = IGNITE + 1.0;
     const launch = (a: number, b: number, born: number, speed: number, power: number, left: number, w: number) => {
       const e = edgeOf[a].get(b);
       if (e === undefined) return;
@@ -176,18 +188,18 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
         }
         let next = outward.filter((m) => stamp[m] !== h.wave);
         if (!next.length) next = [outward[(rand() * outward.length) | 0]];
-        const forks = cascadeLive > CASCADE_CAP ? 1 : 1 + (rand() < 0.38 ? 1 : 0) + (rand() < 0.08 ? 1 : 0);
+        const forks = cascadeLive > CASCADE_CAP ? 1 : 1 + (rand() < 0.5 ? 1 : 0) + (rand() < 0.15 ? 1 : 0);
         for (let k = 0; k < forks && next.length; k++) {
           const m = next.splice((rand() * next.length) | 0, 1)[0];
           stamp[m] = h.wave;
-          launch(h.b, m, t, speed * (0.92 + rand() * 0.16), Math.max(0.55, h.power * 0.985), 0, h.wave);
+          launch(h.b, m, t, speed * (0.92 + rand() * 0.16), Math.max(0.7, h.power * 0.985), 0, h.wave);
         }
         return;
       }
       if (h.left <= 0) return;
       const next = web.neighbours[h.b].filter((m) => m !== h.a);
       if (!next.length) return;
-      const forks = ambientLive > AMBIENT ? 1 : rand() < 0.3 ? 2 + (rand() < 0.25 ? 1 : 0) : 1;
+      const forks = ambientLive > AMBIENT ? 1 : rand() < 0.22 ? 2 + (rand() < 0.25 ? 1 : 0) : 1;
       for (let k = 0; k < forks && next.length; k++) {
         const m = next.splice((rand() * next.length) | 0, 1)[0];
         launch(h.b, m, t, speed * (0.85 + rand() * 0.3), h.power * 0.9, h.left - 1 - (k ? 1 : 0), 0);
@@ -197,10 +209,11 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
       const a = (rand() * n) | 0;
       const nb = web.neighbours[a];
       if (!nb.length) return;
-      // Varied speeds: fast bright streaks and slower soft glows.
-      const fast = rand() < 0.35;
-      const speed = fast ? 12 + rand() * 10 : 3 + rand() * 5;
-      launch(a, pick(nb), t, speed, fast ? 0.9 : 0.45 + rand() * 0.25, 3 + ((rand() * 6) | 0), 0);
+      // Mostly violent streaks that rip across a dozen strands in a fraction of a second, some
+      // slower glows between them.
+      const fast = rand() < 0.65;
+      const speed = fast ? 30 + rand() * 35 : 8 + rand() * 8;
+      launch(a, pick(nb), t, speed, fast ? 1 : 0.5 + rand() * 0.25, fast ? 8 + ((rand() * 10) | 0) : 3 + ((rand() * 5) | 0), 0);
     };
     const cascade = (t: number) => {
       wave = (wave % 4000000000) + 1;
@@ -208,9 +221,88 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
       nodeHeat[hub] = 1.2;
       for (const m of web.neighbours[hub]) {
         stamp[m] = wave;
-        launch(hub, m, t, 20 + rand() * 6, 1, 0, wave);
+        launch(hub, m, t, 45 + rand() * 20, 1.2, 0, wave);
       }
     };
+    // County borders as a graph: every arc vertex is a node. Reveal order is the shortest path
+    // along the borders from Fayette's own border.
+    const vid = new Map<string, number>();
+    const vxs: number[] = [];
+    const vys: number[] = [];
+    const idOf = (x: number, y: number) => {
+      const k = x + "," + y;
+      let i = vid.get(k);
+      if (i === undefined) vid.set(k, (i = vxs.length)), vxs.push(x), vys.push(y);
+      return i;
+    };
+    const arcs = COUNTY_ARCS.map((a) => {
+      const ids: number[] = [];
+      for (let k = 0; k + 1 < a.length; k += 2) ids.push(idOf(a[k], a[k + 1]));
+      return ids;
+    });
+    const nv = vxs.length;
+    const vAdj: [number, number][][] = Array.from({ length: nv }, () => []);
+    for (const a of arcs)
+      for (let k = 1; k < a.length; k++) {
+        const d = Math.hypot(vxs[a[k]] - vxs[a[k - 1]], vys[a[k]] - vys[a[k - 1]]);
+        vAdj[a[k]].push([a[k - 1], d]);
+        vAdj[a[k - 1]].push([a[k], d]);
+      }
+    const onFayette = new Set<string>();
+    for (const r of FAYETTE) for (let k = 0; k + 1 < r.length; k += 2) onFayette.add(r[k] + "," + r[k + 1]);
+    const dist = new Float64Array(nv).fill(Infinity);
+    for (let i = 0; i < nv; i++) if (onFayette.has(vxs[i] + "," + vys[i])) dist[i] = Math.hypot(vxs[i] - STAR[0], vys[i] - STAR[1]);
+    const settled = new Uint8Array(nv);
+    // ponytail: O(n^2) Dijkstra over about 1,200 vertices, a few ms once at load.
+    for (;;) {
+      let u = -1;
+      for (let i = 0; i < nv; i++) if (!settled[i] && dist[i] < Infinity && (u < 0 || dist[i] < dist[u])) u = i;
+      if (u < 0) break;
+      settled[u] = 1;
+      for (const [m, d] of vAdj[u]) if (dist[u] + d < dist[m]) dist[m] = dist[u] + d;
+    }
+    let maxDist = 1;
+    for (let i = 0; i < nv; i++) if (dist[i] < Infinity && dist[i] > maxDist) maxDist = dist[i];
+    const revealAt = Float64Array.from({ length: nv }, (_, i) =>
+      REVEAL[0] + (REVEAL[1] - REVEAL[0]) * Math.pow(Math.min(1, (dist[i] < Infinity ? dist[i] : maxDist) / maxDist), 0.9));
+    const qx = new Float32Array(nv);
+    const qy = new Float32Array(nv);
+    const countyAlpha = Array.from({ length: COUNTY_LEVELS }, (_, l) => COUNTY_REST + (COUNTY_PEAK - COUNTY_REST) * (l / (COUNTY_LEVELS - 1)));
+
+    // Pulses that race along the county borders once they are drawn: a chain of arcs joined at
+    // junctions, walked at a fixed speed in drawing units per second.
+    const ends = new Map<number, number[]>();
+    arcs.forEach((a, i) => {
+      for (const v of [a[0], a[a.length - 1]]) {
+        const list = ends.get(v);
+        if (list) list.push(i);
+        else ends.set(v, [i]);
+      }
+    });
+    const junctions = Array.from(ends.keys());
+    type Runner = { pts: number[]; cum: number[]; born: number; speed: number };
+    const runners: Runner[] = [];
+    const RUNNERS = phone ? 3 : 8;
+    const runner = (t: number) => {
+      let at = junctions[(rand() * junctions.length) | 0];
+      const pts = [at];
+      let prevArc = -1;
+      for (let k = 0; k < 4 + ((rand() * 5) | 0); k++) {
+        const options = (ends.get(at) || []).filter((i) => i !== prevArc);
+        if (!options.length) break;
+        const i = options[(rand() * options.length) | 0];
+        const a = arcs[i][0] === at ? arcs[i] : [...arcs[i]].reverse();
+        for (let j = 1; j < a.length; j++) pts.push(a[j]);
+        at = a[a.length - 1];
+        prevArc = i;
+      }
+      if (pts.length < 3) return;
+      const cum = [0];
+      for (let j = 1; j < pts.length; j++) cum.push(cum[j - 1] + Math.hypot(vxs[pts[j]] - vxs[pts[j - 1]], vys[pts[j]] - vys[pts[j - 1]]));
+      runners.push({ pts, cum, born: t, speed: 380 + rand() * 360 });
+    };
+    const RUN_TAIL = 46; // drawing units of lit border behind a runner's head
+
     let lastT = 0;
     const HOT = [0.06, 0.25, 0.55]; // heat bands, each drawn as one batched path
     const HOT_ALPHA = [0.3, 0.6, 0.95];
@@ -253,6 +345,11 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
         sx[i] = out[0];
         sy[i] = out[1];
       }
+      for (let i = 0; i < nv; i++) {
+        project(vxs[i] - CX, vys[i] - CY, 0);
+        qx[i] = out[0];
+        qy[i] = out[1];
+      }
 
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.fillStyle = "#03050A";
@@ -285,15 +382,18 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
         for (let k = 0; k < 4 && ambientLive < AMBIENT; k++) spark(t);
         if (t > nextCascade) {
           cascade(t);
-          nextCascade = t + 3 + rand() * 2;
+          nextCascade = t + 2 + rand() * 1.5;
         }
+        if (t > REVEAL[1] && runners.length < Math.ceil(RUNNERS * load) && rand() < dt * 6) runner(t);
         if (rand() < dt * (phone ? 2 : 5)) nodeHeat[(rand() * n) | 0] = Math.max(0.3, 0.3 + rand() * 0.35); // twinkle
       }
       const kE = Math.exp(-dt / EDGE_DECAY);
       const kN = Math.exp(-dt / NODE_DECAY);
       for (let e = 0; e < edgeCount; e++) heat[e] *= kE;
       for (let i = 0; i < n; i++) nodeHeat[i] *= kN;
-      for (let q = heads.length - 1; q >= 0; q--) {
+      // Fast heads cross several strands per frame, so arrivals are resolved in a loop: a child
+      // that is already finished is handled in the same frame.
+      for (let q = 0; q < heads.length; ) {
         const h = heads[q];
         if (t - h.born >= h.dur) {
           heads[q] = heads[heads.length - 1];
@@ -301,7 +401,7 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
           if (h.wave) cascadeLive--;
           else ambientLive--;
           arrive(h, h.born + h.dur);
-        }
+        } else q++;
       }
       const hotEdges = HOT.map(() => new Path2D());
       for (let e = 0; e < edgeCount; e++) {
@@ -316,7 +416,7 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
       // Heads: the strand lights progressively up to the head, then a bright point.
       const trails = new Path2D();
       const tips = new Path2D();
-      const tip = 2.2 / dpr;
+      const tip = 3 / dpr;
       for (const h of heads) {
         const f = clamp01((t - h.born) / h.dur);
         const x = sx[h.a] + (sx[h.b] - sx[h.a]) * f;
@@ -370,6 +470,33 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
         ctx.drawImage(glow, 0, 0, cw, ch);
         ctx.globalCompositeOperation = "source-over";
       }
+      // County borders: each segment grows from its earlier end; the front is bright and eases
+      // down to the resting level. Bucketed by brightness, one stroke per level.
+      if (t > REVEAL[0]) {
+        const levels = Array.from({ length: COUNTY_LEVELS }, () => new Path2D());
+        for (const a of arcs)
+          for (let k = 1; k < a.length; k++) {
+            let v0 = a[k - 1];
+            let v1 = a[k];
+            if (revealAt[v1] < revealAt[v0]) [v0, v1] = [v1, v0];
+            const t0 = revealAt[v0];
+            const t1 = revealAt[v1];
+            if (t <= t0) continue;
+            const f = t1 > t0 ? clamp01((t - t0) / (t1 - t0)) : 1;
+            const age = t - (t0 + (t1 - t0) * f);
+            const l = Math.round(Math.exp(-Math.max(0, age) / COUNTY_SETTLE) * (COUNTY_LEVELS - 1));
+            levels[l].moveTo(qx[v0], qy[v0]);
+            levels[l].lineTo(qx[v0] + (qx[v1] - qx[v0]) * f, qy[v0] + (qy[v1] - qy[v0]) * f);
+          }
+        ctx.strokeStyle = TINT;
+        ctx.lineJoin = "round";
+        levels.forEach((path, l) => {
+          ctx.globalAlpha = countyAlpha[l] * fade;
+          ctx.lineWidth = (1.0 + 0.5 * (l / (COUNTY_LEVELS - 1))) / dpr;
+          ctx.stroke(path);
+        });
+      }
+
       ctx.strokeStyle = SILK;
       ctx.lineWidth = hair;
       paths.forEach((path, b) => {
@@ -415,9 +542,41 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
         ctx.globalAlpha = HOT_ALPHA[b] * 0.8;
         ctx.stroke(path);
       });
-      ctx.globalAlpha = 0.9 * fade;
-      ctx.lineWidth = 1.2 / dpr;
+      ctx.globalAlpha = fade;
+      ctx.lineWidth = 1.5 / dpr;
       ctx.stroke(trails);
+      // Border runners: a comet of light racing along the county lines.
+      for (let q = runners.length - 1; q >= 0; q--) {
+        const r = runners[q];
+        const head = (t - r.born) * r.speed;
+        const total = r.cum[r.cum.length - 1];
+        if (head - RUN_TAIL > total) {
+          runners.splice(q, 1);
+          continue;
+        }
+        const from = Math.max(0, head - RUN_TAIL);
+        const to = Math.min(total, head);
+        const path = new Path2D();
+        let started = false;
+        for (let j = 1; j < r.pts.length; j++) {
+          const c0 = r.cum[j - 1];
+          const c1 = r.cum[j];
+          if (c1 < from || c0 > to) continue;
+          const a = r.pts[j - 1];
+          const b = r.pts[j];
+          const f0 = c1 > c0 ? clamp01((from - c0) / (c1 - c0)) : 0;
+          const f1 = c1 > c0 ? clamp01((to - c0) / (c1 - c0)) : 1;
+          if (!started) {
+            path.moveTo(qx[a] + (qx[b] - qx[a]) * f0, qy[a] + (qy[b] - qy[a]) * f0);
+            started = true;
+          }
+          path.lineTo(qx[a] + (qx[b] - qx[a]) * f1, qy[a] + (qy[b] - qy[a]) * f1);
+        }
+        ctx.globalAlpha = 0.95 * fade;
+        ctx.strokeStyle = PALE;
+        ctx.lineWidth = 1.8 / dpr;
+        ctx.stroke(path);
+      }
       ctx.fillStyle = STAR_FILL;
       hotNodes.forEach((path, b) => {
         ctx.globalAlpha = HOT_ALPHA[b];
@@ -427,24 +586,9 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
       ctx.fill(tips);
       ctx.globalCompositeOperation = "source-over";
 
-      // The Lexington star lights last, with one ring of light running out from it.
+      // The Lexington star lights last. No ring: the star just lights.
       const ignite = easeOut(clamp01((t - IGNITE) / 0.9));
       if (ignite > 0) {
-        const ring = clamp01((t - IGNITE) / 1.8);
-        if (ring < 1) {
-          ctx.globalAlpha = (1 - ring) * 0.45 * fade;
-          ctx.strokeStyle = PALE;
-          ctx.lineWidth = 0.8 / dpr;
-          ctx.beginPath();
-          for (let i = 0; i <= 96; i++) {
-            const ang = (i / 96) * Math.PI * 2;
-            const rad = 10 + easeOut(ring) * 200;
-            project(STAR[0] - CX + Math.cos(ang) * rad, STAR[1] - CY + Math.sin(ang) * rad, 0);
-            if (i === 0) ctx.moveTo(out[0], out[1]);
-            else ctx.lineTo(out[0], out[1]);
-          }
-          ctx.stroke();
-        }
         const grow = (0.55 + 0.45 * ignite) * 0.5;
         ctx.globalAlpha = ignite * Math.max(0.15, fade);
         ctx.fillStyle = STAR_FILL;
@@ -534,6 +678,14 @@ function StillWeb() {
     >
       <path d={d.join("")} fill="none" stroke={SILK} strokeOpacity={0.5} strokeWidth={0.6} vectorEffect="non-scaling-stroke" />
       <path d={MARK.state} fill="none" stroke={SILK} strokeOpacity={0.6} strokeWidth={0.8} vectorEffect="non-scaling-stroke" />
+      <path
+        d={COUNTY_ARCS.map((c) => "M" + c.map((v) => v.toFixed(1)).join(" ")).join("")}
+        fill="none"
+        stroke={TINT}
+        strokeOpacity={0.62}
+        strokeWidth={1.4}
+        vectorEffect="non-scaling-stroke"
+      />
       <path
         d={Array.from(web.x, (x, i) => `M${(x - 0.5).toFixed(1)} ${(web.y[i] - 0.5).toFixed(1)}h1v1h-1z`).join("")}
         fill={PALE}
