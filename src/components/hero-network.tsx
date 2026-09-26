@@ -27,13 +27,11 @@ const SPIN = [0.25, 3.0] as const; // strands spin out from Lexington
 const CLOSE = [2.3, 3.4] as const; // the border closes
 const IGNITE = 3.5; // the star lights
 
-// Signals.
-const TAIL = 2.4; // comet tail length, in strands
-const SLICES = 7; // tail drawn in tapering slices
-const FLARE = 0.3; // seconds a junction glows after a signal passes
+// Energy. Heads travel along strands and fork at junctions; strands and nodes they touch
+// keep a heat value that jumps up on contact (fast attack) and decays (slow release).
+const EDGE_DECAY = 0.42; // seconds; heat falls to about 10% in one second
+const NODE_DECAY = 0.28;
 const GLOW_SCALE = 0.25; // the glow layer is drawn at a quarter of CSS size
-const P0 = [0, 0];
-const P1 = [0, 0];
 
 const clamp01 = (v: number) => (v < 0 ? 0 : v > 1 ? 1 : v);
 const easeOut = (t: number) => (t >= 1 ? 1 : 1 - Math.pow(2, -10 * t)); // expo, no overshoot
@@ -119,46 +117,96 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
       out[1] = oy + y2 * k * fit;
     };
 
-    // Signals: short runs of light travelling along chains of 3 to 6 strands, several live at
-    // once, plus now and then a brighter burst out of Lexington along a few outward paths.
-    type Pulse = { chain: number[]; born: number; life: number; bright: boolean };
-    const pulses: Pulse[] = [];
+    // Energy through the web: heads run strand to strand and fork at junctions like a nervous
+    // system. Ambient sparks keep something moving everywhere; every 3 to 5 seconds a cascade
+    // leaves Lexington, branches outward and reaches the border.
     const phone = window.innerWidth < 768;
-    const MAX_LIVE = phone ? 8 : 16;
-    let nextPulse = IGNITE + 0.8;
-    let nextBurst = IGNITE + 2.5;
+    const AMBIENT = phone ? 12 : 32; // live ambient heads
+    const CASCADE_CAP = phone ? 40 : 140; // live cascade heads
     let seed = 7;
     const rand = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
     let hub = 0;
     for (let i = 1; i < n; i++)
       if (Math.hypot(web.x[i] - STAR[0], web.y[i] - STAR[1]) < Math.hypot(web.x[hub] - STAR[0], web.y[hub] - STAR[1])) hub = i;
-    // Walk 3 to 6 strands. `outward` prefers points further from Lexington, so bursts ripple out.
-    const walk = (from: number, strands: number, outward: boolean) => {
-      let at = from;
-      const chain = [at];
-      for (let k = 0; k < strands; k++) {
-        let next = web.neighbours[at].filter((m) => !chain.includes(m));
-        if (outward) {
-          const out = next.filter((m) => web.depth[m] > web.depth[at]);
-          if (out.length) next = out;
+    // Strand index for each (point, neighbour) pair.
+    const edgeOf = web.neighbours.map(() => new Map<number, number>());
+    for (let e = 0; e < edgeCount; e++) {
+      const a = web.edges[2 * e];
+      const z = web.edges[2 * e + 1];
+      edgeOf[a].set(z, e);
+      edgeOf[z].set(a, e);
+    }
+    const heat = new Float32Array(edgeCount);
+    const nodeHeat = new Float32Array(n);
+    const stamp = new Uint32Array(n); // which cascade last passed a point
+    type Head = { a: number; b: number; e: number; born: number; dur: number; power: number; left: number; wave: number };
+    const heads: Head[] = [];
+    let ambientLive = 0;
+    let cascadeLive = 0;
+    let wave = 0;
+    let nextCascade = IGNITE + 1.2;
+    const launch = (a: number, b: number, born: number, speed: number, power: number, left: number, w: number) => {
+      const e = edgeOf[a].get(b);
+      if (e === undefined) return;
+      heads.push({ a, b, e, born, dur: 1 / speed, power, left, wave: w });
+      if (w) cascadeLive++;
+      else ambientLive++;
+    };
+    const pick = <T,>(list: T[]) => list[(rand() * list.length) | 0];
+    // A head reached its point: light the point and the strand, then fork.
+    const arrive = (h: Head, t: number) => {
+      heat[h.e] = Math.max(heat[h.e], h.power);
+      nodeHeat[h.b] = Math.max(nodeHeat[h.b], h.power);
+      const speed = 1 / h.dur;
+      if (h.wave) {
+        // Cascades only move outward and avoid points the wave already passed. When a sibling
+        // got there first, the branch still carries on outward, so the surge reaches the border.
+        const outward = web.neighbours[h.b].filter((m) => web.depth[m] > web.depth[h.b]);
+        if (!outward.length) {
+          nodeHeat[h.b] = Math.max(nodeHeat[h.b], 1); // reached the border
+          return;
         }
-        if (!next.length) break;
-        at = next[(rand() * next.length) | 0];
-        chain.push(at);
+        let next = outward.filter((m) => stamp[m] !== h.wave);
+        if (!next.length) next = [outward[(rand() * outward.length) | 0]];
+        const forks = cascadeLive > CASCADE_CAP ? 1 : 1 + (rand() < 0.38 ? 1 : 0) + (rand() < 0.08 ? 1 : 0);
+        for (let k = 0; k < forks && next.length; k++) {
+          const m = next.splice((rand() * next.length) | 0, 1)[0];
+          stamp[m] = h.wave;
+          launch(h.b, m, t, speed * (0.92 + rand() * 0.16), Math.max(0.55, h.power * 0.985), 0, h.wave);
+        }
+        return;
       }
-      return chain;
-    };
-    const spawn = (t: number) => {
-      const chain = walk((rand() * n) | 0, 5 + ((rand() * 6) | 0), false);
-      if (chain.length > 4) pulses.push({ chain, born: t, life: 0.45 + chain.length * 0.11, bright: false });
-    };
-    const burst = (t: number) => {
-      const paths = phone ? 3 : 4 + ((rand() * 3) | 0);
-      for (let k = 0; k < paths; k++) {
-        const chain = walk(hub, 9 + ((rand() * 4) | 0), true);
-        if (chain.length > 4) pulses.push({ chain, born: t + k * 0.05, life: 0.5 + chain.length * 0.09, bright: true });
+      if (h.left <= 0) return;
+      const next = web.neighbours[h.b].filter((m) => m !== h.a);
+      if (!next.length) return;
+      const forks = ambientLive > AMBIENT ? 1 : rand() < 0.3 ? 2 + (rand() < 0.25 ? 1 : 0) : 1;
+      for (let k = 0; k < forks && next.length; k++) {
+        const m = next.splice((rand() * next.length) | 0, 1)[0];
+        launch(h.b, m, t, speed * (0.85 + rand() * 0.3), h.power * 0.9, h.left - 1 - (k ? 1 : 0), 0);
       }
     };
+    const spark = (t: number) => {
+      const a = (rand() * n) | 0;
+      const nb = web.neighbours[a];
+      if (!nb.length) return;
+      // Varied speeds: fast bright streaks and slower soft glows.
+      const fast = rand() < 0.35;
+      const speed = fast ? 12 + rand() * 10 : 3 + rand() * 5;
+      launch(a, pick(nb), t, speed, fast ? 0.9 : 0.45 + rand() * 0.25, 3 + ((rand() * 6) | 0), 0);
+    };
+    const cascade = (t: number) => {
+      wave = (wave % 4000000000) + 1;
+      stamp[hub] = wave;
+      nodeHeat[hub] = 1.2;
+      for (const m of web.neighbours[hub]) {
+        stamp[m] = wave;
+        launch(hub, m, t, 20 + rand() * 6, 1, 0, wave);
+      }
+    };
+    let lastT = 0;
+    const HOT = [0.06, 0.25, 0.55]; // heat bands, each drawn as one batched path
+    const HOT_ALPHA = [0.3, 0.6, 0.95];
+    const NODE_SIZE = [1.6, 2.4, 3.4]; // device pixels
 
     let raf = 0;
     let running = false;
@@ -215,18 +263,94 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
         }
         paths.push(path);
       }
+      // Energy: advance heads, fork at junctions, decay heat.
+      const dt = Math.min(0.05, Math.max(0, t - lastT));
+      lastT = t;
+      if (t > IGNITE + 0.4) {
+        for (let k = 0; k < 4 && ambientLive < AMBIENT; k++) spark(t);
+        if (t > nextCascade) {
+          cascade(t);
+          nextCascade = t + 3 + rand() * 2;
+        }
+        if (rand() < dt * (phone ? 2 : 5)) nodeHeat[(rand() * n) | 0] = Math.max(0.3, 0.3 + rand() * 0.35); // twinkle
+      }
+      const kE = Math.exp(-dt / EDGE_DECAY);
+      const kN = Math.exp(-dt / NODE_DECAY);
+      for (let e = 0; e < edgeCount; e++) heat[e] *= kE;
+      for (let i = 0; i < n; i++) nodeHeat[i] *= kN;
+      for (let q = heads.length - 1; q >= 0; q--) {
+        const h = heads[q];
+        if (t - h.born >= h.dur) {
+          heads[q] = heads[heads.length - 1];
+          heads.pop();
+          if (h.wave) cascadeLive--;
+          else ambientLive--;
+          arrive(h, h.born + h.dur);
+        }
+      }
+      const hotEdges = HOT.map(() => new Path2D());
+      for (let e = 0; e < edgeCount; e++) {
+        const v = heat[e] * fade;
+        if (v < HOT[0]) continue;
+        const band = v >= HOT[2] ? 2 : v >= HOT[1] ? 1 : 0;
+        const a = web.edges[2 * e];
+        const z = web.edges[2 * e + 1];
+        hotEdges[band].moveTo(sx[a], sy[a]);
+        hotEdges[band].lineTo(sx[z], sy[z]);
+      }
+      // Heads: the strand lights progressively up to the head, then a bright point.
+      const trails = new Path2D();
+      const tips = new Path2D();
+      const tip = 2.2 / dpr;
+      for (const h of heads) {
+        const f = clamp01((t - h.born) / h.dur);
+        const x = sx[h.a] + (sx[h.b] - sx[h.a]) * f;
+        const y = sy[h.a] + (sy[h.b] - sy[h.a]) * f;
+        trails.moveTo(sx[h.a], sy[h.a]);
+        trails.lineTo(x, y);
+        tips.rect(x - tip / 2, y - tip / 2, tip, tip);
+      }
+      const hotNodes = HOT.map(() => new Path2D());
+      const halos = HOT.map(() => new Path2D());
+      for (let i = 0; i < n; i++) {
+        const v = nodeHeat[i] * fade;
+        if (v < HOT[0]) continue;
+        const band = v >= HOT[2] ? 2 : v >= HOT[1] ? 1 : 0;
+        const size = NODE_SIZE[band] / dpr;
+        hotNodes[band].rect(sx[i] - size / 2, sy[i] - size / 2, size, size);
+        const r = 2.5 + 2 * band; // CSS px, round so the soft glow stays round
+        halos[band].moveTo(sx[i] + r, sy[i]);
+        halos[band].arc(sx[i], sy[i], r, 0, Math.PI * 2);
+      }
+
+      // Glow layer at a quarter of CSS size: the web faintly, the energy strongly. Upscaling
+      // softens it, which is the glow; nothing sharp is ever drawn here.
       if (gctx) {
         gctx.setTransform(GLOW_SCALE, 0, 0, GLOW_SCALE, 0, 0);
         gctx.clearRect(0, 0, cw, ch);
+        gctx.lineCap = "round";
         gctx.strokeStyle = SILK;
         gctx.lineWidth = 3.2;
-        gctx.lineCap = "round";
         paths.forEach((path, b) => {
           gctx.globalAlpha = BUCKETS[b] * 0.5 * fade;
           gctx.stroke(path);
         });
+        gctx.strokeStyle = PALE;
+        gctx.lineWidth = 4;
+        hotEdges.forEach((path, b) => {
+          gctx.globalAlpha = HOT_ALPHA[b] * 0.45;
+          gctx.stroke(path);
+        });
+        gctx.globalAlpha = 0.7 * fade;
+        gctx.lineWidth = 5;
+        gctx.stroke(trails);
+        gctx.fillStyle = PALE;
+        halos.forEach((path, b) => {
+          gctx.globalAlpha = HOT_ALPHA[b] * 0.55;
+          gctx.fill(path);
+        });
         ctx.globalCompositeOperation = "lighter";
-        ctx.globalAlpha = 0.55;
+        ctx.globalAlpha = 0.6;
         ctx.imageSmoothingEnabled = true;
         ctx.drawImage(glow, 0, 0, cw, ch);
         ctx.globalCompositeOperation = "source-over";
@@ -258,7 +382,7 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
         ctx.stroke();
       }
 
-      // Points: 1 to 1.5 device pixels, square, no rims.
+      // Points: under 1.1 device pixels, square, no rims.
       ctx.fillStyle = PALE;
       for (let i = 0; i < n; i++) {
         const a = clamp01((t - lit(i)) / 0.5);
@@ -268,83 +392,24 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
         ctx.fillRect(sx[i] - size / 2, sy[i] - size / 2, size, size);
       }
 
-      // Signals.
-      if (t > nextPulse) {
-        if (pulses.filter((p) => !p.bright).length < MAX_LIVE) spawn(t);
-        nextPulse = t + (phone ? 0.25 : 0.08) + rand() * (phone ? 0.35 : 0.2);
-      }
-      if (t > nextBurst) {
-        burst(t);
-        nextBurst = t + 5.5 + rand() * 4;
-      }
-      // Each signal is a comet: a bright head with a tail that tapers to a hairline, added on
-      // top of the web, and each junction it passes flares for a moment.
+      // Energy, crisp, added on top: afterglow strands, live trails, flaring points, heads.
       ctx.globalCompositeOperation = "lighter";
-      ctx.lineCap = "round";
-      for (let q = pulses.length - 1; q >= 0; q--) {
-        const pu = pulses[q];
-        const u = (t - pu.born) / pu.life;
-        if (u >= 1) {
-          pulses.splice(q, 1);
-          continue;
-        }
-        if (u <= 0) continue;
-        const ch = pu.chain;
-        const segs = ch.length - 1;
-        const span = segs + TAIL;
-        const head = u * span; // constant speed, like a signal
-        const secPerStrand = pu.life / span;
-        // Quick fade in and out; no hard on/off, so nothing strobes.
-        const env = Math.min(1, u / 0.1) * Math.min(1, (1 - u) / 0.25) * fade;
-        const peak = 1;
-        const at = (v: number, o: number[]) => {
-          const k = Math.min(segs - 1, Math.max(0, Math.floor(v)));
-          const f = Math.min(1, Math.max(0, v - k));
-          o[0] = sx[ch[k]] + (sx[ch[k + 1]] - sx[ch[k]]) * f;
-          o[1] = sy[ch[k]] + (sy[ch[k + 1]] - sy[ch[k]]) * f;
-        };
-        ctx.strokeStyle = pu.bright ? STAR_FILL : PALE;
-        for (let j = 0; j < SLICES; j++) {
-          const v0 = head - TAIL + (TAIL * j) / SLICES;
-          const v1 = head - TAIL + (TAIL * (j + 1)) / SLICES;
-          const lo = Math.max(0, v0);
-          const hi = Math.min(segs, v1);
-          if (hi <= lo) continue;
-          const w = (j + 1) / SLICES; // 0 at the tail end, 1 at the head
-          ctx.globalAlpha = env * peak * w * w;
-          ctx.lineWidth = (0.6 + w * (pu.bright ? 2.6 : 2.2)) / dpr;
-          ctx.beginPath();
-          at(lo, P0);
-          ctx.moveTo(P0[0], P0[1]);
-          for (let k = Math.floor(lo) + 1; k < hi; k++) ctx.lineTo(sx[ch[k]], sy[ch[k]]);
-          at(hi, P1);
-          ctx.lineTo(P1[0], P1[1]);
-          ctx.stroke();
-        }
-        // The head: a bright point riding the front of the tail.
-        if (head < segs) {
-          at(head, P1);
-          const r = (pu.bright ? 1.8 : 1.4) / dpr;
-          ctx.globalAlpha = env;
-          ctx.fillStyle = STAR_FILL;
-          ctx.fillRect(P1[0] - r, P1[1] - r, 2 * r, 2 * r);
-        }
-        // Junction flares: brief soft light where the head passed through a node.
-        for (let k = 1; k <= segs; k++) {
-          const since = (head - k) * secPerStrand;
-          if (since < 0 || since > FLARE) continue;
-          const f = 1 - since / FLARE;
-          const r = ((pu.bright ? 10 : 6) * (0.6 + 0.4 * f)) / dpr;
-          const x = sx[ch[k]];
-          const y = sy[ch[k]];
-          const g = ctx.createRadialGradient(x, y, 0, x, y, r);
-          g.addColorStop(0, pu.bright ? STAR_FILL : PALE);
-          g.addColorStop(1, "rgba(157,182,245,0)");
-          ctx.globalAlpha = env * peak * f * 0.9;
-          ctx.fillStyle = g;
-          ctx.fillRect(x - r, y - r, 2 * r, 2 * r);
-        }
-      }
+      ctx.strokeStyle = PALE;
+      ctx.lineWidth = 0.9 / dpr;
+      hotEdges.forEach((path, b) => {
+        ctx.globalAlpha = HOT_ALPHA[b] * 0.8;
+        ctx.stroke(path);
+      });
+      ctx.globalAlpha = 0.9 * fade;
+      ctx.lineWidth = 1.2 / dpr;
+      ctx.stroke(trails);
+      ctx.fillStyle = STAR_FILL;
+      hotNodes.forEach((path, b) => {
+        ctx.globalAlpha = HOT_ALPHA[b];
+        ctx.fill(path);
+      });
+      ctx.globalAlpha = fade;
+      ctx.fill(tips);
       ctx.globalCompositeOperation = "source-over";
 
       // The Lexington star lights last, with one ring of light running out from it.
