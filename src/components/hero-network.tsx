@@ -28,7 +28,7 @@ const CLOSE = [2.3, 3.4] as const; // the border closes
 const IGNITE = 3.5; // the star lights
 
 // Signals.
-const TAIL = 1.3; // comet tail length, in strands
+const TAIL = 2.4; // comet tail length, in strands
 const SLICES = 7; // tail drawn in tapering slices
 const FLARE = 0.3; // seconds a junction glows after a signal passes
 const GLOW_SCALE = 0.25; // the glow layer is drawn at a quarter of CSS size
@@ -57,8 +57,8 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
     const ctx = canvas?.getContext("2d", { alpha: false });
     if (!canvas || !ctx) return;
 
-    // ponytail: point budget by width. 16 units gives about 500 interior points, 26 about 190.
-    const web = buildWeb(window.innerWidth < 768 ? 26 : 16);
+    // ponytail: point budget by width. A 9-unit gap gives about 2,400 points, 16 about 800.
+    const web = buildWeb(window.innerWidth < 768 ? 16 : 9);
     const n = web.x.length;
     const edgeCount = web.length.length;
     const bucket = Uint8Array.from({ length: edgeCount }, (_, i) => bucketOf(web, i));
@@ -124,7 +124,7 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
     type Pulse = { chain: number[]; born: number; life: number; bright: boolean };
     const pulses: Pulse[] = [];
     const phone = window.innerWidth < 768;
-    const MAX_LIVE = phone ? 6 : 12;
+    const MAX_LIVE = phone ? 8 : 16;
     let nextPulse = IGNITE + 0.8;
     let nextBurst = IGNITE + 2.5;
     let seed = 7;
@@ -149,14 +149,14 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
       return chain;
     };
     const spawn = (t: number) => {
-      const chain = walk((rand() * n) | 0, 3 + ((rand() * 4) | 0), false);
-      if (chain.length > 3) pulses.push({ chain, born: t, life: 0.6 + chain.length * 0.22, bright: false });
+      const chain = walk((rand() * n) | 0, 5 + ((rand() * 6) | 0), false);
+      if (chain.length > 4) pulses.push({ chain, born: t, life: 0.45 + chain.length * 0.11, bright: false });
     };
     const burst = (t: number) => {
       const paths = phone ? 3 : 4 + ((rand() * 3) | 0);
       for (let k = 0; k < paths; k++) {
-        const chain = walk(hub, 5 + ((rand() * 2) | 0), true);
-        if (chain.length > 2) pulses.push({ chain, born: t + k * 0.05, life: 0.6 + chain.length * 0.17, bright: true });
+        const chain = walk(hub, 9 + ((rand() * 4) | 0), true);
+        if (chain.length > 4) pulses.push({ chain, born: t + k * 0.05, life: 0.5 + chain.length * 0.09, bright: true });
       }
     };
 
@@ -195,7 +195,7 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
       ctx.fillStyle = "#03050A";
       ctx.fillRect(0, 0, cw, ch);
       ctx.lineCap = "round";
-      const hair = 0.65 / dpr; // 0.65 device pixels
+      const hair = 0.5 / dpr; // half a device pixel
 
       // Strands, spinning out from the nearer-to-Lexington end. Each length bucket becomes one
       // path, drawn twice: once wide into a quarter-size glow layer (soft by nature, so it can be
@@ -264,7 +264,7 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
         const a = clamp01((t - lit(i)) / 0.5);
         if (a <= 0) continue;
         ctx.globalAlpha = a * fade * (web.boundary[i] ? 0.55 : 1);
-        const size = (web.boundary[i] ? 1 : 1.5) / dpr;
+        const size = (web.boundary[i] ? 0.9 : 1.1) / dpr;
         ctx.fillRect(sx[i] - size / 2, sy[i] - size / 2, size, size);
       }
 
@@ -334,7 +334,7 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
           const since = (head - k) * secPerStrand;
           if (since < 0 || since > FLARE) continue;
           const f = 1 - since / FLARE;
-          const r = ((pu.bright ? 14 : 9) * (0.6 + 0.4 * f)) / dpr;
+          const r = ((pu.bright ? 10 : 6) * (0.6 + 0.4 * f)) / dpr;
           const x = sx[ch[k]];
           const y = sy[ch[k]];
           const g = ctx.createRadialGradient(x, y, 0, x, y, r);
@@ -438,7 +438,7 @@ const NEAR = OUTLINE.reduce(
 
 /** Reduced motion: the finished web, as vectors. Built only for visitors who need it. */
 function StillWeb() {
-  const web = buildWeb(16);
+  const web = buildWeb(9);
   const d: string[] = [];
   for (let e = 0; e < web.length.length; e++) {
     const a = web.edges[2 * e];
@@ -453,9 +453,11 @@ function StillWeb() {
     >
       <path d={d.join("")} fill="none" stroke={SILK} strokeOpacity={0.5} strokeWidth={0.6} vectorEffect="non-scaling-stroke" />
       <path d={MARK.state} fill="none" stroke={SILK} strokeOpacity={0.6} strokeWidth={0.8} vectorEffect="non-scaling-stroke" />
-      {Array.from(web.x, (x, i) => (
-        <rect key={i} x={x - 0.6} y={web.y[i] - 0.6} width={1.2} height={1.2} fill={PALE} opacity={web.boundary[i] ? 0.5 : 0.85} />
-      ))}
+      <path
+        d={Array.from(web.x, (x, i) => `M${(x - 0.5).toFixed(1)} ${(web.y[i] - 0.5).toFixed(1)}h1v1h-1z`).join("")}
+        fill={PALE}
+        opacity={0.8}
+      />
       <path d={MARK.star} fill={STAR_FILL} transform={`translate(${STAR[0]} ${STAR[1]}) scale(0.5) translate(${-STAR[0]} ${-STAR[1]})`} />
     </svg>
   );

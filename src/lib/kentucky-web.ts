@@ -45,15 +45,50 @@ function inside(x: number, y: number, poly: [number, number][]) {
   return hit;
 }
 
-/** `spacing` is the minimum gap between interior points, in drawing units. */
-export function buildWeb(spacing: number): Web {
+/**
+ * `spacing` is the gap between neighbouring points, in drawing units, away from Lexington.
+ * With `hub`, points pack closer near the star (down to 72% of the gap) and ease out to the
+ * full gap about 260 units away, so the star sits in a brighter centre.
+ */
+export function buildWeb(spacing: number, hub = true): Web {
   const r = rng(1545014);
   const px: number[] = [];
   const py: number[] = [];
   const edge: number[] = [];
+  const gap = (x: number, y: number) =>
+    hub ? spacing * (0.72 + 0.28 * Math.min(1, Math.hypot(x - STAR[0], y - STAR[1]) / 260)) : spacing;
 
-  // 1. The border, resampled by arc length at half the interior spacing.
-  const step = spacing / 2;
+  // Spatial hash so every distance check only looks at nearby points.
+  const cell = spacing * 0.5;
+  const grid = new Map<number, number[]>();
+  const key = (cx: number, cy: number) => cx * 100003 + cy;
+  const put = (i: number) => {
+    const k = key(Math.floor(px[i] / cell), Math.floor(py[i] / cell));
+    const list = grid.get(k);
+    if (list) list.push(i);
+    else grid.set(k, [i]);
+  };
+  const clear = (x: number, y: number, min: number) => {
+    const cx = Math.floor(x / cell);
+    const cy = Math.floor(y / cell);
+    const reach = Math.ceil(min / cell);
+    for (let yy = cy - reach; yy <= cy + reach; yy++)
+      for (let xx = cx - reach; xx <= cx + reach; xx++) {
+        const list = grid.get(key(xx, yy));
+        if (list) for (const k of list) if (Math.hypot(px[k] - x, py[k] - y) < min) return false;
+      }
+    return true;
+  };
+  const add = (x: number, y: number, border: number) => {
+    px.push(x);
+    py.push(y);
+    edge.push(border);
+    put(px.length - 1);
+    return px.length - 1;
+  };
+
+  // 1. The border, walked by arc length at the same local gap as the interior, so the
+  //    triangles that touch the border match the ones inside (no fans, no slivers).
   let carry = 0;
   for (let i = 0; i < OUTLINE.length; i++) {
     const [x0, y0] = OUTLINE[i];
@@ -61,62 +96,39 @@ export function buildWeb(spacing: number): Web {
     const len = Math.hypot(x1 - x0, y1 - y0);
     let d = carry;
     while (d < len) {
-      px.push(x0 + ((x1 - x0) * d) / len);
-      py.push(y0 + ((y1 - y0) * d) / len);
-      edge.push(1);
-      d += step;
+      const x = x0 + ((x1 - x0) * d) / len;
+      const y = y0 + ((y1 - y0) * d) / len;
+      // Where the outline doubles back on itself, skip points that crowd an earlier one.
+      if (clear(x, y, gap(x, y) * 0.8)) add(x, y, 1);
+      d += gap(x, y) * 0.92;
     }
     carry = d - len;
   }
+  const borderCount = px.length;
 
-  // 2. Lexington, then Bridson's Poisson-disc fill of the interior.
-  const cell = spacing / Math.SQRT2;
+  // 2. Lexington, then Bridson's Poisson-disc fill of the interior at the local gap. Border
+  //    points count as neighbours, so the interior blends into the edge at the same spacing.
   const [minX, maxX] = [Math.min(...OUTLINE.map((p) => p[0])), Math.max(...OUTLINE.map((p) => p[0]))];
   const [minY, maxY] = [Math.min(...OUTLINE.map((p) => p[1])), Math.max(...OUTLINE.map((p) => p[1]))];
-  const gw = Math.ceil((maxX - minX) / cell) + 1;
-  const gh = Math.ceil((maxY - minY) / cell) + 1;
-  const grid = new Int32Array(gw * gh).fill(-1);
-  const gi = (x: number, y: number) => Math.floor((x - minX) / cell) + Math.floor((y - minY) / cell) * gw;
-  const clear = (x: number, y: number, min: number) => {
-    const cx = Math.floor((x - minX) / cell);
-    const cy = Math.floor((y - minY) / cell);
-    for (let yy = Math.max(0, cy - 2); yy <= Math.min(gh - 1, cy + 2); yy++)
-      for (let xx = Math.max(0, cx - 2); xx <= Math.min(gw - 1, cx + 2); xx++) {
-        const k = grid[xx + yy * gw];
-        if (k >= 0 && Math.hypot(px[k] - x, py[k] - y) < min) return false;
-      }
-    return true;
-  };
-  // Keep interior points half a gap off the border so no triangle is a sliver.
-  const offBorder = (x: number, y: number) => {
-    for (let i = 0; i < px.length && edge[i]; i++) if (Math.hypot(px[i] - x, py[i] - y) < spacing * 0.55) return false;
-    return true;
-  };
-  const borderCount = px.length;
-  const add = (x: number, y: number) => {
-    px.push(x);
-    py.push(y);
-    edge.push(0);
-    grid[gi(x, y)] = px.length - 1;
-    return px.length - 1;
-  };
-  const star = add(STAR[0], STAR[1]);
+  const star = add(STAR[0], STAR[1], 0);
   const active = [star];
   while (active.length) {
-    const a = active[(r() * active.length) | 0];
+    const ai = (r() * active.length) | 0;
+    const a = active[ai];
+    const g = gap(px[a], py[a]);
     let placed = false;
     for (let k = 0; k < 30; k++) {
       const ang = r() * Math.PI * 2;
-      const rad = spacing * (1 + r());
+      const rad = g * (1 + r() * 0.6);
       const x = px[a] + Math.cos(ang) * rad;
       const y = py[a] + Math.sin(ang) * rad;
       if (x < minX || x > maxX || y < minY || y > maxY) continue;
-      if (!inside(x, y, OUTLINE) || !clear(x, y, spacing) || !offBorder(x, y)) continue;
-      active.push(add(x, y));
+      if (!inside(x, y, OUTLINE) || !clear(x, y, gap(x, y))) continue;
+      active.push(add(x, y, 0));
       placed = true;
       break;
     }
-    if (!placed) active.splice(active.indexOf(a), 1);
+    if (!placed) (active[ai] = active[active.length - 1]), active.pop();
   }
 
   // 3. Delaunay, clipped: keep an edge only if points along it all fall inside the state.
