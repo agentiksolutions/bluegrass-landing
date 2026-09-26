@@ -7,8 +7,10 @@ import { KenBurns, ParallaxBand } from "@/components/motion";
 import { AnimatedGroup } from "@/components/ui-motion/animated-group";
 import { BlurFade } from "@/components/ui-motion/blur-fade";
 import { Marquee } from "@/components/ui-motion/marquee";
+import { NumberTicker } from "@/components/ui-motion/number-ticker";
 import PathDrawing from "@/components/ui-motion/path-drawing";
 import RollingTextButton from "@/components/ui-motion/rolling-text-button";
+import { TextReveal } from "@/components/ui-motion/text-reveal";
 import VerticalCutReveal from "@/components/ui-motion/vertical-cut-reveal";
 import { MARK } from "@/lib/mark-geometry";
 import { getAllPosts } from "@/lib/mdx";
@@ -75,8 +77,8 @@ export const metadata: Metadata = {
 
 // Proof figures. Only the first is sourced (Phil, 2026-09-24: "over 15 years").
 // The other two stay as placeholders until they are calculated from real data.
-const figures = [
-  { value: "15+", label: "Years running businesses" },
+const figures: { value: string; count?: number; label: string }[] = [
+  { value: "15+", count: 15, label: "Years running businesses" },
   { value: "[to count]", label: "AI systems in daily use" },
   { value: "[to calculate]", label: "Hours saved each week" },
 ];
@@ -204,7 +206,13 @@ export default function HomePage() {
           {figures.map((f) => (
             <div key={f.label}>
               <p className="font-display text-[44px] md:text-[64px] leading-none font-bold tracking-tight text-blue">
-                {f.value}
+                {f.count ? (
+                  <>
+                    <NumberTicker value={f.count} delay={0.2} />+
+                  </>
+                ) : (
+                  f.value
+                )}
               </p>
               <p className="mt-3 font-display text-[16px] md:text-[18px] text-muted">{f.label}</p>
             </div>
@@ -420,9 +428,9 @@ export default function HomePage() {
         </div>
         <BlurFade inView direction="up" offset={14} className="px-4 md:px-10 max-w-[1360px] mx-auto py-14 md:py-20 grid grid-cols-1 md:grid-cols-2 gap-10">
           <blockquote>
-            <p className="font-display text-[26px] md:text-[36px] leading-[1.1] font-bold tracking-tight text-ink">
-              &ldquo;No one is literate on AI, but they all use the portal.&rdquo;
-            </p>
+            <TextReveal className="font-display text-[26px] md:text-[36px] leading-[1.1] font-bold tracking-tight text-ink">
+              {"“No one is literate on AI, but they all use the portal.”"}
+            </TextReveal>
             <cite className="block mt-4 not-italic font-display text-[15px] text-muted">Phil Fifield</cite>
           </blockquote>
           <blockquote className="rounded border border-dashed border-line p-6 font-display text-[17px] text-muted">
