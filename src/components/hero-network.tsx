@@ -78,7 +78,8 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
     const gctx = glow.getContext("2d");
     let cw = 0, ch = 0, dpr = 1, fit = 1, ox = 0, oy = 0;
     const resize = () => {
-      dpr = Math.min(window.devicePixelRatio || 1, 3);
+      // Phones render at most 2x: the web stays sharp and the frame cost drops by half at 3x.
+      dpr = Math.min(window.devicePixelRatio || 1, window.innerWidth < 768 ? 2 : 3);
       cw = canvas.clientWidth;
       ch = canvas.clientHeight;
       canvas.width = Math.round(cw * dpr);
@@ -121,8 +122,15 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
     // system. Ambient sparks keep something moving everywhere; every 3 to 5 seconds a cascade
     // leaves Lexington, branches outward and reaches the border.
     const phone = window.innerWidth < 768;
-    const AMBIENT = phone ? 12 : 32; // live ambient heads
-    const CASCADE_CAP = phone ? 40 : 140; // live cascade heads
+    const AMBIENT_MAX = phone ? 12 : 32; // live ambient heads
+    const CASCADE_MAX = phone ? 40 : 140; // live cascade heads
+    // Load shedding: when frames run long (over about 20 ms), fewer heads are allowed until the
+    // frame time recovers. `load` scales both caps between 35% and 100%.
+    let load = 1;
+    let frameMs = 16.7;
+    let lastNow = -1;
+    let AMBIENT = AMBIENT_MAX;
+    let CASCADE_CAP = CASCADE_MAX;
     let seed = 7;
     const rand = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
     let hub = 0;
@@ -216,6 +224,13 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
 
     const frame = (now: number) => {
       if (start < 0) start = now;
+      const ft = lastNow < 0 ? 16.7 : now - lastNow;
+      lastNow = now;
+      if (ft < 100) frameMs = frameMs * 0.92 + ft * 0.08; // ignore pauses
+      if (frameMs > 20) load = Math.max(0.35, load - 0.01);
+      else if (frameMs < 17.5) load = Math.min(1, load + 0.002);
+      AMBIENT = Math.round(AMBIENT_MAX * load);
+      CASCADE_CAP = Math.round(CASCADE_MAX * load);
       const t = (now - start - paused) / 1000;
       const heroH = canvas.parentElement?.offsetHeight || ch;
       const s = clamp01(window.scrollY / (heroH * 0.85));
@@ -451,6 +466,7 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
       if (running) return;
       running = true;
       if (pausedAt) paused += performance.now() - pausedAt;
+      lastNow = -1;
       raf = requestAnimationFrame(frame);
     };
     const stop = () => {
