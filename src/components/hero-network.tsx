@@ -1,188 +1,75 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MARK } from "@/lib/mark-geometry";
+import { buildWeb, OUTLINE, STAR, type Web } from "@/lib/kentucky-web";
 
-// The home hero: the official mark drawn live as a field of points. Thousands of fine blue
-// points fly in from a loose cloud and settle onto the real state outline, the 94 network
-// lines and the 45 nodes, spreading outward from Lexington; the Lexington star ignites last.
-// The field sways slowly in depth, leans toward the cursor, and tilts back and loosens as the
-// visitor scrolls into the next section. Drawn on a 2D canvas at the device pixel ratio, so
-// it stays sharp on retina and 4K screens. Pauses off screen; reduced motion gets the static
-// SVG that sits beside it in the markup.
+// The home hero: Kentucky as a fine web. Several hundred evenly spaced points fill the state
+// edge to edge, joined by hairline strands that never leave the outline (src/lib/kentucky-web.ts).
+// On load the web spins out from Lexington strand by strand, the border closes, and the star
+// lights last. Afterwards the web sways slowly in depth, leans toward the cursor, and now and
+// then a faint pulse of light runs along a few strands. Scrolling on tilts it back and loosens
+// it. Everything is vector-drawn at the device pixel ratio, so it stays sharp at any zoom.
+// Pauses off screen. Reduced motion gets the same web as a static SVG.
 
 const W = 980;
 const H = 440;
 const CX = W / 2;
 const CY = H / 2;
-const STAR: [number, number] = [647.09, 183.35];
 
-const LIT = "#81A7F8"; // UK blue hue, lifted for a dark page
-const PALE = "#B1C9FB";
-const DEEP = "#3F6FE0";
+const SILK = "#9DB6F5"; // UK blue hue, lifted for a dark page
+const PALE = "#C9D8FB";
 const STAR_FILL = "#F2F5FB";
 
-type Field = {
-  n: number;
-  tx: Float32Array; ty: Float32Array; tz: Float32Array; // resting place
-  sx: Float32Array; sy: Float32Array; sz: Float32Array; // where it flies in from
-  dx: Float32Array; dy: Float32Array; dz: Float32Array; // scroll scatter direction
-  delay: Float32Array; size: Float32Array; alpha: Float32Array; phase: Float32Array;
-  color: Uint8Array; // 0 LIT, 1 PALE, 2 DEEP
-};
+// Load sequence, seconds.
+const SPIN = [0.25, 3.0] as const; // strands spin out from Lexington
+const CLOSE = [2.3, 3.4] as const; // the border closes
+const IGNITE = 3.5; // the star lights
 
-// Deterministic noise so the server and every visit build the same field.
-function rng(seed: number) {
-  return () => {
-    seed = (seed * 1664525 + 1013904223) >>> 0;
-    return seed / 4294967296;
-  };
-}
-
-function outlinePoints(): [number, number][] {
-  const nums = MARK.state.match(/-?\d+(\.\d+)?/g)!.map(Number);
-  const pts: [number, number][] = [];
-  for (let i = 0; i + 1 < nums.length; i += 2) pts.push([nums[i], nums[i + 1]]);
-  return pts;
-}
-
-function build(scale: number): { field: Field; lines: { a: [number, number]; b: [number, number]; at: number }[] } {
-  const r = rng(20260926);
-  const hops = new Map<string, number>();
-  const key = (x: number, y: number) => `${Math.round(x)},${Math.round(y)}`;
-  // Breadth-first hop count from the star, so the network lights outward from Lexington.
-  hops.set(key(...STAR), 0);
-  for (let changed = true; changed; ) {
-    changed = false;
-    for (const [x1, y1, x2, y2] of MARK.lines) {
-      const a = hops.get(key(x1, y1)) ?? Infinity;
-      const b = hops.get(key(x2, y2)) ?? Infinity;
-      if (a + 1 < b) (hops.set(key(x2, y2), a + 1), (changed = true));
-      if (b + 1 < a) (hops.set(key(x1, y1), b + 1), (changed = true));
-    }
-  }
-  const maxHop = Math.max(...Array.from(hops.values()));
-  const hopDelay = (x: number, y: number) => 0.35 + ((hops.get(key(x, y)) ?? maxHop) / maxHop) * 1.5;
-
-  const items: { x: number; y: number; z: number; delay: number; size: number; alpha: number; color: number }[] = [];
-  const add = (x: number, y: number, z: number, delay: number, size: number, alpha: number, color: number) =>
-    items.push({ x, y, z, delay, size, alpha, color });
-
-  // State outline.
-  const outline = outlinePoints();
-  let perimeter = 0;
-  for (let i = 1; i < outline.length; i++) perimeter += Math.hypot(outline[i][0] - outline[i - 1][0], outline[i][1] - outline[i - 1][1]);
-  const outlineCount = Math.round(1500 * scale);
-  let walked = 0;
-  for (let i = 1; i < outline.length; i++) {
-    const [x0, y0] = outline[i - 1];
-    const [x1, y1] = outline[i];
-    const len = Math.hypot(x1 - x0, y1 - y0);
-    const k = Math.max(1, Math.round((len / perimeter) * outlineCount));
-    for (let j = 0; j < k; j++) {
-      const t = (j + r()) / k;
-      const f = (walked + len * t) / perimeter;
-      add(x0 + (x1 - x0) * t + (r() - 0.5) * 1.6, y0 + (y1 - y0) * t + (r() - 0.5) * 1.6, (r() - 0.5) * 6, 0.1 + f * 1.3, 1, 0.75, r() < 0.3 ? 1 : 0);
-    }
-    walked += len;
-  }
-
-  // Network lines: points strung along each line, lit from the end nearer Lexington.
-  const lines: { a: [number, number]; b: [number, number]; at: number }[] = [];
-  for (const [x1, y1, x2, y2] of MARK.lines) {
-    const d1 = hopDelay(x1, y1);
-    const d2 = hopDelay(x2, y2);
-    const [ax, ay, bx, by, da, db] = d1 <= d2 ? [x1, y1, x2, y2, d1, d2] : [x2, y2, x1, y1, d2, d1];
-    const len = Math.hypot(bx - ax, by - ay);
-    const k = Math.round((len / 3.2) * scale) + 4;
-    for (let j = 0; j < k; j++) {
-      const t = r();
-      add(ax + (bx - ax) * t + (r() - 0.5) * 2.2, ay + (by - ay) * t + (r() - 0.5) * 2.2, (r() - 0.5) * 10, da + (db - da) * t + r() * 0.15, 1, 0.9, r() < 0.2 ? 1 : 0);
-    }
-    lines.push({ a: [ax, ay], b: [bx, by], at: db + 0.3 });
-  }
-
-  // Nodes: a tight bright cluster each.
-  for (const [x, y] of MARK.circles) {
-    const d = hopDelay(x, y) + 0.2;
-    const k = Math.round(26 * Math.max(scale, 0.6));
-    for (let j = 0; j < k; j++) {
-      const a = r() * Math.PI * 2;
-      const rad = Math.sqrt(r()) * 5;
-      add(x + Math.cos(a) * rad, y + Math.sin(a) * rad, (r() - 0.5) * 8, d + r() * 0.2, j < 4 ? 2.6 : 1.5, 1, 1);
-    }
-  }
-
-  // Ambient depth: a faint, wide field behind and in front of the map.
-  const ambient = Math.round(2000 * scale);
-  for (let j = 0; j < ambient; j++) {
-    const x = CX + (r() - 0.5) * W * 1.9;
-    const y = CY + (r() - 0.5) * H * 2.4;
-    add(x, y, (r() - 0.5) * 900, r() * 1.8, r() < 0.1 ? 1.5 : 1, 0.22 + r() * 0.3, 2);
-  }
-
-  const n = items.length;
-  const f = (len: number) => new Float32Array(len);
-  const field: Field = {
-    n,
-    tx: f(n), ty: f(n), tz: f(n), sx: f(n), sy: f(n), sz: f(n), dx: f(n), dy: f(n), dz: f(n),
-    delay: f(n), size: f(n), alpha: f(n), phase: f(n), color: new Uint8Array(n),
-  };
-  // Sort by color so the draw loop changes fillStyle three times a frame.
-  items.sort((a, b) => a.color - b.color);
-  items.forEach((it, i) => {
-    field.tx[i] = it.x - CX;
-    field.ty[i] = it.y - CY;
-    field.tz[i] = it.z;
-    // Fly in from a loose cloud.
-    const u = r() * Math.PI * 2;
-    const v = Math.acos(2 * r() - 1);
-    const reach = 380 + r() * 520;
-    field.sx[i] = (it.x - CX) * 0.25 + Math.sin(v) * Math.cos(u) * reach;
-    field.sy[i] = (it.y - CY) * 0.25 + Math.sin(v) * Math.sin(u) * reach * 0.6;
-    field.sz[i] = Math.cos(v) * reach;
-    const w = r() * Math.PI * 2;
-    field.dx[i] = Math.cos(w) * (0.4 + r());
-    field.dy[i] = Math.sin(w) * (0.4 + r()) - 0.3;
-    field.dz[i] = (r() - 0.3) * 1.6;
-    field.delay[i] = it.delay;
-    field.size[i] = it.size;
-    field.alpha[i] = it.alpha;
-    field.phase[i] = r() * Math.PI * 2;
-    field.color[i] = it.color;
-  });
-  return { field, lines };
-}
-
-const easeOut = (t: number) => (t >= 1 ? 1 : 1 - Math.pow(2, -10 * t)); // expo, no overshoot
 const clamp01 = (v: number) => (v < 0 ? 0 : v > 1 ? 1 : v);
+const easeOut = (t: number) => (t >= 1 ? 1 : 1 - Math.pow(2, -10 * t)); // expo, no overshoot
+const easeInOut = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+
+// Strand brightness falls off with length: four buckets, one stroke call each.
+const BUCKETS = [0.62, 0.48, 0.36, 0.24];
+const bucketOf = (web: Web, i: number) =>
+  Math.min(BUCKETS.length - 1, Math.floor((web.length[i] / web.maxLength) * BUCKETS.length * 0.999));
 
 export default function HeroNetwork({ className = "" }: { className?: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [still, setStill] = useState(false);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const ctx = canvas.getContext("2d", { alpha: false });
-    if (!ctx) return;
-
-    // ponytail: particle budget by width; phones get about 40 percent of a laptop's field.
-    const phone = window.innerWidth < 768;
-    const { field, lines } = build(phone ? 0.4 : 1);
-    const colors = [LIT, PALE, DEEP];
-    const colorStart = [0, 0, 0, field.n];
-    for (let c = 0; c < 3; c++) {
-      let i = 0;
-      while (i < field.n && field.color[i] < c) i++;
-      colorStart[c] = i;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setStill(true);
+      return;
     }
-    const outline = outlinePoints();
-    const starPts = MARK.star.match(/-?\d+(\.\d+)?/g)!.map(Number);
+    const canvas = canvasRef.current;
+    const ctx = canvas?.getContext("2d", { alpha: false });
+    if (!canvas || !ctx) return;
+
+    // ponytail: point budget by width. 16 units gives about 500 interior points, 26 about 190.
+    const web = buildWeb(window.innerWidth < 768 ? 26 : 16);
+    const n = web.x.length;
+    const edgeCount = web.length.length;
+    const bucket = Uint8Array.from({ length: edgeCount }, (_, i) => bucketOf(web, i));
+    const hop = (SPIN[1] - SPIN[0]) / (web.maxDepth + 1);
+    const lit = (i: number) => SPIN[0] + web.depth[i] * hop; // when a point is reached
+
+    // Per-point drift direction for the scroll loosening, seeded.
+    const drift = new Float32Array(n * 3);
+    for (let i = 0; i < n; i++) {
+      const a = Math.sin(i * 12.9898) * 43758.5453;
+      const f = a - Math.floor(a);
+      const ang = f * Math.PI * 2;
+      drift[3 * i] = Math.cos(ang);
+      drift[3 * i + 1] = Math.sin(ang) - 0.3;
+      drift[3 * i + 2] = (f - 0.3) * 1.6;
+    }
 
     let cw = 0, ch = 0, dpr = 1, fit = 1, ox = 0, oy = 0;
     const resize = () => {
-      dpr = Math.min(window.devicePixelRatio || 1, 2.5);
+      dpr = Math.min(window.devicePixelRatio || 1, 3);
       cw = canvas.clientWidth;
       ch = canvas.clientHeight;
       canvas.width = Math.round(cw * dpr);
@@ -203,10 +90,12 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
     };
     window.addEventListener("pointermove", onMove, { passive: true });
 
+    // Projected screen positions, refreshed once per frame.
+    const sx = new Float32Array(n);
+    const sy = new Float32Array(n);
     const FOCAL = 1400;
-    let rx = 0, ry = 0, cosX = 1, sinX = 0, cosY = 1, sinY = 0;
-    // Rotate about the map's centre, then project. Writes into out[0..2]: screen x, y, scale.
-    const out = new Float32Array(3);
+    let cosX = 1, sinX = 0, cosY = 1, sinY = 0;
+    const out = [0, 0];
     const project = (x: number, y: number, z: number) => {
       const x1 = x * cosY + z * sinY;
       const z1 = -x * sinY + z * cosY;
@@ -215,123 +104,167 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
       const k = FOCAL / (FOCAL + z2);
       out[0] = ox + x1 * k * fit;
       out[1] = oy + y2 * k * fit;
-      out[2] = k;
+    };
+
+    // Shimmer: a short run of light along a chain of connected strands.
+    type Pulse = { chain: number[]; born: number; life: number };
+    const pulses: Pulse[] = [];
+    let nextPulse = IGNITE + 1.6;
+    let seed = 7;
+    const rand = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+    const spawn = (t: number) => {
+      let at = (rand() * n) | 0;
+      const chain = [at];
+      for (let k = 0; k < 6; k++) {
+        const next = web.neighbours[at].filter((m) => !chain.includes(m));
+        if (!next.length) break;
+        at = next[(rand() * next.length) | 0];
+        chain.push(at);
+      }
+      if (chain.length > 3) pulses.push({ chain, born: t, life: 2.6 });
     };
 
     let raf = 0;
     let running = false;
     let start = -1;
-    let paused = 0; // time spent off screen, so the load sequence resumes where it stopped
+    let paused = 0;
     let pausedAt = 0;
 
     const frame = (now: number) => {
       if (start < 0) start = now;
       const t = (now - start - paused) / 1000;
-      const hero = canvas.parentElement?.offsetHeight || ch;
-      const s = clamp01(window.scrollY / (hero * 0.85));
+      const heroH = canvas.parentElement?.offsetHeight || ch;
+      const s = clamp01(window.scrollY / (heroH * 0.85));
       const sc = s * s;
+      const fade = 1 - sc * 0.9;
 
       ex += (mx - ex) * 0.04;
       ey += (my - ey) * 0.04;
-      ry = Math.sin(t * 0.13) * 0.07 + ex * 0.16;
-      rx = 0.16 + Math.sin(t * 0.09) * 0.03 + ey * 0.08 + sc * 0.95;
+      const ry = Math.sin(t * 0.13) * 0.07 + ex * 0.14;
+      const rx = 0.16 + Math.sin(t * 0.09) * 0.03 + ey * 0.07 + sc * 0.95;
       cosX = Math.cos(rx); sinX = Math.sin(rx); cosY = Math.cos(ry); sinY = Math.sin(ry);
+
+      const spread = sc * 420;
+      for (let i = 0; i < n; i++) {
+        project(
+          web.x[i] - CX + drift[3 * i] * spread,
+          web.y[i] - CY + drift[3 * i + 1] * spread,
+          drift[3 * i + 2] * spread,
+        );
+        sx[i] = out[0];
+        sy[i] = out[1];
+      }
 
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.fillStyle = "#03050A";
       ctx.fillRect(0, 0, cw, ch);
-      const fade = 1 - sc * 0.85;
+      ctx.lineCap = "round";
+      const hair = 0.65 / dpr; // 0.65 device pixels
 
-      // Faint rings on the map plane, centred on Lexington, opening as the field settles.
-      const ringOpen = easeOut(clamp01((t - 0.6) / 2.4));
-      ctx.lineWidth = 1 / dpr;
-      ctx.strokeStyle = LIT;
-      for (const [radius, a] of [[70, 0.1], [150, 0.08], [250, 0.06], [380, 0.045], [540, 0.035]] as const) {
-        ctx.globalAlpha = a * ringOpen * fade;
+      // Strands, spinning out from the nearer-to-Lexington end.
+      ctx.strokeStyle = SILK;
+      ctx.lineWidth = hair;
+      for (let b = 0; b < BUCKETS.length; b++) {
+        ctx.globalAlpha = BUCKETS[b] * fade;
         ctx.beginPath();
-        for (let i = 0; i <= 120; i++) {
-          const ang = (i / 120) * Math.PI * 2;
-          project(STAR[0] - CX + Math.cos(ang) * radius * ringOpen, STAR[1] - CY + Math.sin(ang) * radius * ringOpen, 0);
-          if (i === 0) ctx.moveTo(out[0], out[1]);
-          else ctx.lineTo(out[0], out[1]);
+        for (let e = 0; e < edgeCount; e++) {
+          if (bucket[e] !== b) continue;
+          const a = web.edges[2 * e];
+          const z = web.edges[2 * e + 1];
+          const p = easeOut(clamp01((t - lit(a)) / (hop * 2.2)));
+          if (p <= 0) continue;
+          ctx.moveTo(sx[a], sy[a]);
+          ctx.lineTo(sx[a] + (sx[z] - sx[a]) * p, sy[a] + (sy[z] - sy[a]) * p);
         }
         ctx.stroke();
       }
 
-      // Hairline connections, each appearing once its points have arrived.
-      ctx.lineWidth = Math.max(0.6, 0.9 * fit) / Math.max(1, dpr / 1.5);
-      for (const l of lines) {
-        const a = clamp01((t - l.at) / 0.9);
+      // The border: one slightly brighter continuous hairline, closing both ways from the
+      // point nearest Lexington.
+      const close = easeInOut(clamp01((t - CLOSE[0]) / (CLOSE[1] - CLOSE[0])));
+      if (close > 0) {
+        ctx.globalAlpha = 0.75 * fade;
+        ctx.lineWidth = 0.8 / dpr;
+        ctx.beginPath();
+        const m = OUTLINE.length;
+        const half = Math.ceil((m / 2) * close);
+        for (const dir of [1, -1]) {
+          for (let k = 0; k <= half; k++) {
+            const [x, y] = OUTLINE[(((NEAR + dir * k) % m) + m) % m];
+            project(x - CX, y - CY, 0);
+            if (k === 0) ctx.moveTo(out[0], out[1]);
+            else ctx.lineTo(out[0], out[1]);
+          }
+        }
+        ctx.stroke();
+      }
+
+      // Points: 1 to 1.5 device pixels, square, no rims.
+      ctx.fillStyle = PALE;
+      for (let i = 0; i < n; i++) {
+        const a = clamp01((t - lit(i)) / 0.5);
         if (a <= 0) continue;
-        ctx.globalAlpha = 0.42 * a * fade * (1 - sc);
-        project(l.a[0] - CX, l.a[1] - CY, 0);
-        const x0 = out[0], y0 = out[1];
-        project(l.b[0] - CX, l.b[1] - CY, 0);
-        ctx.beginPath();
-        ctx.moveTo(x0, y0);
-        ctx.lineTo(out[0], out[1]);
-        ctx.stroke();
+        ctx.globalAlpha = a * fade * (web.boundary[i] ? 0.55 : 1);
+        const size = (web.boundary[i] ? 1 : 1.5) / dpr;
+        ctx.fillRect(sx[i] - size / 2, sy[i] - size / 2, size, size);
       }
 
-      // Outline as a continuous hairline once assembled.
-      const outlineOn = clamp01((t - 1.6) / 1.2) * fade * (1 - sc);
-      if (outlineOn > 0) {
-        ctx.globalAlpha = 0.28 * outlineOn;
-        ctx.beginPath();
-        outline.forEach(([x, y], i) => {
-          project(x - CX, y - CY, 0);
-          if (i === 0) ctx.moveTo(out[0], out[1]);
-          else ctx.lineTo(out[0], out[1]);
-        });
-        ctx.closePath();
-        ctx.stroke();
+      // Shimmer.
+      if (t > nextPulse && pulses.length < 3) {
+        spawn(t);
+        nextPulse = t + 0.9 + rand() * 1.4;
       }
-
-      // The points.
-      const scatter = sc * 520;
-      for (let c = 0; c < 3; c++) {
-        ctx.fillStyle = colors[c];
-        for (let i = colorStart[c]; i < colorStart[c + 1]; i++) {
-          const a = easeOut(clamp01((t - field.delay[i]) / 1.6));
-          if (a <= 0.001) continue;
-          const breathe = Math.sin(t * 0.7 + field.phase[i]) * 2.2;
-          const x = field.sx[i] + (field.tx[i] - field.sx[i]) * a + field.dx[i] * scatter;
-          const y = field.sy[i] + (field.ty[i] - field.sy[i]) * a + field.dy[i] * scatter;
-          const z = field.sz[i] + (field.tz[i] - field.sz[i]) * a + breathe + field.dz[i] * scatter;
-          project(x, y, z);
-          const k = out[2];
-          if (k <= 0) continue;
-          const depth = Math.min(1, k * k);
-          ctx.globalAlpha = field.alpha[i] * Math.min(1, a * 1.4) * depth * fade;
-          const size = field.size[i] * 1.25 * Math.min(1.6, k) * Math.max(1, fit * 0.85);
-          ctx.fillRect(out[0] - size / 2, out[1] - size / 2, size, size);
+      ctx.strokeStyle = PALE;
+      ctx.lineWidth = 1 / dpr;
+      for (let q = pulses.length - 1; q >= 0; q--) {
+        const pu = pulses[q];
+        const u = (t - pu.born) / pu.life;
+        if (u >= 1) {
+          pulses.splice(q, 1);
+          continue;
         }
+        const segs = pu.chain.length - 1;
+        const head = easeInOut(u) * (segs + 0.6);
+        ctx.globalAlpha = Math.sin(Math.PI * u) * 0.8 * fade;
+        ctx.beginPath();
+        for (let k = 0; k < segs; k++) {
+          const from = Math.max(k, head - 0.6);
+          const to = Math.min(k + 1, head);
+          if (to <= from) continue;
+          const a = pu.chain[k];
+          const z = pu.chain[k + 1];
+          const f0 = from - k;
+          const f1 = to - k;
+          ctx.moveTo(sx[a] + (sx[z] - sx[a]) * f0, sy[a] + (sy[z] - sy[a]) * f0);
+          ctx.lineTo(sx[a] + (sx[z] - sx[a]) * f1, sy[a] + (sy[z] - sy[a]) * f1);
+        }
+        ctx.stroke();
       }
 
-      // The Lexington star ignites last, with one ring of light running out from it.
-      const ignite = easeOut(clamp01((t - 3.3) / 0.9));
+      // The Lexington star lights last, with one ring of light running out from it.
+      const ignite = easeOut(clamp01((t - IGNITE) / 0.9));
       if (ignite > 0) {
-        const pulse = clamp01((t - 3.3) / 1.8);
-        if (pulse < 1) {
-          ctx.globalAlpha = (1 - pulse) * 0.55 * fade;
+        const ring = clamp01((t - IGNITE) / 1.8);
+        if (ring < 1) {
+          ctx.globalAlpha = (1 - ring) * 0.45 * fade;
           ctx.strokeStyle = PALE;
-          ctx.lineWidth = 1.2 / Math.min(dpr, 1.5);
+          ctx.lineWidth = 0.8 / dpr;
           ctx.beginPath();
-          for (let i = 0; i <= 72; i++) {
-            const ang = (i / 72) * Math.PI * 2;
-            const rad = 12 + easeOut(pulse) * 190;
+          for (let i = 0; i <= 96; i++) {
+            const ang = (i / 96) * Math.PI * 2;
+            const rad = 10 + easeOut(ring) * 200;
             project(STAR[0] - CX + Math.cos(ang) * rad, STAR[1] - CY + Math.sin(ang) * rad, 0);
             if (i === 0) ctx.moveTo(out[0], out[1]);
             else ctx.lineTo(out[0], out[1]);
           }
           ctx.stroke();
         }
-        const grow = (0.55 + 0.45 * ignite) * 0.8;
+        const grow = (0.55 + 0.45 * ignite) * 0.5;
         ctx.globalAlpha = ignite * Math.max(0.15, fade);
         ctx.fillStyle = STAR_FILL;
         ctx.beginPath();
-        for (let i = 0; i + 1 < starPts.length; i += 2) {
-          project(STAR[0] - CX + (starPts[i] - STAR[0]) * grow, STAR[1] - CY + (starPts[i + 1] - STAR[1]) * grow, -4);
+        for (let i = 0; i + 1 < STAR_PTS.length; i += 2) {
+          project(STAR[0] - CX + (STAR_PTS[i] - STAR[0]) * grow, STAR[1] - CY + (STAR_PTS[i + 1] - STAR[1]) * grow, 0);
           if (i === 0) ctx.moveTo(out[0], out[1]);
           else ctx.lineTo(out[0], out[1]);
         }
@@ -378,22 +311,46 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
 
   return (
     <>
-      <canvas ref={canvasRef} aria-hidden="true" className={`absolute inset-0 h-full w-full motion-reduce:hidden ${className}`} />
-      {/* Reduced motion: the finished network, drawn crisp at any size. */}
-      <svg
-        viewBox={MARK.viewBox}
+      <canvas
+        ref={canvasRef}
         aria-hidden="true"
-        className="absolute left-1/2 top-[64%] md:left-[54%] md:top-[60%] hidden w-[94%] md:w-[min(84%,133vh)] -translate-x-1/2 -translate-y-1/2 motion-reduce:block"
-      >
-        <path d={MARK.state} fill="none" stroke={LIT} strokeOpacity={0.4} strokeWidth={1.5} />
-        {MARK.lines.map(([x1, y1, x2, y2], i) => (
-          <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke={LIT} strokeOpacity={0.45} strokeWidth={1.2} />
-        ))}
-        {MARK.circles.map(([cx, cy], i) => (
-          <circle key={i} cx={cx} cy={cy} r={4.5} fill={PALE} />
-        ))}
-        <path d={MARK.star} fill={STAR_FILL} />
-      </svg>
+        className={`absolute inset-0 h-full w-full motion-reduce:hidden ${className}`}
+      />
+      {still && <StillWeb />}
     </>
+  );
+}
+
+const STAR_PTS = MARK.star.match(/-?\d+(\.\d+)?/g)!.map(Number);
+
+// Index of the border vertex nearest Lexington, where the border starts closing.
+const NEAR = OUTLINE.reduce(
+  (best, [x, y], i) =>
+    Math.hypot(x - STAR[0], y - STAR[1]) < Math.hypot(OUTLINE[best][0] - STAR[0], OUTLINE[best][1] - STAR[1]) ? i : best,
+  0,
+);
+
+/** Reduced motion: the finished web, as vectors. Built only for visitors who need it. */
+function StillWeb() {
+  const web = buildWeb(16);
+  const d: string[] = [];
+  for (let e = 0; e < web.length.length; e++) {
+    const a = web.edges[2 * e];
+    const z = web.edges[2 * e + 1];
+    d.push(`M${web.x[a].toFixed(1)},${web.y[a].toFixed(1)}L${web.x[z].toFixed(1)},${web.y[z].toFixed(1)}`);
+  }
+  return (
+    <svg
+      viewBox={MARK.viewBox}
+      aria-hidden="true"
+      className="absolute left-1/2 top-[64%] md:left-[54%] md:top-[60%] w-[94%] md:w-[min(84%,133vh)] -translate-x-1/2 -translate-y-1/2"
+    >
+      <path d={d.join("")} fill="none" stroke={SILK} strokeOpacity={0.5} strokeWidth={0.6} vectorEffect="non-scaling-stroke" />
+      <path d={MARK.state} fill="none" stroke={SILK} strokeOpacity={0.6} strokeWidth={0.8} vectorEffect="non-scaling-stroke" />
+      {Array.from(web.x, (x, i) => (
+        <rect key={i} x={x - 0.6} y={web.y[i] - 0.6} width={1.2} height={1.2} fill={PALE} opacity={web.boundary[i] ? 0.5 : 0.85} />
+      ))}
+      <path d={MARK.star} fill={STAR_FILL} transform={`translate(${STAR[0]} ${STAR[1]}) scale(0.5) translate(${-STAR[0]} ${-STAR[1]})`} />
+    </svg>
   );
 }
