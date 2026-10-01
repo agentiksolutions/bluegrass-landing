@@ -3,6 +3,9 @@ const nextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
   },
+  async rewrites() {
+    return [{ source: "/academy", destination: "/academy/index.html" }];
+  },
   async redirects() {
     return [
       {
