@@ -663,11 +663,16 @@ Zapier is the easiest to start with, Make handles more complex branching, and n8
 <h3>The framework: R-C-T-F-T</h3>
 <p>Every great prompt has five components. You don't need all five every time, but the more you include, the better your output.</p>
 
-<div class="code"><span class="hl">R: Role</span>       <span class="fl">Who should the AI act as?</span>
-<span class="hl">C: Context</span>    <span class="fl">What's the situation? Background info?</span>
-<span class="hl">T: Task</span>       <span class="fl">What exactly should it produce?</span>
-<span class="hl">F: Format</span>     <span class="fl">How should the output be structured?</span>
-<span class="hl">T: Tone</span>       <span class="fl">How should it sound?</span></div>
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>Part</th><th>What it answers</th></tr></thead>
+<tbody>
+<tr><td><strong>R: Role</strong></td><td>Who should the AI act as?</td></tr>
+<tr><td><strong>C: Context</strong></td><td>What's the situation? Background info?</td></tr>
+<tr><td><strong>T: Task</strong></td><td>What exactly should it produce?</td></tr>
+<tr><td><strong>F: Format</strong></td><td>How should the output be structured?</td></tr>
+<tr><td><strong>T: Tone</strong></td><td>How should it sound?</td></tr>
+</tbody>
+</table></div>
 
 <h3>Same question, four levels of detail</h3>
 <p>Watch how the same question produces different output at each level:</p>
@@ -898,20 +903,20 @@ Don't hedge. Tell me what to do.</div></div>
 </ol>
 
 <h4>Custom instructions template</h4>
-<div class="code"><span class="hl">Company:</span> <span class="fl">[Your Company], [City, State]</span>
-<span class="hl">Industry:</span> <span class="fl">[What you do]</span>
-<span class="hl">My role:</span> <span class="fl">[Title + responsibilities]</span>
-<span class="hl">Team size:</span> <span class="fl">[Number]</span>
+<div class="tpl">Company: [Your Company], [City, State]
+Industry: [What you do]
+My role: [Title + responsibilities]
+Team size: [Number]
 
-<span class="hl">How I want responses:</span>
-<span class="fl">- Direct and actionable: no fluff</span>
-<span class="fl">- Bullet points for lists, tables for comparisons</span>
-<span class="fl">- If you're unsure about a fact, say so</span>
+How I want responses:
+- Direct and actionable: no fluff
+- Bullet points for lists, tables for comparisons
+- If you're unsure about a fact, say so
 
-<span class="hl">Things you should know:</span>
-<span class="fl">- We use [accounting software] for finances</span>
-<span class="fl">- Our biggest challenges: [list 2-3]</span>
-<span class="fl">- I report to [title], who is [data-driven/detail-oriented/etc]</span></div>
+Things you should know:
+- We use [accounting software] for finances
+- Our biggest challenges: [list 2-3]
+- I report to [title], who is [data-driven/detail-oriented/etc]</div>
 
 <h3>File uploads</h3>
 <div class="card card-em"><div class="card-b">
@@ -1005,7 +1010,7 @@ Biggest challenge: [describe]</div></div>
 <h3>Skills, connectors and the desktop app</h3>
 <p>These features change often. What follows was checked against Anthropic's help pages on 30 September 2026.</p>
 <div class="card card-em"><div class="card-t">Skills</div><div class="card-b">A skill is a packaged set of instructions Claude loads for a particular kind of task. You can add your own in Customize, then Skills, by uploading a ZIP file that contains a SKILL.md file. Skills need the code execution and file creation setting turned on. They are available on every plan, and an upload stays private until you share it. On Team and Enterprise plans, an owner can give a skill to the whole organization.</div></div>
-<div class="card card-em"><div class="card-t">Connectors</div><div class="card-b">Connectors let Claude read from tools you already use. The Gmail, Google Drive and Google Calendar connectors can also send, reply, move and delete. By default Claude asks for your approval before each of those actions, so read what it plans to do before you approve. The Microsoft 365 connector is read-only by default. It needs a work Microsoft 365 account and one-time consent from your Microsoft administrator. On Team and Enterprise plans, an owner turns a connector on before anyone can use it.</div></div>
+<div class="card card-em"><div class="card-t">Connectors</div><div class="card-b">Connectors let Claude work with tools you already use, including Gmail, Google Drive and Google Calendar. In Gmail, Claude can send, reply and forward. In Drive, it can share, move and trash files. By default Claude asks for your approval before each of those actions, so read what it plans to do before you approve. The Microsoft 365 connector is read-only by default. It needs a work Microsoft 365 account and one-time consent from your Microsoft administrator. On Team and Enterprise plans, an owner turns a connector on before anyone can use it.</div></div>
 <div class="card card-em"><div class="card-t">The desktop app</div><div class="card-b">The Claude desktop app for Mac and Windows has three tabs: Chat, Cowork and Code. Anthropic announced in September 2026 that Cowork and chat are merging into one Claude, so the names on your screen may differ. Plugins, which bundle skills and connectors together, are under Customize, then Plugins.</div></div>
 
 <h3>Claude on mobile</h3>
@@ -2535,7 +2540,7 @@ const GLOSSARY=[
   {term:'Embedding',def:'A way to convert text into numbers so AI can understand similarity. "Solar panel" and "photovoltaic module" have similar embeddings.',why:'Powers search features in advanced AI systems. Not something you interact with directly.'},
   {term:'Vector Database',def:'A specialized database that stores embeddings and finds similar items quickly. Used in RAG systems to search your documents.',why:'The technology behind AI that searches your own documents. We use these in client builds.'},
   {term:'API (Application Programming Interface)',def:'A way for software to talk to other software. The Claude API lets developers build Claude into their own applications.',why:'Relevant when you want AI built into your custom tools: not just used through the chat interface.'},
-  {term:'Model',def:'The trained AI system behind a product. Claude\'s current models include Opus 5.5, Sonnet 5.5, Fable 5.1 and Haiku 4.5. ChatGPT and Gemini run on their own model families. Names and versions change every few months.',why:'Larger models handle harder work; smaller ones are faster. In the Claude apps you can pick the model for a chat.'},
+  {term:'Model',def:'The trained AI system behind a product. Claude\'s current models include Opus 5.5, Sonnet 5.5, Fable 5.1 and Haiku 4.5. ChatGPT and Gemini run on their own model families. Names and versions change every few months.',why:'Larger models handle harder work; smaller ones are faster.'},
   {term:'Training Data',def:'The text the AI learned from during its training process. Includes books, websites, code, and other published content.',why:'Explains both AI\'s capabilities (vast knowledge) and limitations (knowledge cutoff, biases in training data).'},
   {term:'Inference',def:'When the AI generates a response to your prompt. "Running inference" = the AI is thinking and producing output.',why:'Technical term you might hear. Just means "AI is processing your request."'},
   {term:'Multimodal',def:'An AI that can process multiple types of input: text, images, audio, video. Claude can read images and documents, making it multimodal.',why:'This is why you can upload photos of whiteboards and handwritten notes to Claude.'},
