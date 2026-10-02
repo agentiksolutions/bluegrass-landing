@@ -285,7 +285,7 @@ export async function POST(request: NextRequest) {
       html: `
         <div style="font-family: -apple-system, system-ui, sans-serif; max-width: 600px; line-height: 1.6; color: #3A3A3C;">
           <h2 style="color: #1C1C1E;">Thanks, ${escapeHtml(body.contact_name.split(" ")[0])}.</h2>
-          <p>We got your submission. Phil will review it personally and reply within 24 hours with a tier recommendation and a one-page scope for what makes sense for your situation.</p>
+          <p>We got your submission. Phil will review it personally and reply with a tier recommendation and a one-page scope for what makes sense for your situation.</p>
 
           ${calendlyUrl ? `
             <p style="margin-top: 24px;"><strong>Want to skip the email back-and-forth?</strong> Book your free 30-min intro call now:</p>
@@ -297,7 +297,7 @@ export async function POST(request: NextRequest) {
           <h3 style="color: #1C1C1E; margin-top: 24px;">What happens next</h3>
           <ol style="line-height: 1.8;">
             <li>Phil reviews your submission</li>
-            <li>You receive a tier recommendation + one-page scope within 24 hours</li>
+            <li>You receive a tier recommendation + one-page scope</li>
             <li>Free 30-min intro call to walk through it</li>
             <li>You decide: engage, defer, or skip — no pressure</li>
           </ol>

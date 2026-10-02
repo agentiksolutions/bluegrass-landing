@@ -131,10 +131,6 @@ export default function ContactPage() {
               <strong className="text-graphite">Based in:</strong> Lexington,
               Kentucky
             </div>
-            <div>
-              <strong className="text-graphite">Response time:</strong> Within
-              24 hours
-            </div>
           </div>
 
           <div className="bg-cream p-6 rounded-lg border border-graphite/[0.06]">
@@ -143,7 +139,7 @@ export default function ContactPage() {
             </div>
             <ol className="text-[14px] text-charcoal leading-relaxed space-y-2 list-decimal list-inside">
               <li>You submit this form (~3 min)</li>
-              <li>I review and reply within 24 hours</li>
+              <li>I review it and reply</li>
               <li>We schedule a free 30-min call</li>
               <li>
                 You get an honest recommendation — Quickstart, Strategic
@@ -372,7 +368,7 @@ function SuccessState({
       </h2>
 
       <p className="text-[15px] text-charcoal leading-relaxed mb-8 max-w-sm mx-auto">
-        Your submission is in. I&apos;ll review it and reply within 24 hours
+        Your submission is in. I&apos;ll review it and reply
         with a tier recommendation and a one-page scope.
       </p>
 
@@ -395,7 +391,7 @@ function SuccessState({
         </>
       ) : (
         <div className="bg-cream p-5 rounded-md text-[14px] text-charcoal leading-relaxed">
-          I&apos;ll be in touch within 24 hours to schedule the call. Check
+          I&apos;ll be in touch to schedule the call. Check
           your inbox — confirmation should land within the next minute or two.
         </div>
       )}
