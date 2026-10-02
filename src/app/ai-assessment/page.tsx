@@ -154,13 +154,10 @@ export default function AIAssessmentPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-[72px]">
           <div>
             <h2 className="font-display text-2xl font-bold mb-6">
-              How long it takes.
+              Timing and price.
             </h2>
             <p className="text-[15px] leading-relaxed text-[#666] mb-4">
-              Signing to readout is about a week when the scope is one department
-              or one decision. Two to three weeks when it covers a whole company.
-              Four to six when it covers several entities and the people running
-              them have to be interviewed separately.
+              Timing is agreed with you for each project before you sign.
             </p>
             <p className="text-[15px] leading-relaxed text-[#666]">
               The price is fixed before you sign, and it is set by how much of
