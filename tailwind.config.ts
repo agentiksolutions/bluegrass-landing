@@ -16,6 +16,15 @@ const config: Config = {
         charcoal: "#333333",
         stone: "#888888",
         gold: "#D4A017",
+        // Locked brand (2026-09-23), used by the contact page until the site redesign lands.
+        ink: "#161B22",
+        body: "#3B4350",
+        muted: "#5A6370",
+        line: "#D9D8D1",
+        band: "#F2F1EC",
+        blue: "#0033A0",
+        "blue-dark": "#002677",
+        tint: "#E6EBF6",
       },
       fontFamily: {
         display: ['"Playfair Display"', "Georgia", "serif"],
