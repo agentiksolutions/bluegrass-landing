@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import Script from "next/script";
-import SectionLabel from "@/components/section-label";
+import { hanken, newsreader } from "./fonts";
 
 declare global {
   interface Window {
@@ -39,17 +39,17 @@ const initialState: FormState = {
 const REVENUE_OPTIONS = [
   { value: "", label: "Select range" },
   { value: "under_1m", label: "Under $1M" },
-  { value: "1m_to_5m", label: "$1M – $5M" },
-  { value: "5m_to_15m", label: "$5M – $15M" },
-  { value: "15m_to_50m", label: "$15M – $50M" },
+  { value: "1m_to_5m", label: "$1M to $5M" },
+  { value: "5m_to_15m", label: "$5M to $15M" },
+  { value: "15m_to_50m", label: "$15M to $50M" },
   { value: "over_50m", label: "Over $50M" },
 ];
 
 const ENTITIES_OPTIONS = [
   { value: "", label: "Select" },
   { value: "1", label: "1" },
-  { value: "2-3", label: "2 – 3" },
-  { value: "4-7", label: "4 – 7" },
+  { value: "2-3", label: "2 to 3" },
+  { value: "4-7", label: "4 to 7" },
   { value: "8+", label: "8+" },
 ];
 
@@ -112,68 +112,60 @@ export default function ContactPage() {
   };
 
   return (
+    <div className={`bg-white ${hanken.className}`}>
     <section className="pt-[148px] pb-24 px-6 md:px-12 max-w-content mx-auto">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-start">
-        {/* Left column — info */}
+        {/* Left column: info */}
         <div>
-          <SectionLabel>Get Started</SectionLabel>
-          <h1 className="font-display text-4xl leading-tight font-bold tracking-tight mb-6">
+          <h1 className="text-4xl leading-tight font-bold tracking-tight text-ink mb-6">
             Let&apos;s figure out if we can help.
           </h1>
-          <p className="text-base leading-relaxed text-charcoal mb-8">
-            No sales pitch. No pressure. A few quick questions, then a free
-            30-minute intro call to scope what makes sense for your business —
-            or honestly tell you if AI isn&apos;t your bottleneck right now.
+          <p className={`${newsreader.className} text-lg leading-relaxed text-body mb-8`}>
+            A few quick questions, then a free 30-minute intro call to scope
+            what makes sense for your business. If AI is not what your
+            business needs right now, I will tell you.
           </p>
 
-          <div className="text-[15px] text-stone space-y-3 mb-10">
+          <div className="text-[15px] text-body space-y-3 mb-10">
             <div>
-              <strong className="text-graphite">Email:</strong>{" "}
+              <span className="font-semibold text-ink">Email:</span>{" "}
               <a
                 href="mailto:phil@bluegrassadvisorygroup.com"
-                className="text-emerald hover:underline"
+                className="text-blue underline underline-offset-2 hover:text-blue-dark"
               >
                 phil@bluegrassadvisorygroup.com
               </a>
             </div>
             <div>
-              <strong className="text-graphite">Phone:</strong>{" "}
+              <span className="font-semibold text-ink">Phone:</span>{" "}
               <a
                 href="tel:+18593143051"
-                className="text-emerald hover:underline"
+                className="text-blue underline underline-offset-2 hover:text-blue-dark"
               >
                 (859) 314-3051
               </a>
             </div>
             <div>
-              <strong className="text-graphite">Based in:</strong> Lexington,
+              <span className="font-semibold text-ink">Based in:</span> Lexington,
               Kentucky
-            </div>
-            <div>
-              <strong className="text-graphite">Response time:</strong> Within
-              24 hours
             </div>
           </div>
 
-          <div className="bg-cream p-6 rounded-lg border border-graphite/[0.06]">
-            <div className="text-[12px] font-semibold tracking-wide text-emerald uppercase mb-2">
+          <div className="bg-band p-6 rounded">
+            <h2 className="text-[16px] font-semibold text-ink mb-3">
               What happens next
-            </div>
-            <ol className="text-[14px] text-charcoal leading-relaxed space-y-2 list-decimal list-inside">
-              <li>You submit this form (~3 min)</li>
-              <li>I review and reply within 24 hours</li>
-              <li>We schedule a free 30-min call</li>
-              <li>
-                You get an honest recommendation — Quickstart, Strategic
-                Roadmap, ongoing advisory, or sometimes &ldquo;you don&apos;t
-                need us right now.&rdquo;
-              </li>
+            </h2>
+            <ol className={`${newsreader.className} text-[16px] text-body leading-relaxed space-y-2 list-decimal list-inside`}>
+              <li>You send this form. It takes about three minutes.</li>
+              <li>I review it and reply.</li>
+              <li>We set up a free 30-minute call.</li>
+              <li>You get a recommendation, and sometimes it is to wait.</li>
             </ol>
           </div>
         </div>
 
-        {/* Right column — form or success */}
-        <div className="bg-white p-10 rounded-lg border border-graphite/[0.06]">
+        {/* Right column: form or success */}
+        <div className="bg-white p-6 md:p-10 rounded border border-line">
           {submitted ? (
             <SuccessState
               calendlyUrl={calendlyUrl}
@@ -184,7 +176,7 @@ export default function ContactPage() {
               {/* Name + Role row */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-[13px] font-semibold text-graphite mb-2 tracking-wide">
+                  <label className="block text-[14px] font-semibold text-ink mb-2">
                     Your Name
                   </label>
                   <input
@@ -193,11 +185,11 @@ export default function ContactPage() {
                     value={form.contact_name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-graphite/[0.08] rounded-md text-[15px] bg-warm-white outline-none focus:border-emerald transition-colors"
+                    className="w-full px-4 py-3 border border-line rounded text-[15px] text-ink bg-white outline-none focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-[13px] font-semibold text-graphite mb-2 tracking-wide">
+                  <label className="block text-[14px] font-semibold text-ink mb-2">
                     Your Role
                   </label>
                   <input
@@ -206,14 +198,14 @@ export default function ContactPage() {
                     value={form.contact_role}
                     onChange={handleChange}
                     placeholder="CEO, COO, Operator..."
-                    className="w-full px-4 py-3 border border-graphite/[0.08] rounded-md text-[15px] bg-warm-white outline-none focus:border-emerald transition-colors"
+                    className="w-full px-4 py-3 border border-line rounded text-[15px] text-ink bg-white outline-none focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
                   />
                 </div>
               </div>
 
               {/* Email */}
               <div>
-                <label className="block text-[13px] font-semibold text-graphite mb-2 tracking-wide">
+                <label className="block text-[14px] font-semibold text-ink mb-2">
                   Email
                 </label>
                 <input
@@ -222,14 +214,14 @@ export default function ContactPage() {
                   value={form.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border border-graphite/[0.08] rounded-md text-[15px] bg-warm-white outline-none focus:border-emerald transition-colors"
+                  className="w-full px-4 py-3 border border-line rounded text-[15px] text-ink bg-white outline-none focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
                 />
               </div>
 
               {/* Company name + Website row */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-[13px] font-semibold text-graphite mb-2 tracking-wide">
+                  <label className="block text-[14px] font-semibold text-ink mb-2">
                     Company Name
                   </label>
                   <input
@@ -238,13 +230,13 @@ export default function ContactPage() {
                     value={form.company_name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-graphite/[0.08] rounded-md text-[15px] bg-warm-white outline-none focus:border-emerald transition-colors"
+                    className="w-full px-4 py-3 border border-line rounded text-[15px] text-ink bg-white outline-none focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-[13px] font-semibold text-graphite mb-2 tracking-wide">
+                  <label className="block text-[14px] font-semibold text-ink mb-2">
                     Website{" "}
-                    <span className="text-stone font-normal text-[12px]">
+                    <span className="text-muted font-normal text-[13px]">
                       (optional)
                     </span>
                   </label>
@@ -254,7 +246,7 @@ export default function ContactPage() {
                     value={form.company_website}
                     onChange={handleChange}
                     placeholder="example.com"
-                    className="w-full px-4 py-3 border border-graphite/[0.08] rounded-md text-[15px] bg-warm-white outline-none focus:border-emerald transition-colors"
+                    className="w-full px-4 py-3 border border-line rounded text-[15px] text-ink bg-white outline-none focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
                   />
                 </div>
               </div>
@@ -262,7 +254,7 @@ export default function ContactPage() {
               {/* Revenue + Entities row */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-[13px] font-semibold text-graphite mb-2 tracking-wide">
+                  <label className="block text-[14px] font-semibold text-ink mb-2">
                     Annual Revenue
                   </label>
                   <select
@@ -270,7 +262,7 @@ export default function ContactPage() {
                     value={form.annual_revenue_range}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-graphite/[0.08] rounded-md text-[15px] bg-warm-white outline-none focus:border-emerald transition-colors"
+                    className="w-full px-4 py-3 border border-line rounded text-[15px] text-ink bg-white outline-none focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
                   >
                     {REVENUE_OPTIONS.map((opt) => (
                       <option key={opt.value} value={opt.value}>
@@ -280,7 +272,7 @@ export default function ContactPage() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-[13px] font-semibold text-graphite mb-2 tracking-wide">
+                  <label className="block text-[14px] font-semibold text-ink mb-2">
                     Entities / Business Units
                   </label>
                   <select
@@ -288,7 +280,7 @@ export default function ContactPage() {
                     value={form.num_entities}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-graphite/[0.08] rounded-md text-[15px] bg-warm-white outline-none focus:border-emerald transition-colors"
+                    className="w-full px-4 py-3 border border-line rounded text-[15px] text-ink bg-white outline-none focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
                   >
                     {ENTITIES_OPTIONS.map((opt) => (
                       <option key={opt.value} value={opt.value}>
@@ -301,7 +293,7 @@ export default function ContactPage() {
 
               {/* AI Question */}
               <div>
-                <label className="block text-[13px] font-semibold text-graphite mb-2 tracking-wide">
+                <label className="block text-[14px] font-semibold text-ink mb-2">
                   What&apos;s your biggest AI question or need?
                 </label>
                 <textarea
@@ -311,15 +303,15 @@ export default function ContactPage() {
                   required
                   rows={4}
                   placeholder="A few sentences on what you're trying to figure out, what you've tried, what's blocking you..."
-                  className="w-full px-4 py-3 border border-graphite/[0.08] rounded-md text-[15px] bg-warm-white outline-none focus:border-emerald transition-colors resize-none"
+                  className="w-full px-4 py-3 border border-line rounded text-[15px] text-ink bg-white outline-none focus:border-blue focus:ring-1 focus:ring-blue transition-colors resize-none"
                 />
               </div>
 
               {/* Best time */}
               <div>
-                <label className="block text-[13px] font-semibold text-graphite mb-2 tracking-wide">
+                <label className="block text-[14px] font-semibold text-ink mb-2">
                   Best time for a 30-min call{" "}
-                  <span className="text-stone font-normal text-[12px]">
+                  <span className="text-muted font-normal text-[13px]">
                     (optional)
                   </span>
                 </label>
@@ -329,7 +321,7 @@ export default function ContactPage() {
                   value={form.best_call_time}
                   onChange={handleChange}
                   placeholder="Weekday mornings ET, Tuesday/Thursday afternoons..."
-                  className="w-full px-4 py-3 border border-graphite/[0.08] rounded-md text-[15px] bg-warm-white outline-none focus:border-emerald transition-colors"
+                  className="w-full px-4 py-3 border border-line rounded text-[15px] text-ink bg-white outline-none focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
                 />
               </div>
 
@@ -363,12 +355,12 @@ export default function ContactPage() {
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full bg-graphite text-warm-white px-6 py-4 rounded-md text-[15px] font-semibold tracking-wide hover:bg-emerald transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-blue text-white px-6 py-4 rounded text-[16px] font-semibold hover:bg-blue-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {submitting ? "Submitting..." : "Submit & Schedule Call"}
               </button>
 
-              <p className="text-[12px] text-stone text-center leading-relaxed">
+              <p className="text-[13px] text-muted text-center leading-relaxed">
                 Your information stays confidential. Used only to scope and
                 respond to your inquiry.
               </p>
@@ -377,6 +369,7 @@ export default function ContactPage() {
         </div>
       </div>
     </section>
+    </div>
   );
 }
 
@@ -391,58 +384,58 @@ function SuccessState({
 
   return (
     <div className="text-center py-8">
-      <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-emerald/10 flex items-center justify-center">
+      <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-tint flex items-center justify-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
           strokeWidth="2.5"
-          className="w-8 h-8 text-emerald"
+          className="w-8 h-8 text-blue"
         >
           <polyline points="20 6 9 17 4 12" />
         </svg>
       </div>
 
-      <h2 className="font-display text-2xl font-bold text-graphite mb-3">
+      <h2 className="text-2xl font-bold text-ink mb-3">
         Got it, {firstName}.
       </h2>
 
-      <p className="text-[15px] text-charcoal leading-relaxed mb-8 max-w-sm mx-auto">
-        Your submission is in. I&apos;ll review it and reply within 24 hours
+      <p className={`${newsreader.className} text-[17px] text-body leading-relaxed mb-8 max-w-sm mx-auto`}>
+        Your submission is in. I&apos;ll review it and reply
         with a tier recommendation and a one-page scope.
       </p>
 
       {calendlyUrl ? (
         <>
-          <div className="text-[13px] font-semibold tracking-wide text-emerald uppercase mb-3">
-            Skip the email — book your intro call now
+          <div className="text-[15px] font-semibold text-ink mb-3">
+            Or book your call now
           </div>
           <a
             href={calendlyUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block bg-graphite text-warm-white px-6 py-4 rounded-md text-[15px] font-semibold tracking-wide hover:bg-emerald transition-colors"
+            className="inline-block bg-blue text-white px-6 py-4 rounded text-[16px] font-semibold hover:bg-blue-dark transition-colors"
           >
-            Book Free 30-Min Call →
+            Book a 30-minute call
           </a>
-          <p className="text-[12px] text-stone mt-4">
+          <p className="text-[13px] text-muted mt-4">
             Opens the booking page in a new tab. Pick a slot that works for you.
           </p>
         </>
       ) : (
-        <div className="bg-cream p-5 rounded-md text-[14px] text-charcoal leading-relaxed">
-          I&apos;ll be in touch within 24 hours to schedule the call. Check
-          your inbox — confirmation should land within the next minute or two.
+        <div className={`${newsreader.className} bg-band p-5 rounded text-[16px] text-body leading-relaxed`}>
+          I&apos;ll be in touch to schedule the call. Check your inbox. A
+          confirmation email should arrive in the next minute or two.
         </div>
       )}
 
-      <div className="mt-10 pt-6 border-t border-graphite/10">
-        <p className="text-[13px] text-stone">
+      <div className="mt-10 pt-6 border-t border-line">
+        <p className="text-[14px] text-muted">
           Questions in the meantime?{" "}
           <a
             href="mailto:phil@bluegrassadvisorygroup.com"
-            className="text-emerald hover:underline"
+            className="text-blue underline underline-offset-2 hover:text-blue-dark"
           >
             phil@bluegrassadvisorygroup.com
           </a>
