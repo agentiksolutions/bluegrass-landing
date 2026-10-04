@@ -153,9 +153,56 @@ async function pushToAirtable(body: IntakePayload) {
   }
 }
 
+// Bot checks. Turnstile runs only when both keys are set, so a deploy without
+// keys still takes real leads (honeypot and timing still apply).
+const MIN_FILL_MS = 3000;
+
+async function turnstileOk(token: string, ip: string | null): Promise<boolean> {
+  const secret = process.env.TURNSTILE_SECRET_KEY;
+  if (!secret || !process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY) return true;
+  if (!token) return false;
+  const form = new URLSearchParams({ secret, response: token });
+  if (ip) form.set("remoteip", ip);
+  try {
+    const res = await fetch(
+      "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+      { method: "POST", body: form },
+    );
+    const data = (await res.json()) as { success?: boolean };
+    return data.success === true;
+  } catch (err) {
+    console.error("Turnstile verify failed:", err);
+    return false;
+  }
+}
+
 export async function POST(request: NextRequest) {
   try {
-    const body = (await request.json()) as IntakePayload;
+    const raw = (await request.json()) as IntakePayload & {
+      bag_hp?: string;
+      elapsed_ms?: number;
+      turnstile_token?: string;
+    };
+    const { bag_hp, elapsed_ms, turnstile_token, ...body } = raw;
+
+    // Honeypot: people never see this field. Answer as if it worked.
+    if (bag_hp && String(bag_hp).trim() !== "") {
+      return NextResponse.json({ ok: true });
+    }
+
+    if (typeof elapsed_ms !== "number" || elapsed_ms < MIN_FILL_MS) {
+      return NextResponse.json(
+        { error: "That was quicker than we expected. Please try again." },
+        { status: 400 },
+      );
+    }
+
+    if (!(await turnstileOk(String(turnstile_token || ""), getClientIp(request)))) {
+      return NextResponse.json(
+        { error: "We could not confirm you are not a bot. Please try again." },
+        { status: 403 },
+      );
+    }
 
     // Validation
     const required: (keyof IntakePayload)[] = [

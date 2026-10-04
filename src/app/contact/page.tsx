@@ -1,7 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
+import Script from "next/script";
 import SectionLabel from "@/components/section-label";
+
+declare global {
+  interface Window {
+    turnstile?: { reset: () => void };
+  }
+}
+
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
 type FormState = {
   contact_name: string;
@@ -49,6 +58,7 @@ export default function ContactPage() {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const startedAt = useRef(Date.now());
 
   const calendlyUrl =
     process.env.NEXT_PUBLIC_CALENDLY_URL ||
@@ -61,16 +71,22 @@ export default function ContactPage() {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
     setSubmitting(true);
+    const fields = new FormData(e.currentTarget);
 
     try {
       const res = await fetch("/api/intake", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          ...form,
+          bag_hp: fields.get("bag_hp") || "",
+          elapsed_ms: Date.now() - startedAt.current,
+          turnstile_token: fields.get("cf-turnstile-response") || "",
+        }),
       });
 
       const data = await res.json();
@@ -80,6 +96,7 @@ export default function ContactPage() {
           data.error ||
             "Something went wrong. Please try again or email phil@bluegrassadvisorygroup.com directly.",
         );
+        window.turnstile?.reset();
         setSubmitting(false);
         return;
       }
@@ -89,6 +106,7 @@ export default function ContactPage() {
       setError(
         "Network error. Please try again or email phil@bluegrassadvisorygroup.com directly.",
       );
+      window.turnstile?.reset();
       setSubmitting(false);
     }
   };
@@ -314,6 +332,25 @@ export default function ContactPage() {
                   className="w-full px-4 py-3 border border-graphite/[0.08] rounded-md text-[15px] bg-warm-white outline-none focus:border-emerald transition-colors"
                 />
               </div>
+
+              {/* Bot checks: a field people never see, and Turnstile when keys are set. */}
+              <input
+                type="text"
+                name="bag_hp"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                className="absolute -left-[9999px] h-px w-px overflow-hidden"
+              />
+              {TURNSTILE_SITE_KEY && (
+                <>
+                  <Script
+                    src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+                    strategy="afterInteractive"
+                  />
+                  <div className="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY} />
+                </>
+              )}
 
               {/* Error */}
               {error && (
