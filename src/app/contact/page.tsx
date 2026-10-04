@@ -1,12 +1,16 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Script from "next/script";
 import { hanken, newsreader } from "./fonts";
 
 declare global {
   interface Window {
-    turnstile?: { reset: () => void };
+    turnstile?: {
+      render: (el: HTMLElement, opts: { sitekey: string }) => string;
+      reset: (id?: string) => void;
+      remove: (id: string) => void;
+    };
   }
 }
 
@@ -59,6 +63,28 @@ export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const startedAt = useRef(Date.now());
+  const turnstileBox = useRef<HTMLDivElement>(null);
+  const turnstileId = useRef<string | null>(null);
+
+  // Explicit render: the implicit scan runs once per page load, so a second
+  // client-side visit to /contact would show no widget. The script's onReady
+  // covers the first load; the effect covers every later mount.
+  const renderTurnstile = useCallback(() => {
+    if (!TURNSTILE_SITE_KEY || !window.turnstile || !turnstileBox.current) return;
+    turnstileId.current ??= window.turnstile.render(turnstileBox.current, {
+      sitekey: TURNSTILE_SITE_KEY,
+    });
+  }, []);
+  const resetTurnstile = () => {
+    if (turnstileId.current) window.turnstile?.reset(turnstileId.current);
+  };
+  useEffect(() => {
+    renderTurnstile();
+    return () => {
+      if (turnstileId.current) window.turnstile?.remove(turnstileId.current);
+      turnstileId.current = null;
+    };
+  }, [renderTurnstile]);
 
   const calendlyUrl =
     process.env.NEXT_PUBLIC_CALENDLY_URL ||
@@ -96,7 +122,7 @@ export default function ContactPage() {
           data.error ||
             "Something went wrong. Please try again or email phil@bluegrassadvisorygroup.com directly.",
         );
-        window.turnstile?.reset();
+        resetTurnstile();
         setSubmitting(false);
         return;
       }
@@ -106,7 +132,7 @@ export default function ContactPage() {
       setError(
         "Network error. Please try again or email phil@bluegrassadvisorygroup.com directly.",
       );
-      window.turnstile?.reset();
+      resetTurnstile();
       setSubmitting(false);
     }
   };
@@ -252,7 +278,7 @@ export default function ContactPage() {
               </div>
 
               {/* Revenue + Entities row */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:items-end">
                 <div>
                   <label className="block text-[14px] font-semibold text-ink mb-2">
                     Annual Revenue
@@ -337,10 +363,11 @@ export default function ContactPage() {
               {TURNSTILE_SITE_KEY && (
                 <>
                   <Script
-                    src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+                    src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
                     strategy="afterInteractive"
+                    onReady={renderTurnstile}
                   />
-                  <div className="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY} />
+                  <div ref={turnstileBox} />
                 </>
               )}
 
