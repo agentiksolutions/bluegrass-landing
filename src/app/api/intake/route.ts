@@ -14,9 +14,9 @@ type IntakePayload = {
 
 const REVENUE_LABELS: Record<string, string> = {
   under_1m: "Under $1M",
-  "1m_to_5m": "$1M – $5M",
-  "5m_to_15m": "$5M – $15M",
-  "15m_to_50m": "$15M – $50M",
+  "1m_to_5m": "$1M to $5M",
+  "5m_to_15m": "$5M to $15M",
+  "15m_to_50m": "$15M to $50M",
   over_50m: "Over $50M",
 };
 
@@ -153,9 +153,56 @@ async function pushToAirtable(body: IntakePayload) {
   }
 }
 
+// Bot checks. Turnstile runs only when both keys are set, so a deploy without
+// keys still takes real leads (honeypot and timing still apply).
+const MIN_FILL_MS = 3000;
+
+async function turnstileOk(token: string, ip: string | null): Promise<boolean> {
+  const secret = process.env.TURNSTILE_SECRET_KEY;
+  if (!secret || !process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY) return true;
+  if (!token) return false;
+  const form = new URLSearchParams({ secret, response: token });
+  if (ip) form.set("remoteip", ip);
+  try {
+    const res = await fetch(
+      "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+      { method: "POST", body: form },
+    );
+    const data = (await res.json()) as { success?: boolean };
+    return data.success === true;
+  } catch (err) {
+    console.error("Turnstile verify failed:", err);
+    return false;
+  }
+}
+
 export async function POST(request: NextRequest) {
   try {
-    const body = (await request.json()) as IntakePayload;
+    const raw = (await request.json()) as IntakePayload & {
+      bag_hp?: string;
+      elapsed_ms?: number;
+      turnstile_token?: string;
+    };
+    const { bag_hp, elapsed_ms, turnstile_token, ...body } = raw;
+
+    // Honeypot: people never see this field. Answer as if it worked.
+    if (bag_hp && String(bag_hp).trim() !== "") {
+      return NextResponse.json({ ok: true });
+    }
+
+    if (typeof elapsed_ms !== "number" || elapsed_ms < MIN_FILL_MS) {
+      return NextResponse.json(
+        { error: "That was quicker than we expected. Please try again." },
+        { status: 400 },
+      );
+    }
+
+    if (!(await turnstileOk(String(turnstile_token || ""), getClientIp(request)))) {
+      return NextResponse.json(
+        { error: "We could not confirm you are not a bot. Please try again." },
+        { status: 403 },
+      );
+    }
 
     // Validation
     const required: (keyof IntakePayload)[] = [
@@ -188,7 +235,7 @@ export async function POST(request: NextRequest) {
 
     if (!supabaseUrl || !supabaseKey) {
       console.error(
-        "Supabase env vars missing — intake form cannot save submissions",
+        "Supabase env vars missing: intake form cannot save submissions",
       );
       return NextResponse.json(
         { error: "Server configuration error. Please email phil directly." },
@@ -235,7 +282,7 @@ export async function POST(request: NextRequest) {
       console.error("Airtable push failed:", err),
     );
 
-    // Email — fire and forget. Don't block form success on email send.
+    // Email: fire and forget. Don't block form success on email send.
     const notificationEmail =
       process.env.BAG_NOTIFICATION_EMAIL || "phil@bluegrassadvisorygroup.com";
     const fromAddress =
@@ -245,30 +292,38 @@ export async function POST(request: NextRequest) {
       process.env.NEXT_PUBLIC_CALENDLY_URL ||
       "https://cal.com/philip-fifield/intro";
 
+    // Brand: UK blue #0033A0 accent, ink #161B22, body #3B4350, line #D9D8D1.
+    const head = "font-family: 'Hanken Grotesk', Arial, sans-serif;";
+    const read = "font-family: 'Newsreader', Georgia, serif;";
+    const logo = `<img src="https://bluegrassadvisorygroup.com/brand/logo-lockup-600x115.png" width="240" height="46" alt="Bluegrass Advisory Group" style="display: block; border: 0;">`;
+    const cell = `style="${head} font-weight: 600; color: #161B22; width: 180px; border-bottom: 1px solid #D9D8D1;"`;
+    const val = `style="border-bottom: 1px solid #D9D8D1;"`;
+
     // Notification to Phil
     const phNotification = sendResendEmail({
       from: fromAddress,
       to: [notificationEmail],
       reply_to: body.email,
-      subject: `New BAG intake — ${body.contact_name} @ ${body.company_name}`,
+      subject: `New BAG intake: ${body.contact_name} @ ${body.company_name}`,
       html: `
-        <div style="font-family: -apple-system, system-ui, sans-serif; max-width: 600px; line-height: 1.6;">
-          <h2 style="color: #1C1C1E; border-bottom: 2px solid #0D7C66; padding-bottom: 8px;">New BAG intake</h2>
+        <div style="${read} max-width: 600px; line-height: 1.6; color: #3B4350; background: #FFFFFF;">
+          ${logo}
+          <h2 style="${head} color: #161B22; border-bottom: 2px solid #0033A0; padding: 16px 0 8px; margin: 0 0 8px;">New website intake</h2>
           <table cellpadding="6" cellspacing="0" style="border-collapse: collapse; width: 100%;">
-            <tr><td style="font-weight: 600; color: #3A3A3C; width: 180px;">Name</td><td>${escapeHtml(body.contact_name)}</td></tr>
-            <tr><td style="font-weight: 600; color: #3A3A3C;">Role</td><td>${escapeHtml(body.contact_role || "(not provided)")}</td></tr>
-            <tr><td style="font-weight: 600; color: #3A3A3C;">Email</td><td><a href="mailto:${escapeHtml(body.email)}" style="color: #0D7C66;">${escapeHtml(body.email)}</a></td></tr>
-            <tr><td style="font-weight: 600; color: #3A3A3C;">Company</td><td>${escapeHtml(body.company_name)}</td></tr>
-            <tr><td style="font-weight: 600; color: #3A3A3C;">Website</td><td>${body.company_website ? `<a href="${escapeHtml(body.company_website)}" style="color: #0D7C66;">${escapeHtml(body.company_website)}</a>` : "(not provided)"}</td></tr>
-            <tr><td style="font-weight: 600; color: #3A3A3C;">Revenue</td><td>${escapeHtml(REVENUE_LABELS[body.annual_revenue_range] || body.annual_revenue_range)}</td></tr>
-            <tr><td style="font-weight: 600; color: #3A3A3C;">Entities</td><td>${escapeHtml(body.num_entities)}</td></tr>
-            <tr><td style="font-weight: 600; color: #3A3A3C;">Best call time</td><td>${escapeHtml(body.best_call_time || "(not provided)")}</td></tr>
+            <tr><td ${cell}>Name</td><td ${val}>${escapeHtml(body.contact_name)}</td></tr>
+            <tr><td ${cell}>Role</td><td ${val}>${escapeHtml(body.contact_role || "(not provided)")}</td></tr>
+            <tr><td ${cell}>Email</td><td ${val}><a href="mailto:${escapeHtml(body.email)}" style="color: #0033A0;">${escapeHtml(body.email)}</a></td></tr>
+            <tr><td ${cell}>Company</td><td ${val}>${escapeHtml(body.company_name)}</td></tr>
+            <tr><td ${cell}>Website</td><td ${val}>${body.company_website ? `<a href="${escapeHtml(body.company_website)}" style="color: #0033A0;">${escapeHtml(body.company_website)}</a>` : "(not provided)"}</td></tr>
+            <tr><td ${cell}>Revenue</td><td ${val}>${escapeHtml(REVENUE_LABELS[body.annual_revenue_range] || body.annual_revenue_range)}</td></tr>
+            <tr><td ${cell}>Entities</td><td ${val}>${escapeHtml(body.num_entities)}</td></tr>
+            <tr><td ${cell}>Best call time</td><td ${val}>${escapeHtml(body.best_call_time || "(not provided)")}</td></tr>
           </table>
-          <h3 style="color: #1C1C1E; margin-top: 24px;">AI question / need</h3>
-          <div style="background: #FAF8F5; padding: 16px; border-left: 3px solid #0D7C66; border-radius: 4px;">
+          <h3 style="${head} color: #0033A0; margin-top: 24px;">What they need</h3>
+          <div style="padding: 16px; border: 1px solid #D9D8D1; border-radius: 4px;">
             ${escapeHtml(body.ai_question).replace(/\n/g, "<br>")}
           </div>
-          <p style="color: #888; font-size: 13px; margin-top: 24px;">
+          <p style="${head} color: #5A6370; font-size: 13px; margin-top: 24px;">
             Submitted via bluegrassadvisorygroup.com/contact at ${new Date().toLocaleString("en-US", { timeZone: "America/New_York" })} ET<br>
             Reply to this email to respond directly to ${escapeHtml(body.contact_name)}.
           </p>
@@ -281,35 +336,36 @@ export async function POST(request: NextRequest) {
       from: fromAddress,
       to: [body.email],
       reply_to: notificationEmail,
-      subject: "We received your inquiry — Bluegrass Advisory Group",
+      subject: "We received your inquiry",
       html: `
-        <div style="font-family: -apple-system, system-ui, sans-serif; max-width: 600px; line-height: 1.6; color: #3A3A3C;">
-          <h2 style="color: #1C1C1E;">Thanks, ${escapeHtml(body.contact_name.split(" ")[0])}.</h2>
+        <div style="${read} max-width: 600px; line-height: 1.6; color: #3B4350; background: #FFFFFF;">
+          ${logo}
+          <h2 style="${head} color: #161B22; border-bottom: 2px solid #0033A0; padding: 16px 0 8px; margin: 0 0 16px;">Thanks, ${escapeHtml(body.contact_name.split(" ")[0])}.</h2>
           <p>We got your submission. Phil will review it personally and reply with a tier recommendation and a one-page scope for what makes sense for your situation.</p>
 
           ${calendlyUrl ? `
-            <p style="margin-top: 24px;"><strong>Want to skip the email back-and-forth?</strong> Book your free 30-min intro call now:</p>
+            <p style="margin-top: 24px;"><strong>Want to skip the email back-and-forth?</strong> Book your free 30-minute intro call now:</p>
             <p style="text-align: center; margin: 24px 0;">
-              <a href="${escapeHtml(calendlyUrl)}" style="display: inline-block; background: #1C1C1E; color: #FAF8F5; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-weight: 600;">Book Free 30-Min Call →</a>
+              <a href="${escapeHtml(calendlyUrl)}" style="${head} display: inline-block; background: #0033A0; color: #FFFFFF; padding: 14px 28px; text-decoration: none; border-radius: 4px; font-weight: 600;">Book a 30-minute call</a>
             </p>
           ` : ""}
 
-          <h3 style="color: #1C1C1E; margin-top: 24px;">What happens next</h3>
+          <h3 style="${head} color: #0033A0; margin-top: 24px;">What happens next</h3>
           <ol style="line-height: 1.8;">
             <li>Phil reviews your submission</li>
-            <li>You receive a tier recommendation + one-page scope</li>
-            <li>Free 30-min intro call to walk through it</li>
-            <li>You decide: engage, defer, or skip — no pressure</li>
+            <li>You receive a tier recommendation and a one-page scope</li>
+            <li>A free 30-minute intro call to walk through it</li>
+            <li>You decide whether to go ahead, wait, or skip it</li>
           </ol>
 
-          <p style="margin-top: 24px;">Questions in the meantime? Reply to this email or write to <a href="mailto:phil@bluegrassadvisorygroup.com" style="color: #0D7C66;">phil@bluegrassadvisorygroup.com</a>.</p>
+          <p style="margin-top: 24px;">Questions in the meantime? Reply to this email or write to <a href="mailto:phil@bluegrassadvisorygroup.com" style="color: #0033A0;">phil@bluegrassadvisorygroup.com</a>.</p>
 
-          <hr style="border: none; border-top: 1px solid #E0E0E0; margin: 32px 0;">
+          <hr style="border: none; border-top: 1px solid #D9D8D1; margin: 32px 0;">
 
-          <p style="font-size: 13px; color: #888;">
-            <strong style="color: #1C1C1E;">Bluegrass Advisory Group</strong><br>
-            AI Operations Consulting — Lexington, Kentucky<br>
-            <a href="https://bluegrassadvisorygroup.com" style="color: #0D7C66;">bluegrassadvisorygroup.com</a> · (859) 314-3051
+          <p style="${head} font-size: 13px; color: #5A6370;">
+            <strong style="color: #161B22;">Bluegrass Advisory Group, LLC</strong><br>
+            AI Operations Consulting, Lexington, Kentucky<br>
+            <a href="https://bluegrassadvisorygroup.com" style="color: #0033A0;">bluegrassadvisorygroup.com</a> · (859) 314-3051
           </p>
         </div>
       `,
