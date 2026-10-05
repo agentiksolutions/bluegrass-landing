@@ -168,7 +168,7 @@ export default function LexingtonPage() {
               02
             </span>
             <p className="text-[15px] leading-relaxed text-[#555]">
-              Within a day you get an email with a recommendation and the reason
+              After the call you get an email with a recommendation and the reason
               behind it. Sometimes the recommendation is that you do not need us
               yet, with a couple of free things to go read instead.
             </p>
