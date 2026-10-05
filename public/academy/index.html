@@ -1,0 +1,2306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="/brand/favicon.svg" type="image/svg+xml">
+<title>Academy | Bluegrass Advisory Group</title>
+<meta name="description" content="AI Foundations, a practical course on using AI at work from Bluegrass Advisory Group.">
+<style>
+/* Bluegrass Advisory Group Academy. Locked brand 2026-09-23: UK blue #0033A0, Hanken Grotesk and Newsreader.
+   Dark top bar and sidebar kept per brand decision 38. */
+@font-face{font-family:'Hanken Grotesk';src:url('/fonts/HankenGrotesk-VF.woff2') format('woff2');font-weight:100 900;font-style:normal;font-display:swap}
+@font-face{font-family:'Newsreader';src:url('/fonts/Newsreader-VF.woff2') format('woff2');font-weight:200 800;font-style:normal;font-display:swap}
+
+:root{
+  --blue:#0033A0;--blue-dark:#002677;--ink:#161B22;--body:#3B4350;--muted:#5A6370;--line:#D9D8D1;
+  --tint:#E6EBF6;--band:#F2F1EC;--white:#FFFFFF;--blue-on-dark:#9DB2E8;
+  --on-dark:rgba(255,255,255,.78);--on-dark-muted:rgba(255,255,255,.56);--on-dark-line:rgba(255,255,255,.1);
+  /* legacy names still used by inline styles in the lesson text */
+  --graphite:var(--ink);--emerald:var(--blue);--sage:var(--blue-dark);--stone:var(--muted);--charcoal:var(--body);
+  --cream:var(--band);--gold:var(--muted);--red:var(--ink);--border:var(--line);
+  --radius:6px;--radius-sm:4px;
+  --font-display:'Hanken Grotesk','Helvetica Neue',Arial,sans-serif;
+  --font-body:'Newsreader',Georgia,serif;
+  --font-mono:ui-monospace,'SFMono-Regular',Consolas,'Liberation Mono',monospace;
+  --topbar:56px;--sidebar:288px;
+}
+
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:calc(var(--topbar) + 16px)}
+body{font-family:var(--font-body);font-size:18px;line-height:1.65;color:var(--body);background:var(--white);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:hidden}
+::selection{background:var(--tint);color:var(--ink)}
+a{color:var(--blue)}
+a:hover{color:var(--blue-dark)}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+button{font:inherit;color:inherit}
+[hidden]{display:none!important}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* Buttons: 4px radius, matching the site's redesign */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:var(--radius-sm);font-family:var(--font-display);font-size:15px;font-weight:600;line-height:1.2;text-decoration:none;cursor:pointer;border:1px solid transparent;white-space:nowrap;transition:background-color .15s,border-color .15s,color .15s}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-primary:hover{background:var(--blue-dark);color:#fff}
+.btn-secondary{background:transparent;color:var(--ink);border-color:rgba(22,27,34,.25)}
+.btn-secondary:hover{border-color:var(--ink);color:var(--ink)}
+.btn-text{background:none;border:0;padding:0;color:var(--blue);font-family:var(--font-display);font-size:14px;font-weight:600;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+
+/* Top bar */
+.topbar{position:fixed;inset:0 0 auto 0;height:var(--topbar);z-index:300;background:var(--ink);display:flex;align-items:center;gap:16px;padding:0 20px;border-bottom:1px solid var(--on-dark-line);font-family:var(--font-display)}
+.tb-menu{display:none;background:none;border:0;color:#fff;cursor:pointer;padding:6px;margin-left:-6px;border-radius:var(--radius-sm)}
+.tb-menu svg{display:block}
+.tb-logo{display:block;line-height:0}
+.tb-logo img{height:28px;width:auto}
+.tb-name{color:#fff;text-decoration:none;font-size:15px;font-weight:600;padding-left:16px;border-left:1px solid var(--on-dark-line);line-height:24px}
+.tb-name:hover{color:#fff}
+.tb-links{display:flex;gap:4px;margin-left:12px}
+.tb-links a{color:var(--on-dark);text-decoration:none;font-size:14px;font-weight:500;padding:8px 10px;border-radius:var(--radius-sm)}
+.tb-links a:hover{color:#fff;background:rgba(255,255,255,.06)}
+.tb-links a[aria-current="page"]{color:#fff}
+.tb-cta{margin-left:auto;padding:9px 16px;font-size:14px}
+
+/* Sidebar */
+.layout{padding-top:var(--topbar)}
+.sidebar{position:fixed;top:var(--topbar);left:0;bottom:0;width:var(--sidebar);background:var(--ink);overflow-y:auto;z-index:200;padding:20px 12px 40px;font-family:var(--font-display);transition:transform .25s ease}
+.sb-progress{padding:4px 12px 18px;border-bottom:1px solid var(--on-dark-line);margin-bottom:14px}
+.sb-progress-row{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:13px;color:var(--on-dark-muted)}
+.sb-progress-row strong{color:#fff;font-weight:600;font-size:14px}
+.bar{height:4px;background:rgba(255,255,255,.12);border-radius:2px;overflow:hidden;margin-top:10px}
+.bar>span{display:block;height:100%;width:0;background:var(--blue-on-dark);transition:width .4s ease}
+.sb-search{padding:0 4px 12px}
+.sb-search input{width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius-sm);padding:9px 12px;color:#fff;font:500 14px var(--font-display);outline:none}
+.sb-search input::placeholder{color:var(--on-dark-muted)}
+.sb-search input:focus{border-color:var(--blue-on-dark)}
+.sb-group{margin-bottom:14px}
+.sb-label{font-size:13px;font-weight:600;color:var(--on-dark-muted);padding:6px 12px}
+.sb-item{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:var(--radius-sm);font-size:14px;font-weight:500;line-height:1.35;color:var(--on-dark);text-decoration:none}
+.sb-item:hover{background:rgba(255,255,255,.05);color:#fff}
+.sb-item[aria-current="page"]{background:rgba(157,178,232,.12);color:var(--blue-on-dark);font-weight:600}
+.sb-state{flex:0 0 16px;width:16px;height:16px;color:rgba(255,255,255,.32)}
+.sb-item.done .sb-state{color:var(--blue-on-dark)}
+.sb-item[aria-current="page"] .sb-state{color:var(--blue-on-dark)}
+.sb-text{flex:1;min-width:0}
+.sb-meta{flex:0 0 auto;font-size:12px;color:var(--on-dark-muted);font-weight:500}
+.sb-foot{border-top:1px solid var(--on-dark-line);margin-top:8px;padding:14px 12px 0;display:flex;flex-direction:column;gap:10px;font-size:14px}
+.sb-foot a{color:var(--on-dark);text-decoration:none}
+.sb-foot a:hover{color:#fff}
+.sb-empty{padding:8px 12px;font-size:13px;color:var(--on-dark-muted)}
+.scrim{display:none}
+
+/* Main column */
+.main{margin-left:var(--sidebar);min-height:calc(100vh - var(--topbar))}
+.main-inner{display:flex;gap:56px;max-width:1120px;margin:0 auto;padding:48px 48px 96px}
+.lesson{flex:1;min-width:0;max-width:720px}
+.toc{flex:0 0 200px;position:sticky;top:calc(var(--topbar) + 40px);align-self:flex-start;max-height:calc(100vh - var(--topbar) - 80px);overflow-y:auto;font-family:var(--font-display)}
+.toc-title{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:10px}
+.toc ul{list-style:none;padding:0;margin:0;border-left:1px solid var(--line)}
+.toc li{margin:0}
+.toc a{display:block;padding:5px 0 5px 14px;font-size:13px;line-height:1.4;color:var(--muted);text-decoration:none}
+.toc a:hover{color:var(--ink)}
+.toc a.active{color:var(--blue);font-weight:600}
+
+/* Sections */
+.sec{display:none}
+.sec.active{display:block}
+.crumb{font-family:var(--font-display);font-size:14px;color:var(--muted);margin:0 0 10px}
+.crumb a{color:var(--muted)}
+.sec-title{font-family:var(--font-display);font-size:40px;font-weight:700;color:var(--ink);letter-spacing:-.02em;line-height:1.12;margin:0 0 12px}
+.sec-sub{font-size:20px;line-height:1.5;color:var(--muted);margin:0 0 40px;max-width:640px}
+h2,h3,h4{font-family:var(--font-display);color:var(--ink)}
+h3{font-size:24px;font-weight:700;letter-spacing:-.01em;line-height:1.25;margin:52px 0 14px}
+h4{font-size:18px;font-weight:600;line-height:1.35;margin:32px 0 10px}
+p{margin:0 0 16px}
+strong{color:var(--ink);font-weight:600}
+em{font-style:normal;font-weight:600;color:var(--ink)}
+ul,ol{padding-left:24px;margin:0 0 18px}
+li{margin-bottom:8px}
+p.note{font-family:var(--font-display);font-size:15px;line-height:1.55;color:var(--muted)}
+code{font-family:var(--font-mono);font-size:.82em;background:var(--band);color:var(--ink);padding:1px 6px;border-radius:3px}
+
+/* Content blocks. A "card" reads as a list row with a hairline, not a box. */
+.card{border-top:1px solid var(--line);padding:18px 0 4px;margin:0}
+.card + :not(.card){margin-top:24px}
+.card-t{font-family:var(--font-display);font-size:17px;font-weight:600;color:var(--ink);line-height:1.4;margin-bottom:6px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.card-b{font-size:17px;line-height:1.65;margin-bottom:14px}
+.card-b ul{margin-top:8px}
+.tpl{font-family:var(--font-display);font-size:15px;line-height:1.6;white-space:pre-wrap;background:var(--band);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;color:var(--ink)}
+.badge{display:inline-block;font-family:var(--font-display);font-size:12px;font-weight:600;padding:2px 8px;border-radius:3px;background:var(--tint);color:var(--blue);line-height:1.6;vertical-align:middle}
+.b-free,.b-paid{background:var(--band);color:var(--body)}
+.co{padding:18px 20px;border-radius:var(--radius);margin:22px 0;font-size:17px;line-height:1.6;background:var(--tint);color:var(--ink)}
+.co-gold,.co-red{background:var(--band)}
+
+/* Code and diagrams keep a fixed-width face so the box drawing lines up */
+.code{background:var(--band);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin:16px 0;overflow-x:auto;font-family:var(--font-mono);font-size:13px!important;line-height:1.75!important;color:var(--body);white-space:pre;-webkit-overflow-scrolling:touch}
+.code .cm{color:var(--muted)}
+.code .fld{color:var(--ink);font-weight:600}
+.code .fl{color:var(--body)}
+.code .hl{color:var(--blue);font-weight:600}
+
+/* Prompt examples */
+.prompt{background:var(--band);border:1px solid var(--line);border-radius:var(--radius);padding:16px 20px 18px;margin:16px 0}
+.prompt-tag{font-family:var(--font-display);font-size:13px;font-weight:600;color:var(--muted);margin-bottom:8px}
+.prompt-good{color:var(--blue)}
+.prompt-txt{font-family:var(--font-display);font-size:15px;line-height:1.65;color:var(--ink);white-space:pre-wrap}
+
+/* Tables */
+.tbl-wrap{overflow-x:auto;margin:16px 0 24px;-webkit-overflow-scrolling:touch}
+.tbl{width:100%;border-collapse:collapse;font-family:var(--font-display);font-size:15px;line-height:1.45}
+.tbl th{text-align:left;padding:10px 14px 10px 0;border-bottom:1px solid var(--ink);color:var(--ink);font-weight:600;font-size:14px;white-space:nowrap}
+.tbl td{padding:12px 14px 12px 0;border-bottom:1px solid var(--line);vertical-align:top;color:var(--body)}
+.tbl td strong{color:var(--ink)}
+.tbl .rec td{background:var(--tint)}
+.tbl .rec td:first-child{padding-left:10px}
+
+/* Checklists (the tick is a functional checkbox) */
+.clist{list-style:none;padding:0;margin:0 0 20px;border-top:1px solid var(--line)}
+.clist li{display:flex;align-items:flex-start;gap:14px;padding:14px 4px;border-bottom:1px solid var(--line);margin:0;cursor:pointer;user-select:none}
+.clist li:hover .cl-box{border-color:var(--blue)}
+.clist li.chk .cl-label{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--line)}
+.cl-box{flex:0 0 20px;width:20px;height:20px;border-radius:3px;border:1.5px solid var(--muted);display:flex;align-items:center;justify-content:center;margin-top:3px}
+.clist li.chk .cl-box{background:var(--blue);border-color:var(--blue)}
+.clist li.chk .cl-box::after{content:'\2713';color:#fff;font:700 13px var(--font-display)}
+.cl-label{flex:1;font-family:var(--font-display);font-size:16px;font-weight:500;color:var(--ink);line-height:1.45}
+.cl-label small{display:block;color:var(--muted);font-size:14px;font-weight:400;margin-top:2px}
+.cl-time{flex:0 0 auto;font-family:var(--font-display);font-size:13px;color:var(--muted);margin-top:3px}
+
+/* Quizzes */
+.qz{border:1px solid var(--line);border-radius:var(--radius);padding:22px;margin:0 0 16px}
+.qz-q{font-family:var(--font-display);font-size:17px;font-weight:600;color:var(--ink);margin-bottom:14px;line-height:1.45}
+.qz-opts{display:flex;flex-direction:column;gap:8px}
+.qz-o{display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid var(--line);border-radius:var(--radius-sm);cursor:pointer;font-family:var(--font-display);font-size:15px;line-height:1.4;color:var(--ink);background:#fff}
+.qz-o:hover{border-color:var(--blue)}
+.qz-o.cor{background:var(--tint);border-color:var(--blue);color:var(--blue);font-weight:600}
+.qz-o.wrg{background:var(--band);border-color:var(--muted);color:var(--muted);text-decoration:line-through}
+.qz-o.dis{pointer-events:none}
+.qz-r{flex:0 0 16px;width:16px;height:16px;border-radius:50%;border:1.5px solid var(--muted)}
+.qz-o.cor .qz-r{background:var(--blue);border-color:var(--blue)}
+.qz-o.wrg .qz-r{background:var(--muted);border-color:var(--muted)}
+.qz-res{margin-top:12px;font-family:var(--font-display);font-size:15px;font-weight:600;display:none}
+.qz-res.show{display:block}
+
+/* Interactive widgets */
+.widget{border:1px solid var(--line);border-radius:var(--radius);padding:24px;margin:20px 0}
+.widget-title{font-family:var(--font-display);font-size:19px;font-weight:700;color:var(--ink);margin-bottom:4px}
+.widget-sub{font-size:16px;color:var(--muted);margin-bottom:18px}
+.widget textarea,.widget input[type="text"],.widget select{width:100%;background:#fff;border:1px solid var(--line);border-radius:var(--radius-sm);padding:11px 13px;font:400 16px/1.5 var(--font-display);color:var(--ink);outline:none}
+.widget textarea:focus,.widget input[type="text"]:focus,.widget select:focus{border-color:var(--blue)}
+.widget textarea{min-height:110px;resize:vertical}
+.widget-btn{display:inline-flex;margin-top:12px;background:var(--blue);color:#fff;border:0;padding:11px 18px;border-radius:var(--radius-sm);font:600 15px var(--font-display);cursor:pointer}
+.widget-btn:hover{background:var(--blue-dark)}
+.widget-result{margin-top:16px;padding:18px;background:var(--band);border-radius:var(--radius-sm);font-size:16px;line-height:1.6;display:none}
+.widget-result.show{display:block}
+.widget-field{margin-bottom:14px}
+.widget-field label{display:block;font-family:var(--font-display);font-size:15px;font-weight:600;color:var(--ink);margin-bottom:6px}
+.pa-scores{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-top:4px}
+.pa-score{text-align:center;padding:12px 4px;background:#fff;border:1px solid var(--line);border-radius:var(--radius-sm);font-family:var(--font-display)}
+.pa-score-letter{font-size:20px;font-weight:700;color:var(--blue)}
+.pa-score-label{font-size:13px;font-weight:500;color:var(--muted);margin-top:2px}
+.pa-score.low .pa-score-letter{color:var(--ink)}
+.pa-score.mid .pa-score-letter{color:var(--body)}
+
+/* Before and after */
+.ba{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;margin:12px 0 20px}
+.ba-col{padding:16px 18px;border-radius:var(--radius);font-size:16px;line-height:1.6}
+.ba-before{background:var(--band)}
+.ba-after{background:var(--tint);color:var(--ink)}
+.ba-label{font-family:var(--font-display);font-size:13px;font-weight:600;color:var(--muted);margin-bottom:8px}
+.ba-after .ba-label{color:var(--blue)}
+
+/* Prompt library */
+.pl-filter{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px}
+.pl-tag{padding:7px 12px;border-radius:var(--radius-sm);font:500 14px var(--font-display);cursor:pointer;border:1px solid var(--line);background:#fff;color:var(--body)}
+.pl-tag:hover{border-color:var(--ink);color:var(--ink)}
+.pl-tag[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.pl-card{border-top:1px solid var(--line);padding:18px 0 20px}
+.pl-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px}
+.pl-card-title{font-family:var(--font-display);font-size:17px;font-weight:600;color:var(--ink)}
+.pl-card-cat{font-family:var(--font-display);font-size:13px;color:var(--muted)}
+.pl-card-prompt{font-family:var(--font-display);font-size:15px;line-height:1.65;color:var(--ink);background:var(--band);padding:14px 16px;border-radius:var(--radius-sm);white-space:pre-wrap}
+.copy-btn{flex:0 0 auto;background:#fff;color:var(--ink);border:1px solid rgba(22,27,34,.25);padding:6px 12px;border-radius:var(--radius-sm);font:600 13px var(--font-display);cursor:pointer}
+.copy-btn:hover{border-color:var(--ink)}
+.copy-btn.copied{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+/* Glossary */
+.gl-search{margin-bottom:12px}
+.gl-search input{width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:var(--radius-sm);font:400 16px var(--font-display);outline:none}
+.gl-search input:focus{border-color:var(--blue)}
+.gl-item{padding:16px 0;border-bottom:1px solid var(--line)}
+.gl-term{font-family:var(--font-display);font-size:17px;font-weight:600;color:var(--ink)}
+.gl-def{font-size:17px;margin-top:4px;line-height:1.6}
+.gl-why{font-size:15px;color:var(--muted);margin-top:4px}
+
+/* Overview */
+.ov-hero{padding:8px 0 36px;border-bottom:1px solid var(--line);margin-bottom:40px}
+.ov-title{font-family:var(--font-display);font-size:52px;font-weight:700;letter-spacing:-.025em;line-height:1.05;color:var(--ink);margin:0 0 16px}
+.ov-lede{font-size:21px;line-height:1.5;color:var(--body);max-width:560px;margin:0 0 14px}
+.ov-facts{font-family:var(--font-display);font-size:15px;color:var(--muted);margin:0 0 26px}
+.ov-actions{display:flex;flex-wrap:wrap;gap:12px}
+.ov-cols{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:48px;align-items:start}
+.ov-h{font-family:var(--font-display);font-size:24px;font-weight:700;color:var(--ink);margin:0 0 6px}
+.ov-note{font-size:16px;color:var(--muted);margin:0 0 20px}
+.cur-group{margin-bottom:26px}
+.cur-label{font-family:var(--font-display);font-size:15px;font-weight:600;color:var(--muted);margin:0 0 4px}
+.cur-list{list-style:none;padding:0;margin:0;border-top:1px solid var(--line)}
+.cur-list li{margin:0;border-bottom:1px solid var(--line)}
+.cur-row{display:flex;align-items:flex-start;gap:14px;padding:14px 4px;text-decoration:none;color:var(--body)}
+.cur-row:hover .cur-name{color:var(--blue)}
+.cur-state{flex:0 0 20px;width:20px;height:20px;color:var(--line);margin-top:2px}
+.cur-row.done .cur-state{color:var(--blue)}
+.cur-row.locked .cur-state{color:var(--muted)}
+.cur-num{flex:0 0 22px;font-family:var(--font-display);font-size:15px;font-weight:600;color:var(--muted);margin-top:1px}
+.cur-body{flex:1;min-width:0}
+.cur-name{display:block;font-family:var(--font-display);font-size:17px;font-weight:600;color:var(--ink);line-height:1.35}
+.cur-desc{display:block;font-size:15px;color:var(--muted);line-height:1.5;margin-top:3px}
+.cur-meta{flex:0 0 auto;font-family:var(--font-display);font-size:13px;color:var(--muted);margin-top:3px;text-align:right}
+.ov-side{position:sticky;top:calc(var(--topbar) + 32px);border:1px solid var(--line);border-radius:var(--radius);padding:20px;font-family:var(--font-display)}
+.ov-side h2{font-size:16px;font-weight:600;margin:0 0 4px}
+.ov-side .big{font-size:15px;color:var(--muted);margin:0}
+.ov-side .bar{background:var(--band);height:6px;margin:14px 0 16px}
+.ov-side .bar>span{background:var(--blue)}
+.ov-side dl{display:grid;grid-template-columns:1fr auto;gap:6px 12px;font-size:14px;margin:0 0 14px}
+.ov-side dt{color:var(--muted)}
+.ov-side dd{color:var(--ink);font-weight:600;text-align:right}
+.ov-side p{font-size:13px;color:var(--muted);line-height:1.5;margin:0 0 10px}
+.wins{list-style:none;counter-reset:win;padding:0;margin:0 0 20px;border-top:1px solid var(--line)}
+.wins li{counter-increment:win;display:grid;grid-template-columns:28px minmax(0,1fr);gap:4px 10px;padding:16px 0;border-bottom:1px solid var(--line);margin:0}
+.wins li::before{content:counter(win);font-family:var(--font-display);font-weight:600;color:var(--muted);font-size:15px;padding-top:2px}
+.wins .w-t{font-family:var(--font-display);font-weight:600;color:var(--ink);font-size:17px;display:block}
+.wins .w-b{font-size:17px;line-height:1.6;display:block;margin-top:4px}
+.about{font-family:var(--font-display);font-size:14px;color:var(--muted);border-top:1px solid var(--line);padding-top:20px;margin-top:48px}
+
+/* Lesson end, premium notice */
+.lesson-end{margin-top:56px;padding-top:24px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;font-family:var(--font-display)}
+.lesson-end .next-note{display:block;font-size:14px;color:var(--muted);margin-top:8px}
+.lesson-end .prev{font-size:15px;color:var(--muted);text-decoration:none}
+.lesson-end .prev:hover{color:var(--ink)}
+.premium-note{background:var(--band);border-radius:var(--radius);padding:24px;margin:8px 0 0}
+.premium-note h2{font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--ink);margin:0 0 8px}
+.premium-note p{font-size:17px;margin:0 0 8px}
+.cta-block{background:var(--band);border-radius:var(--radius);padding:28px;margin:40px 0 0}
+.cta-block h3{margin:0 0 8px}
+.cta-block p{margin:0 0 18px}
+.done-note{background:var(--tint);border-radius:var(--radius);padding:18px 20px;margin:0 0 28px;font-family:var(--font-display);font-size:16px;color:var(--ink)}
+
+/* Wide screens drop the on-this-page rail first */
+@media (max-width:1240px){.toc{display:none}.main-inner{max-width:880px}}
+@media (max-width:1000px){.ov-cols{grid-template-columns:1fr}.ov-side{position:static;order:-1}}
+
+/* Phone and tablet: the sidebar becomes a drawer */
+@media (max-width:900px){
+  .tb-menu{display:inline-flex}
+  .tb-links{display:none}
+  .sidebar{transform:translateX(-100%);width:min(320px,86vw);box-shadow:none}
+  .sidebar.open{transform:translateX(0)}
+  .scrim.show{display:block;position:fixed;inset:var(--topbar) 0 0 0;background:rgba(22,27,34,.45);z-index:150}
+  .main{margin-left:0}
+  .main-inner{padding:28px 16px 72px}
+}
+@media (max-width:600px){
+  body{font-size:17px}
+  .topbar{padding:0 12px;gap:10px}
+  .tb-logo img{height:22px}
+  .tb-name{display:none}
+  .tb-cta{padding:8px 12px;font-size:14px}
+  .sec-title{font-size:30px}
+  .sec-sub{font-size:18px;margin-bottom:28px}
+  .ov-title{font-size:38px}
+  .ov-lede{font-size:19px}
+  h3{font-size:21px;margin-top:40px}
+  .ba{grid-template-columns:1fr}
+  .pa-scores{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .cur-meta{display:none}
+  .card-b,.co,.gl-def,.wins .w-b{font-size:16px}
+  .lesson-end{flex-direction:column;align-items:stretch}
+  .lesson-end .btn{width:100%;white-space:normal}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+@media print{
+  .topbar,.sidebar,.scrim,.toc,.lesson-end,.copy-btn,.sb-search{display:none!important}
+  .layout{padding-top:0}.main{margin-left:0}.main-inner{padding:0}
+  body{font-size:11pt;color:#000}
+  .qz,.widget,.prompt,.code{break-inside:avoid}
+  @page{size:letter;margin:.6in .8in}
+}
+</style>
+</head>
+<body>
+
+<a class="sr-only" href="#main">Skip to the lesson</a>
+<header class="topbar">
+  <button class="tb-menu" id="menuBtn" type="button" aria-label="Open the course menu" aria-expanded="false" aria-controls="sidebar">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+  </button>
+  <a class="tb-logo" href="/" aria-label="Bluegrass Advisory Group home"><img src="/brand/logo-white.svg" alt="Bluegrass Advisory Group" height="28"></a>
+  <a class="tb-name" href="#/">Academy</a>
+  <nav class="tb-links" aria-label="Academy">
+    <a href="#/" id="tbCourse">Course</a>
+    <a href="#/appA">Prompt library</a>
+    <a href="/prompt-studio">Prompt Studio</a>
+  </nav>
+  <a class="btn btn-primary tb-cta" href="https://cal.com/philip-fifield/intro" target="_blank" rel="noopener noreferrer">Book a call</a>
+</header>
+
+<div class="layout">
+<aside class="sidebar" id="sidebar" aria-label="Course menu">
+  <div class="sb-progress">
+    <div class="sb-progress-row"><strong>Your progress</strong><span id="sbProgText">0 of 0</span></div>
+    <div class="bar" aria-hidden="true"><span id="sbProgFill"></span></div>
+  </div>
+  <div class="sb-search"><label class="sr-only" for="sbSearch">Search lessons</label><input type="search" id="sbSearch" placeholder="Search lessons" autocomplete="off"></div>
+  <nav id="sbNav" aria-label="Lessons"></nav>
+  <div class="sb-foot">
+    <a href="/prompt-studio">Prompt Studio</a>
+    <a href="/">bluegrassadvisorygroup.com</a>
+  </div>
+</aside>
+<div class="scrim" id="scrim"></div>
+
+<main class="main" id="main" tabindex="-1">
+<div class="main-inner">
+<article class="lesson" id="lesson">
+
+<!-- OVERVIEW -->
+<div class="sec active" data-s="overview">
+<div class="ov-hero">
+  <h1 class="ov-title">AI Foundations</h1>
+  <p class="ov-lede">A practical course on using AI at work, written for owners, managers and staff.</p>
+  <p class="ov-facts" id="ovFacts"></p>
+  <div class="ov-actions">
+    <a class="btn btn-primary" id="ovStart" href="#/m1">Start the course</a>
+    <a class="btn btn-secondary" href="/prompt-studio">Open Prompt Studio</a>
+  </div>
+</div>
+
+<div class="ov-cols">
+  <div>
+    <h2 class="ov-h">Course outline</h2>
+    <p class="ov-note">Work through the modules in order, or jump to the one you need. Mark a module complete at the end of the lesson.</p>
+    <div id="curriculum"></div>
+  </div>
+  <aside class="ov-side" aria-label="Your progress">
+    <h2>Your progress</h2>
+    <p class="big" id="ovProgText"></p>
+    <div class="bar" aria-hidden="true"><span id="ovProgFill"></span></div>
+    <dl>
+      <dt>Checklist items</dt><dd id="ovTasks"></dd>
+      <dt>Quiz questions</dt><dd id="ovQuiz"></dd>
+    </dl>
+    <p>Progress is saved in this browser only. It does not follow you to another device.</p>
+    <button class="btn-text" type="button" id="resetBtn">Clear my progress</button>
+  </aside>
+</div>
+
+<h3 id="overview-quick-wins">Ten quick wins to try today</h3>
+<p>Each one takes a few minutes and none of them can break anything. Open Claude at <a href="https://claude.ai" target="_blank" rel="noopener noreferrer">claude.ai</a> and paste one in.</p>
+<ol class="wins">
+<li><span><span class="w-t">Rewrite an email you already sent</span><span class="w-b">Paste in an email you were not happy with: "Rewrite this email to be more professional and concise. Keep the same message but make it tighter." Compare the two.</span></span></li>
+<li><span><span class="w-t">Summarize something long</span><span class="w-b">Paste in the article or document you have been putting off: "Summarize this in 5 bullet points. What are the key takeaways?"</span></span></li>
+<li><span><span class="w-t">Draft a difficult reply</span><span class="w-b">Paste the original message: "I need to [decline / address the complaint / push back]. Draft a reply that's firm but respectful."</span></span></li>
+<li><span><span class="w-t">Get a spreadsheet formula</span><span class="w-b">"I have dates in column A and dollar amounts in column B. Write a SUMIFS formula that totals only amounts from March 2026." Paste the result into Excel.</span></span></li>
+<li><span><span class="w-t">Create a checklist</span><span class="w-b">"Create a checklist for [opening the shop / onboarding a new hire / preparing for a client meeting]. Include steps I might forget." Print it and use it tomorrow.</span></span></li>
+<li><span><span class="w-t">Prepare for a meeting</span><span class="w-b">"I have a meeting with my boss tomorrow about [topic]. Give me 4 talking points, anticipate 3 questions they'll ask, and suggest 2 things I should bring up first."</span></span></li>
+<li><span><span class="w-t">Explain something you don't understand</span><span class="w-b">"Explain [net 30 terms / EBITDA / SEO / workers comp] like I'm smart but new to this. No jargon. Use a real analogy."</span></span></li>
+<li><span><span class="w-t">Draft a job posting</span><span class="w-b">"Write a job posting for [role] at a [describe your company]. They need [top 3 requirements]. Pay: $[X]. Make it sound like a real person wrote it."</span></span></li>
+<li><span><span class="w-t">Get a second opinion</span><span class="w-b">"I'm deciding between [A] and [B]. Here's the situation: [context]. Pros and cons of each. Tell me what you'd do."</span></span></li>
+<li><span><span class="w-t">Organize messy notes</span><span class="w-b">Paste in meeting notes or a brain dump: "Organize this into sections with bullet points. Pull out decisions made and action items needed."</span></span></li>
+</ol>
+<div class="co"><strong>Do one now.</strong> Pick the task closest to something on your list today and send your first real prompt.</div>
+
+<p class="about">Built by Bluegrass Advisory Group in Lexington, Kentucky. Course content last reviewed 1 October 2026. Plans and features change often, so check each vendor's own page before you buy.</p>
+</div>
+
+<!-- ═══════ MODULE 1: MINDSET ═══════ -->
+<div class="sec" data-s="m1">
+<h1 class="sec-title">How to think about AI</h1>
+<p class="sec-sub">Get this mental model right and everything else clicks. Get it wrong and you'll waste months trying things that don't work.</p>
+
+<h3>AI is not a search engine</h3>
+<p>The #1 mistake: treating AI like Google. You type a question, get a generic answer, and think "this isn't useful." That's using a power tool like a hammer.</p>
+
+<div class="card card-em">
+<div class="card-t">The right mental model</div>
+<div class="card-b">
+<strong>AI is a brilliant new hire who has read every book, manual, and article ever written: but has never set foot in YOUR operation.</strong><br><br>
+They're fast. They're knowledgeable. They're eager. But they need <em>your context</em> and <em>your direction</em>. The quality of what you get out is directly proportional to the quality of what you put in.<br><br>
+"Write me a proposal" gets you a generic page you will rewrite.<br>
+"Write a 1-page proposal for [specific project] for [specific client] who cares about [specific thing], formatted as [specific format]" gets you a draft you can use.
+</div>
+</div>
+
+<h3>The 7 principles</h3>
+
+<div class="card card-em"><div class="card-t">1. Context is everything</div><div class="card-b">The more context you give, the better the output. Tell AI who you are, what you need, why you need it, who it's for, and what format you want. This is the difference between a C- answer and an A+ answer. Think of it like briefing a new employee: the more they know, the better they perform.</div></div>
+
+<div class="card card-em"><div class="card-t">2. Work with AI like a collaborator</div><div class="card-b">Don't ask one question and accept the first answer. Have a <em>conversation</em>. "That's close but tighten the intro." "Now add a section about X." The back-and-forth is where the value lives. The best AI users treat it like a working session.</div></div>
+
+<div class="card card-em"><div class="card-t">3. First draft fast, then refine</div><div class="card-b">Use AI to get a first draft in 30 seconds instead of 30 minutes. Then iterate. Get 70% there on the first pass, steer it to 95%, and add your 5% of human judgment. You're the editor.</div></div>
+
+<div class="card card-em"><div class="card-t">4. AI can be confidently wrong</div><div class="card-b">AI models "hallucinate": state things that aren't true with complete confidence. Happens most with specific facts, statistics, legal codes, and niche details. <strong>Always verify critical facts from authoritative sources.</strong> Use AI for thinking and drafting. Use verified sources for facts.</div></div>
+
+<div class="card card-em"><div class="card-t">5. The skill is in the asking</div><div class="card-b">"Prompt engineering" sounds technical. It's just being a clear communicator. People who get the most out of AI aren't programmers: they're people who can clearly articulate what they want. That's a skill you already have.</div></div>
+
+<div class="card card-em"><div class="card-t">6. AI amplifies: it doesn't replace</div><div class="card-b">A manager who uses AI to write SOPs, analyze data, and plan projects gets more done in a week. But AI didn't learn your industry: you did. Your domain expertise is the irreplaceable ingredient. AI removes busywork so you can focus on judgment and relationships.</div></div>
+
+<div class="card card-em"><div class="card-t">7. Start doing, stop researching</div><div class="card-b">You don't learn AI by reading about AI. You learn by using it. Open Claude, give it a real task from your work today. The people who get good are the ones who use it daily: even imperfectly: not the ones who watch 40 hours of tutorials first.</div></div>
+
+<h3>What AI actually is (plain English)</h3>
+<p>Large Language Models (LLMs) like Claude are trained on enormous amounts of text. They learn patterns: how words, sentences, and ideas relate. When you type a prompt, the model predicts what should come next based on those patterns.</p>
+<ul>
+<li><strong>They don't "think" like humans.</strong> They predict the most likely response. But the output is often indistinguishable from human reasoning.</li>
+<li><strong>They have a training cutoff.</strong> Anything time-sensitive (prices, news, laws, rates) gets checked at the source.</li>
+<li><strong>What a new chat remembers depends on your plan and settings.</strong> Projects are the reliable way to give Claude the same background every time (Module 4).</li>
+<li><strong>They're improving fast.</strong> What AI can do today vs 12 months ago is dramatic.</li>
+</ul>
+
+<h3>What AI is NOT</h3>
+<div class="card card-red"><div class="card-t">Not a replacement for expertise</div><div class="card-b">AI doesn't know your customers, your team dynamics, or your market position. It generates text: you provide the judgment.</div></div>
+<div class="card card-red"><div class="card-t">Not always right</div><div class="card-b">It can fabricate statistics, cite papers that don't exist, and give confident wrong answers. Always verify anything that matters.</div></div>
+<div class="card card-red"><div class="card-t">Not a set-it-and-forget-it tool</div><div class="card-b">AI works best as a conversation partner. The iterate-and-refine cycle is where the value is.</div></div>
+<div class="card card-red"><div class="card-t">Not going to take your job</div><div class="card-b">People who use AI will outperform people who don't. AI is a tool that makes skilled people more productive: it doesn't replace the skills.</div></div>
+<div class="card card-red"><div class="card-t">Not magic</div><div class="card-b">It follows patterns from training data. It doesn't have intuition, creativity, or common sense. Those are yours.</div></div>
+
+<h3>What AI gets right today</h3>
+<div class="card card-em"><div class="card-b">
+<strong>Excellent at:</strong><br>
+• Writing first drafts of anything (emails, SOPs, proposals, job postings)<br>
+• Analyzing and summarizing documents, data, and long content<br>
+• Brainstorming ideas, options, and approaches<br>
+• Creating structured frameworks (checklists, plans, agendas)<br>
+• Explaining complex topics in simple language<br>
+• Writing formulas (Excel, Google Sheets)<br>
+• Rewriting content in a different tone or for a different audience<br>
+• Stress-testing ideas: finding holes in your thinking<br>
+• Organizing messy notes into clean documents<br>
+• Creating standardized templates from examples
+</div></div>
+
+<h3>What AI still gets wrong</h3>
+<div class="card card-red"><div class="card-b">
+<strong>Unreliable at:</strong><br>
+• <strong>Specific facts and statistics</strong>: it can fabricate numbers, citations, and sources that don't exist. Always verify.<br>
+• <strong>Current information</strong>: prices, news and market conditions change after a model is trained. Check anything time-sensitive at the source.<br>
+• <strong>Math with many steps</strong>: it can write formulas perfectly but sometimes makes arithmetic errors in multi-step calculations. Spot-check.<br>
+• <strong>Legal and tax specifics</strong>: it understands concepts well but should never be your source for compliance decisions. Verify with professionals.<br>
+• <strong>Your specific context</strong>: without your input, it defaults to generic advice. That's why prompting matters so much.<br>
+• <strong>Emotional intelligence in high-stakes situations</strong>: AI can draft a termination letter, but you need to deliver it. The human judgment in sensitive situations is irreplaceable.<br>
+• <strong>Knowing when it's wrong</strong>: AI doesn't doubt itself. It presents everything with the same confidence. That's why YOU are the quality filter.
+</div></div>
+
+<h3>Rate your AI readiness</h3>
+<div class="widget" id="readinessWidget">
+<div class="widget-title">AI Readiness Self-Assessment</div>
+<div class="widget-sub">Answer honestly: this helps you know where to focus.</div>
+<div id="readinessQs"></div>
+<button class="widget-btn" onclick="scoreReadiness()">See My Score</button>
+<div class="widget-result" id="readinessResult"></div>
+</div>
+
+<h3>Quiz: Module 1</h3>
+<div class="qz" data-quiz="q1">
+<div class="qz-q">What's the best mental model for AI?</div>
+<div class="qz-opts">
+<div class="qz-o" data-a="w" onclick="aQuiz(this)"><div class="qz-r"></div>A smarter version of Google</div>
+<div class="qz-o" data-a="c" onclick="aQuiz(this)"><div class="qz-r"></div>A brilliant new hire who needs your context and direction</div>
+<div class="qz-o" data-a="w" onclick="aQuiz(this)"><div class="qz-r"></div>A robot that will do your job</div>
+<div class="qz-o" data-a="w" onclick="aQuiz(this)"><div class="qz-r"></div>A database of pre-written answers</div>
+</div>
+<div class="qz-res" id="q1-r"></div>
+</div>
+
+<div class="qz" data-quiz="q2">
+<div class="qz-q">AI "hallucination" means:</div>
+<div class="qz-opts">
+<div class="qz-o" data-a="w" onclick="aQuiz(this)"><div class="qz-r"></div>The AI crashes and shows errors</div>
+<div class="qz-o" data-a="c" onclick="aQuiz(this)"><div class="qz-r"></div>It states something false with full confidence</div>
+<div class="qz-o" data-a="w" onclick="aQuiz(this)"><div class="qz-r"></div>It generates images instead of text</div>
+<div class="qz-o" data-a="w" onclick="aQuiz(this)"><div class="qz-r"></div>It refuses to answer your question</div>
+</div>
+<div class="qz-res" id="q2-r"></div>
+</div>
+
+</div>
+
+<!-- ═══════ MODULE 2: TOOLKIT ═══════ -->
+<div class="sec" data-s="m2">
+<h1 class="sec-title">Your AI toolkit</h1>
+<p class="sec-sub">What to get, which plan, and when to add more tools.</p>
+
+<h3>Your primary tool: Claude</h3>
+<div class="card card-em">
+<div class="card-t">Claude by Anthropic <span class="badge">Our main tool</span></div>
+<div class="card-b">Claude is the AI we use at Bluegrass Advisory Group and the one we set up for clients. We use it for long-form work: writing, analysis, planning and following detailed instructions. Projects keep your instructions and reference files in one place, so you stop re-explaining your business.<br><br>
+<strong>Where to get it:</strong> <a href="https://claude.ai" target="_blank" rel="noopener noreferrer">claude.ai</a> in a browser, the desktop app for Mac and Windows, and the mobile app.</div>
+</div>
+
+<h3>Which plan</h3>
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>Plan</th><th>Who it fits</th><th>Worth knowing</th></tr></thead>
+<tbody>
+<tr><td><strong>Free</strong></td><td>Trying Claude out</td><td>Projects are included, up to five of them. Usage limits arrive quickly with daily work.</td></tr>
+<tr class="rec"><td><strong>Pro</strong> <span class="badge">Start here</span></td><td>One person using Claude every day</td><td>More usage than Free. Claude Code is included.</td></tr>
+<tr><td><strong>Max</strong></td><td>Heavy daily users</td><td>Two tiers, Max 5x and Max 20x, for more usage than Pro.</td></tr>
+<tr><td><strong>Team</strong></td><td>2 to 150 people</td><td>Standard and Premium seats (a Premium seat carries five times the usage of a Standard seat). Projects can be shared inside the company, and an owner controls which connectors, skills and plugins people can use.</td></tr>
+<tr><td><strong>Enterprise</strong></td><td>Larger organizations</td><td>Adds controls such as audit logs and directory sync.</td></tr>
+</tbody>
+</table></div>
+
+<p class="note">Plan details from Anthropic's pricing and help pages, checked 30 September 2026. Current prices are on <a href="https://claude.com/pricing" target="_blank" rel="noopener noreferrer">claude.com/pricing</a>.</p>
+
+<div class="co co-em"><div><strong>What we recommend:</strong> start on Pro if you work alone. Move to Team when several people need shared projects and one person managing access.</div></div>
+
+<h3>The tool progression</h3>
+<p>Don't sign up for 15 tools. Add tools as your skills grow. Here's the sequence:</p>
+
+<h4>Stage 1: getting started (week 1-2)</h4>
+
+<div class="card card-em">
+<div class="card-t">Claude</div>
+<div class="card-b"><strong>Your main AI.</strong> Writing, analysis, planning, brainstorming, document creation. Everything runs through Claude. Install the mobile app too: same quality, on the go.</div>
+</div>
+
+<div class="card card-em">
+<div class="card-t">Perplexity</div>
+<div class="card-b"><strong>Search with cited sources.</strong> Use it to check a fact, a statistic or a current number against the page it came from.<br><strong>Habit to build:</strong> when an AI answer gives you a number you plan to repeat, open the source and confirm it.</div>
+</div>
+
+<div class="co co-em"><div><strong>Start with these two.</strong> Learn them well before adding anything else.</div></div>
+
+<h4>Stage 2: organizing (week 3-4)</h4>
+
+<div class="card card-em">
+<div class="card-t">Obsidian</div>
+<div class="card-b"><strong>Knowledge base.</strong> Turns a folder of Markdown files into a searchable, linked system. Your SOPs, prompts, notes, and project plans: all searchable, all linked. This is where your AI knowledge system lives (Module 6).<br><strong>When to add:</strong> When you have 10+ documents and you're hunting for things.</div>
+</div>
+
+<div class="card">
+<div class="card-t">Google Drive or OneDrive</div>
+<div class="card-b"><strong>Cloud backup.</strong> Your work folder should sync to the cloud. Takes 5 minutes to set up.</div>
+</div>
+
+<h4>Stage 3: creating (month 2-3)</h4>
+
+<div class="card">
+<div class="card-t">Canva</div>
+<div class="card-b"><strong>Design.</strong> Presentations, flyers, branded documents, social media. Has AI features built in. Use when you need anything visual.</div>
+</div>
+
+<div class="card">
+<div class="card-t">Gamma</div>
+<div class="card-b"><strong>AI presentations.</strong> Describe your deck and Gamma creates slides with layout and visuals. Use Claude for content, Gamma to make it visual.</div>
+</div>
+
+<h4>Stage 4: other AI models (month 2+)</h4>
+
+<div class="card">
+<div class="card-t">ChatGPT (OpenAI)</div>
+<div class="card-b"><strong>A second opinion.</strong> Running the same question past a second assistant is a cheap way to catch a weak answer.</div>
+</div>
+
+<div class="card">
+<div class="card-t">Google Gemini</div>
+<div class="card-b"><strong>AI inside Google apps.</strong> Helps with Sheets formulas and summarizes Drive documents. Useful if your company already runs on Google Workspace.</div>
+</div>
+
+<h4>Stage 5: automation (month 3+)</h4>
+<div class="card card-gold">
+<div class="card-t">Zapier, Make or n8n <span class="badge">Academy Premium</span></div>
+<div class="card-b"><strong>Connect your tools together.</strong> Workflows that move information between systems without someone copying it by hand. This is where most businesses bring in help. Module 11 covers it.<br><br>
+Zapier is the easiest to start with, Make handles more complex branching, and n8n can run on your own server. Each vendor lists its prices on its own site.</div>
+</div>
+
+<h3>Choosing between Claude, ChatGPT and Gemini</h3>
+<p>The three vendors release new models and features every few months, so a feature-by-feature scorecard goes out of date quickly. We don't keep one here. Pick one main tool, learn it well, and check each vendor's own pages for what a plan includes before you buy.</p>
+
+<h3>Don't use AI for these things</h3>
+<div class="card card-red"><div class="card-t">Specific legal/tax/medical advice</div><div class="card-b">AI can help you understand concepts, but never rely on it for legal compliance, tax filing specifics, or medical decisions. Always verify with a licensed professional.</div></div>
+<div class="card card-red"><div class="card-t">Current pricing or availability</div><div class="card-b">An AI answer can repeat a price that is months old. Check current prices and availability on the vendor's own site.</div></div>
+<div class="card card-red"><div class="card-t">Sensitive personal data processing</div><div class="card-b">Don't paste SSNs, passwords, customer financial info, or confidential contracts into any AI tool without anonymizing first.</div></div>
+
+<div class="co co-gold"><div><strong>A common trap:</strong> signing up for eight tools, learning none of them well, and deciding AI isn't useful. Go deep on one tool before going wide.</div></div>
+
+<h3>Where AI still fails</h3>
+<p>Use AI for these without checking the answer and you will eventually get one wrong.</p>
+
+<div class="card card-red"><div class="card-t">Specific legal compliance</div><div class="card-b">"Do I need workers comp for a 1099 contractor in Kentucky?": AI will give you an answer that sounds authoritative. It might be wrong. State laws change. Consult a professional for anything with legal consequences.</div></div>
+
+<div class="card card-red"><div class="card-t">Tax strategy specifics</div><div class="card-b">"Can I deduct this?": AI understands tax concepts well but may not know current thresholds, phase-outs, or state-specific rules. Use AI to understand the concepts. Use your CPA for the decisions.</div></div>
+
+<div class="card card-red"><div class="card-t">Current market pricing</div><div class="card-b">What a model learned about prices may be months or years old. For current vendor pricing, material costs or competitor rates, check the source directly.</div></div>
+
+<div class="card card-red"><div class="card-t">Medical / safety decisions</div><div class="card-b">AI can help you draft safety procedures, but the actual safety engineering should come from qualified professionals. Don't use AI as a substitute for an engineer, doctor, or safety officer.</div></div>
+
+<div class="card card-red"><div class="card-t">Emotional / relationship decisions</div><div class="card-b">"Should I fire this person?": AI can help you structure the conversation and document the issues. But the actual judgment call about a person's livelihood should be yours, informed by the full context only you have.</div></div>
+
+<div class="co co-em"><div><strong>Rule of thumb:</strong> use AI to draft, analyze and think. Use people to verify, decide and deliver.</div></div>
+
+<h3>Quiz: Module 2</h3>
+<div class="qz" data-quiz="q3"><div class="qz-q">What's the recommended starting stack for Week 1?</div><div class="qz-opts">
+<div class="qz-o" data-a="w" onclick="aQuiz(this)"><div class="qz-r"></div>ChatGPT Free + Gemini + Canva</div>
+<div class="qz-o" data-a="c" onclick="aQuiz(this)"><div class="qz-r"></div>One main AI tool (Claude) plus one research tool for checking facts</div>
+<div class="qz-o" data-a="w" onclick="aQuiz(this)"><div class="qz-r"></div>Every AI tool available: cast a wide net</div>
+<div class="qz-o" data-a="w" onclick="aQuiz(this)"><div class="qz-r"></div>Just the free tier of Claude: don't spend money</div>
+</div><div class="qz-res" id="q3-r"></div></div>
+
+<div class="qz" data-quiz="q4"><div class="qz-q">When should you add Obsidian?</div><div class="qz-opts">
+<div class="qz-o" data-a="w" onclick="aQuiz(this)"><div class="qz-r"></div>Day 1: install everything at once</div>
+<div class="qz-o" data-a="c" onclick="aQuiz(this)"><div class="qz-r"></div>Around Week 3: when you have 10+ documents to organize</div>
+<div class="qz-o" data-a="w" onclick="aQuiz(this)"><div class="qz-r"></div>Never: Notepad is fine</div>
+<div class="qz-o" data-a="w" onclick="aQuiz(this)"><div class="qz-r"></div>Only if you're a developer</div>
+</div><div class="qz-res" id="q4-r"></div></div>
+
+</div>
+
+<!-- ═══════ MODULE 3: PROMPT ENGINEERING ═══════ -->
+<div class="sec" data-s="m3">
+<h1 class="sec-title">Prompt engineering</h1>
+<p class="sec-sub">The most important module in the course. How you ask decides most of what you get back.</p>
+
+<h3>The framework: R-C-T-F-T</h3>
+<p>Every great prompt has five components. You don't need all five every time, but the more you include, the better your output.</p>
+
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>Part</th><th>What it answers</th></tr></thead>
+<tbody>
+<tr><td><strong>R: Role</strong></td><td>Who should the AI act as?</td></tr>
+<tr><td><strong>C: Context</strong></td><td>What's the situation? Background info?</td></tr>
+<tr><td><strong>T: Task</strong></td><td>What exactly should it produce?</td></tr>
+<tr><td><strong>F: Format</strong></td><td>How should the output be structured?</td></tr>
+<tr><td><strong>T: Tone</strong></td><td>How should it sound?</td></tr>
+</tbody>
+</table></div>
+
+<h3>Same question, four levels of detail</h3>
+<p>Watch how the same question produces different output at each level:</p>
+
+<h4>Scenario: pricing a new service</h4>
+
+<div class="prompt"><div class="prompt-tag prompt-bad">Level 1</div><div class="prompt-txt">How should I price my services?</div></div>
+<p class="note"><strong>Output:</strong> A generic article about pricing strategies: cost-plus, value-based, competitive. Nothing specific to you.</p>
+
+<div class="prompt"><div class="prompt-tag prompt-ok">Level 2</div><div class="prompt-txt">I run a landscaping company with 8 employees. We charge
+$45/visit for lawn maintenance. Costs are about $28/visit.
+How should I think about raising prices?</div></div>
+<p class="note"><strong>Output:</strong> Relevant advice about your margins and market. Better: but still general.</p>
+
+<div class="prompt"><div class="prompt-tag prompt-ok">Level 3</div><div class="prompt-txt">I run a landscaping company. 8 employees, mid-size city.
+$45/visit, $28 cost. Booked solid 4 months out. Turning
+away work. Competitors charge $50-55.
+
+Think step by step. Give me:
+1. What being booked 4 months out signals
+2. Risk of losing customers at different price points
+3. Specific recommendation with reasoning
+4. How to communicate the change to customers</div></div>
+<p class="note"><strong>Output:</strong> Structured analysis that reads like a consultant's memo. Specific, actionable.</p>
+
+<div class="prompt"><div class="prompt-tag prompt-good">Level 4</div><div class="prompt-txt">You are a business pricing strategist who works with
+small service companies.
+
+I run a landscaping company. 8 employees. $45/visit,
+$28 cost. Booked 4 months out, turning away 5-8 people
+per week. Competitors: a national chain at $55, a local
+company at $50, solo operators at $30-35.
+
+My customers value reliability and communication. We
+never skip visits and we text before every arrival.
+
+Think step by step. Should I raise across the board or
+tier pricing? Give me the dollar amount, a rollout
+timeline, and draft the customer email announcing it.
+
+Don't hedge. Tell me what to do.</div></div>
+<p class="note"><strong>Output:</strong> A complete pricing plan: a dollar recommendation, a tiered approach, a timeline and a ready-to-send customer email.</p>
+
+<div class="co co-em"><div><strong>The pattern:</strong> Each level adds one layer. The jump from Level 1 to Level 4 takes about a minute of extra typing and turns a generic answer into one you can act on.</div></div>
+
+<h3>Bad vs good: across industries</h3>
+
+<h4>Restaurant owner</h4>
+<div class="ba">
+<div class="ba-col ba-before"><div class="ba-label">Bad Prompt</div>"Help me reduce food costs."</div>
+<div class="ba-col ba-after"><div class="ba-label">Good Prompt</div>"I run a fast-casual restaurant, $1.2M revenue. Food cost is 34%: target is 28%. Top sellers are burgers and chicken bowls. Walk me through the 5 highest-impact changes I can make without reducing portion sizes or quality. Be specific: don't tell me to 'negotiate with vendors,' tell me HOW."</div>
+</div>
+
+<h4>Real estate agent</h4>
+<div class="ba">
+<div class="ba-col ba-before"><div class="ba-label">Bad Prompt</div>"Write a listing description."</div>
+<div class="ba-col ba-after"><div class="ba-label">Good Prompt</div>"Write a listing description for a 3BR/2BA ranch in a suburban neighborhood. 1,800 sqft, updated kitchen (2023), fenced yard, 2-car garage. Asking $285K. Target buyer: young family upgrading from an apartment. Lead with the lifestyle, not the specs. Under 150 words. No real estate clichés like 'move-in ready' or 'won't last long.'"</div>
+</div>
+
+<h4>Nonprofit director</h4>
+<div class="ba">
+<div class="ba-col ba-before"><div class="ba-label">Bad Prompt</div>"Write a fundraising email."</div>
+<div class="ba-col ba-after"><div class="ba-label">Good Prompt</div>"I'm the president of a small nonprofit that provides emergency financial assistance to families. We have 200 donors, average gift $75. Year-end campaign starts Dec 1. Write a fundraising email that: opens with a specific (anonymized) story of a family we helped, ties the gift to tangible impact ($50 = one utility payment), has a clear CTA, and ends warmly. Tone: genuine, not guilt-trippy. Under 250 words."</div>
+</div>
+
+<h4>Retail store manager</h4>
+<div class="ba">
+<div class="ba-col ba-before"><div class="ba-label">Bad Prompt</div>"How do I improve customer service?"</div>
+<div class="ba-col ba-after"><div class="ba-label">Good Prompt</div>"I manage a retail store with 15 employees, mostly part-time. We've had 3 negative Google reviews this month mentioning 'rude staff' and 'long wait times.' Our current training is a 1-page handout from 2019. Create a 5-point customer service improvement plan that includes: specific scripts for greeting customers, a system for reducing wait times, a weekly 10-minute team huddle format, and how to handle complaints on the spot. This needs to work for a high-turnover team."</div>
+</div>
+
+<h4>Healthcare admin</h4>
+<div class="ba">
+<div class="ba-col ba-before"><div class="ba-label">Bad Prompt</div>"Write a patient communication."</div>
+<div class="ba-col ba-after"><div class="ba-label">Good Prompt</div>"Write a letter to patients informing them that Dr. Martinez is leaving our practice effective April 30. We have 3 other physicians who can take over their care. The letter should: express gratitude for Dr. Martinez's service, reassure patients their records transfer automatically, list the other physicians with their specialties, include a phone number to call with questions, and be under 250 words. Tone: warm and reassuring: patients will be anxious."</div>
+</div>
+
+<h4>Freelance designer</h4>
+<div class="ba">
+<div class="ba-col ba-before"><div class="ba-label">Bad Prompt</div>"Help me with client communication."</div>
+<div class="ba-col ba-after"><div class="ba-label">Good Prompt</div>"A client just asked for a 4th round of revisions on a logo project. My contract includes 2 rounds. I need to respond professionally, explain that additional revisions are billable at $75/hr, but do it in a way that doesn't damage the relationship: they're a good client who may have more work. Draft the email. Keep it under 100 words. Firm but friendly."</div>
+</div>
+
+<h4>Teacher / educator</h4>
+<div class="ba">
+<div class="ba-col ba-before"><div class="ba-label">Bad Prompt</div>"Write a lesson plan."</div>
+<div class="ba-col ba-after"><div class="ba-label">Good Prompt</div>"Create a 50-minute lesson plan for 10th grade US History on the causes of the Civil War. My students are mixed-ability: about 30% read below grade level. I need: a 5-minute hook/opener that grabs attention, a 15-minute direct instruction segment, a 20-minute student activity (pairs or small group: no technology required), and a 10-minute wrap-up with an exit ticket. Include 3 discussion questions that push beyond memorization into analysis. Standards: [list yours]."</div>
+</div>
+
+<h4>Construction / trades</h4>
+<div class="ba">
+<div class="ba-col ba-before"><div class="ba-label">Bad Prompt</div>"Write a safety document."</div>
+<div class="ba-col ba-after"><div class="ba-label">Good Prompt</div>"Create a Job Hazard Analysis (JHA) for residential roof work. My crew is 4 people, working on a 6/12 pitch asphalt shingle roof. Cover: fall protection requirements, PPE checklist, tool safety (nail guns, circular saws), heat exposure protocol, and emergency procedures. Format as a 1-page form the crew lead signs before starting each job. Include checkboxes. Write for experienced tradespeople, not office workers."</div>
+</div>
+
+<h3>Nine techniques that improve any prompt</h3>
+
+<div class="card card-em"><div class="card-t">1. Role assignment</div><div class="card-b">"You are a [role] with [X years] of experience in [domain]." Same question to a CPA vs a small business owner vs a marketing strategist produces totally different answers. Try the same question with 3 different roles: you'll see.</div></div>
+
+<div class="card card-em"><div class="card-t">2. Chain of thought</div><div class="card-b">"Think step by step" or "walk me through your reasoning." Forces AI to show its work. Essential for financial decisions, strategy, and complex analysis.</div></div>
+
+<div class="card card-em"><div class="card-t">3. Few-shot examples</div><div class="card-b">Show AI an example of what you want before asking it to produce. "Here's a customer email I wrote that worked well: [paste]. Write 5 more in the same style for these situations: [list]."</div></div>
+
+<div class="card card-em"><div class="card-t">4. Constraints</div><div class="card-b">Tell AI what NOT to do. "No jargon." "Under 200 words." "Don't hedge: give me a direct recommendation." "No bullet points: flowing paragraphs." Constraints eliminate generic defaults.</div></div>
+
+<div class="card card-em"><div class="card-t">5. Iteration</div><div class="card-b">Never accept V1. Follow up: "Tighten the intro." "Cut this in half." "Make it sound less corporate." "Add specifics about cost." Most people stop after the first draft. The second and third drafts are usually the ones you keep.</div></div>
+
+<div class="card card-em"><div class="card-t">6. Persona + audience</div><div class="card-b">Specify who AI IS and who the READER is. "You're a financial advisor. The reader is a 28-year-old starting their first job" vs "The reader is a 55-year-old business owner planning retirement." Same role, totally different output.</div></div>
+
+<div class="card card-em"><div class="card-t">7. Output format</div><div class="card-b">"Give me a table with columns: Task, Owner, Due Date, Status." "Three options with pros, cons, and cost for each." "Format as a professional email." Being explicit about format saves hours of reformatting.</div></div>
+
+<div class="card card-em"><div class="card-t">8. Stress testing</div><div class="card-b">"Here's my plan. Poke holes in it." "What am I not thinking about?" "I wrote this proposal: read it as the customer and tell me what would make you say no." Asking AI to argue against your plan is one of the most useful things it does.</div></div>
+
+<div class="card card-em"><div class="card-t">9. Reference material</div><div class="card-b">Upload or paste real documents. "Here's our current SOP [paste]. Improve it." "Here's a contract from a vendor [upload]. Summarize and flag anything unusual." Real material gives far better output than a description of it.</div></div>
+
+<h3>Prompt analyzer</h3>
+<div class="widget" id="promptAnalyzer">
+<div class="widget-title">Test Your Prompt</div>
+<div class="widget-sub">Paste a prompt below and get an instant R-C-T-F-T score with improvement suggestions.</div>
+<textarea id="paInput" placeholder="Paste your prompt here..."></textarea>
+<button class="widget-btn" onclick="analyzePrompt()">Analyze My Prompt</button>
+<div class="widget-result" id="paResult"></div>
+</div>
+
+<h3>The iteration workflow</h3>
+<div class="card card-em"><div class="card-b">
+<strong>You:</strong> "I need a quarterly update email for my team of 18. Hit revenue target but missed retention."<br><br>
+<strong>Claude:</strong> [writes draft]<br><br>
+<strong>You:</strong> "Too positive. Be honest about the retention problem without being demoralizing."<br><br>
+<strong>Claude:</strong> [rewrites with balanced tone]<br><br>
+<strong>You:</strong> "Add a section about what we're doing to tackle retention: mention the new onboarding process."<br><br>
+<strong>Claude:</strong> [adds specifics]<br><br>
+<strong>You:</strong> "The closing is generic. End by acknowledging the team: two people were out for weeks and everyone covered."<br><br>
+<strong>Claude:</strong> [personalizes close]<br><br>
+<strong>Result:</strong> Polished, authentic email in 4 minutes instead of 30. Sounds like YOU because you steered it.
+</div></div>
+
+<h3>Common mistakes</h3>
+<div class="card card-red"><div class="card-t">Being too vague</div><div class="card-b">"Help me with marketing": AI has no idea what business, budget, channels, or goals.</div></div>
+<div class="card card-red"><div class="card-t">Accepting V1</div><div class="card-b">If you never ask for changes, you are keeping the weakest version of the answer.</div></div>
+<div class="card card-red"><div class="card-t">One giant prompt</div><div class="card-b">15 requests in one message. Break complex tasks into steps: first outline, then sections, then review.</div></div>
+<div class="card card-red"><div class="card-t">Treating AI as infallible</div><div class="card-b">Copying output without reading it. AI can get facts wrong and use awkward phrasing. Always review.</div></div>
+
+<div class="co co-gold"><div><strong>Privacy:</strong> Never paste SSNs, passwords, or confidential customer data into any AI tool. Check your plan's privacy settings, and keep sensitive data out regardless of what they say.</div></div>
+
+<h3>When AI gives you bad output: troubleshooting</h3>
+<p>Sometimes the output is wrong, generic, or not usable. Here is how to find the cause and fix it:</p>
+
+<div class="card card-red"><div class="card-t">Problem: output is too generic / sounds like a blog post</div><div class="card-b"><strong>Fix:</strong> You didn't give enough context. Add: who you are, your industry, your specific situation, who the audience is. The more specific you are, the more specific AI is.</div></div>
+
+<div class="card card-red"><div class="card-t">Problem: output is too long / padded with filler</div><div class="card-b"><strong>Fix:</strong> Add constraints. "Under 200 words." "Give me only the recommendation, not the analysis." "Bullet points, no paragraphs." "Skip the introduction: start with the answer."</div></div>
+
+<div class="card card-red"><div class="card-t">Problem: output has the wrong tone</div><div class="card-b"><strong>Fix:</strong> Be explicit about tone. "Write like a direct manager, not a consultant." "Casual, like texting a colleague." "Formal: this is going to the board." Or paste an example: "Match the tone of this: [paste something you wrote]."</div></div>
+
+<div class="card card-red"><div class="card-t">Problem: AI is hallucinating / making things up</div><div class="card-b"><strong>Fix:</strong> Say "Only include information you're confident about. If you're unsure, say so." Check facts at the source. Upload source material so AI works from your real data.</div></div>
+
+<div class="card card-red"><div class="card-t">Problem: AI keeps going in circles / not improving</div><div class="card-b"><strong>Fix:</strong> Start a new conversation. Long threads dilute context. Take your best version, open a fresh chat, paste it in, and give specific instructions for the next iteration. Fresh context = better results.</div></div>
+
+<div class="card card-red"><div class="card-t">Problem: AI doesn't understand your industry</div><div class="card-b"><strong>Fix:</strong> Use a Claude Project with custom instructions that include your industry context, terminology, and preferences. Upload reference documents (product specs, industry guides). Give examples of what "good" looks like in your field.</div></div>
+
+<h3>Quiz: Module 3</h3>
+<div class="qz" data-quiz="q5"><div class="qz-q">Which technique improves AI output the most immediately?</div><div class="qz-opts">
+<div class="qz-o" data-a="w" onclick="aQuiz(this)"><div class="qz-r"></div>Using perfect grammar</div>
+<div class="qz-o" data-a="c" onclick="aQuiz(this)"><div class="qz-r"></div>Iterating: not accepting the first response</div>
+<div class="qz-o" data-a="w" onclick="aQuiz(this)"><div class="qz-r"></div>Keeping prompts as short as possible</div>
+<div class="qz-o" data-a="w" onclick="aQuiz(this)"><div class="qz-r"></div>Memorizing the R-C-T-F-T acronym exactly</div>
+</div><div class="qz-res" id="q5-r"></div></div>
+
+<div class="qz" data-quiz="q6"><div class="qz-q">A good prompt for writing a business proposal includes:</div><div class="qz-opts">
+<div class="qz-o" data-a="w" onclick="aQuiz(this)"><div class="qz-r"></div>"Write the best proposal possible"</div>
+<div class="qz-o" data-a="c" onclick="aQuiz(this)"><div class="qz-r"></div>Role + context (company, client, project) + task + format + tone</div>
+<div class="qz-o" data-a="w" onclick="aQuiz(this)"><div class="qz-r"></div>"Please write a proposal, thank you"</div>
+<div class="qz-o" data-a="w" onclick="aQuiz(this)"><div class="qz-r"></div>Copy a template from Google and ask AI to fill blanks</div>
+</div><div class="qz-res" id="q6-r"></div></div>
+
+</div>
+
+<!-- ═══════ MODULE 4: CLAUDE DEEP DIVE ═══════ -->
+<div class="sec" data-s="m4">
+<h1 class="sec-title">Claude deep dive</h1>
+<p class="sec-sub">How Claude keeps context, and the features you will use most.</p>
+
+<h3>How Claude keeps context</h3>
+<p>This trips up most new users.</p>
+
+<div class="card card-em"><div class="card-t">Individual conversations</div><div class="card-b">Whether a new chat knows anything from your earlier chats depends on your plan and your memory settings. Don't rely on it for anything important. If Claude needs a fact to do the job, give it the fact or keep it in a Project.<br><br>
+<strong>Context window:</strong> within a single conversation Claude can hold a lot, enough for long reports. Very long conversations get <strong>compacted</strong>: Claude summarizes earlier messages to make room, and details from the start can get fuzzy.<br><br>
+<strong>What to do:</strong> If a conversation is long and you need Claude to remember something specific, restate it. Or better: use Projects.</div></div>
+
+<div class="card card-em"><div class="card-t">Projects (persistent context)</div><div class="card-b">Projects are the reliable way to keep context. Set custom instructions and upload reference docs that are <strong>always available</strong> in every conversation within that project. Claude reads them at the start of every chat.<br><br>
+<strong>Think of it:</strong> Regular conversation = talking to a stranger. Project conversation = talking to an assistant who has your company handbook on their desk.</div></div>
+
+<h3>The context window: visualized</h3>
+<p>Think of Claude's context window as a whiteboard. Everything in your conversation: your messages, Claude's responses, uploaded files: goes on this whiteboard.</p>
+
+<div class="code"><span class="cm">┌─────────────────────────────────────────────────────┐</span>
+<span class="cm">│            CLAUDE'S CONTEXT WINDOW                  │</span>
+<span class="cm">│                                                     │</span>
+<span class="hl">│  [Project Instructions]     ← Always loaded first   │</span>
+<span class="hl">│  [Uploaded Reference Docs]  ← If using a Project    │</span>
+<span class="cm">│                                                     │</span>
+<span class="fl">│  [Your message 1]                                   │</span>
+<span class="fl">│  [Claude's response 1]                              │</span>
+<span class="fl">│  [Your message 2]                                   │</span>
+<span class="fl">│  [Claude's response 2]                              │</span>
+<span class="fl">│  ...                                                │</span>
+<span class="fl">│  [Your latest message]      ← Most attention here   │</span>
+<span class="cm">│                                                     │</span>
+<span class="cm">│  ┄┄┄ When full, older messages get ┄┄┄              │</span>
+<span class="fld">│  ┄┄┄ COMPACTED (summarized) ┄┄┄┄┄┄┄                 │</span>
+<span class="fld">│  ┄┄┄ Details from early messages can be lost ┄┄┄    │</span>
+<span class="cm">└─────────────────────────────────────────────────────┘</span></div>
+
+<div class="card card-em"><div class="card-t">What this means for you</div><div class="card-b">
+<strong>Short conversations (under 20 messages):</strong> Everything is retained perfectly. No issues.<br><br>
+<strong>Long conversations (20+ messages):</strong> Earlier details may get summarized. If you need Claude to remember something specific from early on, restate it: "As I mentioned earlier, our budget is $50K and the deadline is March 30."<br><br>
+<strong>Very long conversations (50+ messages):</strong> Start a new conversation. Take your best output, open a fresh chat, paste it in, and continue. Fresh context = sharper responses.<br><br>
+<strong>Project instructions:</strong> These are ALWAYS at the top of the whiteboard. They never get compacted. That's why they're so powerful: they're the one thing Claude always sees.
+</div></div>
+
+<h3>Setting up Projects</h3>
+<ol>
+<li>Click <strong>"Projects"</strong> in Claude's left sidebar</li>
+<li>Click <strong>"Create Project"</strong></li>
+<li>Name it clearly: "Client Proposals", "Operations Planning", "Team Communication"</li>
+<li>Add <strong>custom instructions</strong> (the key: see template below)</li>
+<li>Upload <strong>reference documents</strong>: specs, guides, templates</li>
+</ol>
+
+<h4>Custom instructions template</h4>
+<div class="tpl">Company: [Your Company], [City, State]
+Industry: [What you do]
+My role: [Title + responsibilities]
+Team size: [Number]
+
+How I want responses:
+- Direct and actionable: no fluff
+- Bullet points for lists, tables for comparisons
+- If you're unsure about a fact, say so
+
+Things you should know:
+- We use [accounting software] for finances
+- Our biggest challenges: [list 2-3]
+- I report to [title], who is [data-driven/detail-oriented/etc]</div>
+
+<h3>File uploads</h3>
+<div class="card card-em"><div class="card-b">
+<strong>PDFs</strong>: contracts, manuals, reports. Claude reads the full document and answers questions about specific sections.<br><br>
+<strong>Spreadsheets (CSV, XLSX)</strong>: inventory, sales, financials. CSV works best: try "Save As → CSV" first.<br><br>
+<strong>Documents (DOCX, TXT, MD)</strong>: SOPs, proposals, drafts. Upload and ask Claude to improve specific sections.<br><br>
+<strong>Images (PNG, JPG)</strong>: photos of whiteboards, handwritten notes, diagrams. Claude reads handwriting and interprets diagrams. Huge for field work: snap a photo, Claude organizes it.<br><br>
+<strong>Where to upload:</strong> Individual conversation (temporary) or Project (persistent across all chats in that project).
+</div></div>
+
+<h3>Artifacts</h3>
+<p>When Claude generates structured output: tables, documents, code, charts: it creates an "Artifact" in a side panel.</p>
+<ul>
+<li><strong>Copy with one click</strong>: paste into email, Docs, your files</li>
+<li><strong>Download as file</strong>: .md, .csv, .html</li>
+<li><strong>Edit inline</strong>: "Change the title" without regenerating everything</li>
+<li><strong>Version history</strong>: go back if an iteration went wrong</li>
+</ul>
+
+<h3>Project templates by business type</h3>
+<p>Here are 4 ready-to-use custom instruction sets for different types of businesses. Copy the one closest to yours and customize.</p>
+
+<div class="card card-em"><div class="card-t">Service business (HVAC, plumbing, electrical, landscaping)</div><div class="card-b tpl">Company: [Name], [City, State]
+Industry: Residential/commercial [service type]
+My role: [Owner/Manager], manage [X] field techs and [X] office staff
+Revenue: ~$[X]M annually, [X] jobs per month
+
+When I ask for help with:
+- Customer communication: professional, warm, emphasize reliability
+- Scheduling/dispatch: factor in travel time, crew skills, equipment needs
+- Estimates/proposals: lead with value, include warranty info, break down costs clearly
+- SOPs: write for field techs with varying experience levels
+
+Current tools: [CRM], [accounting], [scheduling software]
+Peak season: [months]. Slow season: [months].
+Biggest challenge: [describe]</div></div>
+
+<div class="card card-em"><div class="card-t">Retail / restaurant</div><div class="card-b tpl">Company: [Name], [City, State]
+Industry: [Retail/Restaurant/Food Service]
+My role: [Owner/GM], [X] locations, [X] total employees
+Revenue: ~$[X] per location annually
+
+When I ask for help with:
+- Staffing: high-turnover environment, mix of FT and PT
+- Inventory: track waste, theft, and variance
+- Customer issues: de-escalation focused, protect the brand
+- Training: visual learners, short attention spans, multilingual team
+
+Key metrics I care about: labor %, food cost %, ticket average, customer reviews
+POS system: [name]. Accounting: [name].
+My boss/owner cares most about: [profitability/growth/consistency]</div></div>
+
+<div class="card card-em"><div class="card-t">Professional services (consulting, legal, accounting, agency)</div><div class="card-b tpl">Company: [Name], [City, State]
+Industry: [Consulting/Legal/Accounting/Marketing]
+My role: [Partner/Director/Manager], team of [X]
+Revenue: ~$[X] annually, [X] active clients
+
+When I ask for help with:
+- Client deliverables: polished, professional, branded language
+- Proposals: value-based positioning, not hourly rates
+- Internal processes: SOPs for onboarding clients, managing projects
+- Research: thorough but concise, cite when possible
+
+Our differentiator: [describe]
+Tools: [project management], [billing], [CRM]
+Client communication style: [formal/conversational/technical]</div></div>
+
+<div class="card card-em"><div class="card-t">Nonprofit organization</div><div class="card-b tpl">Organization: [Name], [City, State]
+Mission: [1-2 sentence mission]
+My role: [Executive Director/Board President/Program Manager]
+Staff: [X] paid, [X] volunteers
+Annual budget: ~$[X]
+
+When I ask for help with:
+- Fundraising: genuine, story-driven, impact-focused (not guilt-based)
+- Board communication: professional, data-supported, concise
+- Grant writing: match funder language, demonstrate measurable outcomes
+- Volunteer management: clear expectations, appreciation-focused
+
+Major donors: [X] people, average gift $[X]
+Fiscal year: [start month]
+Biggest challenge: [describe]</div></div>
+
+<h3>Skills, connectors and the desktop app</h3>
+<p>These features change often. What follows was checked against Anthropic's help pages on 30 September 2026.</p>
+<div class="card card-em"><div class="card-t">Skills</div><div class="card-b">A skill is a packaged set of instructions Claude loads for a particular kind of task. You can add your own in Customize, then Skills, by uploading a ZIP file that contains a SKILL.md file. Skills need the code execution and file creation setting turned on. They are available on every plan, and an upload stays private until you share it. On Team and Enterprise plans, an owner can give a skill to the whole organization.</div></div>
+<div class="card card-em"><div class="card-t">Connectors</div><div class="card-b">Connectors let Claude work with tools you already use, including Gmail, Google Drive and Google Calendar. In Gmail, Claude can send, reply and forward. In Drive, it can share, move and trash files. By default Claude asks for your approval before each of those actions, so read what it plans to do before you approve. The Microsoft 365 connector is read-only by default. It needs a work Microsoft 365 account and one-time consent from your Microsoft administrator. On Team and Enterprise plans, an owner turns a connector on before anyone can use it.</div></div>
+<div class="card card-em"><div class="card-t">The desktop app</div><div class="card-b">The Claude desktop app for Mac and Windows has three tabs: Chat, Cowork and Code. Anthropic announced in September 2026 that Cowork and chat are merging into one Claude, so the names on your screen may differ. Plugins, which bundle skills and connectors together, are under Customize, then Plugins.</div></div>
+
+<h3>Claude on mobile</h3>
+<p>Install the app. Same quality as desktop. Use cases that shine on mobile:</p>
+<ul>
+<li><strong>On-site:</strong> Snap a photo of a whiteboard, handwritten notes, or a physical document: Claude transcribes and organizes it</li>
+<li><strong>In transit:</strong> Dictate notes after a meeting while they're fresh. Ask Claude to organize them.</li>
+<li><strong>Quick reference:</strong> "What's the OSHA requirement for [X]?" "What's the formula for [Y]?"</li>
+<li><strong>Email triage:</strong> Paste a tricky email, get a draft reply in 30 seconds</li>
+<li><strong>Prep:</strong> Walking into an unexpected meeting? "Help me prepare for a conversation about [X] in 2 minutes."</li>
+</ul>
+
+<h3>Conversation best practices</h3>
+<div class="card card-em"><div class="card-b">
+<strong>1. New topic = new conversation.</strong> Don't cram 5 unrelated tasks into one thread.<br><br>
+<strong>2. Restate key details in long conversations.</strong> "Remember, budget is $50K and deadline is March 30."<br><br>
+<strong>3. Save great output immediately.</strong> Copy artifacts to your files. Conversations get buried.<br><br>
+<strong>4. Upload > Paste</strong> for anything over 1 page. Preserves formatting.<br><br>
+<strong>5. Tell Claude to be honest.</strong> "If you're not sure, say so rather than guessing."<br><br>
+<strong>6. Use mobile for capture.</strong> Snap whiteboard photos, dictate notes, organize on the go.
+</div></div>
+
+<h3>Quiz: Module 4</h3>
+<div class="qz" data-quiz="q7"><div class="qz-q">What is the reliable way to give Claude the same background in every chat?</div><div class="qz-opts">
+<div class="qz-o" data-a="w" onclick="aQuiz(this)"><div class="qz-r"></div>Ask it to remember you at the end of each chat</div>
+<div class="qz-o" data-a="c" onclick="aQuiz(this)"><div class="qz-r"></div>Put it in a Project's instructions and reference files</div>
+<div class="qz-o" data-a="w" onclick="aQuiz(this)"><div class="qz-r"></div>Keep every task in one very long conversation</div>
+<div class="qz-o" data-a="w" onclick="aQuiz(this)"><div class="qz-r"></div>Upgrade to a bigger plan</div>
+</div><div class="qz-res" id="q7-r"></div></div>
+
+<div class="qz" data-quiz="q8"><div class="qz-q">What happens in very long Claude conversations?</div><div class="qz-opts">
+<div class="qz-o" data-a="w" onclick="aQuiz(this)"><div class="qz-r"></div>Claude remembers everything perfectly</div>
+<div class="qz-o" data-a="w" onclick="aQuiz(this)"><div class="qz-r"></div>The conversation crashes</div>
+<div class="qz-o" data-a="c" onclick="aQuiz(this)"><div class="qz-r"></div>Earlier messages get compacted/summarized: details can get fuzzy</div>
+<div class="qz-o" data-a="w" onclick="aQuiz(this)"><div class="qz-r"></div>Claude starts charging extra</div>
+</div><div class="qz-res" id="q8-r"></div></div>
+
+</div>
+
+<!-- ═══════ MODULE 5: USE CASES ═══════ -->
+<div class="sec" data-s="m5">
+<h1 class="sec-title">Real use cases</h1>
+<p class="sec-sub">Every use case includes the actual prompt. Copy, paste, customize, use.</p>
+
+<h3>Writing & communication</h3>
+
+<div class="card card-em"><div class="card-t">Difficult conversation email</div><div class="card-b"><strong>Prompt:</strong> "I manage a team of 12. One of my best performers has been late every day this week. I've talked to them informally but nothing changed. Write a direct but respectful email that addresses this without burning the relationship. Acknowledge their usual strong performance. Under 150 words. Not passive-aggressive."</div></div>
+
+<div class="card card-em"><div class="card-t">Client proposal</div><div class="card-b"><strong>Prompt:</strong> "Write a 1-page proposal for [project] for [client]. Cost: $[X]. Include: executive summary (2 sentences), scope (5-7 bullets), timeline (3 phases), investment breakdown, and 'why us' section. Tone: confident, boutique firm: not budget option."</div></div>
+
+<div class="card card-em"><div class="card-t">Tone rewrite</div><div class="card-b"><strong>Prompt:</strong> "Rewrite this email to be professional and solution-oriented instead of frustrated. Keep the core message: I need them to follow the process: but remove passive-aggressive language. [paste draft]"</div></div>
+
+<h3>Analysis & decisions</h3>
+
+<div class="card card-em"><div class="card-t">Pre-mortem</div><div class="card-b"><strong>Prompt:</strong> "Here's my plan for [initiative]. Imagine it's 6 months from now and this has completely failed. What went wrong? Give me the 5 most likely failure modes and how to prevent each one."</div></div>
+
+<div class="card card-em"><div class="card-t">Vendor evaluation</div><div class="card-b"><strong>Prompt:</strong> "Compare 3 vendors for [product/service]. Details: [list each]. Table with columns: Price, Lead Time, Warranty, Reliability, Risk. Clear recommendation at the bottom with reasoning."</div></div>
+
+<h3>Operations & planning</h3>
+
+<div class="card card-em"><div class="card-t">Meeting prep</div><div class="card-b"><strong>Prompt:</strong> "Meeting with my boss tomorrow about [topic]. My thinking: [summary]. Help me: (1) Draft 4-5 talking points, (2) Anticipate 3 questions and draft answers, (3) Suggest 2 things I should bring up proactively."</div></div>
+
+<div class="card card-em"><div class="card-t">Process improvement</div><div class="card-b"><strong>Prompt:</strong> "Here's how we handle [process]: [steps]. Takes [X time]. Common problems: [list]. Suggest: steps to eliminate/combine, where technology could automate, revised process flow. Be practical: team of [X], limited budget."</div></div>
+
+<h3>HR & people</h3>
+
+<div class="card card-em"><div class="card-t">Performance review</div><div class="card-b"><strong>Prompt:</strong> "Write a performance review. Strengths: [list]. Areas for improvement: [list]. Accomplishments: [list]. Balanced, honest about gaps while acknowledging contributions. 2-3 development goals for next quarter. Supportive but direct."</div></div>
+
+<div class="card card-em"><div class="card-t">Policy writing</div><div class="card-b"><strong>Prompt:</strong> "Write a PTO policy for 20-employee company. Offer: [details]. Include: eligibility, accrual, request process, blackouts, rollover, termination payout. Plain English: no HR department, team is 19-55 years old."</div></div>
+
+<h3>Finance & data</h3>
+
+<div class="card card-em"><div class="card-t">Excel formulas</div><div class="card-b"><strong>Prompt:</strong> "Excel columns: A=Name, B=Hours, C=Rate, D=OT Hours. Write formulas for: E=Regular Pay (cap 40hrs), F=OT Pay (1.5x), G=Total. Also SUMIFS to total pay for Department 'Operations' (col H)."</div></div>
+
+<div class="card card-em"><div class="card-t">Financial analysis</div><div class="card-b"><strong>Prompt:</strong> "[Upload P&L] This is our P&L for 6 months. Tell me: (1) Fastest-growing expense categories, (2) Break-even revenue, (3) Biggest cost-cutting opportunity, (4) Trend vs same period last year. Format for a 5-minute presentation to the owner."</div></div>
+
+<h3>Customer-facing</h3>
+
+<div class="card card-em"><div class="card-t">Review response</div><div class="card-b"><strong>Prompt:</strong> "Customer left this negative review: [paste]. Professional response: acknowledge frustration, take responsibility without being defensive, explain what we're doing to prevent this, invite direct contact. Under 100 words. Not sycophantic."</div></div>
+
+<div class="card card-em"><div class="card-t">FAQ creation</div><div class="card-b"><strong>Prompt:</strong> "I run a [business type]. Top 10 customer questions: [list]. Clear, concise answers: max 3 sentences each. Tone: friendly and knowledgeable. For pricing questions, be transparent without committing to specifics."</div></div>
+
+<h3>Training & documentation</h3>
+
+<div class="card card-em"><div class="card-t">New hire onboarding guide</div><div class="card-b"><strong>Prompt:</strong> "Create a 5-day onboarding plan for a new [role] at a [business type] with [X] employees. Day-by-day breakdown including: pre-arrival prep checklist, Day 1 welcome script, training schedule by day, key people to meet, systems access needed, and 30/60/90 day milestones. Write for an owner who handles hiring themselves: no HR department."</div></div>
+
+<div class="card card-em"><div class="card-t">Training manual section</div><div class="card-b"><strong>Prompt:</strong> "Write a training section for [specific skill/task]. The trainee has zero experience. Include: why this matters (motivation), the equipment/tools they'll use, step-by-step instructions with safety notes, the 5 most common mistakes new people make and how to avoid each one, and a self-check quiz at the end (5 questions). Keep each step to one sentence."</div></div>
+
+<div class="card card-em"><div class="card-t">Knowledge transfer document</div><div class="card-b"><strong>Prompt:</strong> "I'm [leaving my role / training my replacement / documenting institutional knowledge]. Help me create a comprehensive knowledge transfer document covering: daily responsibilities, weekly/monthly tasks, key contacts and relationships, where to find important files, systems and passwords (placeholder: I'll fill in), common problems and how I handle them, and 'things nobody tells you' about this role."</div></div>
+
+<h3>Scheduling & resource planning</h3>
+
+<div class="card card-em"><div class="card-t">Crew/staff schedule optimizer</div><div class="card-b"><strong>Prompt:</strong> "I have [X] employees and need to create next week's schedule. Constraints: [list: e.g., 'Sarah can't work Tuesdays', 'need minimum 3 people for morning shift', 'overtime budget is 10 hours max']. Each person is available: [list availability]. Create a schedule that covers all shifts while staying under overtime budget. Format as a Mon-Fri grid."</div></div>
+
+<div class="card card-em"><div class="card-t">Project timeline</div><div class="card-b"><strong>Prompt:</strong> "I need to complete [project] in [X weeks]. Here are all the tasks involved: [list them with rough time estimates]. Some dependencies: [list: e.g., 'can't do X until Y is done']. Create a week-by-week timeline with task assignments. Flag any scheduling conflicts or risks. Format as a table: Week, Tasks, Owner, Dependencies, Risks."</div></div>
+
+<h3>Learning & growth</h3>
+
+<div class="card card-em"><div class="card-t">Topic deep dive</div><div class="card-b"><strong>Prompt:</strong> "I'm a [role] and need to understand [topic] well enough to make decisions. Not a specialist. Plain English, real analogies. Cover: what it is, why it matters for my business, 3 most important things to know, what questions to ask before buying. Skip the history."</div></div>
+
+<div class="card card-em"><div class="card-t">Skill development plan</div><div class="card-b"><strong>Prompt:</strong> "I want to get better at [skill] over 90 days. Current level: [describe]. Available time: [X hours/week]. Create a structured plan with weekly goals, specific exercises, and milestones. Include free resources. I learn best by doing, not reading."</div></div>
+
+<div class="card card-em"><div class="card-t">Industry trends briefing</div><div class="card-b"><strong>Prompt:</strong> "Give me a 5-minute briefing on the current state of [industry]. Cover: the 3 biggest trends affecting small/mid operators, what the top performers are doing differently, one technology shift I should pay attention to, and the biggest risk most operators are ignoring. Write for a [role] who reads one industry article per month, not per day."</div></div>
+
+<div class="co co-em"><div><strong>Exercise:</strong> Pick 3 prompts closest to your work. Open Claude. Copy, customize with your details, send. The gap between knowing and using is one prompt.</div></div>
+
+<h3>AI by role: what to use it for first</h3>
+<p>Where to start, by role:</p>
+
+<div class="card card-em"><div class="card-t">If you're a business owner</div><div class="card-b">
+<strong>Start with:</strong> Strategic thinking. "Here's my plan for next quarter. Poke holes in it." / "Compare these two growth options." / "Help me prepare for my bank meeting."<br>
+<strong>Quick win:</strong> Draft your next quarterly update to investors/partners in 5 minutes instead of 2 hours.<br>
+<strong>Long game:</strong> Use Claude as a sounding board for every major decision before you take it to your advisors.
+</div></div>
+
+<div class="card card-em"><div class="card-t">If you're a manager</div><div class="card-b">
+<strong>Start with:</strong> People management. Performance reviews, difficult conversation scripts, job postings, meeting agendas.<br>
+<strong>Quick win:</strong> Draft next week's team meeting agenda with talking points in 3 minutes.<br>
+<strong>Long game:</strong> Build SOPs for every process your team runs. When someone leaves, the knowledge stays.
+</div></div>
+
+<div class="card card-em"><div class="card-t">If you're in sales</div><div class="card-b">
+<strong>Start with:</strong> Email. Follow-ups, proposals, objection responses, cold outreach.<br>
+<strong>Quick win:</strong> Write 5 personalized follow-up emails in the time it used to take to write 1.<br>
+<strong>Long game:</strong> Build a prompt library for every stage of your sales process. Consistency = more closes.
+</div></div>
+
+<div class="card card-em"><div class="card-t">If you're in operations</div><div class="card-b">
+<strong>Start with:</strong> Documentation. SOPs, checklists, process maps, training materials.<br>
+<strong>Quick win:</strong> Document your most critical process as an SOP: the one that only you know.<br>
+<strong>Long game:</strong> Use Claude to analyze operational data (scheduling, inventory, labor). Data-driven decisions instead of gut feel.
+</div></div>
+
+<div class="card card-em"><div class="card-t">If you're in finance / accounting</div><div class="card-b">
+<strong>Start with:</strong> Formulas and analysis. "Write me an Excel formula that..." / "Analyze this P&L and flag concerns."<br>
+<strong>Quick win:</strong> Get Claude to write the VLOOKUP/INDEX-MATCH you've been struggling with for an hour.<br>
+<strong>Long game:</strong> Build a weekly report prompt that pulls insights from your data in minutes.
+</div></div>
+
+<div class="card card-em"><div class="card-t">If you're in HR</div><div class="card-b">
+<strong>Start with:</strong> Writing. Job postings, policies, offer letters, handbook sections, interview questions.<br>
+<strong>Quick win:</strong> Write a complete job posting in a few minutes, specific enough that the right people recognize themselves in it.<br>
+<strong>Long game:</strong> Build a complete employee handbook, onboarding program, and training system with AI assistance.
+</div></div>
+
+<h3>Quiz: Module 5</h3>
+<div class="qz" data-quiz="q10"><div class="qz-q">What should every use case prompt include?</div><div class="qz-opts">
+<div class="qz-o" data-a="w" onclick="aQuiz(this)"><div class="qz-r"></div>Just the topic: keep it simple</div>
+<div class="qz-o" data-a="c" onclick="aQuiz(this)"><div class="qz-r"></div>Your specific context, the exact output you want, and format/tone constraints</div>
+<div class="qz-o" data-a="w" onclick="aQuiz(this)"><div class="qz-r"></div>The word "please" and polite language</div>
+<div class="qz-o" data-a="w" onclick="aQuiz(this)"><div class="qz-r"></div>A request to "be creative"</div>
+</div><div class="qz-res" id="q10-r"></div></div>
+
+</div>
+
+<!-- ═══════ MODULE 6: FILES & KNOWLEDGE ═══════ -->
+<div class="sec" data-s="m6">
+<h1 class="sec-title">Files & knowledge management</h1>
+<p class="sec-sub">Part 1: Organize your files. Part 2: Build a knowledge system that makes AI smarter every time you use it.</p>
+
+<h3>Part 1: file structure</h3>
+
+<div class="code"><span class="cm">One root folder. Everything lives here.</span>
+<span class="cm">│</span>
+<span class="fld">├── Company/</span>              <span class="cm">← your employer or business</span>
+<span class="cm">│   </span><span class="fld">├── SOPs/</span>            <span class="cm">← procedures</span>
+<span class="cm">│   </span><span class="fld">├── Templates/</span>       <span class="cm">← reusable docs</span>
+<span class="cm">│   </span><span class="fld">├── Data/</span>            <span class="cm">← exports, reports</span>
+<span class="cm">│   </span><span class="fld">├── Projects/</span>        <span class="cm">← one folder per initiative</span>
+<span class="cm">│   </span><span class="fld">└── Reference/</span>       <span class="cm">← manuals, specs</span>
+<span class="cm">│</span>
+<span class="fld">├── AI-System/</span>             <span class="cm">← your knowledge system</span>
+<span class="cm">│   </span><span class="fl">├── CLAUDE.md</span>          <span class="hl">← AI standing orders</span>
+<span class="cm">│   </span><span class="fl">├── MEMORY.md</span>          <span class="hl">← brain index</span>
+<span class="cm">│   </span><span class="fl">├── DECISION-LOG.md</span>    <span class="hl">← why you decided what</span>
+<span class="cm">│   </span><span class="fld">├── memory/</span>         <span class="hl">← topic files</span>
+<span class="cm">│   </span><span class="fld">└── sessions/</span>       <span class="hl">← session logs</span>
+<span class="cm">│</span>
+<span class="fld">├── AI-Prompts/</span>            <span class="cm">← prompts that worked</span>
+<span class="fld">└── Learning/</span>              <span class="cm">← courses, notes</span></div>
+
+<div class="card card-em"><div class="card-t">File rules</div><div class="card-b">
+<strong>Lowercase-with-dashes.</strong> <code>employee-onboarding-sop.md</code> not <code>Employee Onboarding SOP (FINAL) (2).docx</code><br>
+<strong>Date prefix versioned files.</strong> <code>2026-03-14-inventory.csv</code><br>
+<strong>Downloads is not storage.</strong> Move or delete immediately.<br>
+<strong>One folder per project.</strong> Don't scatter files.
+</div></div>
+
+<h3>File formats</h3>
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>Format</th><th>Use For</th><th>AI-Friendly?</th></tr></thead>
+<tbody>
+<tr><td><code>.md</code></td><td>SOPs, plans, notes, AI system files</td><td><span class="badge b-rec">BEST</span></td></tr>
+<tr><td><code>.txt</code></td><td>Plain text, saved prompts</td><td><span class="badge b-rec">BEST</span></td></tr>
+<tr><td><code>.csv</code></td><td>Data exports, tabular data</td><td><span class="badge b-rec">BEST</span></td></tr>
+<tr><td><code>.xlsx</code></td><td>Spreadsheets with formulas</td><td><span class="badge b-free">GOOD</span></td></tr>
+<tr><td><code>.pdf</code></td><td>Final docs, reference</td><td><span class="badge b-free">GOOD</span></td></tr>
+<tr><td><code>.docx</code></td><td>Formatted docs</td><td><span class="badge b-paid">OK</span></td></tr>
+</tbody>
+</table></div>
+
+<div class="co co-em"><div><strong>Markdown (.md)</strong> = simple text format. <code># Heading</code>, <code>**bold**</code>, <code>- bullet</code>. AI reads/writes it perfectly. Open with Notepad or download Obsidian (free) for a better experience.</div></div>
+
+<h3>Part 2: your AI knowledge system</h3>
+<p>This is the architecture that makes AI <strong>compound</strong>: where every session builds on the last.</p>
+
+<h4>CLAUDE.md: your AI's standing orders</h4>
+<p>A file with permanent instructions AI reads before every conversation. Who you are, your conventions, your rules.</p>
+<div class="code"><span class="hl"># CLAUDE.md</span>
+
+<span class="hl">## Who I Am</span>
+<span class="fl">Operations Manager at [Company], [City]</span>
+<span class="fl">Team: [number] people</span>
+<span class="fl">I report to: [title]</span>
+
+<span class="hl">## My Rules</span>
+<span class="fl">- Direct, no fluff</span>
+<span class="fl">- If unsure, say so</span>
+<span class="fl">- Tables for comparisons, bullets for lists</span>
+
+<span class="hl">## Current Priorities</span>
+<span class="fl">- Reducing overhead</span>
+<span class="fl">- Improving onboarding</span>
+<span class="fl">- Q2 budget review</span></div>
+
+<h4>MEMORY.md: brain index</h4>
+<p>An index of things AI should know. Links to topic files. Updated as work evolves.</p>
+<div class="code"><span class="hl"># MEMORY.md</span>
+<span class="fl">- [my-role.md](memory/my-role.md): responsibilities</span>
+<span class="fl">- [q2-budget.md](memory/q2-budget.md): key numbers, deadline</span>
+<span class="fl">- [vendor-switch.md](memory/vendor-switch.md): evaluating suppliers</span>
+<span class="fl">- [tone-fix.md](memory/tone-fix.md): I told AI to be less formal</span></div>
+
+<h4>DECISION-LOG.md: why you decided what</h4>
+<p>Prevents rehashing. Three months from now, you'll know why you chose Vendor A.</p>
+<div class="code"><span class="hl">## 2026-03-10: Chose bookkeeping software</span>
+<span class="fl">Context: Needed bookkeeping software.</span>
+<span class="fl">Decision: Vendor A, entry plan.</span>
+<span class="fl">Reasoning: CPA already uses it, bank integration works.</span>
+<span class="fl">Rejected: Vendor B (no payroll add-on), Vendor C (cost).</span></div>
+
+<h4>Session logs: continuity</h4>
+<p>What you did, decided, and what's still open. Next session, you pick up exactly where you left off.</p>
+<div class="code"><span class="hl"># Session: 2026-03-14</span>
+<span class="fl">## Done</span>
+<span class="fl">- Drafted Q2 budget (first pass)</span>
+<span class="fl">- Created inventory receiving SOP</span>
+<span class="hl">## Still Open</span>
+<span class="fl">- Need vendor quotes for cost projections</span>
+<span class="fl">- SOP needs team lead review</span></div>
+
+<div class="card card-em"><div class="card-b">
+<strong>CLAUDE.md</strong> = who you are (permanent)<br>
+<strong>MEMORY.md</strong> = what's current (updated regularly)<br>
+<strong>DECISION-LOG.md</strong> = why you decided (append-only)<br>
+<strong>Session logs</strong> = what happened (daily)<br><br>
+Paste CLAUDE.md into Claude Project instructions. Paste MEMORY.md when starting conversations that need context. The system compounds: AI gets better at helping you because it always has your latest context.
+</div></div>
+
+<div class="co co-gold"><div><strong>This is the hand-run version.</strong> For clients, we build the automated version, where these files stay current without anyone updating them by hand.</div></div>
+
+<h3>Getting started with Obsidian</h3>
+<p>Obsidian is the recommended tool for housing your AI knowledge system. Here's a step-by-step walkthrough:</p>
+
+<div class="card card-em"><div class="card-t">Step 1: download and install</div><div class="card-b">Go to obsidian.md → Download for your platform (Windows, Mac, or Linux). It's completely free for personal and commercial use. Install like any other app.</div></div>
+
+<div class="card card-em"><div class="card-t">Step 2: create your vault</div><div class="card-b">When Obsidian opens, it asks you to create or open a "vault." A vault is just a folder. Point it at your <code>AI-System/</code> folder. Obsidian will read every .md file in it and make them searchable and linkable.</div></div>
+
+<div class="card card-em"><div class="card-t">Step 3: open your CLAUDE.md</div><div class="card-b">Your CLAUDE.md file appears in the left sidebar. Click it. You're now editing it in a clean interface with formatting preview. Any changes save automatically.</div></div>
+
+<div class="card card-em"><div class="card-t">Step 4: link notes together</div><div class="card-b">Type <code>[[</code> and Obsidian shows all your files. Select one to create a link. Example: In MEMORY.md, type <code>[[memory/q2-budget]]</code> to link to your Q2 budget notes. Click any link to jump to that file. This is how your notes become one linked system.</div></div>
+
+<div class="card card-em"><div class="card-t">Step 5: enable daily notes</div><div class="card-b">Settings → Core Plugins → Daily Notes → Enable. Now you can click "Open today's daily note" and get a new file dated today. Perfect for session logs. Set the folder to <code>sessions/</code> and the format to <code>YYYY-MM-DD</code>.</div></div>
+
+<div class="card card-em"><div class="card-t">Step 6: use search</div><div class="card-b">Press <code>Ctrl/Cmd + Shift + F</code> to search across ALL files. Type any keyword: Obsidian finds every mention in every file instantly. This is why .md files beat scattered Word docs.</div></div>
+
+<div class="card card-em"><div class="card-t">Step 7: mobile (optional, paid)</div><div class="card-b">Obsidian Sync, a paid add-on, keeps your vault synced across your devices with end-to-end encryption. Access your knowledge system from your phone. Edit notes on the go. Not required: but very useful if you work from multiple devices.</div></div>
+
+<div class="co co-em"><div><strong>Time to set up:</strong> 10 minutes. Learning curve: 30 minutes to be productive. The free version covers everything in this course.</div></div>
+
+<h3>How the pieces connect</h3>
+<p>Here's how all the pieces feed each other:</p>
+
+<div class="code"><span class="cm">     ┌──────────────────────────┐</span>
+<span class="cm">     │                          │</span>
+<span class="hl">     │   You work with Claude   │</span>
+<span class="cm">     │                          │</span>
+<span class="cm">     └──────────┬───────────────┘</span>
+<span class="cm">                │</span>
+<span class="cm">                ▼</span>
+<span class="fld">     Save output → AI-Prompts/</span>
+<span class="fld">     Log session → sessions/</span>
+<span class="fld">     Log decisions → DECISION-LOG.md</span>
+<span class="cm">                │</span>
+<span class="cm">                ▼</span>
+<span class="hl">     Update MEMORY.md with new context</span>
+<span class="cm">                │</span>
+<span class="cm">                ▼</span>
+<span class="fld">     Next session starts with full context</span>
+<span class="fld">     → Better output → More saves → Repeat</span>
+<span class="cm">                │</span>
+<span class="cm">                ▼</span>
+<span class="hl">     AI gets smarter about YOUR work</span>
+<span class="hl">     every single session</span></div>
+
+<p>Each session makes the next one better. After 30 days you have a knowledge system built around your own work.</p>
+
+<h3>Quiz: Module 6</h3>
+<div class="qz" data-quiz="q11"><div class="qz-q">What is the purpose of a CLAUDE.md file?</div><div class="qz-opts">
+<div class="qz-o" data-a="w" onclick="aQuiz(this)"><div class="qz-r"></div>It stores your conversation history</div>
+<div class="qz-o" data-a="w" onclick="aQuiz(this)"><div class="qz-r"></div>It's required to use Claude</div>
+<div class="qz-o" data-a="c" onclick="aQuiz(this)"><div class="qz-r"></div>It contains permanent instructions about who you are and how AI should behave: pasted into Projects</div>
+<div class="qz-o" data-a="w" onclick="aQuiz(this)"><div class="qz-r"></div>It's a backup of your prompts</div>
+</div><div class="qz-res" id="q11-r"></div></div>
+
+</div>
+
+<!-- ═══════ MODULE 7: DATA ANALYSIS ═══════ -->
+<div class="sec" data-s="m7">
+<h1 class="sec-title">Data analysis with AI</h1>
+<p class="sec-sub">Turn spreadsheets into insights without being a data analyst.</p>
+
+<h3>The workflow</h3>
+<div class="card card-em"><div class="card-b">
+<strong>Step 1:</strong> Export data as CSV (File → Save As → CSV)<br>
+<strong>Step 2:</strong> Upload to Claude (or paste if small)<br>
+<strong>Step 3:</strong> Ask a specific question<br>
+<strong>Step 4:</strong> Follow up: "Show as a table" / "What should I do about this?"
+</div></div>
+
+<h3>Prompt templates</h3>
+
+<div class="card card-em"><div class="card-t">Inventory analysis</div><div class="card-b"><strong>Prompt:</strong> "I'm uploading our inventory report. (1) Items where available qty is below reorder point, (2) Items that haven't moved in 30+ days, (3) Total inventory value (on-hand × unit cost), ranked highest first. Output as a table. 3 actionable recommendations at the end."</div></div>
+
+<div class="card card-em"><div class="card-t">Sales trends</div><div class="card-b"><strong>Prompt:</strong> "[Upload data] Show me the trend over 6 months. Which products are growing? Which declining? Any seasonality patterns? What should I stock up on for next month? Summarize in 5 bullet points."</div></div>
+
+<div class="card card-em"><div class="card-t">Excel formula generator</div><div class="card-b"><strong>Prompt:</strong> "I have columns: A=Item, B=On Hand, C=Allocated, D=Reorder Point. Write formulas: E='REORDER' if (B-C) < D, 'OK' if within 20% above D, 'GOOD' if more. Also COUNTIF for how many need reordering."</div></div>
+
+<h3>More analysis templates</h3>
+
+<div class="card card-em"><div class="card-t">Labor analysis</div><div class="card-b"><strong>Prompt:</strong> "[Upload time data] This is our employee time data for the last pay period. Analyze: (1) Who worked the most overtime and how many hours, (2) Which days are we consistently overstaffed or understaffed, (3) Labor cost as a percentage of [revenue/sales], (4) Any scheduling inefficiencies. Recommend 3 specific changes to reduce overtime by 20% without impacting coverage."</div></div>
+
+<div class="card card-em"><div class="card-t">Customer segmentation</div><div class="card-b"><strong>Prompt:</strong> "[Upload customer data] Group these customers by: (1) Total revenue they've generated, (2) Frequency of purchases/orders, (3) How recently they last engaged. Flag: top 10% customers we should prioritize, at-risk customers who haven't ordered in 60+ days, and one-time customers we should try to convert to repeat. Output as a table with recommended action for each segment."</div></div>
+
+<div class="card card-em"><div class="card-t">Weekly report builder</div><div class="card-b"><strong>Prompt:</strong> "I want to create a weekly report I can run every Friday. The data I have access to: [list your data sources: sales numbers, labor hours, customer count, etc.]. Design a 1-page report template that shows: (1) This week vs last week for the 5 most important KPIs, (2) Any items that need attention (red/yellow/green status), (3) A 3-bullet 'what happened this week' summary I can fill in. Give me the template AND the weekly prompt I should paste into Claude to generate it from my data."</div></div>
+
+<h3>What AI can vs can't do with data</h3>
+<div class="card card-em"><div class="card-b">
+<strong>AI excels at:</strong> Finding trends, summarizing large datasets, writing formulas, cleaning messy data, creating comparison tables, identifying outliers, explaining what numbers mean in plain English<br><br>
+<strong>AI struggles with:</strong> Live data (unless you have connected a tool through a connector, it works from the files you give it), very large datasets, precise statistical analysis (use Excel for statistical significance tests), and anything requiring your current market knowledge (prices change daily: AI's info may be stale)
+</div></div>
+
+<h3>Data cleanup with AI</h3>
+<div class="card card-em"><div class="card-t">Messy data fix</div><div class="card-b"><strong>Prompt:</strong> "This CSV has problems: inconsistent date formats (some MM/DD/YYYY, some YYYY-MM-DD), duplicate rows, blank cells in required fields, and names in different cases (john smith, John Smith, JOHN SMITH). Give me step-by-step Excel instructions to fix each issue. Include the specific formulas and menu paths. I'm intermediate at Excel: I can do VLOOKUPs but I don't know VBA."</div></div>
+
+<h3>The weekly report workflow</h3>
+<p>One of the highest-value data use cases: a weekly report prompt you run every Friday. Here's how to build one:</p>
+
+<div class="card card-em"><div class="card-t">Step 1: define your KPIs</div><div class="card-b">Pick 5-8 numbers that actually drive your decisions. Not vanity metrics: the numbers you'd check if you could only see 5 things. Revenue, labor cost %, inventory value, open tasks, customer satisfaction.</div></div>
+
+<div class="card card-em"><div class="card-t">Step 2: create the export routine</div><div class="card-b">Every Friday: export your data as CSV from whatever systems you use. This takes 5 minutes once you know where to click. Save each export with a date prefix: <code>2026-03-14-sales.csv</code></div></div>
+
+<div class="card card-em"><div class="card-t">Step 3: build the prompt</div><div class="card-b"><strong>Save this to AI-Prompts/weekly-report.txt:</strong><br><br>
+"I'm uploading this week's data. Compare to last week (I'll provide both files). For each KPI: show the current value, the change from last week (% and direction), and flag anything that's off by more than 10%. At the bottom: 3 bullet summary of what happened this week and 2 things to watch next week. Format as a clean table I can paste into an email to my [boss/team]."</div></div>
+
+<div class="card card-em"><div class="card-t">Step 4: run it every Friday</div><div class="card-b">Upload both CSVs (this week + last week). Paste the prompt. Review the output for 2 minutes. Send to your boss.</div></div>
+
+<h3>Pivot table guidance</h3>
+<div class="card card-em"><div class="card-t">When you don't know how to build a pivot table</div><div class="card-b"><strong>Prompt:</strong> "I have a spreadsheet with these columns: [list them]. I want to see [describe what you want: e.g., 'total sales by salesperson by month' or 'average order size by product category']. Walk me through creating a pivot table in [Excel/Google Sheets] step by step. Include: which field goes in Rows, Columns, and Values. Include screenshots descriptions so I can follow along visually."<br><br>
+<strong>Why this works:</strong> Claude gives you exact drag-and-drop instructions specific to YOUR column names. No more generic YouTube tutorials where the example data doesn't match yours.</div></div>
+
+<div class="co co-gold"><div><strong>Always verify calculations.</strong> AI is great at writing formulas and finding trends, but spot-check the math. Verify Claude's SUM against Excel's SUM on a few rows. Check one formula result manually before applying it to 500 rows.</div></div>
+
+<h3>Quiz: Module 7</h3>
+<div class="qz" data-quiz="q9"><div class="qz-q">What file format is best for uploading data to Claude?</div><div class="qz-opts">
+<div class="qz-o" data-a="c" onclick="aQuiz(this)"><div class="qz-r"></div>CSV: simple, clean, AI reads it natively</div>
+<div class="qz-o" data-a="w" onclick="aQuiz(this)"><div class="qz-r"></div>PDF: most universal format</div>
+<div class="qz-o" data-a="w" onclick="aQuiz(this)"><div class="qz-r"></div>Screenshot of the spreadsheet</div>
+<div class="qz-o" data-a="w" onclick="aQuiz(this)"><div class="qz-r"></div>Typing the numbers into the chat manually</div>
+</div><div class="qz-res" id="q9-r"></div></div>
+
+</div>
+
+<!-- ═══════ MODULE 8: SOPs ═══════ -->
+<div class="sec" data-s="m8">
+<h1 class="sec-title">SOPs & process documentation</h1>
+<p class="sec-sub">If it's not documented, it doesn't exist. AI makes documentation painless.</p>
+
+<h3>Why SOPs matter</h3>
+<p>Every time you explain the same process to a new hire, you burn time. Every time "only one person knows how," you have risk. SOPs turn tribal knowledge into a system. AI does most of the writing. You provide the knowledge.</p>
+
+<h3>The 5-step process</h3>
+<div class="card card-em"><div class="card-b">
+<strong>1. Brain Dump.</strong> Open Claude. Talk: "Here's how we do [X]..." Describe it naturally. Don't worry about structure.<br><br>
+<strong>2. Structure.</strong> "Turn that into a professional SOP with: purpose, scope, tools needed, procedure (numbered steps), safety notes, common mistakes."<br><br>
+<strong>3. Refine.</strong> "Add a section about [X]." "Step 4 is wrong: we do [Y] first." "Safety section needs to be more prominent."<br><br>
+<strong>4. Format.</strong> "Output as Markdown" or "Format for printing with clear headers."<br><br>
+<strong>5. Save.</strong> SOP → Company/SOPs/ folder. Prompt → AI-Prompts/ folder.
+</div></div>
+
+<h3>The master SOP prompt</h3>
+<div class="prompt"><div class="prompt-tag prompt-good">Copy this</div><div class="prompt-txt">You are a process documentation specialist. Create a
+professional SOP based on the process I describe below.
+
+Format:
+- Title
+- Purpose (1-2 sentences)
+- Scope (who this applies to)
+- Tools/Materials Needed
+- Procedure (numbered steps, max 15)
+- Safety Notes (if applicable)
+- Common Mistakes to Avoid
+- Version and date
+
+The reader has no experience with this process. Write
+so a new hire on day one could follow it.
+
+Here's the process:
+[describe it in your own words]</div></div>
+
+<h3>SOP quality checklist</h3>
+<div class="card card-em"><div class="card-b">
+<strong>Every good SOP has:</strong><br>
+1. Clear title that describes the process<br>
+2. Purpose: why this process exists<br>
+3. Scope: who needs to follow it<br>
+4. Prerequisites: what's needed before starting<br>
+5. Numbered steps: sequential, unambiguous<br>
+6. Decision points: "if X, do Y; if not, do Z"<br>
+7. Safety/compliance notes where relevant<br>
+8. Common mistakes: what goes wrong and how to avoid it<br>
+9. Owner: who maintains this document<br>
+10. Version date: when it was last updated
+</div></div>
+
+<h3>Example: complete AI-generated SOP</h3>
+<p>Here's what the finished product looks like: an actual SOP created using the process above:</p>
+
+<div class="code"><span class="hl"># Customer Complaint Resolution</span>
+
+<span class="cm">**Version:** 1.0 | **Date:** 2026-03-14 | **Owner:** Operations Manager</span>
+<span class="cm">**Applies To:** All customer-facing employees</span>
+
+<span class="hl">## Purpose</span>
+<span class="fl">Ensure every customer complaint is acknowledged within 2 hours,</span>
+<span class="fl">resolved within 24 hours, and documented for trend analysis.</span>
+
+<span class="hl">## Procedure</span>
+
+<span class="fl">1. **Listen fully.** Let the customer finish without interrupting.</span>
+<span class="fl">   Do not get defensive. Take notes on the specific issue.</span>
+
+<span class="fl">2. **Acknowledge and apologize.** "I understand why that's</span>
+<span class="fl">   frustrating. I'm sorry that happened. Let me fix this."</span>
+
+<span class="fl">3. **Gather details.** Date of service, job number/order,</span>
+<span class="fl">   specific issue, what the customer expected vs received.</span>
+
+<span class="fl">4. **Determine resolution authority.** If you can resolve</span>
+<span class="fl">   it (under $100 credit or redo the work): do it now.</span>
+<span class="fl">   If not, escalate to manager within 1 hour.</span>
+
+<span class="fl">5. **Communicate the fix.** Tell the customer exactly what</span>
+<span class="fl">   will happen and when. Give a specific timeline, not "soon."</span>
+
+<span class="fl">6. **Execute.** Complete the corrective action by the</span>
+<span class="fl">   committed deadline. If you'll miss it, call before.</span>
+
+<span class="fl">7. **Follow up.** Contact the customer 48 hours after</span>
+<span class="fl">   resolution: "Is everything working as expected?"</span>
+
+<span class="fl">8. **Log it.** Enter in complaint tracker: date, customer,</span>
+<span class="fl">   issue category, resolution, cost, time to resolve.</span>
+
+<span class="hl">## Common Mistakes</span>
+<span class="fld">- Arguing about who's at fault (customer doesn't care)</span>
+<span class="fld">- Saying "I'll look into it" without giving a timeline</span>
+<span class="fld">- Resolving but not logging (we lose trend data)</span>
+<span class="fld">- Forgetting the follow-up call (where loyalty is earned)</span></div>
+
+<p>The brain dump behind it was: "When a customer complains, we need to listen, apologize, figure out what happened, fix it, and follow up. Sometimes people argue with the customer or forget to log it." Claude structured, expanded, and professionalized it.</p>
+
+<h3>More example SOPs</h3>
+
+<div class="card card-em"><div class="card-t">Mini-SOP: end of day closing</div><div class="card-b">
+<strong>Purpose:</strong> Ensure consistent closing procedure every night.<br>
+<strong>Procedure:</strong><br>
+1. Complete all pending transactions in the POS<br>
+2. Run the end-of-day report: verify total matches expected<br>
+3. Count cash drawer: compare to report. Document any variance over $2<br>
+4. Lock cash in safe. Do NOT leave in drawer overnight<br>
+5. Clean and sanitize all customer-facing areas<br>
+6. Check restrooms: restock, clean, lights off<br>
+7. Set alarm. Lock all doors. Verify locked by pulling handle<br>
+8. Text closing photo of locked door to manager group chat<br><br>
+<strong>Warning:</strong> If cash variance is over $10, call the manager before leaving.
+</div></div>
+
+<div class="card card-em"><div class="card-t">Mini-SOP: new client setup</div><div class="card-b">
+<strong>Purpose:</strong> Ensure every new client gets the same professional onboarding.<br>
+<strong>Procedure:</strong><br>
+1. Create client record in CRM: name, contact info, service type, source<br>
+2. Send welcome email using template (Templates/welcome-email.md)<br>
+3. Create project folder: Company/Projects/[client-name]/<br>
+4. Schedule kickoff call within 48 hours of signing<br>
+5. Assign account manager and notify via Slack/email<br>
+6. Add to billing system with agreed-upon terms<br>
+7. Send pre-kickoff questionnaire (link in CRM template)<br>
+8. Review completed questionnaire before kickoff call<br><br>
+<strong>Common mistake:</strong> Skipping the questionnaire: you walk into the kickoff blind and waste the client's time.
+</div></div>
+
+<h3>What to document first</h3>
+<p>Start with processes that cause the most pain when done wrong, or that only one person knows:</p>
+<div class="card card-em"><div class="card-b">
+<strong>High priority:</strong> Anything safety-related, customer-facing, or that causes delays when wrong<br>
+<strong>Medium:</strong> Daily routines, equipment maintenance, ordering<br>
+<strong>Lower:</strong> Rarely-done tasks, one-off procedures<br><br>
+<strong>Rule:</strong> If you've explained it more than twice, it needs an SOP.
+</div></div>
+
+<h3>Quiz: Module 8</h3>
+<div class="qz" data-quiz="q12"><div class="qz-q">What's the most effective way to create an SOP with AI?</div><div class="qz-opts">
+<div class="qz-o" data-a="w" onclick="aQuiz(this)"><div class="qz-r"></div>"Write an SOP for receiving inventory"</div>
+<div class="qz-o" data-a="c" onclick="aQuiz(this)"><div class="qz-r"></div>Brain dump the process in your own words → ask Claude to structure it → refine through iteration</div>
+<div class="qz-o" data-a="w" onclick="aQuiz(this)"><div class="qz-r"></div>Copy an SOP template from Google</div>
+<div class="qz-o" data-a="w" onclick="aQuiz(this)"><div class="qz-r"></div>Have AI observe your team working</div>
+</div><div class="qz-res" id="q12-r"></div></div>
+
+</div>
+
+<!-- ═══════ MODULE 9: 30-DAY PLAN ═══════ -->
+<div class="sec" data-s="m9">
+<h1 class="sec-title">Your 30-day action plan</h1>
+<p class="sec-sub">Weekly checklists. Track your progress. Build the habit.</p>
+
+<h3>Week 1: foundation</h3>
+<ul class="clist">
+<li data-key="w1-1" onclick="tChk(this)"><div class="cl-box"></div><div class="cl-label">Pick a Claude plan<small>Most people working alone start on Pro (Module 2)</small></div><div class="cl-time">5 min</div></li>
+<li data-key="w1-2" onclick="tChk(this)"><div class="cl-box"></div><div class="cl-label">Download Claude mobile app<small>iOS or Android: same account</small></div><div class="cl-time">2 min</div></li>
+<li data-key="w1-3" onclick="tChk(this)"><div class="cl-box"></div><div class="cl-label">Set up a research tool for checking facts<small>Perplexity shows its sources</small></div><div class="cl-time">3 min</div></li>
+<li data-key="w1-4" onclick="tChk(this)"><div class="cl-box"></div><div class="cl-label">Create your file structure<small>Follow Module 6 layout: takes 5 minutes</small></div><div class="cl-time">5 min</div></li>
+<li data-key="w1-5" onclick="tChk(this)"><div class="cl-box"></div><div class="cl-label">Complete your first real task with Claude<small>Not "hello": a real work task</small></div><div class="cl-time">10 min</div></li>
+<li data-key="w1-6" onclick="tChk(this)"><div class="cl-box"></div><div class="cl-label">Save your first prompt to AI-Prompts/<small>When something works well, save it as .txt</small></div><div class="cl-time">2 min</div></li>
+<li data-key="w1-7" onclick="tChk(this)"><div class="cl-box"></div><div class="cl-label">Practice iteration: don't accept V1<small>"Make it shorter" / "Change the tone" / "Add detail"</small></div><div class="cl-time">10 min</div></li>
+</ul>
+
+<h3>Week 2: build the habit</h3>
+<ul class="clist">
+<li data-key="w2-1" onclick="tChk(this)"><div class="cl-box"></div><div class="cl-label">Create your first Claude Project<small>Custom instructions for your main work area</small></div><div class="cl-time">10 min</div></li>
+<li data-key="w2-2" onclick="tChk(this)"><div class="cl-box"></div><div class="cl-label">Use Claude for 3 different task types<small>Writing + analysis + planning</small></div><div class="cl-time">30 min</div></li>
+<li data-key="w2-3" onclick="tChk(this)"><div class="cl-box"></div><div class="cl-label">Upload a file and ask Claude to analyze it<small>Spreadsheet, document, or PDF</small></div><div class="cl-time">10 min</div></li>
+<li data-key="w2-4" onclick="tChk(this)"><div class="cl-box"></div><div class="cl-label">Use Perplexity for a real research question<small>Notice the cited sources</small></div><div class="cl-time">5 min</div></li>
+<li data-key="w2-5" onclick="tChk(this)"><div class="cl-box"></div><div class="cl-label">Write your first SOP with AI<small>Brain dump → structure → refine (Module 8)</small></div><div class="cl-time">20 min</div></li>
+<li data-key="w2-6" onclick="tChk(this)"><div class="cl-box"></div><div class="cl-label">Use Claude to think through a real decision<small>"Here's my situation: what are my options?"</small></div><div class="cl-time">10 min</div></li>
+</ul>
+
+<h3>Week 3: go deeper</h3>
+<ul class="clist">
+<li data-key="w3-1" onclick="tChk(this)"><div class="cl-box"></div><div class="cl-label">Build a library of 5+ saved prompts<small>Your AI-Prompts folder should be growing</small></div><div class="cl-time">15 min</div></li>
+<li data-key="w3-2" onclick="tChk(this)"><div class="cl-box"></div><div class="cl-label">Upload reference docs to a Claude Project<small>Product specs, company info, templates</small></div><div class="cl-time">10 min</div></li>
+<li data-key="w3-4" onclick="tChk(this)"><div class="cl-box"></div><div class="cl-label">Create your CLAUDE.md and MEMORY.md files<small>Module 6 templates: your knowledge system</small></div><div class="cl-time">15 min</div></li>
+<li data-key="w3-5" onclick="tChk(this)"><div class="cl-box"></div><div class="cl-label">Create a complete process document with AI<small>Something comprehensive: not a quick draft</small></div><div class="cl-time">25 min</div></li>
+<li data-key="w3-6" onclick="tChk(this)"><div class="cl-box"></div><div class="cl-label">Teach someone one thing you learned<small>Teaching cements knowledge</small></div><div class="cl-time">10 min</div></li>
+</ul>
+
+<h3>Week 4: integrate</h3>
+<ul class="clist">
+<li data-key="w4-1" onclick="tChk(this)"><div class="cl-box"></div><div class="cl-label">Build the daily habit: "Could AI draft this?"<small>Ask before every task. If yes → Claude first, then edit.</small></div><div class="cl-time">Ongoing</div></li>
+<li data-key="w4-2" onclick="tChk(this)"><div class="cl-box"></div><div class="cl-label">Identify one recurring weekly task for AI<small>Something that takes 30+ min every week</small></div><div class="cl-time">10 min</div></li>
+<li data-key="w4-3" onclick="tChk(this)"><div class="cl-box"></div><div class="cl-label">Create a second Claude Project<small>Multiple projects = multiple saved contexts</small></div><div class="cl-time">10 min</div></li>
+<li data-key="w4-5" onclick="tChk(this)"><div class="cl-box"></div><div class="cl-label">Refine your best saved prompts<small>Make them more specific and reusable</small></div><div class="cl-time">10 min</div></li>
+<li data-key="w4-6" onclick="tChk(this)"><div class="cl-box"></div><div class="cl-label">Write: "What's the biggest thing AI saved me time on?"<small>Reflect. Double down on what worked.</small></div><div class="cl-time">5 min</div></li>
+</ul>
+
+<div class="card card-em"><div class="card-t">The daily habit</div><div class="card-b">Before every task: <strong>"Could AI do the first draft?"</strong><br>If yes → Claude first, then edit.<br>If no → ask Claude for a checklist or framework first.<br><br>This one question, applied consistently, compounds into hours saved per week.</div></div>
+
+<h3>Weekly reflection prompts</h3>
+<p>At the end of each week, spend 5 minutes answering these. They cement what you learned and help you plan the next week.</p>
+
+<div class="card card-em"><div class="card-t">End of week 1</div><div class="card-b">
+1. What was the first real task I used Claude for? How did it go?<br>
+2. What surprised me about the output: good or bad?<br>
+3. Did I save any prompts? If not, what stopped me?<br>
+4. What's one task I did manually this week that I could have used AI for?
+</div></div>
+
+<div class="card card-em"><div class="card-t">End of week 2</div><div class="card-b">
+1. How many times did I iterate on a response instead of accepting V1?<br>
+2. Did I upload any files to Claude? What happened?<br>
+3. Is my Claude Project set up with custom instructions? If not, what's blocking me?<br>
+4. What's the most useful thing AI did for me this week?
+</div></div>
+
+<div class="card card-em"><div class="card-t">End of week 3</div><div class="card-b">
+1. How many saved prompts do I have now? Which is my best one?<br>
+2. Did I create CLAUDE.md and MEMORY.md? If yes, what's in them?<br>
+3. What's the biggest time save AI gave me this week?<br>
+4. Is there a process I want to document as an SOP next week?
+</div></div>
+
+<div class="card card-em"><div class="card-t">End of week 4</div><div class="card-b">
+1. What recurring task have I identified that AI could handle?<br>
+2. Am I using Claude daily? If not, what's the barrier?<br>
+3. What would I tell a friend who asked "is AI worth it?"<br>
+4. What's the ONE thing I want to tackle with AI next month?<br>
+5. What would I want built for my business next? (We can help with that.)
+</div></div>
+
+<h3>The numbers that should be changing</h3>
+<p>By the end of 30 days, track these informally. You should see improvement in at least 3:</p>
+<div class="tbl-wrap"><table class="tbl">
+<thead><tr><th>Metric</th><th>Before AI</th><th>After 30 Days</th></tr></thead>
+<tbody>
+<tr><td>Time spent writing emails per day</td><td>______ min</td><td>______ min</td></tr>
+<tr><td>Time to create a document from scratch</td><td>______ min</td><td>______ min</td></tr>
+<tr><td>Number of SOPs / documented processes</td><td>______</td><td>______</td></tr>
+<tr><td>How often you analyze data (vs just collecting it)</td><td>______ / month</td><td>______ / month</td></tr>
+<tr><td>Decisions made with AI-assisted analysis</td><td>______</td><td>______</td></tr>
+<tr><td>Tasks you used to dread that are now fast</td><td>______</td><td>______</td></tr>
+</tbody>
+</table></div>
+
+</div>
+
+<!-- ═══════ MODULE 10: SYSTEMS & ARCHITECTURE (LOCKED) ═══════ -->
+<div class="sec" data-s="m10">
+<h1 class="sec-title">Systems & architecture</h1>
+<p class="sec-sub">Before you build anything, decide what you're building toward.</p>
+
+</div>
+
+<!-- ═══════ MODULE 11: AUTOMATION (LOCKED) ═══════ -->
+<div class="sec" data-s="m11">
+<h1 class="sec-title">Workflow automation</h1>
+<p class="sec-sub">Connecting your tools so things happen automatically.</p>
+
+</div>
+
+<!-- ═══════ MODULE 12: DASHBOARDS (LOCKED) ═══════ -->
+<div class="sec" data-s="m12">
+<h1 class="sec-title">Custom dashboards & tools</h1>
+<p class="sec-sub">Purpose-built tools for your operation: without hiring a developer.</p>
+
+</div>
+
+<!-- ═══════ MODULE 13: AI AGENTS (LOCKED) ═══════ -->
+<div class="sec" data-s="m13">
+<h1 class="sec-title">AI agents</h1>
+<p class="sec-sub">Autonomous AI that handles multi-step tasks without constant input.</p>
+
+</div>
+
+<!-- ═══════ MODULE 14: WHAT'S NEXT ═══════ -->
+<div class="sec" data-s="m14">
+<h1 class="sec-title">What's next</h1>
+<p class="sec-sub">You've got the foundations. Here's where it goes from here.</p>
+
+
+
+<h3>What you can now do</h3>
+<div class="card card-em"><div class="card-b">
+<strong>You can now:</strong><br>
+• Use Claude with Projects, file uploads, and custom instructions<br>
+• Write prompts using the R-C-T-F-T framework that consistently produce usable, professional output<br>
+• Iterate on AI responses to get exactly what you need: not just accept V1<br>
+• Analyze spreadsheets, financial data, and operational metrics with AI<br>
+• Create professional SOPs, policies, and process documentation in minutes<br>
+• Organize your files and knowledge so AI can work from them<br>
+• Build a persistent knowledge system (CLAUDE.md, MEMORY.md, Decision Log) that compounds over time<br>
+• Use AI as a thinking partner for decisions, planning, and problem-solving<br>
+• Save and reuse prompts: building a personal prompt library that makes you faster every week<br>
+• Evaluate new AI tools against the work you need done
+</div></div>
+
+<h3>Where we can help</h3>
+<p>Everything in this course you can do yourself. These are the pieces businesses usually bring us in to build:</p>
+<ul>
+<li><strong>Workflow automation:</strong> reports, data entry, follow-ups and alerts that move between your tools without someone copying them by hand.</li>
+<li><strong>Dashboards:</strong> the numbers you check every week, on one screen, from your own systems.</li>
+<li><strong>AI agents:</strong> assistants that watch for a condition, draft the response and wait for your approval.</li>
+<li><strong>Knowledge systems:</strong> your SOPs and processes in one searchable place that AI can work from.</li>
+</ul>
+
+<h3>How an engagement starts</h3>
+<ol>
+<li>A short intro call about your operation.</li>
+<li>We look at how the work runs today, in your own systems.</li>
+<li>A proposal that breaks the work into phases, with a firm price for each phase before you commit to it.</li>
+<li>We build it and train your team to run it.</li>
+</ol>
+
+<div class="cta-block">
+<h3>Talk to us about your operation</h3>
+<p>Bluegrass Advisory Group is based in Lexington, Kentucky and builds AI systems for owner-run businesses.</p>
+<a class="btn btn-primary" href="https://cal.com/philip-fifield/intro" target="_blank" rel="noopener noreferrer">Book an intro call</a>
+</div>
+</div>
+
+<!-- ═══════ APPENDIX A: PROMPT LIBRARY ═══════ -->
+<div class="sec" data-s="appA">
+<h1 class="sec-title">Prompt library</h1>
+<p class="sec-sub">44 copy-ready prompts, grouped by the work they help with.</p>
+
+<div class="pl-filter" id="plFilter"></div>
+<div id="plCards"></div>
+</div>
+
+<!-- ═══════ APPENDIX B: GLOSSARY ═══════ -->
+<div class="sec" data-s="appB">
+<h1 class="sec-title">AI glossary</h1>
+<p class="sec-sub">Every AI term you'll encounter, defined in plain English.</p>
+
+<div class="gl-search"><input type="text" id="glSearch" placeholder="Search terms..." oninput="filterGlossary(this.value)"/></div>
+<div id="glList"></div>
+</div>
+
+<!-- ═══════ APPENDIX C: BEFORE & AFTER ═══════ -->
+<div class="sec" data-s="appC">
+<h1 class="sec-title">Before & after showcase</h1>
+<p class="sec-sub">Business documents side by side: a generic first draft and an AI-assisted one.</p>
+
+<h3>1. Job posting</h3>
+<div class="ba">
+<div class="ba-col ba-before"><div class="ba-label">Before</div>Now hiring a manager. Must have experience. Apply within. Full-time position with benefits. We are an equal opportunity employer. Looking for a self-starter who can work in a fast-paced environment. Must be team player. Competitive salary. Email resume to info@company.com.</div>
+<div class="ba-col ba-after"><div class="ba-label">After</div><strong>Operations Manager: Growing Service Co (Lexington, KY)</strong><br><br>We're a 50-person service company that's doubled in 3 years. We need someone who can keep the engine running while we keep growing.<br><br><strong>What You'll Do:</strong><br>• Own daily operations for 2 field crews (12 people)<br>• Manage scheduling, inventory, and equipment maintenance<br>• Handle client escalations and quality assurance<br>• Build SOPs so the operation runs without you in the room<br>• Report to the owner with weekly operational metrics<br><br><strong>You're Right For This If:</strong><br>• You've managed 10+ people in a service or field environment<br>• You fix problems before they become crises<br>• You'd rather build a system than fight the same fire twice<br>• You're comfortable with technology and learn new tools quickly<br>• You communicate directly: no games, no politics<br><br><strong>What We Offer:</strong> $55-65K base + performance bonus + health insurance + PTO + a team that actually likes coming to work.<br><br>Send your resume to [email] with "Ops Manager" in the subject line. We respond to every applicant within 48 hours.</div>
+</div>
+<p class="note"><strong>The prompt that created the "After":</strong> "Write a job posting for an Operations Manager at a 50-person service company in Lexington, KY. We've doubled in 3 years. They'll manage 2 crews, scheduling, inventory. $55-65K + benefits. Make it sound like a real person wrote it: energetic, specific. Lead with what makes this role interesting. Include: What You'll Do (5 bullets), You're Right For This If (5 bullets), What We Offer (4 items). No HR clichés."</p>
+
+<h3>2. Follow-up email</h3>
+<div class="ba">
+<div class="ba-col ba-before"><div class="ba-label">Before</div>Hi,<br><br>Just following up on our conversation. Let me know if you have any questions.<br><br>Thanks!</div>
+<div class="ba-col ba-after"><div class="ba-label">After</div>Hi Sarah,<br><br>Based on your last 12 months of bills, the system we discussed would save your household roughly $2,100 a year in electricity costs.<br><br>I can walk you through the numbers on a 15-minute call. Would Thursday or Friday morning work for you?<br><br>Best,<br>[Name]</div>
+</div>
+<p class="note"><strong>What changed:</strong> The "before" gives the recipient zero reason to respond. The "after" leads with the customer's own number ($2,100 a year), keeps the next step small (15 minutes), and offers specific times.</p>
+
+<h3>3. Process document</h3>
+<div class="ba">
+<div class="ba-col ba-before"><div class="ba-label">Before</div>When stuff comes in, check it against the PO. Put it where it goes. Let someone know if something is wrong. Make sure you sign for it.</div>
+<div class="ba-col ba-after"><div class="ba-label">After</div><strong>Inventory Receiving SOP</strong><br>Version 1.0 | Owner: Warehouse Manager<br><br><strong>Purpose:</strong> Ensure every shipment is verified, inspected, and properly stored.<br><br><strong>Procedure:</strong><br>1. Verify PO number on packing slip against open orders<br>2. Count all pallets/boxes <strong>before</strong> signing the BOL<br>3. Note any visible damage on the BOL before the driver leaves<br>4. Move shipment to receiving/staging area<br>5. Open and inspect each item for concealed damage<br>6. Verify quantities match packing slip<br>7. Scan each item into inventory system<br>8. Place items in assigned rack location<br>9. Update rack label if stock level changed significantly<br>10. File packing slip in the daily receiving binder<br><br><strong>Warning:</strong> Never sign BOL before counting: you lose leverage on shortages<br><strong>Warning:</strong> Never shelve damaged items: set aside and report immediately<br><strong>Warning:</strong> Two people for any item over 50 lbs</div>
+</div>
+<p class="note"><strong>What changed:</strong> Vague instructions ("put it where it goes") became specific, numbered steps anyone can follow. Safety notes added. Accountability built in. A new hire could follow this on day one.</p>
+
+<h3>4. Business proposal section</h3>
+<div class="ba">
+<div class="ba-col ba-before"><div class="ba-label">Before</div>We offer comprehensive solutions for businesses looking to improve their operations through technology implementation and process optimization. Our team of experienced professionals will work closely with your organization to identify areas for improvement and implement best-in-class solutions that drive results.</div>
+<div class="ba-col ba-after"><div class="ba-label">After</div><strong>The Problem</strong><br>Your warehouse team spends 48 minutes staging each job. The industry benchmark is 30 minutes. That 18-minute gap, across 22 jobs per week, adds up to 6.6 hours of lost crew productivity: roughly $15,000 per year in labor costs alone.<br><br>Meanwhile, your warehouse lead is at 115% utilization: he's the only person who knows the full staging process. One sick day and the whole schedule slips.<br><br><strong>What We'll Build</strong><br>A phased warehouse restructure that reduces staging time to under 30 minutes, cross-trains 3 team members on critical processes, and creates an inventory system that eliminates emergency orders. Three phases. Eight weeks. Measurable results at each phase.</div>
+</div>
+<p class="note"><strong>What changed:</strong> Generic consultant-speak ("comprehensive solutions") replaced with specific numbers that quantify the problem. The "after" shows the client you understand their operation.</p>
+
+<h3>5. Performance review</h3>
+<div class="ba">
+<div class="ba-col ba-before"><div class="ba-label">Before</div>Employee does a good job overall. Sometimes late. Needs to communicate better. Keep up the good work. Meets expectations.</div>
+<div class="ba-col ba-after"><div class="ba-label">After</div><strong>Marcus Johnson: Q1 2026 Performance Review</strong><br><br><strong>Strengths:</strong><br>• Consistently highest output on the team: 22 jobs staged this period vs team average of 14<br>• Customers specifically mention your professionalism in 3 feedback surveys<br>• Took initiative on the back lot reorganization project without being asked<br>• Mentoring Devon on forklift operation: Devon is now certified<br><br><strong>Areas for Development:</strong><br>• Punctuality: late 4 of last 20 scheduled shifts. This affects crew start times and sets a precedent for the team. We need this at zero.<br>• Communication with office: 2 instances where job materials were changed without notifying the coordinator, causing rework.<br><br><strong>Q2 Goals:</strong><br>1. Zero unexcused late arrivals through June 30<br>2. Complete cross-training for Devon on full staging process by April 15<br>3. Lead the mezzanine cleanout project (target completion: May 1)<br><br><strong>Overall:</strong> Marcus is one of our most valuable team members. These development areas are the difference between being great and being promotable. We're invested in getting you there.</div>
+</div>
+<p class="note"><strong>What changed:</strong> Vague feedback ("good job overall") became specific evidence. Development areas are tied to data. Goals are measurable with deadlines. The closing motivates instead of dismissing.</p>
+
+<h3>What made each "after" better</h3>
+<div class="card card-em"><div class="card-b">
+Every "After" example above follows the same principles:<br><br>
+<strong>1. Specificity over generality.</strong> "50-person company that doubled in 3 years" vs "fast-growing company."<br>
+<strong>2. Benefits over features.</strong> "$2,100/year savings" vs "efficient solar system."<br>
+<strong>3. Structure over prose.</strong> Numbered steps, bullet points, headers: easy to scan.<br>
+<strong>4. Human voice over corporate speak.</strong> "A team that actually likes coming to work" vs "positive work environment."<br>
+<strong>5. Actionable over vague.</strong> "Zero unexcused late arrivals through June 30" vs "improve punctuality."<br><br>
+These same principles apply to everything you create with AI. Give Claude specific inputs → get specific outputs → apply these 5 principles → professional-grade result.
+</div></div>
+
+<h3>The prompt used</h3>
+<p>Every "After" document was created with a prompt that followed the R-C-T-F-T framework from Module 3. The pattern is always the same:</p>
+
+<div class="prompt"><div class="prompt-tag prompt-good">Pattern</div><div class="prompt-txt">You are a [role relevant to the document type].
+
+Context: [who I am, what the situation is, who reads this]
+
+Task: [exactly what to create]
+
+Format: [structure, length, sections to include]
+
+Tone: [how it should sound: be specific]
+
+Constraints: [what to avoid, what to emphasize]</div></div>
+
+<p>Same framework every time. The quality comes from how specific you are in each slot.</p>
+
+</div>
+
+</article>
+<aside class="toc" id="toc" aria-label="On this page" hidden></aside>
+</div>
+</main>
+</div>
+
+<script>
+/* Course map. "kind" is lesson, premium or reference; only lessons count toward progress. */
+const MODULES=[
+  {id:'m1',num:1,label:'How to think about AI',group:'Foundations',time:15,kind:'lesson'},
+  {id:'m2',num:2,label:'Your AI toolkit',group:'Foundations',time:12,kind:'lesson'},
+  {id:'m3',num:3,label:'Prompt engineering',group:'Foundations',time:20,kind:'lesson'},
+  {id:'m4',num:4,label:'Claude deep dive',group:'Foundations',time:18,kind:'lesson'},
+  {id:'m5',num:5,label:'Real use cases',group:'Putting it to work',time:18,kind:'lesson'},
+  {id:'m6',num:6,label:'Files and knowledge',group:'Putting it to work',time:15,kind:'lesson'},
+  {id:'m7',num:7,label:'Data analysis with AI',group:'Putting it to work',time:12,kind:'lesson'},
+  {id:'m8',num:8,label:'SOPs and documentation',group:'Putting it to work',time:10,kind:'lesson'},
+  {id:'m9',num:9,label:'Your 30-day plan',group:'Building the habit',time:10,kind:'lesson'},
+  {id:'m10',num:10,label:'Systems and architecture',group:'Academy Premium',time:15,kind:'premium'},
+  {id:'m11',num:11,label:'Workflow automation',group:'Academy Premium',time:8,kind:'premium'},
+  {id:'m12',num:12,label:'Custom dashboards',group:'Academy Premium',time:6,kind:'premium'},
+  {id:'m13',num:13,label:'AI agents',group:'Academy Premium',time:6,kind:'premium'},
+  {id:'m14',num:14,label:"What's next",group:'Wrapping up',time:5,kind:'lesson'},
+  {id:'appA',num:'A',label:'Prompt library',group:'Reference',kind:'reference'},
+  {id:'appB',num:'B',label:'AI glossary',group:'Reference',kind:'reference'},
+  {id:'appC',num:'C',label:'Before and after',group:'Reference',kind:'reference'},
+];
+const LESSONS=MODULES.filter(m=>m.kind==='lesson');
+const byId=Object.fromEntries(MODULES.map(m=>[m.id,m]));
+const ICON={
+  open:'<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10" cy="10" r="8"/></svg>',
+  done:'<svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="currentColor"/><path d="M6 10.4l2.6 2.6L14.2 7.4" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  lock:'<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="4.5" y="9" width="11" height="8" rx="1.5"/><path d="M7 9V6.5a3 3 0 016 0V9"/></svg>',
+  ref:'<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 3.5h8l2 2v11H5z"/><path d="M8 9h4M8 12h4"/></svg>',
+  home:'<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3.5 9L10 3.5 16.5 9v7.5h-13z"/></svg>'
+};
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+/* Progress lives in this browser only. Nothing sensitive is stored: lesson ids, checklist keys, quiz results. */
+const STORAGE_KEY='bag-academy-v4';
+function blankState(){return{completed:[],checked:[],quizAnswers:{}};}
+function loadState(){
+  try{const s=JSON.parse(localStorage.getItem(STORAGE_KEY)||'null');
+    if(s&&Array.isArray(s.completed)&&Array.isArray(s.checked)&&s.quizAnswers&&typeof s.quizAnswers==='object')return s;}catch(e){}
+  return blankState();
+}
+function saveState(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state));}catch(e){}}
+let state=loadState();
+let currentSec='overview';
+
+const isDone=id=>state.completed.includes(id);
+function lessonsDone(){return LESSONS.filter(m=>isDone(m.id)).length;}
+function nextUnfinished(){const m=LESSONS.find(x=>!isDone(x.id));return m?m.id:null;}
+
+/* Sidebar */
+function stateIcon(m){
+  if(m.kind==='premium')return ICON.lock;
+  if(m.kind==='reference')return ICON.ref;
+  return isDone(m.id)?ICON.done:ICON.open;
+}
+function buildSidebar(filter){
+  const fl=(filter||'').trim().toLowerCase();
+  let html='';
+  if(!fl){
+    html+=`<div class="sb-group"><a class="sb-item" href="#/"${currentSec==='overview'?' aria-current="page"':''}><span class="sb-state">${ICON.home}</span><span class="sb-text">Course overview</span></a></div>`;
+  }
+  const groups=[...new Set(MODULES.map(m=>m.group))];
+  let shown=0;
+  groups.forEach(g=>{
+    const items=MODULES.filter(m=>m.group===g&&(!fl||m.label.toLowerCase().includes(fl)||g.toLowerCase().includes(fl)));
+    if(!items.length)return;
+    html+=`<div class="sb-group"><div class="sb-label">${esc(g)}</div>`;
+    items.forEach(m=>{
+      shown++;
+      const cur=m.id===currentSec?' aria-current="page"':'';
+      const meta=m.kind==='premium'?'Premium':m.time?m.time+' min':'';
+      html+=`<a class="sb-item${isDone(m.id)?' done':''}" href="#/${m.id}"${cur}><span class="sb-state">${stateIcon(m)}</span><span class="sb-text">${m.kind==='reference'?'':m.num+'. '}${esc(m.label)}</span>${meta?`<span class="sb-meta">${meta}</span>`:''}</a>`;
+    });
+    html+='</div>';
+  });
+  if(!shown)html+='<p class="sb-empty">No lessons match.</p>';
+  document.getElementById('sbNav').innerHTML=html;
+}
+
+/* Overview */
+function buildCurriculum(){
+  const el=document.getElementById('curriculum');
+  const groups=[...new Set(MODULES.map(m=>m.group))];
+  let html='';
+  groups.forEach(g=>{
+    html+=`<div class="cur-group"><h3 class="cur-label">${esc(g)}</h3><ul class="cur-list">`;
+    MODULES.filter(m=>m.group===g).forEach(m=>{
+      const sec=document.querySelector(`[data-s="${m.id}"] .sec-sub`);
+      const desc=sec?sec.textContent:'';
+      const cls=m.kind==='premium'?' locked':isDone(m.id)?' done':'';
+      const meta=m.kind==='premium'?'Coming with<br>Academy Premium':m.kind==='reference'?'Reference':m.time+' min';
+      html+=`<li><a class="cur-row${cls}" href="#/${m.id}"><span class="cur-state">${stateIcon(m)}</span><span class="cur-num">${m.num}</span><span class="cur-body"><span class="cur-name">${esc(m.label)}</span><span class="cur-desc">${esc(desc)}</span></span><span class="cur-meta">${meta}</span></a></li>`;
+    });
+    html+='</ul></div>';
+  });
+  el.innerHTML=html;
+}
+function updateProgress(){
+  const done=lessonsDone(),total=LESSONS.length,pct=Math.round(done/total*100);
+  const tasks=document.querySelectorAll('.clist li[data-key]').length;
+  const quizzes=document.querySelectorAll('[data-quiz]').length;
+  const tasksDone=state.checked.filter(k=>document.querySelector(`.clist li[data-key="${CSS.escape(k)}"]`)).length;
+  const quizDone=Object.keys(state.quizAnswers).filter(k=>document.querySelector(`[data-quiz="${CSS.escape(k)}"]`)).length;
+  document.getElementById('sbProgText').textContent=`${done} of ${total} modules`;
+  document.getElementById('sbProgFill').style.width=pct+'%';
+  document.getElementById('ovProgText').textContent=`${done} of ${total} free modules complete`;
+  document.getElementById('ovProgFill').style.width=pct+'%';
+  document.getElementById('ovTasks').textContent=`${tasksDone} of ${tasks}`;
+  document.getElementById('ovQuiz').textContent=`${quizDone} of ${quizzes}`;
+  const start=document.getElementById('ovStart');
+  const nxt=nextUnfinished();
+  if(done===0){start.textContent='Start the course';start.href='#/m1';}
+  else if(nxt){start.textContent='Continue the course';start.href='#/'+nxt;}
+  else{start.textContent='Review the course';start.href='#/m1';}
+}
+function buildFacts(){
+  const mins=LESSONS.reduce((a,m)=>a+m.time,0);
+  const hrs=Math.round(mins/30)/2;
+  document.getElementById('ovFacts').textContent=`${LESSONS.length} free modules, about ${hrs} hours, ${PROMPTS.length} prompts`;
+}
+
+/* Lesson chrome: breadcrumb, premium notice, end-of-lesson actions, on-this-page links */
+function decorateSections(){
+  MODULES.forEach((m,i)=>{
+    const sec=document.querySelector(`[data-s="${m.id}"]`);
+    if(!sec)return;
+    const title=sec.querySelector('.sec-title');
+    const crumb=document.createElement('p');
+    crumb.className='crumb';
+    crumb.innerHTML=m.kind==='reference'?`<a href="#/">Course</a> / Appendix ${m.num}`:`<a href="#/">Course</a> / Module ${m.num} of ${MODULES.filter(x=>x.kind!=='reference').length} / ${m.time} min`;
+    sec.insertBefore(crumb,title);
+    sec.querySelectorAll('h3').forEach((h,j)=>{if(!h.id)h.id=`${m.id}-${j+1}`;});
+    if(m.kind==='premium'){
+      const note=document.createElement('div');
+      note.className='premium-note';
+      note.innerHTML='<h2>Coming with Academy Premium</h2><p>This module is part of Academy Premium, which is not open yet. The free course covers modules 1 to 9 and module 14.</p>';
+      sec.querySelector('.sec-sub').after(note);
+    }
+    const end=document.createElement('div');
+    end.className='lesson-end';
+    end.dataset.for=m.id;
+    sec.appendChild(end);
+  });
+}
+function renderLessonEnd(id){
+  const m=byId[id];if(!m)return;
+  const end=document.querySelector(`.lesson-end[data-for="${id}"]`);
+  const i=MODULES.indexOf(m),prev=MODULES[i-1],next=MODULES[i+1];
+  const nextLabel=next?(next.kind==='reference'?`Appendix ${next.num}: ${next.label}`:`Module ${next.num}: ${next.label}`):'';
+  let main='';
+  if(m.kind==='lesson'&&!isDone(id)){
+    main=`<div><button class="btn btn-primary" type="button" data-complete="${id}">Mark complete and continue</button>${next?`<span class="next-note">Next: ${esc(nextLabel)}</span>`:''}</div>`;
+  }else if(next){
+    main=`<div><a class="btn btn-primary" href="#/${next.id}">Go to the next module</a><span class="next-note">Next: ${esc(nextLabel)}</span></div>`;
+  }else{
+    main=`<div><a class="btn btn-primary" href="#/">Back to the course</a></div>`;
+  }
+  const prevLink=prev?`<a class="prev" href="#/${prev.id}">Previous: ${esc(prev.label)}</a>`:`<a class="prev" href="#/">Course overview</a>`;
+  end.innerHTML=main+prevLink;
+}
+let tocObserver=null;
+function buildToc(id){
+  const toc=document.getElementById('toc');
+  if(tocObserver){tocObserver.disconnect();tocObserver=null;}
+  const sec=document.querySelector(`[data-s="${id}"]`);
+  const heads=(sec&&id!=='overview')?[...sec.querySelectorAll('h3')].filter(h=>!h.closest('[hidden]')):[];
+  if(heads.length<3){toc.innerHTML='';toc.hidden=true;return;}
+  toc.hidden=false;
+  toc.innerHTML='<p class="toc-title">On this page</p><ul>'+heads.map(h=>`<li><a href="#${h.id}" data-toc="${h.id}">${esc(h.textContent)}</a></li>`).join('')+'</ul>';
+  tocObserver=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){
+      toc.querySelectorAll('a').forEach(a=>a.classList.toggle('active',a.dataset.toc===e.target.id));
+    }});
+  },{rootMargin:'-80px 0px -75% 0px',threshold:0});
+  heads.forEach(h=>tocObserver.observe(h));
+}
+
+/* Routing: #/m3 opens module 3, #/ opens the overview. The back button works. */
+function route(){
+  const h=location.hash;
+  if(h&&!h.startsWith('#/')){
+    const target=document.getElementById(h.slice(1));
+    if(target){target.scrollIntoView();return;}
+  }
+  const id=h.replace(/^#\/?/,'');
+  show(byId[id]?id:'overview');
+}
+function show(id){
+  currentSec=id;
+  document.querySelectorAll('.sec').forEach(s=>s.classList.toggle('active',s.dataset.s===id));
+  if(id!=='overview')renderLessonEnd(id);
+  else buildCurriculum();
+  updateProgress();
+  buildSidebar(document.getElementById('sbSearch').value);
+  buildToc(id);
+  restoreState();
+  document.getElementById('tbCourse').toggleAttribute('aria-current',id==='overview');
+  const m=byId[id];
+  document.title=(m?`${m.label} | `:'')+'Academy | Bluegrass Advisory Group';
+  window.scrollTo(0,0);
+  closeSidebar();
+}
+function goTo(id){location.hash='#/'+id;}
+
+/* Phone drawer */
+function openSidebar(){document.getElementById('sidebar').classList.add('open');document.getElementById('scrim').classList.add('show');document.getElementById('menuBtn').setAttribute('aria-expanded','true');}
+function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('scrim').classList.remove('show');document.getElementById('menuBtn').setAttribute('aria-expanded','false');}
+
+/* Checklists */
+function tChk(el){
+  el.classList.toggle('chk');
+  const key=el.dataset.key;
+  if(el.classList.contains('chk')){if(!state.checked.includes(key))state.checked.push(key);}
+  else state.checked=state.checked.filter(k=>k!==key);
+  el.setAttribute('aria-checked',el.classList.contains('chk'));
+  saveState();updateProgress();
+}
+
+/* Quizzes */
+function markQuiz(card,ok,picked){
+  card.querySelectorAll('.qz-o').forEach(o=>{o.classList.add('dis');if(o.dataset.a==='c')o.classList.add('cor');});
+  if(picked&&!ok)picked.classList.add('wrg');
+  const r=card.querySelector('.qz-res');
+  r.textContent=ok?'Correct.':'Not quite. The correct answer is highlighted above.';
+  r.style.color=ok?'var(--blue)':'var(--ink)';
+  r.classList.add('show');
+}
+function aQuiz(el){
+  const card=el.closest('.qz');
+  const qid=card.dataset.quiz;
+  if(state.quizAnswers[qid])return;
+  const ok=el.dataset.a==='c';
+  markQuiz(card,ok,el);
+  state.quizAnswers[qid]=ok?'c':'w';
+  saveState();updateProgress();
+}
+
+function restoreState(){
+  document.querySelectorAll('.clist li[data-key]').forEach(li=>{
+    const on=state.checked.includes(li.dataset.key);
+    li.classList.toggle('chk',on);
+    li.setAttribute('role','checkbox');li.setAttribute('tabindex','0');li.setAttribute('aria-checked',on);
+  });
+  Object.keys(state.quizAnswers).forEach(qid=>{
+    const card=document.querySelector(`[data-quiz="${CSS.escape(qid)}"]`);
+    if(card)markQuiz(card,state.quizAnswers[qid]==='c',null);
+  });
+}
+
+/* ── READINESS ASSESSMENT ── */
+const readinessQs=[
+  {q:'How often do you currently use AI tools?',opts:['Never','Tried once or twice','A few times a month','Weekly','Daily']},
+  {q:'How comfortable are you with technology in general?',opts:['Not at all','Basic email and web','Comfortable with most apps','I pick up new tools quickly','Very tech-savvy']},
+  {q:'Do you have organized files on your computer?',opts:['Everything is on my desktop','Somewhat organized','Pretty organized','Very organized with a system','Military-grade organization']},
+  {q:'How do you currently handle repetitive tasks?',opts:['Just do them manually every time','I have some shortcuts','I use templates sometimes','I have documented processes','Many tasks are automated']},
+  {q:'What best describes your goal with AI?',opts:['Just curious','Want to save some time','Want to transform how I work','Want to build AI into my operation','Want to become an AI-powered business']},
+];
+
+function buildReadiness(){
+  const el=document.getElementById('readinessQs');
+  if(!el)return;
+  let html='';
+  readinessQs.forEach((q,i)=>{
+    html+=`<div class="widget-field"><label for="rq${i}">${q.q}</label><select id="rq${i}">`;
+    q.opts.forEach((o,j)=>html+=`<option value="${j}">${o}</option>`);
+    html+=`</select></div>`;
+  });
+  el.innerHTML=html;
+}
+
+function scoreReadiness(){
+  let total=0;
+  readinessQs.forEach((_,i)=>{
+    total+=parseInt(document.getElementById('rq'+i).value);
+  });
+  const max=readinessQs.length*4;
+  const pct=Math.round((total/max)*100);
+  let msg='',level='';
+  if(pct<=25){level='Beginner';msg='You\'re at the starting line. This course is built for where you are. Start with Module 1 and work through sequentially. Focus on the Quick Wins first to build confidence.';}
+  else if(pct<=50){level='Explorer';msg='You\'ve dipped your toes in. Now it\'s time to go deeper. The prompt engineering module (Module 3) will be your biggest unlock. Pay special attention to the iteration technique: that\'s where casual users become power users.';}
+  else if(pct<=75){level='Practitioner';msg='You already have a foundation. Focus on Modules 6 (Knowledge Management) and 10 (Systems & Architecture): that\'s where you\'ll learn to make AI compound over time instead of being a one-off tool.';}
+  else{level='Advanced';msg='You\'re ahead of most people. Skim the foundations. If you want help building AI systems for your business, talk to us.';}
+  const el=document.getElementById('readinessResult');
+  el.innerHTML=`<strong>Your Level: ${level} (${pct}%)</strong><br><br>${msg}`;
+  el.classList.add('show');
+  state.assessmentScore=pct;
+  saveState();
+}
+
+/* ── COPY TO CLIPBOARD ── */
+function copyPrompt(btn,text){
+  navigator.clipboard.writeText(text).then(()=>{
+    btn.textContent='Copied';
+    btn.classList.add('copied');
+    setTimeout(()=>{btn.textContent='Copy';btn.classList.remove('copied');},2000);
+  });
+}
+
+
+
+/* ── PROMPT ANALYZER ── */
+function analyzePrompt(){
+  const text=document.getElementById('paInput').value.trim();
+  if(!text){return;}
+  const lower=text.toLowerCase();
+  const len=text.length;
+  // Role detection
+  const hasRole=/you are|act as|pretend|as a|your role/i.test(text);
+  const roleScore=hasRole?5:len>200?3:1;
+  // Context detection
+  const contextWords=['because','situation','background','currently','we have','my company','employees','revenue','budget','industry','customers','team'];
+  const contextHits=contextWords.filter(w=>lower.includes(w)).length;
+  const contextScore=contextHits>=4?5:contextHits>=2?3:contextHits>=1?2:1;
+  // Task detection
+  const taskWords=['write','create','draft','analyze','compare','list','build','generate','summarize','explain','review','design','help me'];
+  const taskHits=taskWords.filter(w=>lower.includes(w)).length;
+  const taskScore=taskHits>=2?5:taskHits>=1?3:1;
+  // Format detection
+  const formatWords=['bullet','table','columns','format','numbered','list','paragraphs','sections','under \\d+ words','keep it','max \\d+'];
+  const formatHits=formatWords.filter(w=>new RegExp(w,'i').test(text)).length;
+  const formatScore=formatHits>=2?5:formatHits>=1?3:1;
+  // Tone detection
+  const toneWords=['tone','professional','casual','friendly','formal','warm','direct','technical','simple','no jargon','don\'t hedge'];
+  const toneHits=toneWords.filter(w=>lower.includes(w)).length;
+  const toneScore=toneHits>=2?5:toneHits>=1?3:1;
+
+  const total=roleScore+contextScore+taskScore+formatScore+toneScore;
+  const pct=Math.round((total/25)*100);
+
+  let suggestions=[];
+  if(roleScore<3)suggestions.push('Add a role: "You are a [specific role]..." This changes the expertise level of the response.');
+  if(contextScore<3)suggestions.push('Add more context: company size, industry, current situation, constraints, who the audience is.');
+  if(taskScore<3)suggestions.push('Be more specific about the task: exactly what output do you want? A document? An analysis? A recommendation?');
+  if(formatScore<3)suggestions.push('Specify format: "Format as a table" / "Keep under 200 words" / "Use bullet points" / "Give me 3 options."');
+  if(toneScore<3)suggestions.push('Set the tone: "Professional but warm" / "Direct, no jargon" / "Write for a non-technical audience."');
+
+  const el=document.getElementById('paResult');
+  let html=`<div class="pa-scores">
+    <div class="pa-score ${roleScore<3?'low':roleScore<5?'mid':''}"><div class="pa-score-letter">${roleScore}/5</div><div class="pa-score-label">Role</div></div>
+    <div class="pa-score ${contextScore<3?'low':contextScore<5?'mid':''}"><div class="pa-score-letter">${contextScore}/5</div><div class="pa-score-label">Context</div></div>
+    <div class="pa-score ${taskScore<3?'low':taskScore<5?'mid':''}"><div class="pa-score-letter">${taskScore}/5</div><div class="pa-score-label">Task</div></div>
+    <div class="pa-score ${formatScore<3?'low':formatScore<5?'mid':''}"><div class="pa-score-letter">${formatScore}/5</div><div class="pa-score-label">Format</div></div>
+    <div class="pa-score ${toneScore<3?'low':toneScore<5?'mid':''}"><div class="pa-score-letter">${toneScore}/5</div><div class="pa-score-label">Tone</div></div>
+  </div>`;
+  html+=`<p style="margin-top:16px"><strong>Overall: ${pct}%</strong>. ${pct>=80?'Strong prompt. Minor refinements possible.':pct>=50?'Decent start. A few additions would improve your output:':'This prompt needs more detail. Here\'s how to improve it:'}</p>`;
+  if(suggestions.length){
+    html+='<ul style="margin-top:8px">';
+    suggestions.forEach(s=>html+=`<li>${s}</li>`);
+    html+='</ul>';
+  }
+  el.innerHTML=html;
+  el.classList.add('show');
+}
+
+/* ── PROMPT LIBRARY ── */
+const PROMPTS=[
+  {cat:'Marketing',title:'Social Media Content Calendar',prompt:'Create a 2-week social media content calendar for a [type of business]. Platforms: [list]. Post frequency: [X/week per platform]. Include: post text, suggested image description, best posting time, and relevant hashtags. Tone: [professional/casual/fun]. Our differentiator is [X].'},
+  {cat:'Marketing',title:'Email Newsletter Draft',prompt:'Write a monthly email newsletter for our customers. Company: [describe]. This month highlight: [topic/promotion]. Include: compelling subject line (under 50 chars), preview text, 3 sections with headers, and a clear CTA. Under 400 words. Tone: helpful, not salesy.'},
+  {cat:'Marketing',title:'Customer Testimonial Request',prompt:'Write an email asking a happy customer for a testimonial/review. They just [completed project/received service]. Make it easy: give them 3 specific questions to answer instead of asking for a blank review. Keep it short and genuine. Include a direct link to [review platform].'},
+  {cat:'Marketing',title:'Competitive Positioning',prompt:'I run a [business type]. My 3 main competitors are [list]. My strengths: [list]. Create a positioning statement and 5 key differentiators I can use in marketing. Be specific: not "great customer service" but what specifically we do differently.'},
+  {cat:'Operations',title:'Daily Standup Format',prompt:'Create a 10-minute daily standup meeting format for a team of [X]. Include: what each person reports (keep it tight), how to handle issues that need more time, and a template the meeting leader can follow. The goal is accountability without wasting time.'},
+  {cat:'Operations',title:'Vendor Negotiation Prep',prompt:'I need to renegotiate our contract with [vendor] for [product/service]. Current terms: [details]. What I want: [details]. Help me prepare: (1) 3 leverage points I can use, (2) My opening position, (3) My walk-away point, (4) Specific language to use when asking for a discount, (5) Counter-arguments they might use and my responses.'},
+  {cat:'Operations',title:'Incident Report',prompt:'Write a professional incident report template for [type of business]. Include fields for: date/time, location, people involved, description of incident, immediate actions taken, root cause analysis, corrective actions, and follow-up timeline. Make it thorough but not so long that people skip filling it out.'},
+  {cat:'Operations',title:'Inventory Audit Checklist',prompt:'Create a quarterly inventory audit checklist for a [type of business]. Include: pre-audit prep (what to gather before starting), counting procedures, discrepancy thresholds (when to escalate), documentation requirements, and post-audit actions. Numbered steps. A new employee should be able to follow this.'},
+  {cat:'HR',title:'Job Posting',prompt:'Write a job posting for [role] at [company description]. Requirements: [list]. Pay: $[range]. Include: 2-sentence hook about why someone would want this role, What You\'ll Do (5 bullets), What We\'re Looking For (5 bullets), What We Offer (4 bullets). Sound like a real person, not an HR department.'},
+  {cat:'HR',title:'Interview Questions',prompt:'Create 10 interview questions for a [role] position. Mix: 3 behavioral ("tell me about a time..."), 3 situational ("what would you do if..."), 2 role-specific technical, 2 culture fit. For each question, include what a GOOD answer sounds like and what a RED FLAG sounds like.'},
+  {cat:'HR',title:'Onboarding Checklist',prompt:'Create a 5-day new hire onboarding checklist for a [role] at a [type of business]. Day-by-day breakdown. Include: pre-arrival prep (what to set up BEFORE they start), Day 1 welcome script, training schedule, key people to meet, systems access, and a 30/60/90 day milestone plan.'},
+  {cat:'HR',title:'Employee Warning Letter',prompt:'Draft a professional written warning for an employee regarding [issue: tardiness/performance/policy violation]. Include: specific dates and incidents, company policy referenced, expectations going forward, timeline for improvement, and consequences if not addressed. Firm but fair. Not threatening.'},
+  {cat:'Finance',title:'Budget Variance Analysis',prompt:'[Upload P&L or budget data] Compare actual vs budget for [time period]. For each line item that is off by more than 10%, explain the likely cause and suggest corrective action. Summarize the top 3 areas of concern and top 3 areas of outperformance. Format for a 5-minute executive briefing.'},
+  {cat:'Finance',title:'Pricing Analysis',prompt:'Help me analyze my pricing. Current: [prices]. Costs: [breakdown]. Competitors: [their prices]. Market position: [premium/mid/budget]. Think step by step. Am I priced correctly? What would a 10% increase do to margins vs volume? Give me a specific recommendation.'},
+  {cat:'Finance',title:'Expense Reduction Audit',prompt:'Here are our expense categories and monthly amounts: [list]. Revenue: $[X]. Identify the top 5 opportunities to reduce costs without impacting quality or team morale. For each, estimate the monthly savings and difficulty of implementation (easy/medium/hard). Give me a prioritized action list.'},
+  {cat:'Sales',title:'Follow-Up Sequence',prompt:'Create a 4-email follow-up sequence for a prospect who received a quote but hasn\'t responded. Industry: [type]. Quote amount: $[X]. Timing: Day 3, Day 7, Day 14, Day 30. Each email should have a different angle: don\'t just say "checking in." Make them genuinely useful. Short (under 100 words each).'},
+  {cat:'Sales',title:'Objection Responses',prompt:'I sell [product/service]. The top 5 objections I hear: [list them]. For each, write: (1) An empathetic acknowledgment, (2) A reframe that addresses the real concern, (3) A specific proof point or example. Keep each response conversational: not scripted-sounding.'},
+  {cat:'Sales',title:'Proposal Executive Summary',prompt:'Write an executive summary for a proposal. Client: [name/type]. Project: [describe]. Investment: $[X]. Timeline: [X weeks/months]. The summary should: lead with the client\'s problem (not our solution), quantify the impact, and make the ROI obvious. Under 200 words. No fluff.'},
+  {cat:'Leadership',title:'Team Meeting Agenda',prompt:'Create a weekly team meeting agenda for [X] people. Meeting length: [X] minutes. Include: wins from last week (2 min), key metrics review (3 min), blockers and problem-solving (10 min), priorities for this week (5 min), announcements (2 min). Format as a reusable template with time blocks.'},
+  {cat:'Leadership',title:'Quarterly Business Review',prompt:'Help me prepare a quarterly business review presentation. Key metrics: [list]. Wins: [list]. Challenges: [list]. Create an outline with: executive summary (1 slide), metrics dashboard (what to show), wins (how to frame), challenges (honest but solution-oriented), next quarter priorities. Audience: [owner/board/team].'},
+  {cat:'Leadership',title:'Delegation Framework',prompt:'I\'m a [role] managing [X] people. I currently handle too many tasks myself. Here\'s what I do weekly: [list tasks with time estimate]. Help me identify: which tasks to delegate, who should own them (based on skill level), how to hand them off without things falling apart, and a 2-week transition plan.'},
+  {cat:'Leadership',title:'Strategic Planning Facilitation',prompt:'I need to run a strategic planning session with my leadership team ([X] people, [X] hours). Goal: define priorities for [next quarter/year]. Create a facilitated agenda with: warm-up exercise (10 min), current state review, SWOT or similar framework, priority brainstorming, voting/ranking method, and action item capture. Include specific questions to ask at each stage.'},
+  {cat:'Strategy',title:'SWOT Analysis',prompt:'Conduct a SWOT analysis for my [business type]. Here\'s what I know: Strengths: [list]. Weaknesses: [list]. My market: [describe]. For Opportunities and Threats, help me think beyond the obvious: what am I not seeing? After the SWOT, give me the 3 most important strategic moves based on the analysis.'},
+  {cat:'Strategy',title:'Market Entry Evaluation',prompt:'I\'m considering expanding into [new market/service/location]. Current business: [describe]. Help me evaluate: (1) Market size and competition, (2) Required investment, (3) Time to profitability, (4) Top 3 risks, (5) Go/no-go recommendation. Think step by step. Be honest if it\'s a bad idea.'},
+  {cat:'Marketing',title:'Google Business Profile Optimization',prompt:'I own a [business type] in [city]. My Google Business Profile exists but hasn\'t been updated in months. Walk me through: (1) The 5 most important fields to optimize and exactly what to put in them, (2) How to write a business description that ranks well in local search, (3) How often to post updates and what kind, (4) How to respond to reviews (positive and negative templates), (5) 3 things most local businesses miss on their profile.'},
+  {cat:'Marketing',title:'Referral Program Design',prompt:'Design a customer referral program for my [business type]. Current customer base: ~[X]. Average job/order value: $[X]. I want something simple enough that customers actually use it. Include: the incentive structure (for both referrer and referee), how to communicate it, tracking method, and the exact email/text I\'d send to launch it. Budget for referral rewards: $[X]/month max.'},
+  {cat:'Operations',title:'Emergency Response Plan',prompt:'Create an emergency response plan for a [business type] with [X] employees at [X] locations. Cover: natural disasters (what to do, who to call, communication chain), equipment failure (backup plan, key vendor contacts), key employee absence (who covers what), data/system outage (recovery steps), and customer communication during any disruption. Format as a 1-page quick-reference card that can be posted on a wall.'},
+  {cat:'Operations',title:'Vendor Scorecard',prompt:'Create a vendor scorecard template for evaluating our top [X] vendors quarterly. Scoring dimensions: price competitiveness, delivery reliability (on-time %), quality (defect/error rate), communication responsiveness, flexibility on rush orders. Scale: 1-5 for each. Include a total weighted score formula where delivery reliability counts double. Format as a fillable table.'},
+  {cat:'HR',title:'Exit Interview Questions',prompt:'Create an exit interview question set for when employees voluntarily leave our [business type]. Include 12 questions covering: their real reason for leaving (dig past the polite answer), what they liked most/least, management feedback, whether they\'d recommend us as an employer, and what one thing we could change. Include a note on how to conduct the interview (who, when, confidentiality). The goal is honest feedback, not a formality.'},
+  {cat:'HR',title:'Team Building Activity Plan',prompt:'I manage a team of [X] people. Morale has been [low/fine/good but could be better]. Budget: $[X]. Plan a team-building activity that: isn\'t cringe (no trust falls), works for mixed ages and personalities, takes [X hours], and actually builds connection. Give me 3 options at different price points. For each: what it is, why it works, logistics, and estimated cost.'},
+  {cat:'Finance',title:'Cash Flow Forecast',prompt:'Help me build a simple 90-day cash flow forecast. My monthly revenue: ~$[X] (varies by [pattern]). Fixed monthly expenses: [list with amounts]. Variable expenses: [list]. Upcoming one-time costs: [list]. Current cash on hand: $[X]. Outstanding receivables: $[X] due in [timeline]. Create a week-by-week forecast showing expected balance. Flag any weeks where I might be tight.'},
+  {cat:'Finance',title:'Profitability by Service/Product',prompt:'I offer these services/products: [list with prices]. My costs for each: [list what you know: even rough estimates]. Help me calculate: (1) Gross margin for each, (2) Rank them by profitability, (3) Which ones should I promote more, (4) Which ones might not be worth offering, (5) Where a price increase would have the most impact on total profit. Think step by step.'},
+  {cat:'Sales',title:'Cold Outreach Email',prompt:'Write a cold outreach email to [type of prospect]. My company: [1-sentence description]. Why they might care: [what problem you solve for them]. The email should: not sound like spam, be under 100 words, have a specific and easy CTA (not "let\'s schedule a call": something lighter like "would a 2-minute case study be useful?"), and feel like it was written by a human, not a template. Give me 3 variations to A/B test.'},
+  {cat:'Sales',title:'Case Study / Success Story',prompt:'Write a 1-page case study based on this client engagement: Client: [type/industry, anonymized if needed]. Problem: [what they came to us with]. What we did: [describe the work]. Results: [specific outcomes: numbers if possible]. Format: Challenge → Solution → Results → Client quote (draft a realistic one I can ask them to approve). Tone: factual, not braggy. Let the results speak.'},
+  {cat:'Leadership',title:'Difficult Conversation Script',prompt:'I need to have a difficult conversation with [employee/vendor/partner] about [issue]. Context: [describe the situation and relationship]. Write me a script with: (1) How to open (first 2 sentences: set the tone), (2) How to present the issue with specific examples, (3) Questions to ask (in case there\'s context I\'m missing), (4) How to set clear expectations going forward, (5) How to close positively. I want to preserve the relationship while being direct about the problem.'},
+  {cat:'Leadership',title:'Annual Goal Setting',prompt:'Help me set goals for [next year/quarter]. My business: [describe: revenue, team, industry]. Last [year/quarter] results: [key metrics]. What went well: [list]. What didn\'t: [list]. Create: (1) 3-5 strategic goals with measurable targets, (2) For each goal: 2-3 key initiatives that move the needle, (3) How I\'ll track progress (what to measure monthly), (4) The one goal that matters most if I can only focus on one. Be specific: not "grow revenue" but "grow revenue from $X to $Y by doing Z."'},
+  {cat:'Operations',title:'Root Cause Analysis',prompt:'Something went wrong: [describe the incident/problem: what happened, when, impact]. Help me do a root cause analysis. Use the "5 Whys" method: ask "why" 5 times to drill past the symptom to the real cause. Then recommend: (1) The immediate fix, (2) The systemic fix that prevents recurrence, (3) What process or SOP needs updating. Don\'t blame people: focus on systems.'},
+  {cat:'Operations',title:'Capacity Planning',prompt:'I need to plan capacity for next quarter. Current: [X] employees doing [X] jobs/units per week. Expected demand next quarter: [X% increase/decrease]. Constraints: [hiring timeline, budget, space]. Calculate: (1) Do I have enough people? (2) If not, how many do I need to hire and by when? (3) Can I handle the gap with overtime? What would that cost? (4) Alternative solutions (process improvement, cross-training). Think step by step.'},
+  {cat:'Marketing',title:'Customer Survey Design',prompt:'Design a customer satisfaction survey for my [business type]. I have ~[X] customers. The survey should: take under 3 minutes (or nobody finishes), measure overall satisfaction, identify what we do well vs need to improve, and include one open-ended question that reveals actionable insights. Give me the exact questions (max 10), response format for each (1-5 scale, multiple choice, or open text), and a follow-up email template for collecting responses.'},
+  {cat:'Finance',title:'ROI Calculator',prompt:'I\'m considering investing $[X] in [describe: equipment, software, new hire, marketing campaign]. Expected benefits: [describe what you think it will save or generate]. Help me calculate: (1) Simple ROI percentage, (2) Payback period (months until it pays for itself), (3) 3-year total value, (4) What assumptions I\'m making that could be wrong, (5) A sensitivity analysis: what if results are 50% worse than expected? Is it still worth it?'},
+  {cat:'HR',title:'Compensation Analysis',prompt:'I need to evaluate whether my team is paid competitively. Roles: [list each role and current pay]. Location: [city/region]. Industry: [type]. Company size: [X employees]. For each role, tell me: (1) Market range for this position in this area, (2) Whether current pay is below/at/above market, (3) Risk of turnover if underpaid, (4) Recommended adjustment if needed. Note: I understand you may not have exact current data: flag where I should verify with a salary survey.'},
+  {cat:'Sales',title:'Discovery Call Preparation',prompt:'I have a sales discovery call with a [prospect type] tomorrow. Their company: [what you know about them]. They reached out because: [reason/trigger]. My services: [what you offer]. Help me prepare: (1) 5 open-ended discovery questions that uncover their real pain (not just surface needs), (2) 3 ways to position my service as the solution to THEIR specific problem, (3) Potential objections and how to handle each, (4) How to end the call with a clear next step. I want to listen 70% and talk 30%.'},
+  {cat:'Strategy',title:'Competitive Response Plan',prompt:'A competitor just [launched a new product / dropped their prices / opened a new location / started targeting our customers]. Details: [what you know]. Help me think through: (1) Is this a real threat or noise? (2) What are they trying to accomplish with this move? (3) Should I respond or ignore? (4) If I respond, what are my 3 best options: with pros/cons of each? (5) What would you do? Think step by step. Don\'t hedge: give me a recommendation.'},
+  {cat:'Strategy',title:'Partnership Evaluation',prompt:'I\'m considering a partnership with [company/person]. Details: [describe what the partnership would look like: what each side brings]. Help me evaluate: (1) What value does each party genuinely bring? (2) What are the risks: especially if the relationship goes bad? (3) What should the agreement include? (4) Red flags to watch for. (5) A simple framework for deciding go/no-go. Be honest if this sounds like a bad idea based on what I\'ve described.'},
+];
+
+const PROMPT_CATS=[...new Set(PROMPTS.map(p=>p.cat))];
+
+function buildPromptLibrary(filter='All'){
+  const filterEl=document.getElementById('plFilter');
+  const cardsEl=document.getElementById('plCards');
+  if(!filterEl||!cardsEl)return;
+  let fHtml='';
+  ['All',...PROMPT_CATS].forEach(c=>{fHtml+=`<button type="button" class="pl-tag" aria-pressed="${filter===c}" data-cat="${esc(c)}">${esc(c)}</button>`;});
+  filterEl.innerHTML=fHtml;
+  const filtered=filter==='All'?PROMPTS:PROMPTS.filter(p=>p.cat===filter);
+  let cHtml='';
+  filtered.forEach((p,i)=>{
+    const id='pl-'+i;
+    cHtml+=`<div class="pl-card"><div class="pl-head"><div><div class="pl-card-title">${esc(p.title)}</div><div class="pl-card-cat">${esc(p.cat)}</div></div><button type="button" class="copy-btn" data-copy="${id}">Copy</button></div>
+    <div class="pl-card-prompt" id="${id}">${esc(p.prompt)}</div></div>`;
+  });
+  cardsEl.innerHTML=cHtml;
+}
+document.addEventListener('click',e=>{
+  const t=e.target.closest('.pl-tag');
+  if(t){buildPromptLibrary(t.dataset.cat);return;}
+  const c=e.target.closest('[data-copy]');
+  if(c)copyPrompt(c,document.getElementById(c.dataset.copy).textContent);
+});
+
+/* ── GLOSSARY ── */
+const GLOSSARY=[
+  {term:'LLM (Large Language Model)',def:'The type of AI behind Claude, ChatGPT, and Gemini. Trained on massive amounts of text to understand and generate human language.',why:'This is the technology you\'re using every time you chat with Claude.'},
+  {term:'Token',def:'The unit AI uses to measure text. Roughly 1 token = ¾ of a word. "Hello world" = 2 tokens. A page of text ≈ 400 tokens.',why:'Token limits determine how much text AI can process in one conversation.'},
+  {term:'Context Window',def:'The maximum amount of text AI can hold in a single conversation. Claude\'s is large enough for long reports, but it has a limit.',why:'Determines how long your conversations can be and how much reference material you can include.'},
+  {term:'Prompt',def:'What you type into the AI. Your question, instruction, or request. The quality of your prompt directly determines the quality of the output.',why:'This entire course is about writing better prompts.'},
+  {term:'Hallucination',def:'When AI generates information that sounds confident but is factually wrong. It "hallucinates" facts, statistics, or citations that don\'t exist.',why:'This is why you always verify critical facts. AI is great for thinking, not for being a source of truth.'},
+  {term:'Fine-tuning',def:'Training an AI model on specific data to make it better at a particular task. Like giving a new employee specialized training.',why:'Relevant when you hear about custom AI models. Most users don\'t need this. Projects cover most customization needs.'},
+  {term:'RAG (Retrieval-Augmented Generation)',def:'A technique where AI searches a database of your documents before responding, so its answers are grounded in your actual data.',why:'This is how AI systems answer from your company\'s own documents. We use it when we connect AI to a client\'s files.'},
+  {term:'Agent',def:'An AI system that can take multiple steps autonomously to complete a goal: not just answer a single question, but plan and execute a multi-step task.',why:'Covered in Module 13, part of Academy Premium.'},
+  {term:'Temperature',def:'A setting that controls how creative/random AI responses are. Low = more focused and predictable. High = more creative and varied.',why:'Most users never need to change this. Default settings work for business use.'},
+  {term:'System Prompt',def:'Hidden instructions that shape how AI behaves before you even type anything. In Claude Projects, your custom instructions function as a system prompt.',why:'Understanding this helps you write better Project instructions.'},
+  {term:'Few-shot',def:'Giving AI a few examples of what you want before asking it to produce output. "Here are 3 examples of good emails → now write one like these."',why:'One of the nine techniques in Module 3. Makes output more consistent.'},
+  {term:'Zero-shot',def:'Asking AI to do something without any examples: just a description of what you want.',why:'Most casual prompts are zero-shot. Adding examples (few-shot) usually improves quality.'},
+  {term:'Embedding',def:'A way to convert text into numbers so AI can understand similarity. "Solar panel" and "photovoltaic module" have similar embeddings.',why:'Powers search features in advanced AI systems. Not something you interact with directly.'},
+  {term:'Vector Database',def:'A specialized database that stores embeddings and finds similar items quickly. Used in RAG systems to search your documents.',why:'The technology behind AI that searches your own documents. We use these in client builds.'},
+  {term:'API (Application Programming Interface)',def:'A way for software to talk to other software. The Claude API lets developers build Claude into their own applications.',why:'Relevant when you want AI built into your custom tools: not just used through the chat interface.'},
+  {term:'Model',def:'The trained AI system behind a product. Claude\'s current models include Opus 5.5, Sonnet 5.5, Fable 5.1 and Haiku 4.5. ChatGPT and Gemini run on their own model families. Names and versions change every few months.',why:'Larger models handle harder work; smaller ones are faster.'},
+  {term:'Training Data',def:'The text the AI learned from during its training process. Includes books, websites, code, and other published content.',why:'Explains both AI\'s capabilities (vast knowledge) and limitations (knowledge cutoff, biases in training data).'},
+  {term:'Inference',def:'When the AI generates a response to your prompt. "Running inference" = the AI is thinking and producing output.',why:'Technical term you might hear. Just means "AI is processing your request."'},
+  {term:'Multimodal',def:'An AI that can process multiple types of input: text, images, audio, video. Claude can read images and documents, making it multimodal.',why:'This is why you can upload photos of whiteboards and handwritten notes to Claude.'},
+  {term:'Artifact',def:'In Claude, a structured output (document, table, code) that appears in a side panel for easy copying, downloading, and editing.',why:'Covered in Module 4. Makes it easy to save and reuse AI output.'},
+  {term:'Knowledge Cutoff',def:'The date after which the AI has no training data. Claude doesn\'t know about events after its cutoff date.',why:'This is why anything time-sensitive gets checked at the source.'},
+  {term:'Alignment',def:'The process of making AI behave safely and follow instructions as intended. Why Claude refuses harmful requests and tries to be helpful.',why:'Background concept. The reason AI tools feel "responsible" rather than chaotic.'},
+  {term:'Foundation Model',def:'A large AI model trained on broad data that can be adapted for many tasks. The models behind Claude, ChatGPT and Gemini are all foundation models.',why:'These are the building blocks. Everything you use: from chat to automation: is built on top of these.'},
+  {term:'Context Compaction',def:'When a conversation gets very long, AI summarizes older messages to make room for new ones. Details from early in the conversation can be lost.',why:'Covered in Module 4. This is why you should restate key details in long conversations or use Projects.'},
+  {term:'Skill',def:'A packaged set of instructions, saved as a SKILL.md file, that Claude loads for a particular kind of task.',why:'Covered in Module 4. A skill lets a whole team get the same results from the same instructions.'},
+  {term:'Connector',def:'A link between Claude and another tool, such as Gmail, Google Drive or Microsoft 365, so Claude can read from it and, where you allow it, act in it.',why:'Covered in Module 4. Read what Claude plans to do before you approve an action.'},
+  {term:'Workflow Automation',def:'Using software to connect multiple tools and execute multi-step processes automatically. Zapier, Make, and n8n are common platforms.',why:'Covered in Module 11, part of Academy Premium.'},
+].sort((a,b)=>a.term.localeCompare(b.term));
+
+function buildGlossary(filter=''){
+  const el=document.getElementById('glList');
+  if(!el)return;
+  const fl=filter.toLowerCase();
+  const filtered=fl?GLOSSARY.filter(g=>g.term.toLowerCase().includes(fl)||g.def.toLowerCase().includes(fl)):GLOSSARY;
+  let html='';
+  filtered.forEach(g=>{
+    html+=`<div class="gl-item"><div class="gl-term">${esc(g.term)}</div><div class="gl-def">${esc(g.def)}</div><div class="gl-why"><strong>Why it matters:</strong> ${esc(g.why)}</div></div>`;
+  });
+  el.innerHTML=html||'<p class="note">No matching terms.</p>';
+}
+function filterGlossary(val){buildGlossary(val);}
+
+
+/* ── INIT ── */
+decorateSections();
+buildReadiness();
+buildPromptLibrary('All');
+buildGlossary('');
+buildFacts();
+document.getElementById('sbSearch').addEventListener('input',e=>buildSidebar(e.target.value));
+document.getElementById('menuBtn').addEventListener('click',()=>{
+  document.getElementById('sidebar').classList.contains('open')?closeSidebar():openSidebar();
+});
+document.getElementById('scrim').addEventListener('click',closeSidebar);
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSidebar();});
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-complete]');
+  if(!b)return;
+  const id=b.dataset.complete;
+  if(!state.completed.includes(id))state.completed.push(id);
+  saveState();
+  const i=MODULES.findIndex(m=>m.id===id);
+  const next=MODULES[i+1];
+  if(next)goTo(next.id);else location.hash='#/';
+});
+document.addEventListener('keydown',e=>{
+  const li=e.target.closest&&e.target.closest('.clist li[data-key]');
+  if(li&&(e.key==='Enter'||e.key===' ')){e.preventDefault();tChk(li);}
+});
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  if(!confirm('Clear your progress in this browser?'))return;
+  state=blankState();saveState();
+  document.querySelectorAll('.qz').forEach(card=>{
+    card.querySelectorAll('.qz-o').forEach(o=>o.classList.remove('dis','cor','wrg'));
+    const r=card.querySelector('.qz-res');r.classList.remove('show');r.textContent='';
+  });
+  show(currentSec);
+});
+window.addEventListener('hashchange',route);
+route();
+</script>
+
+</body>
+</html>
