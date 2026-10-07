@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="/brand/favicon.svg" type="image/svg+xml">
-<title>ARIA: Prompt Studio</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>Prompt Studio | Bluegrass Advisory Group</title>
+<meta name="description" content="Prompt Studio from Bluegrass Advisory Group: score a prompt, build a better one, and keep a library of the prompts that work.">
 <style>
+@font-face{font-family:'Hanken Grotesk';src:url('/fonts/HankenGrotesk-VF.woff2') format('woff2');font-weight:100 900;font-style:normal;font-display:swap}
+@font-face{font-family:'Newsreader';src:url('/fonts/Newsreader-VF.woff2') format('woff2');font-weight:200 800;font-style:normal;font-display:swap}
 /* ═══════════════════════════════════════════════════
    CSS CUSTOM PROPERTIES
    ═══════════════════════════════════════════════════ */
@@ -21,21 +21,21 @@
   --sage: #002677;
   --warm-white: #FFFFFF;
   --cream: #F2F1EC;
-  --gold: #C8960A;
-  --gold-dim: rgba(200,150,10,0.12);
-  --red: #C0392B;
-  --red-dim: rgba(192,57,43,0.12);
-  --blue: #2563EB;
-  --blue-dim: rgba(37,99,235,0.12);
-  --purple: #7C3AED;
-  --purple-dim: rgba(124,58,237,0.12);
-  --orange: #D97706;
-  --orange-dim: rgba(217,119,6,0.12);
-  --coral: #E74C3C;
-  --coral-dim: rgba(231,76,60,0.12);
-  --stone: #8E8E93;
+  --gold: #5A6370;
+  --gold-dim: #F2F1EC;
+  --red: #161B22;
+  --red-dim: #F2F1EC;
+  --blue: #0033A0;
+  --blue-dim: #E6EBF6;
+  --purple: #3B4350;
+  --purple-dim: #F2F1EC;
+  --orange: #5A6370;
+  --orange-dim: #F2F1EC;
+  --coral: #161B22;
+  --coral-dim: #F2F1EC;
+  --stone: #5A6370;
   --stone-dim: rgba(142,142,147,0.15);
-  --border: rgba(22,27,34,0.12);
+  --border: #D9D8D1;
   --border-dark: rgba(255,255,255,0.07);
   --sidebar-w: 256px;
   --topbar-h: 52px;
@@ -43,10 +43,10 @@
   --tip-w: 240px;
   --font-display: 'Hanken Grotesk', 'Helvetica Neue', Arial, sans-serif;
   --font-body: 'Newsreader', Georgia, serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
-  --radius: 8px;
-  --radius-sm: 5px;
-  --radius-lg: 12px;
+  --font-mono: 'Hanken Grotesk', 'Helvetica Neue', Arial, sans-serif;
+  --radius: 6px;
+  --radius-sm: 4px;
+  --radius-lg: 6px;
   --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
   --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
   --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
@@ -118,7 +118,8 @@ input, textarea, select { font-family:var(--font-display); }
   color: rgba(255,255,255,0.6);
   font-size: 14px;
   font-weight: 500;
-  transition: var(--transition);
+  transition: var(--transition);
+  border-left: 3px solid transparent;
   text-align: left;
 }
 .sidebar-nav button:hover {
@@ -595,7 +596,7 @@ input, textarea, select { font-family:var(--font-display); }
   background: var(--cream);
   border-radius: var(--radius-sm);
   padding: 12px 16px;
-  border: 1px solid rgba(200,150,10,0.26);
+  border-left: 3px solid var(--gold);
 }
 .missing-card-title {
   font-weight: 600;
@@ -1268,50 +1269,113 @@ input, textarea, select { font-family:var(--font-display); }
 .sidebar-nav button.active{background:rgba(157,178,232,.1);border-left-color:transparent}
 /* Brand 2026-09-24: no colored edge strips on cards or panels; a thin neutral border instead */
 .missing-card,[style*="border-left:3px"]{border-left:1px solid var(--border)!important}
+
+/* Repackage 2026-10-01: site bar shared with the Academy, tabs instead of an icon sidebar, page scrolls normally */
+body{overflow:auto;height:auto;font-size:16px;background:#fff}
+body *{text-transform:none!important;letter-spacing:normal!important}
+::selection{background:#E6EBF6;color:#161B22}
+:focus-visible{outline:2px solid #0033A0;outline-offset:2px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.site-bar{position:sticky;top:0;height:56px;z-index:300;background:#161B22;display:flex;align-items:center;gap:16px;padding:0 20px;font-family:var(--font-display)}
+.site-bar .sb-logo{display:block;line-height:0}
+.site-bar .sb-logo img{height:28px;width:auto}
+.site-bar .sb-name{color:#fff;text-decoration:none;font-size:15px;font-weight:600;padding-left:16px;border-left:1px solid rgba(255,255,255,.1);line-height:24px}
+.site-bar nav{display:flex;gap:4px;margin-left:12px}
+.site-bar nav a{color:rgba(255,255,255,.78);text-decoration:none;font-size:14px;font-weight:500;padding:8px 10px;border-radius:4px}
+.site-bar nav a:hover{color:#fff;background:rgba(255,255,255,.06)}
+.site-bar nav a[aria-current="page"]{color:#fff}
+.site-bar .sb-cta{margin-left:auto;background:#0033A0;color:#fff;text-decoration:none;font-size:14px;font-weight:600;padding:9px 16px;border-radius:4px;white-space:nowrap}
+.site-bar .sb-cta:hover{background:#002677}
+.app{display:block;height:auto;max-width:1240px;margin:0 auto;padding:0 32px}
+.sidebar{display:none}
+.main-area{display:block}
+.studio-head{padding:40px 0 0;border-bottom:1px solid var(--border)}
+.studio-head h1{font-family:var(--font-display);font-size:40px;font-weight:700;letter-spacing:-.02em!important;line-height:1.1;color:#161B22;margin:0 0 10px}
+.studio-head p{font-family:var(--font-body);font-size:19px;line-height:1.5;color:#3B4350;max-width:620px;margin:0 0 24px}
+.studio-row{display:flex;align-items:flex-end;justify-content:space-between;gap:16px}
+.studio-tabs{display:flex;gap:4px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.studio-tabs button{font-family:var(--font-display);font-size:15px;font-weight:600;color:#5A6370;padding:12px 16px;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap}
+.studio-tabs button:hover{color:#161B22}
+.studio-tabs button[aria-selected="true"]{color:#0033A0;border-bottom-color:#0033A0}
+.studio-export{font-family:var(--font-display);font-size:14px;font-weight:600;color:#161B22;border:1px solid rgba(22,27,34,.25);border-radius:4px;padding:8px 14px;margin-bottom:8px;white-space:nowrap}
+.studio-export:hover{border-color:#161B22}
+.content-area{display:flex;overflow:visible;gap:32px}
+.main-panel{overflow:visible;padding:32px 0 48px}
+.main-panel-inner{max-width:none}
+.tip-gutter{background:#F2F1EC;border-left:0;border-radius:6px;margin:32px 0;padding:20px;align-self:flex-start;position:sticky;top:88px}
+.tip-label{font-family:var(--font-display);font-size:14px;color:#161B22}
+.tip-content{font-family:var(--font-body);font-size:16px}
+.tip-counter{font-family:var(--font-display)}
+.statusbar{background:transparent;height:auto;min-height:0;padding:16px 0 40px;border-top:1px solid var(--border);flex-wrap:wrap;gap:8px 24px;justify-content:flex-start}
+.statusbar span{font-family:var(--font-display);font-size:13px;color:#5A6370}
+.pill,.filter-pill,.pill-select-btn,.session-type-btn{border-radius:4px!important}
+.missing-card,[style*="border-left:3px"]{border-left:1px solid var(--border)!important}
+.star-rating button{width:36px;height:36px;border:1px solid var(--border);border-radius:4px;font-size:14px;font-weight:600;color:#3B4350}
+.star-rating button.filled{background:#E6EBF6;border-color:#0033A0;color:#0033A0}
+.history-toggle .arrow svg{display:inline-block;vertical-align:-1px;transition:transform .15s}
+.history-toggle.open .arrow svg{transform:rotate(90deg)}
+.code-textarea,.input-field,.select-field,.library-search{font-size:16px}
+.code-textarea{background:#fff!important;color:#161B22!important;border:1px solid #D9D8D1!important;font-family:var(--font-display)!important;line-height:1.6}
+.code-textarea:focus{border-color:#0033A0!important}
+.code-textarea::placeholder{color:#5A6370!important}
+.bps-verdict,em,i{font-style:normal!important}
+.btn-primary{font-size:14px;padding:11px 20px}
+.library-grid,.template-grid{display:block!important}
+.prompt-card,.template-card{border:0!important;border-top:1px solid #D9D8D1!important;border-radius:0!important;box-shadow:none!important;padding:16px 4px!important;margin:0!important;background:transparent!important}
+.prompt-card:hover,.template-card:hover{background:#F2F1EC!important}
+button.template-card{display:block;width:100%;text-align:left}
+label,.input-label,.prompt-card-title,.missing-card-title,.score-bar-name,.template-card,.session-form-card h3,.insights-section h4,.wizard-step h3,h3,h4{font-family:var(--font-display)!important}
+.tab-lock{width:14px;height:14px;display:inline-block;vertical-align:-2px;margin-left:2px}
+.premium-note{background:#F2F1EC;border-radius:6px;padding:24px;max-width:640px}
+.premium-note h2{font-family:var(--font-display);font-size:22px;font-weight:700;color:#161B22;margin:0 0 8px}
+.premium-note p{font-family:var(--font-body);font-size:17px;line-height:1.5;color:#3B4350;margin:0 0 8px}
+.premium-note .premium-tag{font-family:var(--font-display);font-size:15px;font-weight:600;color:#161B22;margin:0}
+@media (max-width:900px){
+  .site-bar nav,.site-bar .sb-name{display:none}
+  .app{padding:0 16px}
+  .studio-head{padding-top:28px}
+  .studio-head h1{font-size:32px}
+  .studio-row{flex-direction:column-reverse;align-items:flex-start}
+}
+@media (max-width:600px){
+  .site-bar{padding:0 12px}
+  .site-bar .sb-logo img{height:22px}
+  .studio-head p{font-size:17px}
+  .studio-tabs button{padding:12px 10px}
+  #estimator-result [style*="grid-template-columns"]{grid-template-columns:1fr!important}
+  .session-type-selector{flex-wrap:wrap}
+  .toast{left:16px;right:16px;bottom:16px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
 <body>
-<div class="app">
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
-    <div class="sidebar-logo">
-      <h1>A<span>R</span>IA</h1>
-      <div class="sub">Powered by BAG</div>
-    </div>
-    <nav class="sidebar-nav">
-      <button data-tool="analyzer" class="active">
-        <span class="icon">&#128300;</span> Analyzer
-      </button>
-      <button data-tool="builder">
-        <span class="icon">&#128296;</span> Builder
-      </button>
-      <button data-tool="library">
-        <span class="icon">&#128218;</span> Library
-      </button>
-      <button data-tool="sessions">
-        <span class="icon">&#128202;</span> Sessions
-      </button>
-    </nav>
-    <div class="sidebar-footer">
-      <div class="stat" id="sidebar-prompt-count">0 prompts saved</div>
-      <div class="stat" id="sidebar-session-count">0 sessions logged</div>
-      <img class="brand-logo" src="/brand/logo-white.svg" alt="Bluegrass Advisory Group" height="30">
-      <div class="email">phil@bluegrassadvisorygroup.com</div>
-      <div class="version">ARIA v1.0</div>
-    </div>
-  </aside>
-
-  <!-- MAIN AREA -->
+<a class="sr-only" href="#studio">Skip to the tool</a>
+<header class="site-bar">
+  <a class="sb-logo" href="/" aria-label="Bluegrass Advisory Group home"><img src="/brand/logo-white.svg" alt="Bluegrass Advisory Group" height="28"></a>
+  <a class="sb-name" href="/academy">Academy</a>
+  <nav aria-label="Academy">
+    <a href="/academy">Course</a>
+    <a href="/academy#/appA">Prompt library</a>
+    <a href="/prompt-studio" aria-current="page">Prompt Studio</a>
+  </nav>
+  <a class="sb-cta" href="https://cal.com/philip-fifield/intro" target="_blank" rel="noopener noreferrer">Book a call</a>
+</header>
+<div class="app" id="studio">
   <div class="main-area">
-    <!-- TOP BAR -->
-    <header class="topbar">
-      <span class="topbar-title" id="topbar-title">Analyzer</span>
-      <span class="topbar-shortcuts">Ctrl+1/2/3/4 tools &middot; Ctrl+Enter run</span>
-      <div class="topbar-actions">
-        <button class="topbar-btn" onclick="exportLibrary()">Export Library</button>
-        <button class="topbar-btn" onclick="toggleTheme()">&#9788;</button>
+    <div class="studio-head">
+      <h1>Prompt Studio</h1>
+      <p>Score a prompt, build a better one, and keep the prompts that work. Everything you type stays in this browser.</p>
+      <div class="studio-row">
+        <div class="studio-tabs" role="tablist" aria-label="Prompt Studio tools">
+          <button type="button" role="tab" id="tab-analyzer" data-tool="analyzer" aria-controls="panel-analyzer" aria-selected="true" class="active">Analyzer</button>
+          <button type="button" role="tab" id="tab-builder" data-tool="builder" aria-controls="panel-builder" aria-selected="false" tabindex="-1">Builder</button>
+          <button type="button" role="tab" id="tab-library" data-tool="library" aria-controls="panel-library" aria-selected="false" tabindex="-1">Library</button>
+          <button type="button" role="tab" id="tab-sessions" data-tool="sessions" aria-controls="panel-sessions" aria-selected="false" tabindex="-1">Sessions <svg class="tab-lock" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="4.5" y="9" width="11" height="8" rx="1.5"/><path d="M7 9V6.5a3 3 0 016 0V9"/></svg><span class="sr-only">, coming with Academy Premium</span></button>
+        </div>
+        <button type="button" class="studio-export" onclick="exportLibrary()">Export my library</button>
       </div>
-    </header>
+    </div>
 
     <!-- CONTENT -->
     <div class="content-area">
@@ -1319,7 +1383,7 @@ input, textarea, select { font-family:var(--font-display); }
         <div class="main-panel-inner">
 
           <!-- ═══ ANALYZER ═══ -->
-          <div class="tool-panel active" id="panel-analyzer">
+          <div class="tool-panel active" id="panel-analyzer" role="tabpanel" aria-labelledby="tab-analyzer" tabindex="0">
             <div class="analyzer-layout">
               <div class="analyzer-input-section">
                 <textarea class="code-textarea" id="analyzer-input" placeholder="Paste your prompt here..." rows="12"></textarea>
@@ -1333,7 +1397,7 @@ input, textarea, select { font-family:var(--font-display); }
                 </div>
                 <div class="analyzer-history" id="analyzer-history">
                   <button class="history-toggle" id="history-toggle" onclick="toggleHistory()">
-                    <span class="arrow">&#9654;</span> Recent Analyses
+                    <span class="arrow"><svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1.5L7 5 3 8.5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></span> Recent analyses
                   </button>
                   <div class="history-list" id="history-list"></div>
                 </div>
@@ -1345,26 +1409,26 @@ input, textarea, select { font-family:var(--font-display); }
                 </div>
                 <div class="bps-verdict" id="bps-verdict"></div>
                 <div class="dimension-section" id="dimension-bars"></div>
-                <h4 style="font-family:var(--font-display);margin-bottom:12px;">What's Missing</h4>
+                <h4 style="font-family:var(--font-display);margin-bottom:12px;">What's missing</h4>
                 <div class="missing-cards" id="missing-cards"></div>
-                <h4 style="font-family:var(--font-display);margin:20px 0 8px;">Upgraded Prompt</h4>
+                <h4 style="font-family:var(--font-display);margin:20px 0 8px;">Upgraded prompt</h4>
                 <div class="upgraded-prompt-block" id="upgraded-prompt"></div>
                 <div style="display:flex;gap:8px;margin:8px 0 20px;">
                   <button class="btn-copy" onclick="copyText('upgraded-prompt')">Copy</button>
-                  <button class="btn-secondary" onclick="saveUpgradedToLibrary()">Save to Library</button>
+                  <button class="btn-secondary" onclick="saveUpgradedToLibrary()">Save to library</button>
                 </div>
-                <h4 style="font-family:var(--font-display);margin-bottom:8px;">Follow-Up Prompts</h4>
+                <h4 style="font-family:var(--font-display);margin-bottom:8px;">Follow-up prompts</h4>
                 <div id="followup-prompts"></div>
               </div>
             </div>
           </div>
 
           <!-- ═══ BUILDER ═══ -->
-          <div class="tool-panel" id="panel-builder">
+          <div class="tool-panel" id="panel-builder" role="tabpanel" aria-labelledby="tab-builder" tabindex="0">
             <div class="tab-bar">
-              <button class="tab-btn active" data-btab="wizard">Guided Wizard</button>
+              <button class="tab-btn active" data-btab="wizard">Guided wizard</button>
               <button class="tab-btn" data-btab="templates">Templates</button>
-              <button class="tab-btn" data-btab="braindump">Brain Dump</button>
+              <button class="tab-btn" data-btab="braindump">Brain dump</button>
             </div>
 
             <!-- WIZARD -->
@@ -1372,11 +1436,11 @@ input, textarea, select { font-family:var(--font-display); }
               <div class="wizard-progress" id="wizard-progress"></div>
               <div id="wizard-steps"></div>
               <div class="wizard-output" id="wizard-output">
-                <h4 style="font-family:var(--font-display);margin-bottom:8px;">Your Built Prompt</h4>
+                <h4 style="font-family:var(--font-display);margin-bottom:8px;">Your built prompt</h4>
                 <div class="upgraded-prompt-block" id="wizard-result"></div>
                 <div style="display:flex;gap:8px;margin:12px 0;align-items:center;">
                   <button class="btn-copy" onclick="copyText('wizard-result')">Copy</button>
-                  <button class="btn-secondary" onclick="saveWizardToLibrary()">Save to Library</button>
+                  <button class="btn-secondary" onclick="saveWizardToLibrary()">Save to library</button>
                   <span class="grade-display" id="wizard-bps" style="margin-left:auto;font-size:14px;"></span>
                 </div>
               </div>
@@ -1392,8 +1456,8 @@ input, textarea, select { font-family:var(--font-display); }
                 <div class="template-preview" id="template-preview"></div>
                 <div style="display:flex;gap:8px;margin:12px 0;">
                   <button class="btn-copy" onclick="copyTemplateResult()">Copy</button>
-                  <button class="btn-primary" onclick="analyzeTemplateResult()">Score It</button>
-                  <button class="btn-secondary" onclick="saveTemplateToLibrary()">Save to Library</button>
+                  <button class="btn-primary" onclick="analyzeTemplateResult()">Score it</button>
+                  <button class="btn-secondary" onclick="saveTemplateToLibrary()">Save to library</button>
                 </div>
               </div>
             </div>
@@ -1403,18 +1467,18 @@ input, textarea, select { font-family:var(--font-display); }
               <p style="font-size:13px;color:var(--stone);margin-bottom:16px;">Describe what you need in plain English. Don't think about structure. Write like you're texting a colleague.</p>
               <textarea class="code-textarea" id="braindump-input" placeholder="I need to write a thing for... basically the idea is..." rows="8"></textarea>
               <div style="margin-top:12px;">
-                <button class="btn-primary" onclick="runBrainDump()">Structure My Prompt</button>
+                <button class="btn-primary" onclick="runBrainDump()">Structure my prompt</button>
               </div>
               <div class="braindump-output" id="braindump-output">
-                <h4 style="font-family:var(--font-display);margin-bottom:8px;">Structured Prompt</h4>
+                <h4 style="font-family:var(--font-display);margin-bottom:8px;">Structured prompt</h4>
                 <div class="upgraded-prompt-block" id="braindump-result"></div>
                 <div class="braindump-added" id="braindump-added">
-                  <h4>What I Added</h4>
+                  <h4>What I added</h4>
                   <ul id="braindump-added-list"></ul>
                 </div>
                 <div style="display:flex;gap:8px;margin:12px 0;align-items:center;">
                   <button class="btn-copy" onclick="copyText('braindump-result')">Copy</button>
-                  <button class="btn-secondary" onclick="saveBrainDumpToLibrary()">Save to Library</button>
+                  <button class="btn-secondary" onclick="saveBrainDumpToLibrary()">Save to library</button>
                   <span class="grade-display" id="braindump-bps" style="margin-left:auto;font-size:14px;"></span>
                 </div>
               </div>
@@ -1422,165 +1486,27 @@ input, textarea, select { font-family:var(--font-display); }
           </div>
 
           <!-- ═══ LIBRARY ═══ -->
-          <div class="tool-panel" id="panel-library">
+          <div class="tool-panel" id="panel-library" role="tabpanel" aria-labelledby="tab-library" tabindex="0">
             <div class="library-toolbar">
               <input type="text" class="library-search" id="library-search" placeholder="Search prompts..." oninput="filterLibrary()">
               <select class="select-field" style="width:auto;min-width:120px;" id="library-sort" onchange="filterLibrary()">
                 <option value="newest">Newest</option>
-                <option value="most-used">Most Used</option>
-                <option value="highest-bps">Highest BPS</option>
+                <option value="most-used">Most used</option>
+                <option value="highest-bps">Highest score</option>
                 <option value="az">A-Z</option>
               </select>
-              <button class="btn-primary" onclick="showAddPromptModal()">+ Add Prompt</button>
+              <button class="btn-primary" onclick="showAddPromptModal()">Add a prompt</button>
             </div>
             <div class="library-filters" id="library-filters"></div>
             <div class="library-grid" id="library-grid"></div>
           </div>
 
           <!-- ═══ SESSIONS ═══ -->
-          <div class="tool-panel" id="panel-sessions">
-            <div class="sessions-layout">
-              <div>
-                <!-- SESSION ESTIMATOR -->
-                <div class="session-form-card" style="margin-bottom:16px;">
-                  <h3 style="display:flex;align-items:center;gap:8px;">
-                    <span style="font-size:18px;">&#9201;</span> Session Estimator
-                  </h3>
-                  <p style="font-size:12px;color:var(--stone);margin-bottom:12px;">Describe what you want to build or accomplish. Get a pre-flight estimate before you start.</p>
-                  <textarea class="code-textarea" id="estimator-input" placeholder="I want to build a dashboard that shows real-time sales data from three stores, pulling from our POS API, with charts and a daily email summary..." rows="4" style="min-height:80px;"></textarea>
-                  <div style="margin-top:10px;">
-                    <button class="btn-primary" onclick="runEstimator()">Estimate Session</button>
-                  </div>
-                  <div id="estimator-result" style="display:none;margin-top:16px;">
-                    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px;">
-                      <div class="stat-card" >
-                        <div class="stat-card-num" id="est-type" style="font-size:16px;">-</div>
-                        <div class="stat-card-label">Session Type</div>
-                      </div>
-                      <div class="stat-card" >
-                        <div class="stat-card-num" id="est-time" style="font-size:16px;">-</div>
-                        <div class="stat-card-label">Est. Duration</div>
-                      </div>
-                      <div class="stat-card" >
-                        <div class="stat-card-num" id="est-complexity" style="font-size:16px;">-</div>
-                        <div class="stat-card-label">Complexity</div>
-                      </div>
-                    </div>
-                    <div style="font-size:13px;line-height:1.6;margin-bottom:12px;" id="est-reasoning"></div>
-                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-                      <div style="background:var(--cream);border-radius:var(--radius-sm);padding:12px;">
-                        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--emerald);margin-bottom:6px;">Have Ready</div>
-                        <div style="font-size:12px;line-height:1.5;" id="est-prereqs"></div>
-                      </div>
-                      <div style="background:var(--cream);border-radius:var(--radius-sm);padding:12px;">
-                        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--blue);margin-bottom:6px;">Strategy</div>
-                        <div style="font-size:12px;line-height:1.5;" id="est-strategy"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="session-form-card">
-                  <h3>Log a Session</h3>
-                  <div class="session-type-selector" id="session-type-selector">
-                    <button class="session-type-btn active" data-stype="light" onclick="selectSessionType('light')">&#9889; Light <span style="display:block;font-size:10px;color:var(--stone);font-weight:400;">20-45 min</span></button>
-                    <button class="session-type-btn" data-stype="heavy" onclick="selectSessionType('heavy')">&#128293; Heavy <span style="display:block;font-size:10px;color:var(--stone);font-weight:400;">1-3 hours</span></button>
-                    <button class="session-type-btn" data-stype="research" onclick="selectSessionType('research')">&#128300; Research <span style="display:block;font-size:10px;color:var(--stone);font-weight:400;">45-90 min</span></button>
-                    <button class="session-type-btn" data-stype="overnight" onclick="selectSessionType('overnight')">&#127769; Overnight <span style="display:block;font-size:10px;color:var(--stone);font-weight:400;">3-8 hrs unattended</span></button>
-                  </div>
-                  <div class="session-field">
-                    <label>Direction: What did you work on?</label>
-                    <textarea id="session-direction" placeholder="What was this session about?"></textarea>
-                  </div>
-                  <div class="session-field">
-                    <label>Outputs: What did you produce?</label>
-                    <textarea id="session-outputs" placeholder="List what you actually built or delivered"></textarea>
-                  </div>
-                  <div class="session-field">
-                    <label>Decisions: What was decided?</label>
-                    <textarea id="session-decisions" placeholder="Key decisions made this session"></textarea>
-                  </div>
-                  <div class="session-field">
-                    <label>Open Loops: What's unfinished?</label>
-                    <textarea id="session-loops" placeholder="Things left undone or needing follow-up"></textarea>
-                  </div>
-                  <div class="session-field">
-                    <label>Ideas: What came up?</label>
-                    <textarea id="session-ideas" placeholder="New ideas, connections, things to explore"></textarea>
-                  </div>
-                  <div class="session-field">
-                    <label>Quality Rating</label>
-                    <div class="star-rating" id="session-rating">
-                      <button onclick="setRating(1)">&#9733;</button>
-                      <button onclick="setRating(2)">&#9733;</button>
-                      <button onclick="setRating(3)">&#9733;</button>
-                      <button onclick="setRating(4)">&#9733;</button>
-                      <button onclick="setRating(5)">&#9733;</button>
-                    </div>
-                  </div>
-                  <button class="btn-primary" onclick="saveSession()" style="width:100%;">Save Session</button>
-
-                  <div class="autonomous-setup" id="autonomous-setup">
-                    <h4>&#127769; Autonomous Direction Setter</h4>
-                    <div class="session-field">
-                      <label>Most important thing to work on?</label>
-                      <textarea id="auto-focus" placeholder="The #1 priority"></textarea>
-                    </div>
-                    <div class="session-field">
-                      <label>Open loops to address?</label>
-                      <textarea id="auto-loops" placeholder="What should be tackled?"></textarea>
-                    </div>
-                    <div class="session-field">
-                      <label>Questions needing answers?</label>
-                      <textarea id="auto-questions" placeholder="What do you need figured out?"></textarea>
-                    </div>
-                    <div class="session-field">
-                      <label>What to challenge or reconsider?</label>
-                      <textarea id="auto-challenge" placeholder="What should be questioned?"></textarea>
-                    </div>
-                    <div style="display:flex;gap:8px;">
-                      <button class="btn-primary" onclick="generateBriefing()">Generate Morning Briefing</button>
-                    </div>
-                    <div class="gen-briefing-output" id="gen-briefing-output">
-                      <div class="upgraded-prompt-block" id="briefing-result"></div>
-                      <button class="btn-copy" style="margin-top:8px;" onclick="copyText('briefing-result')">Copy Briefing</button>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="session-list" id="session-list">
-                  <h3>Session Timeline</h3>
-                </div>
-              </div>
-
-              <div class="insights-panel">
-                <div class="stat-cards">
-                  <div class="stat-card">
-                    <div class="stat-card-num" id="stat-total">0</div>
-                    <div class="stat-card-label">Sessions</div>
-                  </div>
-                  <div class="stat-card">
-                    <div class="stat-card-num" id="stat-avg-rating">-</div>
-                    <div class="stat-card-label">Avg Rating</div>
-                  </div>
-                  <div class="stat-card">
-                    <div class="stat-card-num" id="stat-open-loops">0</div>
-                    <div class="stat-card-label">Open Loops</div>
-                  </div>
-                  <div class="stat-card">
-                    <div class="stat-card-num" id="stat-ideas">0</div>
-                    <div class="stat-card-label">Ideas Logged</div>
-                  </div>
-                </div>
-                <div class="insights-section">
-                  <h4>Open Loops</h4>
-                  <div id="insights-loops"><span style="font-size:12px;color:var(--stone);">No open loops yet</span></div>
-                </div>
-                <div class="insights-section">
-                  <h4>Idea Bank</h4>
-                  <div id="insights-ideas"><span style="font-size:12px;color:var(--stone);">No ideas logged yet</span></div>
-                </div>
-              </div>
+          <div class="tool-panel" id="panel-sessions" role="tabpanel" aria-labelledby="tab-sessions" tabindex="0">
+            <div class="premium-note">
+              <h2>Sessions</h2>
+              <p>Estimate a working session with AI, log what it produced, and keep track of open loops and ideas.</p>
+              <p class="premium-tag">Coming with Academy Premium</p>
             </div>
           </div>
 
@@ -1589,16 +1515,17 @@ input, textarea, select { font-family:var(--font-display); }
 
       <!-- TIP GUTTER -->
       <aside class="tip-gutter">
-        <div class="tip-label">ARIA TIP</div>
+        <div class="tip-label">Tip</div>
         <div class="tip-content" id="tip-content"></div>
-        <button class="tip-next-btn" onclick="nextTip()">Next tip &#8594;</button>
+        <button class="tip-next-btn" onclick="nextTip()">Next tip</button>
         <div class="tip-counter" id="tip-counter"></div>
       </aside>
     </div>
 
     <!-- STATUS BAR -->
     <footer class="statusbar">
-      <span id="status-bps-avg">BPS Avg: -</span>
+      <span id="status-bps-avg">Average score: none yet</span>
+      <span id="sidebar-prompt-count">0 prompts saved</span>
       <span id="status-saved">Ready</span>
       <span id="status-wordcount"></span>
     </footer>
@@ -1626,8 +1553,6 @@ let state = {
 };
 let currentTool = 'analyzer';
 let currentTipIndex = 0;
-let sessionRating = 0;
-let sessionType = 'light';
 let currentWizardStep = 0;
 let selectedTemplate = null;
 let activeLibraryFilter = null;
@@ -1673,16 +1598,30 @@ const toolKeys = ['analyzer', 'builder', 'library', 'sessions'];
 
 function switchTool(tool) {
   currentTool = tool;
-  document.querySelectorAll('.sidebar-nav button').forEach(b => b.classList.toggle('active', b.dataset.tool === tool));
+  document.querySelectorAll('.studio-tabs [data-tool]').forEach(b => {
+    const on = b.dataset.tool === tool;
+    b.classList.toggle('active', on);
+    b.setAttribute('aria-selected', on);
+    b.tabIndex = on ? 0 : -1;
+  });
   document.querySelectorAll('.tool-panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + tool));
-  document.getElementById('topbar-title').textContent = toolNames[tool];
   state.settings.lastTool = tool;
   if (tool === 'library') renderLibrary();
-  if (tool === 'sessions') renderSessions();
 }
 
-document.querySelectorAll('.sidebar-nav button').forEach(btn => {
+document.querySelectorAll('.studio-tabs [data-tool]').forEach((btn, i, all) => {
   btn.addEventListener('click', () => switchTool(btn.dataset.tool));
+  btn.addEventListener('keydown', e => {
+    let to = null;
+    if (e.key === 'ArrowRight') to = (i + 1) % all.length;
+    if (e.key === 'ArrowLeft') to = (i - 1 + all.length) % all.length;
+    if (e.key === 'Home') to = 0;
+    if (e.key === 'End') to = all.length - 1;
+    if (to === null) return;
+    e.preventDefault();
+    all[to].focus();
+    switchTool(all[to].dataset.tool);
+  });
 });
 
 /* Builder sub-tabs */
@@ -2565,10 +2504,10 @@ const templates = [
 function initTemplates() {
   const grid = document.getElementById('template-grid');
   grid.innerHTML = templates.map((t, i) =>
-    `<div class="template-card" onclick="selectTemplate(${i})">
+    `<button type="button" class="template-card" onclick="selectTemplate(${i})">
       <h4>${t.name}</h4>
       <p>${t.desc}</p>
-    </div>`
+    </button>`
   ).join('');
 }
 
@@ -2606,8 +2545,8 @@ function updateTemplatePreview() {
       }
     }
   });
-  // Highlight remaining placeholders
-  result = result.replace(/\[([^\]]+)\]/g, '<span class="placeholder">[$1]</span>');
+  // Escape what the user typed, then highlight the placeholders still empty
+  result = escHtml(result).replace(/\[([^\]]+)\]/g, '<span class="placeholder">[$1]</span>');
   document.getElementById('template-preview').innerHTML = result;
 }
 
@@ -2623,7 +2562,7 @@ function copyTemplateResult() {
       }
     }
   });
-  navigator.clipboard.writeText(result).then(() => toast('Copied!'));
+  navigator.clipboard.writeText(result).then(() => toast('Copied'));
 }
 
 function analyzeTemplateResult() {
@@ -2797,13 +2736,13 @@ function renderLibrary() {
   }
 
   grid.innerHTML = items.map(p => {
-    const gradeHtml = p.bpsGrade ? `<span class="pill ${getGradeClass(p.bpsGrade) === 'grade-a' ? 'pill-emerald' : getGradeClass(p.bpsGrade) === 'grade-b' ? 'pill-blue' : getGradeClass(p.bpsGrade) === 'grade-c' ? 'pill-gold' : 'pill-coral'}" style="font-family:var(--font-mono);">${p.bpsScore} ${p.bpsGrade}</span>` : '';
+    const gradeHtml = p.bpsGrade ? `<span class="pill ${getGradeClass(p.bpsGrade) === 'grade-a' ? 'pill-emerald' : getGradeClass(p.bpsGrade) === 'grade-b' ? 'pill-blue' : getGradeClass(p.bpsGrade) === 'grade-c' ? 'pill-gold' : 'pill-coral'}">${p.bpsScore} ${p.bpsGrade}</span>` : '';
     return `<div class="prompt-card">
       <div class="prompt-card-header">
         <span class="prompt-card-title">${escHtml(p.title)}</span>
         ${gradeHtml}
       </div>
-      <span class="pill ${getCategoryClass(p.category)}">${p.category}</span>
+      <span class="pill ${getCategoryClass(p.category)}">${escHtml(p.category)}</span>
       <div class="prompt-card-preview">${escHtml(p.prompt.substring(0, 120))}</div>
       <div class="prompt-card-footer">
         <span class="prompt-card-meta">Used ${p.useCount}x</span>
@@ -2811,7 +2750,7 @@ function renderLibrary() {
           <button onclick="copyPrompt('${p.id}')">Copy</button>
           <button onclick="analyzePrompt('${p.id}')">Analyze</button>
           <button onclick="editPrompt('${p.id}')">Edit</button>
-          <button onclick="deletePrompt('${p.id}')">Del</button>
+          <button onclick="deletePrompt('${p.id}')">Delete</button>
         </div>
       </div>
     </div>`;
@@ -2826,7 +2765,7 @@ function copyPrompt(id) {
     p.lastUsed = Date.now();
     saveState();
     renderLibrary();
-    toast('Copied!');
+    toast('Copied');
   });
 }
 
@@ -2935,7 +2874,7 @@ function addNewPrompt() {
 
 function showSaveToLibraryModal(prompt) {
   showModal(`
-    <h3>Save to Library</h3>
+    <h3>Save to library</h3>
     <div class="wizard-field">
       <label class="input-label">Title</label>
       <input type="text" class="input-field" id="save-title" placeholder="Name this prompt">
@@ -2973,244 +2912,6 @@ function doSaveToLibrary() {
   saveState();
   hideModal();
   toast('Saved to library');
-}
-
-/* ═══════════════════════════════════════════════════
-   SESSIONS
-   ═══════════════════════════════════════════════════ */
-/* ═══════════════════════════════════════════════════
-   SESSION ESTIMATOR
-   ═══════════════════════════════════════════════════ */
-function runEstimator() {
-  const input = document.getElementById('estimator-input').value.trim();
-  if (!input) { toast('Describe what you want to build'); return; }
-
-  const lower = input.toLowerCase();
-  const wordCount = input.split(/\s+/).length;
-  let score = 0; // complexity points
-
-  // Factor 1: Number of distinct outputs/deliverables
-  const outputSignals = (input.match(/\b(dashboard|page|form|report|email|api|endpoint|chart|graph|component|workflow|automation|database|table|schema|template|integration|webhook|notification|alert|pdf|document|export|import|migration|script|function|module|feature|tool|app|site|bot|agent)\b/gi) || []);
-  const uniqueOutputs = new Set(outputSignals.map(o => o.toLowerCase())).size;
-  score += Math.min(uniqueOutputs * 2, 10);
-
-  // Factor 2: Research vs building
-  const isResearch = /\b(research|investigate|analyze|compare|evaluate|find out|learn about|understand|study|assess|audit|review existing|competitive analysis|market research|deep dive)\b/i.test(input);
-  const isBuilding = /\b(build|create|implement|deploy|set up|configure|connect|integrate|design|code|develop|write|wire|add|install)\b/i.test(input);
-  if (isResearch && isBuilding) score += 3;
-  else if (isBuilding) score += 2;
-
-  // Factor 3: Multiple interconnected systems
-  const systemWords = (input.match(/\b(api|database|supabase|vercel|github|n8n|docker|postgres|webhook|stripe|slack|telegram|toast|pos|crm|erp|zapier|google sheets?|notion|airtable|excel|csv|json|rest|graphql|oauth|smtp|twilio|sendgrid|cloudflare)\b/gi) || []);
-  const uniqueSystems = new Set(systemWords.map(s => s.toLowerCase())).size;
-  if (uniqueSystems >= 3) score += 5;
-  else if (uniqueSystems >= 2) score += 3;
-  else if (uniqueSystems >= 1) score += 1;
-
-  // Factor 4: Decisions needed mid-build
-  const decisionSignals = /\b(decide|choose|either|or should|which (approach|method|tool|framework)|trade.?off|option|alternative|architecture|schema design|data model)\b/i.test(input);
-  if (decisionSignals) score += 2;
-
-  // Factor 5: Scale / file size expectations
-  const scaleSignals = /\b(large|complex|entire|full|complete|comprehensive|all \d+|every|multi.?(page|step|part|phase)|end.to.end|from scratch|overhaul|rewrite|redesign|migration)\b/i.test(input);
-  if (scaleSignals) score += 3;
-
-  // Factor 6: Word count of description (more detail = more complex task)
-  if (wordCount > 80) score += 2;
-  else if (wordCount > 40) score += 1;
-
-  // Factor 7: Multi-step / sequencing
-  const hasSequencing = /\b(first.{0,20}then|step \d|phase \d|after.{0,10}(that|this|building)|once.{0,15}(done|complete|set up|working)|before.{0,10}(we|I) can)\b/i.test(input);
-  if (hasSequencing) score += 2;
-
-  // Determine session type and complexity
-  let sessionType, duration, complexity, reasoning, prereqs, strategy;
-
-  if (score <= 4) {
-    sessionType = '&#9889; Light';
-    duration = '20-45 min';
-    complexity = 'Simple';
-    reasoning = 'This is a focused, single-output task. One clear deliverable, no system integrations, no architectural decisions. Claude can handle this in a single pass with the right prompt.';
-    prereqs = 'Your prompt (use the Builder to structure it). Any reference files or examples you want the output to match.';
-    strategy = 'Single session, single prompt. Watch it run and iterate once if needed. No need to break this up.';
-  } else if (score <= 8) {
-    sessionType = '&#128300; Research / &#9889; Light';
-    duration = '45-90 min';
-    complexity = 'Moderate';
-    reasoning = 'This involves ' + (uniqueOutputs > 1 ? uniqueOutputs + ' deliverables' : 'meaningful depth') + (uniqueSystems >= 2 ? ' across ' + uniqueSystems + ' systems' : '') + '. It\'s doable in one session but needs clear structure upfront to avoid scope drift.';
-    prereqs = 'Clear acceptance criteria for each output. ' + (uniqueSystems >= 2 ? 'API docs or credentials for ' + systemWords.slice(0, 3).join(', ') + '. ' : '') + 'Any existing code or files to build on.';
-    strategy = isResearch ? 'Start with research, then build. Two distinct prompts: don\'t combine discovery with production.' : 'One structured session. Front-load the hardest piece. Save polish for a follow-up if needed.';
-  } else if (score <= 14) {
-    sessionType = '&#128293; Heavy';
-    duration = '1-3 hours';
-    complexity = 'Complex';
-    reasoning = 'This is a multi-output build' + (uniqueSystems >= 2 ? ' spanning ' + uniqueSystems + ' systems' : '') + (decisionSignals ? ' with architectural decisions that need to be made mid-build' : '') + '. Expect iteration. Things will change as you build. Budget time for debugging and refinement.';
-    prereqs = 'Architecture decisions made in advance (don\'t discover your data model mid-build). ' + (uniqueSystems >= 2 ? 'All API keys, credentials, and system access verified working. ' : '') + 'A clear priority order: what ships first if time runs short.';
-    strategy = 'Break into 2-3 sequential prompts. Build the foundation first, then layer features. Save cosmetic work for last. Consider committing working checkpoints every 30 minutes.';
-  } else {
-    sessionType = '&#127769; Overnight';
-    duration = '3-8 hours';
-    complexity = 'Architectural';
-    reasoning = 'This is a major build: ' + uniqueOutputs + ' distinct outputs, ' + (uniqueSystems >= 3 ? uniqueSystems + ' interconnected systems, ' : '') + 'and significant complexity. It will require multiple passes, debugging, and likely some mid-course corrections. This is not a "watch it run" session.';
-    prereqs = 'Full architecture plan documented before starting. All system access and credentials tested. Data models and schemas designed. A prioritized feature list: what\'s MVP vs nice-to-have. Fallback plan if a system integration fails.';
-    strategy = 'Multi-session approach recommended. Session 1: architecture + foundation. Session 2: core features + integrations. Session 3: polish + edge cases. Set ARIA direction for overnight and review the morning briefing before continuing.';
-  }
-
-  // Render results
-  document.getElementById('est-type').innerHTML = sessionType;
-  document.getElementById('est-time').textContent = duration;
-  document.getElementById('est-complexity').textContent = complexity;
-  document.getElementById('est-reasoning').textContent = reasoning;
-  document.getElementById('est-prereqs').textContent = prereqs;
-  document.getElementById('est-strategy').textContent = strategy;
-  document.getElementById('estimator-result').style.display = 'block';
-}
-
-function selectSessionType(type) {
-  sessionType = type;
-  document.querySelectorAll('.session-type-btn').forEach(b => b.classList.toggle('active', b.dataset.stype === type));
-  document.getElementById('autonomous-setup').classList.toggle('visible', type === 'overnight');
-}
-
-function setRating(n) {
-  sessionRating = n;
-  document.querySelectorAll('#session-rating button').forEach((b, i) => {
-    b.classList.toggle('filled', i < n);
-  });
-}
-
-function saveSession() {
-  const direction = document.getElementById('session-direction').value.trim();
-  if (!direction) { toast('Direction required'); return; }
-
-  state.sessions.unshift({
-    id: uid(),
-    type: sessionType,
-    date: Date.now(),
-    direction,
-    outputs: document.getElementById('session-outputs').value.trim(),
-    decisions: document.getElementById('session-decisions').value.trim(),
-    openLoops: document.getElementById('session-loops').value.trim(),
-    ideas: document.getElementById('session-ideas').value.trim(),
-    rating: sessionRating
-  });
-  saveState();
-
-  // Clear form
-  ['session-direction', 'session-outputs', 'session-decisions', 'session-loops', 'session-ideas'].forEach(id => {
-    document.getElementById(id).value = '';
-  });
-  setRating(0);
-
-  renderSessions();
-  toast('Session logged');
-}
-
-function renderSessions() {
-  const listEl = document.getElementById('session-list');
-  const typeIcons = { light: '\u26a1', heavy: '\ud83d\udd25', research: '\ud83d\udd2c', overnight: '\ud83c\udf19' };
-  const typeLabels = { light: 'Light', heavy: 'Heavy', research: 'Research', overnight: 'Overnight' };
-
-  let html = '<h3>Session Timeline</h3>';
-  if (state.sessions.length === 0) {
-    html += '<div style="text-align:center;padding:20px;color:var(--stone);">No sessions logged yet</div>';
-  } else {
-    html += state.sessions.map(s => {
-      const date = new Date(s.date);
-      const stars = '\u2605'.repeat(s.rating) + '\u2606'.repeat(5 - s.rating);
-      return `<div class="session-entry" onclick="this.querySelector('.session-entry-details').classList.toggle('visible')">
-        <div class="session-entry-header">
-          <span class="session-entry-type">${typeIcons[s.type] || ''} ${typeLabels[s.type] || s.type}</span>
-          <span class="session-entry-date">${date.toLocaleDateString()} ${date.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}</span>
-        </div>
-        <div class="session-entry-direction">${escHtml(s.direction)}</div>
-        <div style="font-size:12px;color:var(--gold);margin-top:4px;">${stars}</div>
-        <div class="session-entry-details">
-          ${s.outputs ? '<strong>Outputs:</strong> ' + escHtml(s.outputs) + '<br><br>' : ''}
-          ${s.decisions ? '<strong>Decisions:</strong> ' + escHtml(s.decisions) + '<br><br>' : ''}
-          ${s.openLoops ? '<strong>Open Loops:</strong> ' + escHtml(s.openLoops) + '<br><br>' : ''}
-          ${s.ideas ? '<strong>Ideas:</strong> ' + escHtml(s.ideas) : ''}
-        </div>
-      </div>`;
-    }).join('');
-  }
-  listEl.innerHTML = html;
-
-  // Update stats
-  document.getElementById('stat-total').textContent = state.sessions.length;
-  const ratings = state.sessions.filter(s => s.rating > 0).map(s => s.rating);
-  document.getElementById('stat-avg-rating').textContent = ratings.length > 0 ? (ratings.reduce((a, b) => a + b) / ratings.length).toFixed(1) : '-';
-
-  const loops = state.sessions.filter(s => s.openLoops).map(s => s.openLoops);
-  document.getElementById('stat-open-loops').textContent = loops.length;
-  const ideas = state.sessions.filter(s => s.ideas).map(s => s.ideas);
-  document.getElementById('stat-ideas').textContent = ideas.length;
-
-  // Insights: open loops
-  const loopsEl = document.getElementById('insights-loops');
-  if (loops.length > 0) {
-    loopsEl.innerHTML = loops.slice(0, 5).map(l =>
-      `<div class="open-loop-item"><span>${escHtml(l.substring(0, 80))}</span></div>`
-    ).join('');
-  } else {
-    loopsEl.innerHTML = '<span style="font-size:12px;color:var(--stone);">No open loops</span>';
-  }
-
-  // Insights: ideas
-  const ideasEl = document.getElementById('insights-ideas');
-  if (ideas.length > 0) {
-    ideasEl.innerHTML = ideas.slice(0, 5).map(i =>
-      `<div class="idea-item"><div class="idea-item-text">${escHtml(i.substring(0, 100))}</div></div>`
-    ).join('');
-  } else {
-    ideasEl.innerHTML = '<span style="font-size:12px;color:var(--stone);">No ideas logged</span>';
-  }
-}
-
-function generateBriefing() {
-  const focus = document.getElementById('auto-focus').value.trim();
-  const loops = document.getElementById('auto-loops').value.trim();
-  const questions = document.getElementById('auto-questions').value.trim();
-  const challenge = document.getElementById('auto-challenge').value.trim();
-
-  // Pull from sessions
-  const recentSession = state.sessions[0];
-  const allLoops = state.sessions.filter(s => s.openLoops).map(s => s.openLoops).slice(0, 3);
-  const allIdeas = state.sessions.filter(s => s.ideas).map(s => s.ideas).slice(0, 3);
-
-  let briefing = `You are ARIA: Autonomous Research and Ideation Assistant. Phil has set you a direction and stepped away. Work through this autonomously and produce a morning briefing.\n\n`;
-  briefing += `═══ DIRECTION ═══\n`;
-  if (focus) briefing += `Priority: ${focus}\n`;
-  if (loops) briefing += `Open loops to address: ${loops}\n`;
-  if (questions) briefing += `Questions needing answers: ${questions}\n`;
-  if (challenge) briefing += `Challenge/reconsider: ${challenge}\n`;
-
-  if (recentSession) {
-    briefing += `\n═══ LAST SESSION CONTEXT ═══\n`;
-    briefing += `Direction: ${recentSession.direction}\n`;
-    if (recentSession.outputs) briefing += `Outputs: ${recentSession.outputs}\n`;
-    if (recentSession.openLoops) briefing += `Unfinished: ${recentSession.openLoops}\n`;
-  }
-
-  if (allLoops.length > 0) {
-    briefing += `\n═══ ACCUMULATED OPEN LOOPS ═══\n`;
-    allLoops.forEach(l => briefing += `- ${l}\n`);
-  }
-  if (allIdeas.length > 0) {
-    briefing += `\n═══ IDEAS BANK ═══\n`;
-    allIdeas.forEach(i => briefing += `- ${i}\n`);
-  }
-
-  briefing += `\n═══ INSTRUCTIONS ═══\n`;
-  briefing += `1. Work through the priority direction above\n`;
-  briefing += `2. Address any open loops you can\n`;
-  briefing += `3. Generate ideas proactively\n`;
-  briefing += `4. Challenge at least one assumption or direction\n`;
-  briefing += `5. Produce a morning briefing in this format:\n\n`;
-  briefing += `WHAT I WORKED ON:\nWHAT I BUILT:\nWHAT I FOUND:\nWHAT I CHALLENGED:\nNEW IDEAS:\nWHAT NEEDS YOUR DECISION:\nRECOMMENDED NEXT STEP:`;
-
-  document.getElementById('briefing-result').textContent = briefing;
-  document.getElementById('gen-briefing-output').classList.add('visible');
 }
 
 /* ═══════════════════════════════════════════════════
@@ -3661,7 +3362,7 @@ Context: I need to send a project status update to stakeholders. Most status upd
 Task: Draft a status update using this structure:
 
 1. One-Line Summary: The single most important thing the reader needs to know. Use a status indicator:
-   🟢 On Track | 🟡 At Risk | 🔴 Off Track
+   [ON TRACK] | [AT RISK] | [OFF TRACK]
 2. Progress Since Last Update: 3-5 bullet points of what was completed. Specifics, not activities.
 3. Blockers: What's preventing progress? Be honest. Include what you need from stakeholders.
 4. Next Steps: What happens this week. Specific actions with owners.
@@ -4043,7 +3744,7 @@ Context: I have a brain full of tasks, ideas, worries, and random thoughts. I ne
 Task: Take my brain dump and produce:
 
 1. Action Items: Everything that is a concrete, doable task. Rewrite each as a clear action starting with a verb. Include:
-   - Priority: 🔴 Must do today | 🟡 This week | 🟢 Can wait
+   - Priority: [MUST DO TODAY] | [THIS WEEK] | [CAN WAIT]
    - Estimated time: (5 min / 30 min / 1 hour / half day / multi-day)
    - Category: Work / Personal / Admin / Follow-up
 2. Decisions Needed: Things that aren't tasks yet because a decision needs to be made first. Frame each as a specific question.
@@ -4052,7 +3753,7 @@ Task: Take my brain dump and produce:
 5. Waiting On: Things that are blocked by someone else. Note who and when to follow up.
 6. Drop It: Anything that's taking up mental space but isn't actually important. Give me permission to let it go (and tell me why it's safe to).
 
-Format: Clean lists with the emoji priorities. Put the 🔴 items at the top. I should be able to look at this and know exactly what to do first.
+Format: Clean lists with the priority labels. Put the [MUST DO TODAY] items at the top. I should be able to look at this and know exactly what to do first.
 
 My brain dump:
 [DUMP EVERYTHING: messy is fine, that's the point]`
@@ -4389,21 +4090,19 @@ The feedback:
    UTILITY FUNCTIONS
    ═══════════════════════════════════════════════════ */
 function escHtml(str) {
-  const div = document.createElement('div');
-  div.textContent = str;
-  return div.innerHTML;
+  return String(str == null ? '' : str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
 
 function copyText(elementId) {
   const el = document.getElementById(elementId);
   const text = el.textContent || el.innerText;
-  navigator.clipboard.writeText(text).then(() => toast('Copied!'));
+  navigator.clipboard.writeText(text).then(() => toast('Copied'));
 }
 
 function copyString(btn, text) {
   navigator.clipboard.writeText(text).then(() => {
     const orig = btn.textContent;
-    btn.textContent = 'Copied!';
+    btn.textContent = 'Copied';
     setTimeout(() => btn.textContent = orig, 1500);
   });
 }
@@ -4423,19 +4122,18 @@ document.getElementById('modal-overlay').addEventListener('click', function(e) {
 
 function updateSidebarCounts() {
   document.getElementById('sidebar-prompt-count').textContent = state.library.length + ' prompts saved';
-  document.getElementById('sidebar-session-count').textContent = state.sessions.length + ' sessions logged';
 }
 
 function updateBpsAvg() {
   const scored = state.analyzerHistory.filter(h => h.totalScore > 0);
   if (scored.length > 0) {
     const avg = Math.round(scored.reduce((sum, h) => sum + h.totalScore, 0) / scored.length);
-    document.getElementById('status-bps-avg').textContent = 'BPS Avg: ' + avg;
+    document.getElementById('status-bps-avg').textContent = 'Average score: ' + avg;
   }
 }
 
 function exportLibrary() {
-  let text = 'ARIA PROMPT LIBRARY EXPORT\n';
+  let text = 'Prompt Studio library export\n';
   text += 'Exported: ' + new Date().toLocaleString() + '\n';
   text += '═'.repeat(60) + '\n\n';
 
@@ -4450,8 +4148,8 @@ function exportLibrary() {
     text += cat.toUpperCase() + '\n';
     text += '━'.repeat(40) + '\n\n';
     prompts.forEach(p => {
-      text += '▸ ' + p.title;
-      if (p.bpsScore) text += ' [BPS: ' + p.bpsScore + ' ' + p.bpsGrade + ']';
+      text += '- ' + p.title;
+      if (p.bpsScore) text += ' [score: ' + p.bpsScore + ' ' + p.bpsGrade + ']';
       text += '\n' + '─'.repeat(30) + '\n';
       text += p.prompt + '\n\n';
     });
@@ -4461,26 +4159,12 @@ function exportLibrary() {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = 'aria-prompt-library-' + new Date().toISOString().split('T')[0] + '.txt';
+  a.download = 'prompt-studio-library-' + new Date().toISOString().split('T')[0] + '.txt';
   a.click();
   URL.revokeObjectURL(url);
   toast('Library exported');
 }
 
-function toggleTheme() {
-  // Toggle between light and a slightly warmer background
-  const main = document.querySelector('.main-panel');
-  if (state.settings.theme === 'light') {
-    state.settings.theme = 'warm';
-    document.documentElement.style.setProperty('--warm-white', '#F2F1EC');
-    document.documentElement.style.setProperty('--cream', '#E4E2DA');
-  } else {
-    state.settings.theme = 'light';
-    document.documentElement.style.setProperty('--warm-white', '#FFFFFF');
-    document.documentElement.style.setProperty('--cream', '#F2F1EC');
-  }
-  saveState();
-}
 
 /* ═══════════════════════════════════════════════════
    INITIALIZATION
@@ -4500,11 +4184,6 @@ function init() {
     switchTool(state.settings.lastTool);
   }
 
-  // Apply theme
-  if (state.settings.theme === 'warm') {
-    document.documentElement.style.setProperty('--warm-white', '#F2F1EC');
-    document.documentElement.style.setProperty('--cream', '#E4E2DA');
-  }
 }
 
 init();
