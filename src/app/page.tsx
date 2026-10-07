@@ -95,7 +95,7 @@ const services: {
   },
   {
     title: "Build",
-    line: "We set up AI for your business and train your people to use it.",
+    line: "We pair you with the AI tools that fit your business, set them up and train your people.",
     names: "Roadmap · Business AI Setup · Implementation",
     href: "/services",
     visual: "assistant",

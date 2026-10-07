@@ -6,7 +6,6 @@ import Image from "next/image";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import { getAllPosts, getPost } from "@/lib/mdx";
-import SectionLabel from "@/components/section-label";
 import CTABand from "@/components/cta-band";
 import InlineArticleCTA from "@/components/inline-article-cta";
 import JsonLd from "@/components/json-ld";
@@ -60,37 +59,34 @@ export default function InsightPostPage({ params }: Props) {
   return (
     <>
       <JsonLd data={articleJsonLd} />
-      {/* Every post carries a picture (Phil, 2026-09-24). */}
-      <figure className="pt-16 lg:pt-[72px]">
-        <Image
-          src={post.meta.cover}
-          alt={post.meta.coverAlt}
-          width={1280}
-          height={720}
-          priority
-          sizes="100vw"
-          className="w-full h-[38svh] min-h-[240px] lg:h-[46vh] object-cover"
-        />
-      </figure>
-      <article className="pt-14 pb-16 px-6 md:px-12 max-w-[720px] mx-auto">
+      {/* Every post carries a picture (Phil, 2026-09-24). Wider column (Phil, 2026-10-07: "needs
+          to be wider"); the cover sits whole above the title so its type is never cropped. */}
+      <article className="mt-16 lg:mt-[72px] pt-10 md:pt-14 pb-16 px-4 md:px-10 max-w-[1040px] mx-auto">
         <Link
           href="/insights"
-          className="text-[13px] text-stone hover:text-emerald transition-colors mb-8 inline-block"
+          className="font-display text-[14px] text-muted hover:text-blue transition-colors mb-8 inline-block"
         >
           &larr; Back to Insights
         </Link>
+        <figure className="relative aspect-[16/10] overflow-hidden rounded-lg border border-line">
+          <Image
+            src={post.meta.cover}
+            alt={post.meta.coverAlt}
+            fill
+            priority
+            sizes="(min-width: 1040px) 960px, 100vw"
+            className="object-cover"
+          />
+        </figure>
 
-        <SectionLabel>{post.meta.category}</SectionLabel>
-        <h1 className="font-display text-[clamp(32px,4.5vw,46px)] leading-[1.15] font-bold tracking-tight mb-4">
+        <p className="mt-10 font-display text-[15px] text-muted">
+          {post.meta.category} · {post.meta.date} · {post.meta.readTime}
+        </p>
+        <h1 className="mt-4 mb-12 font-display text-[36px] md:text-[56px] leading-[1.05] font-extralight tracking-[-0.02em] text-ink">
           {post.meta.title}
         </h1>
-        <div className="flex items-center gap-3 text-sm text-stone mb-12">
-          <span>{post.meta.date}</span>
-          <span>&middot;</span>
-          <span>{post.meta.readTime}</span>
-        </div>
 
-        <div className="prose prose-stone prose-invert prose-lg max-w-none prose-headings:font-display prose-headings:tracking-tight prose-a:text-emerald prose-a:no-underline hover:prose-a:underline prose-strong:text-graphite">
+        <div className="prose prose-stone prose-invert prose-lg lg:prose-xl max-w-none prose-headings:font-display prose-headings:tracking-tight prose-a:text-emerald prose-a:no-underline hover:prose-a:underline prose-strong:text-graphite">
           <MDXRemote
             source={post.content}
             options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}

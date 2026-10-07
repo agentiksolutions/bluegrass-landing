@@ -69,14 +69,18 @@ export default function AboutPage() {
         <div className="max-w-[1360px] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] gap-10 lg:gap-16 items-start">
           <div className="text-[19px] leading-relaxed text-body space-y-5 max-w-[62ch]">
             <p>
-              I am president of The PFSA, a nonprofit in Lexington. I started Bluegrass Advisory Group
-              in 2026 to build for other Kentucky businesses what I built for the stores and for the
-              nonprofit.
+              I run operations for a Five Guys franchisee in Central Kentucky, and I built the AI
+              systems its three stores run on. The store managers open one portal for their numbers,
+              their checklists and the weekly newsletter. They do not need to know anything about AI
+              to use it.
             </p>
             <p>
-              The people who use those systems do not need to know anything about AI. The store
-              managers open one portal for their numbers, their checklists and the weekly newsletter.
-              The PFSA board has a portal for donations, receipts and meeting minutes.
+              I am also president of The PFSA, a nonprofit in Lexington. Its board has a portal for
+              donations, receipts and meeting minutes.
+            </p>
+            <p>
+              I started Bluegrass Advisory Group in 2026 to build the same kind of systems for other
+              Kentucky businesses.
             </p>
             <p>
               See the <Link href="/work" className="text-blue underline underline-offset-2">work</Link>, or
@@ -93,7 +97,7 @@ export default function AboutPage() {
               className="w-full h-auto rounded"
             />
             <figcaption className="mt-3 font-display text-[15px] text-muted">
-              Seated, with part of the store team at a hiring fair.
+              Me, seated, with part of the store team at a Five Guys hiring fair in Central Kentucky.
             </figcaption>
           </figure>
         </div>

@@ -38,8 +38,8 @@ Blog covers in `public/images/insights/` (2026-10-07; Phil on the night covers: 
 
 | File | Post | Shows |
 |---|---|---|
-| `ai-trust-gap-card.webp` | The AI Trust Gap | A card of the article's three steps, rendered from HTML in the brand fonts |
-| `choosing-an-ai-consultant-card.webp` | How to Choose an AI Consultant | A card of the article's six questions, rendered the same way |
+| `ai-trust-gap-q.webp` | The AI Trust Gap | "Before you buy anything" set large on limestone, a full-width UK blue line along the bottom, rendered from HTML in the brand font |
+| `choosing-an-ai-consultant-q.webp` | How to Choose an AI Consultant | The article's first question set large, rendered the same way |
 | `automating-our-own-back-office-portal.webp` | What We Automated in Our Own Back Office First | The manager portal in its built-in demo mode, cropped |
 
 Every post is **required** to name a `cover` in its frontmatter. A post without one fails
