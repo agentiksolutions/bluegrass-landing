@@ -2,10 +2,12 @@
 
 import { motion, useReducedMotion } from "motion/react";
 
-// Two small views of the kind of software BAG builds, drawn in code so they stay sharp and
-// carry no client data. Every figure is sample data and the panels say so.
-// Layout follows the real manager portal (store home with period figures, checklists, tools)
-// without copying any of its numbers.
+// Small views of the kind of software BAG builds, drawn in code so they stay sharp and carry
+// no client data. Every figure is sample data and each panel says so. The portal follows the
+// real manager portal's layout without its numbers; the assistant follows the Business AI
+// Setup description in the Engagement Catalog; the map is the Roadmap's one-page systems map.
+// Each panel moves differently (board ticks in, map draws in, assistant holds still) so the
+// page never repeats one animation section after section.
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -115,6 +117,152 @@ export function StatusBoard() {
           ))}
         </ul>
       </div>
+    </div>
+  );
+}
+
+
+/** A Business AI Setup workspace: skills down the side, a morning question and its answer. */
+export function AssistantPanel() {
+  const skills = ["Inbox triage", "Morning briefing", "Meeting notes", "Searchable documents", "Research", "Weekly update"];
+  const reply = [
+    "Two vendor invoices are waiting for your approval.",
+    "The Thursday manager meeting moved to 2 PM.",
+    "The landlord answered your question about the lease renewal.",
+  ];
+  return (
+    <div className="absolute inset-0 grid place-items-center bg-white p-4 sm:p-8">
+      <div
+        role="img"
+        aria-label="An AI assistant workspace set up for a business, shown with sample data: a list of skills, a morning question and a short briefing, with email, calendar and files connected read only"
+        className="w-full max-w-[600px] overflow-hidden rounded-lg border border-line bg-tint font-display"
+      >
+        <div className="flex items-center justify-between border-b border-line px-5 py-3">
+          <span className="text-[14px] text-ink">Your assistant</span>
+          <span className="text-[12px] text-muted">Sample data</span>
+        </div>
+        <div className="grid grid-cols-[minmax(0,2fr)_minmax(0,5fr)]">
+          <ul className="border-r border-line py-3 text-[12px] sm:text-[13px] text-muted">
+            <li className="px-4 pb-2 text-[11px] sm:text-[12px] text-body">Skills</li>
+            {skills.map((k, i) => (
+              <li key={k} className={`px-4 py-1.5 ${i === 1 ? "bg-blue/20 text-ink" : ""}`}>
+                {k}
+              </li>
+            ))}
+          </ul>
+          <div className="space-y-3 p-4 sm:p-5 text-[13px] sm:text-[14px]">
+            <p className="ml-auto w-fit max-w-[85%] rounded-lg bg-blue px-3 py-2 text-white">What needs me today?</p>
+            <div className="max-w-[92%] rounded-lg border border-line px-3 py-2.5 text-body">
+              <p className="text-ink">Three things this morning:</p>
+              <ul className="mt-1.5 space-y-1.5">
+                {reply.map((r) => (
+                  <li key={r} className="flex gap-2">
+                    <span aria-hidden="true" className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#81A7F8]" />
+                    {r}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 border-t border-line px-5 py-3 text-[11px] sm:text-[12px] text-muted">
+          <span>Email: read only</span>
+          <span>Calendar: read only</span>
+          <span>Files: read only</span>
+          <span className="text-blue">Cannot send or delete</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/** The Roadmap's one-page systems map: the tools a business runs on and what moves between them. */
+export function SystemsMap() {
+  const still = useReducedMotion();
+  const boxes = [
+    { id: "pos", x: 10, y: 30, label: "Point of sale", who: "Managers" },
+    { id: "time", x: 10, y: 160, label: "Timekeeping", who: "Managers" },
+    { id: "acct", x: 350, y: 30, label: "Accounting", who: "Bookkeeper" },
+    { id: "mail", x: 180, y: 290, label: "Email", who: "Everyone", start: true },
+    { id: "sheet", x: 350, y: 160, label: "Spreadsheets", who: "Owner" },
+    { id: "drive", x: 10, y: 290, label: "Shared drive", who: "Everyone" },
+  ];
+  // Three columns of 160 with 10-unit gutters inside the 520-wide view.
+  const W = 160;
+  const H = 62;
+  const c = (id: string) => {
+    const b = boxes.find((x) => x.id === id)!;
+    return { x: b.x + W / 2, y: b.y + H / 2 };
+  };
+  const links: [string, string, string][] = [
+    ["pos", "acct", "daily sales"],
+    ["pos", "sheet", "weekly report"],
+    ["time", "sheet", "hours"],
+    ["acct", "sheet", "invoices"],
+    ["mail", "sheet", "vendor bills"],
+    ["drive", "mail", "files"],
+  ];
+  return (
+    <div
+      role="img"
+      aria-label="A one-page systems map, shown with sample data: point of sale, timekeeping, accounting, email, spreadsheets and a shared drive, with lines for what moves between them and email marked as the place to start"
+      className="w-full overflow-hidden rounded-lg border border-line bg-tint font-display"
+    >
+      <div className="flex items-center justify-between border-b border-line px-5 py-3">
+        <span className="text-[14px] text-ink">Systems map</span>
+        <span className="text-[12px] text-muted">Sample data</span>
+      </div>
+      <svg viewBox="0 0 520 372" className="block w-full h-auto" aria-hidden="true">
+        {links.map(([a, b, label], i) => {
+          const p = c(a);
+          const q = c(b);
+          return (
+            <g key={a + b}>
+              <motion.line
+                x1={p.x}
+                y1={p.y}
+                x2={q.x}
+                y2={q.y}
+                stroke="#81A7F8"
+                strokeOpacity={0.55}
+                strokeWidth={1.4}
+                initial={still ? false : { pathLength: 0 }}
+                whileInView={{ pathLength: 1 }}
+                viewport={{ once: true, margin: "-10% 0px" }}
+                transition={{ duration: 1.1, ease: EASE, delay: 0.2 + i * 0.25 }}
+              />
+              <text
+                x={(p.x + q.x) / 2}
+                y={(p.y + q.y) / 2 - 6}
+                textAnchor="middle"
+                fontSize="11"
+                fill="#8A94AA"
+              >
+                {label}
+              </text>
+            </g>
+          );
+        })}
+        {boxes.map((b) => (
+          <g key={b.id}>
+            <rect
+              x={b.x}
+              y={b.y}
+              width={W}
+              height={H}
+              rx={8}
+              fill={b.start ? "#0033A0" : "#0C1322"}
+              stroke={b.start ? "#81A7F8" : "#1E2A44"}
+            />
+            <text x={b.x + 14} y={b.y + 26} fontSize="15" fill="#E6EAF2">
+              {b.label}
+            </text>
+            <text x={b.x + 14} y={b.y + 46} fontSize="11.5" fill={b.start ? "#D6E1FB" : "#8A94AA"}>
+              {b.start ? "Start here" : b.who}
+            </text>
+          </g>
+        ))}
+      </svg>
     </div>
   );
 }

@@ -15,11 +15,11 @@ scene faces the screen on purpose, so no visitor takes him for Phil.
 
 | File | Where it is used | Shows |
 |---|---|---|
-| `scenes/workshop.webp` + `videos/workshop.mp4` | Home, Education row | An evening workshop in a brick-walled room, a presenter drawing on a lit flowchart |
-| `scenes/builder.webp` + `videos/builder.mp4` | Home, Build row | A builder working late at two monitors of charts |
-| `scenes/back-office.webp` | Home, "Who we work with" (restaurants) and the hospitality page | A restaurant manager checking a tablet in the back office after close |
-| `scenes/desk-paperwork.webp` | Home, "Start with the work" | A desk at night with a printed schedule and receipts beside a laptop |
-| `scenes/nonprofit-board.webp` | Home, "Who we work with" (nonprofits) | Volunteers around a folding table at a board meeting in a fellowship hall |
+| `scenes/workshop.webp` | Not used since 2026-10-07 (its loop was removed) | An evening workshop in a brick-walled room, a presenter drawing on a lit flowchart |
+| `scenes/builder.webp` | Not used since 2026-10-07 (its loop was removed) | A builder working late at two monitors of charts |
+| `scenes/back-office.webp` | Hospitality page | A restaurant manager checking a tablet in the back office after close |
+| `scenes/desk-paperwork.webp` | Not used since 2026-10-07 | A desk at night with a printed schedule and receipts beside a laptop |
+| `scenes/nonprofit-board.webp` | Not used since 2026-10-07 | Volunteers around a folding table at a board meeting in a fellowship hall |
 | `scenes/working-session.webp` | Services, top of page | Two people at a long table going over a laptop diagram and a printed map |
 | `scenes/shop-website.webp` | Websites page | A shop owner after closing, checking a website on a laptop |
 | `scenes/inbox-sorting.webp` | AI integration page | An office manager pointing at an inbox sorted into groups |
@@ -44,11 +44,20 @@ Blog covers in `public/images/insights/`, same model and brief:
 Every post is **required** to name a `cover` in its frontmatter. A post without one fails
 `npm run build` with a message naming the file (`src/lib/mdx.ts`, `requireCover`).
 
+## The home page shows only real things, 2026-10-07
+
+Phil, 2026-10-07: the generated scenes "are weird". Every scene was the same shot (a person
+from behind in a dark room), and the sameness read as AI. The home page now uses only Phil's
+own photo, a screenshot of the live Academy (`images/work/academy.webp`, taken from this site's
+/academy page), the PFSA site screenshot, and panels drawn in code. The Education and Build
+loops (`videos/workshop.mp4`, `videos/builder.mp4`) were removed; they are in git history. The
+inner pages still carry scenes until Phil reviews this direction.
+
 ## Code-drawn panels, 2026-10-07
 
-The Support row and the restaurant franchisee card show panels drawn in code
-(`src/components/work-panels.tsx`), not pictures: a status board of scheduled jobs and a
-manager portal store screen. Both are sample data and say "Sample data" on the panel. Phil on
+Panels drawn in code (`src/components/work-panels.tsx`), not pictures: a Business AI Setup
+assistant (Build row), a status board of scheduled jobs (Support row), a one-page systems map
+(the Roadmap section) and a manager portal store screen (the franchisee card). Both are sample data and say "Sample data" on the panel. Phil on
 the clip and the storefront they replaced: they "look weird". The back-office loop
 (`videos/back-office.mp4`) and `scenes/store-blue-hour.webp` were removed; both are in git history.
 

@@ -4,10 +4,10 @@ import Image from "next/image";
 import CTABand from "@/components/cta-band";
 import HeroNetwork from "@/components/hero-network";
 import JsonLd from "@/components/json-ld";
-import { BlurWords, FadeIn, LoopVideo, ParallaxBand, ScrollThread } from "@/components/motion";
+import { BlurWords, FadeIn, ParallaxBand, ScrollThread } from "@/components/motion";
 import { getAllPosts } from "@/lib/mdx";
 import { pageMeta } from "@/lib/metadata";
-import { PortalPanel, StatusBoard } from "@/components/work-panels";
+import { AssistantPanel, PortalPanel, StatusBoard, SystemsMap } from "@/components/work-panels";
 import { photos } from "@/lib/photos";
 import { BOOKING_URL } from "@/lib/site";
 
@@ -63,11 +63,13 @@ export const metadata: Metadata = {
 
 
 // Page order follows apaxsoftware.com (docs/website/apax-content-teardown-2026-09-25.md):
-// hero, what we help with, services, AI, results, who we work with, blog, closing call.
-// Pictures: generated scenes for illustration (credits in public/images/brand/CREDITS.md), the
-// PFSA site screenshot and Phil's own photo. Nobody in a generated scene is a client.
-// The proof figures and client-logo row were cut on 2026-10-06: only one figure had a source
-// and only one client has given permission. They come back when the numbers and permissions do.
+// hero, what we help with, who you work with, services, the Roadmap, results, who we work
+// with, blog, closing call.
+// Pictures (Phil, 2026-10-07: generated scenes "are weird"): only real things. Phil's own
+// photo, a screenshot of the live Academy and of the PFSA site, and panels drawn in code that
+// show the kind of software BAG builds, each marked "Sample data".
+// No proof figures or client logos: only one figure had a source and only one client has given
+// permission. Proof is plain outcomes (memory feedback-proof-lines-plain-outcomes).
 
 // Sourced: Engagement Catalog "right tier if" lines, and brand decision item 36.
 const problems = [
@@ -82,82 +84,79 @@ const services: {
   line: string;
   names: string;
   href: string;
-  img: string;
-  video?: string;
-  alt: string;
+  visual: "academy" | "assistant" | "status";
 }[] = [
   {
     title: "Education",
     line: "Classes and workshops for owners and their teams.",
     names: "AI Academy · Team training sessions",
     href: "/academy",
-    img: "/images/scenes/workshop.webp",
-    video: "/videos/workshop.mp4",
-    alt: "An evening workshop in a brick-walled room, a presenter drawing on a lit flowchart while owners watch from a long table",
+    visual: "academy",
   },
   {
     title: "Build",
-    line: "AI tools, automations and dashboards made for your business.",
+    line: "We set up AI for your business and train your people to use it.",
     names: "Roadmap · Business AI Setup · Implementation",
-    href: "/services/ai-integration",
-    img: "/images/scenes/builder.webp",
-    video: "/videos/builder.mp4",
-    alt: "A builder working late at two monitors of charts in a small brick office",
+    href: "/services",
+    visual: "assistant",
   },
   {
     title: "Support",
     line: "We keep it running and pick up when you call.",
     names: "Monthly plans · Office Hours · Embedded Retainer · Workspace Tune-Up",
-    href: "/services/operations",
-    // ponytail: Support shows a job board drawn in code instead of a clip (Phil, 2026-10-07:
-    // the back-office clip "looks weird"). img and alt stay for the scene's other uses.
-    img: "/images/scenes/back-office.webp",
-    alt: "A restaurant manager checking a tablet in the back office after close",
+    href: "/services",
+    visual: "status",
   },
 ];
 
-// Sourced: Engagement Catalog, Roadmap ("You get a one-page map of your systems, a written plan
-// for what to set up first, and a live readout call").
-const aiSteps = [
-  "A one-page map of your systems",
-  "A written plan for what to set up first",
-  "A live call to walk through it",
-];
+// Sourced: Engagement Catalog, "The path for small businesses".
+const path = ["Free intro call", "Roadmap", "Business AI Setup", "A monthly plan"];
 
+// Each line comes from that market's own page on this site.
 const markets = [
   {
     label: "Restaurants and hospitality",
     href: "/ai-for-hospitality",
-    img: "/images/scenes/back-office.webp",
-    alt: "A restaurant manager checking a tablet in the back office after close",
+    line: "Store managers open one portal for their numbers, checklists and the weekly newsletter.",
   },
   {
     label: "Multi-location operators",
     href: "/multi-location-dashboards",
-    img: "/images/scenes/multi-location-truck.webp",
-    alt: "An operations manager in a truck at dusk checking a tablet that shows several locations",
+    line: "Every location's numbers on one screen, counted the same way.",
   },
   {
     label: "Nonprofits",
     href: "/work/pfsa",
-    img: "/images/scenes/nonprofit-board.webp",
-    alt: "Volunteers around a folding table at a board meeting in a fellowship hall at dusk",
+    line: "A board portal for donations, receipts and meeting minutes.",
   },
   {
     label: "Kentucky small businesses",
     href: "/ai-for-small-business-kentucky",
-    img: "/images/scenes/small-business-counter.webp",
-    alt: "A small business owner at the counter after closing with a laptop and order slips",
+    line: "Pick the one job that eats the most hours and set AI on that first.",
   },
 ];
+
+function ServiceVisual({ visual }: { visual: (typeof services)[number]["visual"] }) {
+  if (visual === "assistant") return <AssistantPanel />;
+  if (visual === "status") return <StatusBoard />;
+  return (
+    <Image
+      src="/images/work/academy.webp"
+      alt="The BAG Academy course page: AI Foundations, a practical course on using AI at work, with the lesson list down the side"
+      fill
+      sizes="(min-width: 1024px) 58vw, 100vw"
+      className="object-cover object-left-top"
+    />
+  );
+}
 
 export default function HomePage() {
   const posts = getAllPosts().slice(0, 3);
 
-  // Motion on this page, four ideas and no more (Phil, 2026-09-26: "It has to flow"):
-  // 1. the hero network, the only thing that keeps moving; 2. the hero words coming out of a
-  // blur, once; 3. one thread down the left edge that fills as you scroll; 4. each picture
-  // opening once and drifting with the scroll. Everything else stays still.
+  // Motion on this page (Phil, 2026-09-26: "It has to flow"), each idea used once:
+  // the hero network, the only thing that keeps moving; the hero words out of a blur; one thread
+  // down the left edge that fills as you scroll; the job board ticking to done; the systems map
+  // drawing its lines; the PFSA screenshot drifting with the scroll. Everything else stays still.
   return (
     <>
       <JsonLd data={organizationJsonLd} />
@@ -213,14 +212,45 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* 3. How we help. Alternating full rows, the picture drifting against the scroll. */}
-        <section id="how-we-help" className="py-24 md:py-36 scroll-mt-20">
+        {/* 3. Who you work with. Phil is the one real person BAG can show, so he comes early. */}
+        <section className="px-4 md:px-10 py-24 md:py-32">
+          <div className="max-w-[1360px] mx-auto grid grid-cols-1 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] gap-10 md:gap-16 items-center">
+            <Image
+              src={photos.phil.src}
+              alt={photos.phil.alt}
+              width={photos.phil.width}
+              height={photos.phil.height}
+              sizes="(min-width: 768px) 40vw, 100vw"
+              className="w-full max-w-[520px] h-auto rounded"
+            />
+            <div>
+              <h2 className="font-display text-[36px] md:text-[56px] leading-[1.02] font-light tracking-tight text-ink max-w-[16ch]">
+                You work with Phil Fifield
+              </h2>
+              <p className="mt-7 text-[19px] md:text-[22px] leading-snug text-body max-w-[44ch]">
+                He has run businesses for over 15 years. Today he runs operations for a restaurant
+                franchisee in Central Kentucky and is president of a Lexington nonprofit. He built
+                the AI systems both of them run on, and he runs them himself.
+              </p>
+              <Link
+                href="/about"
+                className="mt-8 inline-block font-display text-[16px] text-blue underline underline-offset-4 decoration-blue/40 hover:decoration-blue"
+              >
+                More about Phil
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* 4. How we help. Each row shows the real thing: the live Academy, a Business AI Setup
+            workspace and a job board. */}
+        <section id="how-we-help" className="bg-band py-24 md:py-36 scroll-mt-20">
           <h2 className="px-4 md:px-10 max-w-[1360px] mx-auto mb-14 md:mb-20 font-display text-[40px] md:text-[64px] leading-none font-light tracking-tight text-ink">
             How we help
           </h2>
           {services.map((s, i) => (
             <Link
-              key={s.href}
+              key={s.title}
               href={s.href}
               className={`group grid grid-cols-1 items-center ${
                 i % 2
@@ -228,15 +258,13 @@ export default function HomePage() {
                   : "lg:grid-cols-[minmax(0,58fr)_minmax(0,42fr)]"
               } ${i > 0 ? "mt-20 md:mt-32" : ""}`}
             >
-              {s.video ? (
-                <ParallaxBand className={`h-[44svh] min-h-[280px] lg:h-[56vh] ${i % 2 ? "lg:order-2" : ""}`} distance={42}>
-                  <LoopVideo src={s.video} poster={s.img} label={s.alt} />
-                </ParallaxBand>
-              ) : (
-                <div className={`relative h-[44svh] min-h-[320px] lg:h-[56vh] ${i % 2 ? "lg:order-2" : ""}`}>
-                  <StatusBoard />
-                </div>
-              )}
+              <div
+                className={`relative overflow-hidden ${
+                  s.visual === "academy" ? "aspect-[16/10] lg:aspect-auto lg:h-[60vh]" : "min-h-[380px] lg:h-[60vh]"
+                } ${i % 2 ? "lg:order-2" : ""}`}
+              >
+                <ServiceVisual visual={s.visual} />
+              </div>
               <div className={`px-4 md:px-10 py-10 lg:py-0 ${i % 2 ? "lg:order-1" : ""}`}>
                 <h3 className="font-display text-[44px] md:text-[72px] leading-none font-extralight tracking-tight text-ink transition-colors group-hover:text-blue">
                   {s.title}
@@ -248,46 +276,41 @@ export default function HomePage() {
           ))}
         </section>
 
-        {/* 4. Start from the work. */}
+        {/* 5. Start from the work: the Roadmap's real deliverable, and the path after it. */}
         <section className="px-4 md:px-10 py-24 md:py-36">
           <div className="max-w-[1360px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            <ParallaxBand className="h-[44svh] min-h-[280px] lg:h-[60vh] rounded" distance={36}>
-              <Image
-                src="/images/scenes/desk-paperwork.webp"
-                alt="A desk at night with a printed weekly schedule and receipts marked in pen beside a laptop"
-                fill
-                sizes="(min-width: 1024px) 50vw, 100vw"
-                className="object-cover"
-              />
-            </ParallaxBand>
+            <SystemsMap />
             <div>
               <h2 className="font-display text-[40px] md:text-[60px] leading-[1.02] font-light tracking-tight text-ink max-w-[16ch]">
                 Start with the work, then add AI
               </h2>
               <p className="mt-7 text-[19px] md:text-[21px] leading-snug text-body max-w-[44ch]">
                 The Roadmap starts with how your work gets done today. You show us in one screen
-                share, and we write down what to set up first.
+                share, and you get a one-page map of your systems and a written plan for what to
+                set up first.
               </p>
-              <ul className="mt-9 space-y-3">
-                {aiSteps.map((a) => (
-                  <li key={a} className="flex items-baseline gap-3 font-display text-[18px] md:text-[20px] text-ink">
-                    <span aria-hidden="true" className="inline-block h-2 w-2 shrink-0 translate-y-[-2px] rounded-full bg-[#81A7F8]" />
-                    {a}
+              <ol className="mt-9 border-t border-line">
+                {path.map((p) => (
+                  <li key={p} className="border-b border-line py-4 font-display text-[18px] md:text-[20px] font-light text-ink">
+                    {p}
                   </li>
                 ))}
-              </ul>
+              </ol>
+              <Link
+                href="/services"
+                className="mt-8 inline-block font-display text-[16px] text-blue underline underline-offset-4 decoration-blue/40 hover:decoration-blue"
+              >
+                How it works
+              </Link>
             </div>
           </div>
         </section>
 
-        {/* 5. Recent work. */}
-        <section className="pt-8 md:pt-12">
+        {/* 6. Recent work: the real result for each, in plain words. */}
+        <section className="bg-band pt-24 md:pt-32">
           <h2 className="px-4 md:px-10 max-w-[1360px] mx-auto mb-12 md:mb-16 font-display text-[40px] md:text-[64px] leading-none font-light tracking-tight text-ink">
             Recent work
           </h2>
-          <p className="px-4 md:px-10 max-w-[1360px] mx-auto -mt-6 md:-mt-8 mb-12 md:mb-16 text-[19px] md:text-[21px] leading-snug text-body">
-            A Lexington nonprofit and a three-store restaurant franchisee run on our systems.
-          </p>
           <div className="grid grid-cols-1 lg:grid-cols-2">
             <Link href="/work/pfsa" className="group block">
               <ParallaxBand className="aspect-[2/1] lg:aspect-auto lg:h-[50vh] bg-ink" distance={34}>
@@ -299,12 +322,13 @@ export default function HomePage() {
                   className="object-cover object-top"
                 />
               </ParallaxBand>
-              <div className="px-4 md:px-10 py-7">
+              <div className="px-4 md:px-10 py-8">
                 <p className="font-display text-[22px] md:text-[28px] leading-tight font-light text-ink transition-colors group-hover:text-blue">
                   The PFSA, a Lexington nonprofit
                 </p>
-                <p className="mt-2 text-[18px] leading-snug text-body max-w-[46ch]">
-                  A board portal, a public website and an online assistance application.
+                <p className="mt-3 text-[18px] leading-snug text-body max-w-[46ch]">
+                  The board stopped tracking donations in Quicken. Donations, receipts and meeting
+                  minutes now live in one portal.
                 </p>
               </div>
             </Link>
@@ -312,12 +336,13 @@ export default function HomePage() {
               <div className="relative min-h-[340px] lg:h-[50vh]">
                 <PortalPanel />
               </div>
-              <div className="px-4 md:px-10 py-7">
+              <div className="px-4 md:px-10 py-8">
                 <p className="font-display text-[22px] md:text-[28px] leading-tight font-light text-ink transition-colors group-hover:text-blue">
                   A restaurant franchisee in Central Kentucky
                 </p>
-                <p className="mt-2 text-[18px] leading-snug text-body max-w-[46ch]">
-                  Three stores run on one manager portal.
+                <p className="mt-3 text-[18px] leading-snug text-body max-w-[46ch]">
+                  The managers used to run three stores off scattered files and calls to Phil. Now
+                  they open one portal.
                 </p>
               </div>
             </Link>
@@ -332,28 +357,23 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* 6. Who we work with. */}
-        <section className="bg-band px-4 md:px-10 py-20 md:py-28">
-          <div className="max-w-[1360px] mx-auto">
-            <h2 className="font-display text-[30px] md:text-[44px] leading-tight font-light tracking-tight text-ink">
+        {/* 7. Who we work with. */}
+        <section className="px-4 md:px-10 py-24 md:py-32">
+          <div className="max-w-[1360px] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] gap-10 lg:gap-20">
+            <h2 className="font-display text-[36px] md:text-[56px] leading-none font-light tracking-tight text-ink">
               Who we work with
             </h2>
-            <ul className="mt-12 grid grid-cols-2 lg:grid-cols-4 gap-x-4 md:gap-x-6 gap-y-10">
+            <ul className="divide-y divide-line border-y border-line">
               {markets.map((m) => (
                 <li key={m.href}>
-                  <Link href={m.href} className="group block">
-                    <div className="relative aspect-[4/3] overflow-hidden rounded">
-                      <Image
-                        src={m.img}
-                        alt={m.alt}
-                        fill
-                        sizes="(min-width: 1024px) 25vw, 50vw"
-                        className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-                      />
-                    </div>
-                    <p className="mt-4 font-display text-[18px] md:text-[22px] font-light leading-snug text-ink transition-colors group-hover:text-blue">
+                  <Link
+                    href={m.href}
+                    className="group grid grid-cols-1 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] gap-2 md:gap-10 py-7 md:py-8"
+                  >
+                    <span className="font-display text-[22px] md:text-[28px] font-light leading-tight text-ink transition-colors group-hover:text-blue">
                       {m.label}
-                    </p>
+                    </span>
+                    <span className="text-[18px] leading-relaxed text-body">{m.line}</span>
                   </Link>
                 </li>
               ))}
@@ -361,9 +381,9 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* 7. From the blog. */}
+        {/* 8. From the blog. */}
         {posts.length > 0 && (
-          <section className="px-4 md:px-10 py-24 md:py-32">
+          <section className="border-t border-line px-4 md:px-10 py-24 md:py-32">
             <div className="max-w-[1360px] mx-auto">
               <div className="flex items-end justify-between gap-6">
                 <h2 className="font-display text-[30px] md:text-[44px] leading-tight font-light tracking-tight text-ink">
@@ -388,25 +408,6 @@ export default function HomePage() {
             </div>
           </section>
         )}
-
-        {/* 8. Closing call. */}
-        <section className="border-t border-line px-4 md:px-10 py-20 md:py-24">
-          <div className="max-w-[1360px] mx-auto flex flex-col sm:flex-row sm:items-center gap-8 md:gap-14">
-            <Image
-              src={photos.phil.src}
-              alt={photos.phil.alt}
-              width={photos.phil.width}
-              height={photos.phil.height}
-              sizes="(min-width: 640px) 200px, 50vw"
-              className="w-[50%] max-w-[200px] sm:w-[200px] shrink-0 h-auto rounded"
-            />
-            <p className="text-[19px] md:text-[22px] leading-snug text-body max-w-[48ch]">
-              You work with Phil Fifield. He has run businesses for over 15 years. Today he runs
-              operations for a restaurant franchisee in Central Kentucky and built the AI systems it
-              runs on.
-            </p>
-          </div>
-        </section>
       </div>
 
       <CTABand
