@@ -7,6 +7,7 @@ import JsonLd from "@/components/json-ld";
 import { BlurWords, FadeIn, LoopVideo, ParallaxBand, ScrollThread } from "@/components/motion";
 import { getAllPosts } from "@/lib/mdx";
 import { pageMeta } from "@/lib/metadata";
+import { PortalPanel, StatusBoard } from "@/components/work-panels";
 import { photos } from "@/lib/photos";
 import { BOOKING_URL } from "@/lib/site";
 
@@ -82,7 +83,7 @@ const services: {
   names: string;
   href: string;
   img: string;
-  video: string;
+  video?: string;
   alt: string;
 }[] = [
   {
@@ -108,8 +109,9 @@ const services: {
     line: "We keep it running and pick up when you call.",
     names: "Monthly plans · Office Hours · Embedded Retainer · Workspace Tune-Up",
     href: "/services/operations",
+    // ponytail: Support shows a job board drawn in code instead of a clip (Phil, 2026-10-07:
+    // the back-office clip "looks weird"). img and alt stay for the scene's other uses.
     img: "/images/scenes/back-office.webp",
-    video: "/videos/back-office.mp4",
     alt: "A restaurant manager checking a tablet in the back office after close",
   },
 ];
@@ -123,10 +125,30 @@ const aiSteps = [
 ];
 
 const markets = [
-  { label: "Restaurants and hospitality", href: "/ai-for-hospitality" },
-  { label: "Multi-location operators", href: "/multi-location-dashboards" },
-  { label: "Nonprofits", href: "/work/pfsa" },
-  { label: "Kentucky small businesses", href: "/ai-for-small-business-kentucky" },
+  {
+    label: "Restaurants and hospitality",
+    href: "/ai-for-hospitality",
+    img: "/images/scenes/back-office.webp",
+    alt: "A restaurant manager checking a tablet in the back office after close",
+  },
+  {
+    label: "Multi-location operators",
+    href: "/multi-location-dashboards",
+    img: "/images/scenes/multi-location-truck.webp",
+    alt: "An operations manager in a truck at dusk checking a tablet that shows several locations",
+  },
+  {
+    label: "Nonprofits",
+    href: "/work/pfsa",
+    img: "/images/scenes/nonprofit-board.webp",
+    alt: "Volunteers around a folding table at a board meeting in a fellowship hall at dusk",
+  },
+  {
+    label: "Kentucky small businesses",
+    href: "/ai-for-small-business-kentucky",
+    img: "/images/scenes/small-business-counter.webp",
+    alt: "A small business owner at the counter after closing with a laptop and order slips",
+  },
 ];
 
 export default function HomePage() {
@@ -206,9 +228,15 @@ export default function HomePage() {
                   : "lg:grid-cols-[minmax(0,58fr)_minmax(0,42fr)]"
               } ${i > 0 ? "mt-20 md:mt-32" : ""}`}
             >
-              <ParallaxBand className={`h-[44svh] min-h-[280px] lg:h-[56vh] ${i % 2 ? "lg:order-2" : ""}`} distance={42}>
-                <LoopVideo src={s.video} poster={s.img} label={s.alt} />
-              </ParallaxBand>
+              {s.video ? (
+                <ParallaxBand className={`h-[44svh] min-h-[280px] lg:h-[56vh] ${i % 2 ? "lg:order-2" : ""}`} distance={42}>
+                  <LoopVideo src={s.video} poster={s.img} label={s.alt} />
+                </ParallaxBand>
+              ) : (
+                <div className={`relative h-[44svh] min-h-[320px] lg:h-[56vh] ${i % 2 ? "lg:order-2" : ""}`}>
+                  <StatusBoard />
+                </div>
+              )}
               <div className={`px-4 md:px-10 py-10 lg:py-0 ${i % 2 ? "lg:order-1" : ""}`}>
                 <h3 className="font-display text-[44px] md:text-[72px] leading-none font-extralight tracking-tight text-ink transition-colors group-hover:text-blue">
                   {s.title}
@@ -281,15 +309,9 @@ export default function HomePage() {
               </div>
             </Link>
             <Link href="/work/restaurant-franchisee" className="group block">
-              <ParallaxBand className="aspect-[2/1] lg:aspect-auto lg:h-[50vh] bg-ink" distance={34}>
-                <Image
-                  src="/images/scenes/store-blue-hour.webp"
-                  alt="A small brick restaurant at blue hour, lit from inside, with a wet empty parking lot"
-                  fill
-                  sizes="(min-width: 1024px) 50vw, 100vw"
-                  className="object-cover"
-                />
-              </ParallaxBand>
+              <div className="relative min-h-[340px] lg:h-[50vh]">
+                <PortalPanel />
+              </div>
               <div className="px-4 md:px-10 py-7">
                 <p className="font-display text-[22px] md:text-[28px] leading-tight font-light text-ink transition-colors group-hover:text-blue">
                   A restaurant franchisee in Central Kentucky
@@ -316,14 +338,22 @@ export default function HomePage() {
             <h2 className="font-display text-[30px] md:text-[44px] leading-tight font-light tracking-tight text-ink">
               Who we work with
             </h2>
-            <ul className="mt-10 flex flex-wrap gap-x-10 gap-y-4">
+            <ul className="mt-12 grid grid-cols-2 lg:grid-cols-4 gap-x-4 md:gap-x-6 gap-y-10">
               {markets.map((m) => (
                 <li key={m.href}>
-                  <Link
-                    href={m.href}
-                    className="font-display text-[20px] md:text-[24px] font-light text-blue underline underline-offset-4 decoration-blue/30 hover:decoration-blue"
-                  >
-                    {m.label}
+                  <Link href={m.href} className="group block">
+                    <div className="relative aspect-[4/3] overflow-hidden rounded">
+                      <Image
+                        src={m.img}
+                        alt={m.alt}
+                        fill
+                        sizes="(min-width: 1024px) 25vw, 50vw"
+                        className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                      />
+                    </div>
+                    <p className="mt-4 font-display text-[18px] md:text-[22px] font-light leading-snug text-ink transition-colors group-hover:text-blue">
+                      {m.label}
+                    </p>
                   </Link>
                 </li>
               ))}
