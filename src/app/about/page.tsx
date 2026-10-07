@@ -56,7 +56,7 @@ export default function AboutPage() {
             />
           </div>
           <div className="px-4 md:px-10 py-8 lg:py-12 flex flex-col justify-center">
-            <h1 className="font-display text-[40px] lg:text-[54px] leading-[1.03] font-bold tracking-tight text-ink">
+            <h1 className="font-display text-[44px] lg:text-[72px] leading-[0.98] font-extralight tracking-[-0.03em] text-ink">
               Phil Fifield
             </h1>
             <p className="mt-3 font-display text-[18px] text-muted">
@@ -106,11 +106,11 @@ export default function AboutPage() {
 
       <section className="bg-band px-4 md:px-10 py-16 md:py-20">
         <div className="max-w-[1360px] mx-auto">
-          <h2 className="font-display text-[28px] font-bold tracking-tight text-ink">How I work</h2>
+          <h2 className="font-display text-[32px] md:text-[48px] font-light tracking-tight text-ink">How I work</h2>
           <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-8">
             {beliefs.map((b) => (
               <blockquote key={b} className="border-t border-ink/20 pt-4">
-                <p className="font-display text-[20px] leading-snug font-medium text-ink">&ldquo;{b}&rdquo;</p>
+                <p className="font-display text-[22px] md:text-[26px] leading-snug font-light text-ink">&ldquo;{b}&rdquo;</p>
               </blockquote>
             ))}
           </div>

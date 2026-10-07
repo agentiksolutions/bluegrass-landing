@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { pageMeta } from "@/lib/metadata";
+import Image from "next/image";
 import Link from "next/link";
-import SectionLabel from "@/components/section-label";
 import CTABand from "@/components/cta-band";
 import JsonLd from "@/components/json-ld";
 import RelatedLinks from "@/components/related-links";
@@ -77,110 +77,100 @@ export default function LexingtonPage() {
     <>
       <JsonLd data={localServiceJsonLd} />
 
-      <section className="pt-[148px] pb-8 px-6 md:px-12 max-w-content mx-auto">
-        <SectionLabel>Lexington, Kentucky</SectionLabel>
-        <h1 className="font-display text-[clamp(36px,5vw,52px)] leading-[1.1] font-bold tracking-tight mb-4">
-          AI consulting in Lexington.
-        </h1>
-        <p className="text-lg leading-relaxed text-charcoal max-w-[600px] mb-6">
-          We are based here, so we can be in your building watching how the
-          work moves before anyone talks about building something.
-        </p>
-        <p className="text-[15px] leading-relaxed text-charcoal max-w-[600px] mb-16">
-          The starting point is a 30-minute call. Book one from the{" "}
-          <Link href="/contact" className="text-emerald hover:underline">
-            contact page
-          </Link>{" "}
-          or call (859) 314-3051.
-        </p>
-      </section>
-
-      <section className="px-6 md:px-12 pb-20 max-w-content mx-auto">
-        <h2 className="font-display text-2xl font-bold mb-6">Where we work.</h2>
-        <p className="text-[15px] leading-relaxed text-charcoal max-w-[620px] mb-8">
-          We work in person across Central Kentucky. Lexington and the counties
-          around it are close enough for us to visit on site.
-        </p>
-        <div className="flex flex-wrap gap-2 mb-8">
-          {counties.map((c) => (
-            <span
-              key={c}
-              className="text-[13px] font-semibold text-emerald bg-emerald/[0.07] px-3 py-1.5 rounded-[3px]"
-            >
-              {c} County
-            </span>
-          ))}
-        </div>
-        <p className="text-[15px] leading-relaxed text-charcoal max-w-[620px]">
-          We work with businesses elsewhere in Kentucky over screen share. The
-          work is the same. You lose the part where we walk your floor, which
-          matters more in some businesses than others.
-        </p>
-      </section>
-
-      <section className="bg-cream py-20 px-6 md:px-12">
-        <div className="max-w-content mx-auto">
-          <h2 className="font-display text-2xl font-bold mb-8">
-            What Lexington businesses bring us.
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {whatWeHear.map((w) => (
-              <div
-                key={w}
-                className="flex items-start gap-3 p-5 bg-white rounded-lg border border-line"
-              >
-                <span className="w-2 h-2 rounded-full bg-emerald mt-1.5 shrink-0" />
-                <span className="text-[15px] leading-relaxed text-charcoal">
-                  {w}
-                </span>
-              </div>
-            ))}
+      <section className="relative mt-16 lg:mt-[72px] bg-ink">
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:min-h-[max(520px,calc(90svh-72px))]">
+          <div className="order-2 lg:order-1 px-4 md:px-10 py-12 lg:py-16 flex flex-col justify-center">
+            <h1 className="font-display text-[40px] sm:text-[54px] lg:text-[66px] leading-[1.0] font-extralight tracking-[-0.03em] text-ink max-w-[13ch]">
+              AI consulting in Lexington
+            </h1>
+            <p className="mt-7 text-[19px] md:text-[21px] leading-snug text-body max-w-[38ch]">
+              We are based here, so we can be in your building watching how the
+              work moves before anyone talks about building something.
+            </p>
           </div>
-          <p className="text-[15px] leading-relaxed text-charcoal max-w-[620px] mt-8">
-            None of those are AI problems on their face. That is why we start
-            with{" "}
-            <Link href="/ai-assessment" className="text-emerald hover:underline">
-              an assessment
-            </Link>{" "}
-            rather than a build. Some of them get solved by changing a process and
-            buying nothing.
-          </p>
+          <div className="order-1 lg:order-2 relative min-h-[300px] sm:min-h-[420px]">
+            <Image
+              src="/images/scenes/lexington-downtown.webp"
+              alt="Historic brick storefronts downtown at blue hour, one upstairs office window lit"
+              fill
+              priority
+              sizes="(min-width: 1024px) 58vw, 100vw"
+              className="object-cover"
+            />
+          </div>
         </div>
       </section>
 
-      <section className="py-20 px-6 md:px-12 max-w-content mx-auto">
-        <h2 className="font-display text-2xl font-bold mb-8">How it starts.</h2>
-        <ol className="space-y-6 max-w-[640px]">
-          <li className="flex gap-5">
-            <span className="font-display text-2xl font-bold text-[#e8e5e0] leading-none pt-0.5">
-              01
-            </span>
-            <p className="text-[15px] leading-relaxed text-charcoal">
-              A 30-minute call. We ask which parts of the business are in play,
-              what tools you run day to day, and who else has to agree before
-              anything happens. Nothing gets sold on that call.
+      <section className="px-4 md:px-10 py-24 md:py-32">
+        <div className="max-w-[1360px] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] gap-10 lg:gap-20">
+          <h2 className="font-display text-[32px] md:text-[48px] leading-[1.05] font-light tracking-tight text-ink">Where we work</h2>
+          <div>
+            <p className="text-[18px] md:text-[19px] leading-relaxed text-body max-w-[62ch]">
+              We work in person across Central Kentucky. Lexington and the counties
+              around it are close enough for us to visit on site.
             </p>
-          </li>
-          <li className="flex gap-5">
-            <span className="font-display text-2xl font-bold text-[#e8e5e0] leading-none pt-0.5">
-              02
-            </span>
-            <p className="text-[15px] leading-relaxed text-charcoal">
-              After the call you get an email with a recommendation and the reason
-              behind it. Sometimes the recommendation is that you do not need us
-              yet, with a couple of free things to go read instead.
+            <ul className="mt-10 flex flex-wrap gap-x-8 gap-y-3 border-y border-line py-7">
+              {counties.map((c) => (
+                <li key={c} className="font-display text-[20px] md:text-[24px] font-light text-ink">
+                  {c} County
+                </li>
+              ))}
+            </ul>
+            <p className="mt-10 text-[18px] md:text-[19px] leading-relaxed text-body max-w-[62ch]">
+              We work with businesses elsewhere in Kentucky over screen share. The
+              work is the same. You lose the part where we walk your floor, which
+              matters more in some businesses than others.
             </p>
-          </li>
-          <li className="flex gap-5">
-            <span className="font-display text-2xl font-bold text-[#e8e5e0] leading-none pt-0.5">
-              03
-            </span>
-            <p className="text-[15px] leading-relaxed text-charcoal">
-              If it is a fit, you get a fixed price for the next phase before you
-              commit to it. Every phase after that works the same way.
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-band px-4 md:px-10 py-24 md:py-32">
+        <div className="max-w-[1360px] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] gap-10 lg:gap-20">
+          <h2 className="font-display text-[32px] md:text-[48px] leading-[1.05] font-light tracking-tight text-ink">
+            What Lexington businesses bring us
+          </h2>
+          <div>
+            <ul className="divide-y divide-line border-y border-line">
+              {whatWeHear.map((w) => (
+                <li key={w} className="py-6 font-display text-[19px] md:text-[23px] font-light leading-snug text-ink">
+                  {w}
+                </li>
+              ))}
+            </ul>
+            <p className="mt-10 text-[18px] md:text-[19px] leading-relaxed text-body max-w-[62ch]">
+              None of those are AI problems on their face. That is why we start
+              with{" "}
+              <Link href="/ai-assessment" className="text-blue underline underline-offset-4 decoration-blue/40 hover:decoration-blue">
+                an assessment
+              </Link>{" "}
+              rather than a build. Some of them get solved by changing a process and
+              buying nothing.
             </p>
-          </li>
-        </ol>
+          </div>
+        </div>
+      </section>
+
+      <section className="px-4 md:px-10 py-24 md:py-32">
+        <div className="max-w-[1360px] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] gap-10 lg:gap-20">
+          <h2 className="font-display text-[32px] md:text-[48px] leading-[1.05] font-light tracking-tight text-ink">How it starts</h2>
+          <ol className="divide-y divide-line border-y border-line">
+            <li className="py-8 md:py-9 text-[18px] md:text-[19px] leading-relaxed text-body">
+                A 30-minute call. We ask which parts of the business are in play,
+                what tools you run day to day, and who else has to agree before
+                anything happens. Nothing gets sold on that call.
+            </li>
+            <li className="py-8 md:py-9 text-[18px] md:text-[19px] leading-relaxed text-body">
+                After the call you get an email with a recommendation and the reason
+                behind it. Sometimes the recommendation is that you do not need us
+                yet, with a couple of free things to go read instead.
+            </li>
+            <li className="py-8 md:py-9 text-[18px] md:text-[19px] leading-relaxed text-body">
+                If it is a fit, you get a fixed price for the next phase before you
+                commit to it. Every phase after that works the same way.
+            </li>
+          </ol>
+        </div>
       </section>
 
       <RelatedLinks

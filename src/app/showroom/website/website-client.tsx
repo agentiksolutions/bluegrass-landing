@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { BOOKING_URL } from "@/lib/site";
 
 const vibes = [
   {
@@ -46,9 +47,6 @@ export default function WebsiteGeneratorPage() {
   const [loading, setLoading] = useState(false);
   const [siteData, setSiteData] = useState<SiteData | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [showEmailCapture, setShowEmailCapture] = useState(false);
-  const [email, setEmail] = useState("");
-  const [emailSent, setEmailSent] = useState(false);
 
   const canProceed = () => {
     if (step === 0)
@@ -206,11 +204,11 @@ export default function WebsiteGeneratorPage() {
           <div className="mt-8 p-9 bg-[#242426] rounded-lg">
             <div className="flex flex-col md:flex-row justify-between items-start gap-4">
               <div>
-                <p className="text-[11px] font-semibold tracking-[2px] text-emerald uppercase mb-2">
+                <p className="text-[11px] font-semibold font-display tracking-[2px] text-emerald mb-2">
                   Preview Generated
                 </p>
                 <h3 className="font-display text-[22px] font-bold text-warm-white mb-2">
-                  This is what {formData.businessName} could look like.
+                  This is what {formData.businessName} could look like
                 </h3>
                 <p className="text-sm text-stone leading-relaxed max-w-[420px]">
                   This is a quick concept. The real site would be custom-built
@@ -218,50 +216,14 @@ export default function WebsiteGeneratorPage() {
                 </p>
               </div>
 
-              {!showEmailCapture && !emailSent && (
-                <button
-                  onClick={() => setShowEmailCapture(true)}
-                  className="bg-emerald text-warm-white px-7 py-3 rounded text-[13px] font-semibold whitespace-nowrap shrink-0 hover:bg-sage transition-colors cursor-pointer"
-                >
-                  Send Me This
-                </button>
-              )}
+              {/* ponytail: this used to collect an email and send nothing. A booking link is honest. */}
+              <a
+                href={BOOKING_URL}
+                className="bg-emerald text-warm-white px-7 py-3 rounded text-[13px] font-semibold whitespace-nowrap shrink-0 hover:bg-sage transition-colors"
+              >
+                Book a call
+              </a>
             </div>
-
-            {showEmailCapture && !emailSent && (
-              <div className="mt-6 pt-6 border-t border-[#333] flex gap-3 items-end">
-                <div className="flex-1">
-                  <label className="text-xs text-charcoal block mb-1.5">
-                    Your email
-                  </label>
-                  <input
-                    type="email"
-                    placeholder="you@yourbusiness.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="w-full px-4 py-3 border border-[#444] rounded bg-graphite text-warm-white text-sm outline-none focus:border-emerald transition-colors"
-                    autoFocus
-                  />
-                </div>
-                <button
-                  onClick={() => {
-                    if (email.includes("@")) setEmailSent(true);
-                  }}
-                  className="bg-emerald text-warm-white px-6 py-3 rounded text-[13px] font-semibold whitespace-nowrap cursor-pointer hover:bg-sage transition-colors"
-                >
-                  Send
-                </button>
-              </div>
-            )}
-
-            {emailSent && (
-              <div className="mt-6 pt-6 border-t border-[#333]">
-                <p className="text-sm text-emerald font-semibold">
-                  Done. We&apos;ll send this over along with a few ideas for{" "}
-                  {formData.businessName}.
-                </p>
-              </div>
-            )}
           </div>
 
           {/* Actions */}
@@ -276,9 +238,6 @@ export default function WebsiteGeneratorPage() {
                   vibe: "",
                   location: "",
                 });
-                setEmail("");
-                setEmailSent(false);
-                setShowEmailCapture(false);
               }}
               className="text-charcoal text-[13px] hover:text-warm-white transition-colors cursor-pointer"
             >
@@ -331,7 +290,7 @@ export default function WebsiteGeneratorPage() {
         {step === 0 && (
           <div>
             <h2 className="font-display text-[28px] font-bold mb-2">
-              Tell us about your business.
+              Tell us about your business
             </h2>
             <p className="text-sm text-stone mb-8">
               We&apos;ll generate a live website preview based on what you tell
@@ -390,7 +349,7 @@ export default function WebsiteGeneratorPage() {
         {step === 1 && (
           <div>
             <h2 className="font-display text-[28px] font-bold mb-2">
-              Pick a style.
+              Pick a style
             </h2>
             <p className="text-sm text-stone mb-8">
               This sets the tone for your preview. The real site would be

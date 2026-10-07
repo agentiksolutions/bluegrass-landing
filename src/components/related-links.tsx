@@ -7,30 +7,37 @@ interface RelatedLink {
 }
 
 /**
- * Text link grid used at the foot of the guide pages. Keeps every one of them
+ * Ruled list of links at the foot of the guide pages. Keeps every one of them
  * pointing at two or more existing pages without a second CTA block.
  */
 export default function RelatedLinks({
-  heading = "Keep reading.",
+  heading = "Keep reading",
   links,
 }: {
   heading?: string;
   links: RelatedLink[];
 }) {
   return (
-    <section className="px-6 md:px-12 pb-24 max-w-content mx-auto">
-      <h2 className="font-display text-2xl font-bold mb-8">{heading}</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {links.map((l) => (
-          <Link key={l.href} href={l.href} className="group">
-            <div className="p-6 bg-white rounded-lg border border-line h-full transition-all group-hover:border-emerald group-hover:-translate-y-0.5">
-              <h3 className="font-display text-lg font-bold leading-snug text-graphite group-hover:text-emerald transition-colors">
-                {l.label}
-              </h3>
-              <p className="text-sm leading-relaxed text-stone mt-2">{l.blurb}</p>
-            </div>
-          </Link>
-        ))}
+    <section className="px-4 md:px-10 pb-24 md:pb-32">
+      <div className="max-w-[1360px] mx-auto border-t border-line pt-14 md:pt-20 grid grid-cols-1 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] gap-10 lg:gap-20">
+        <h2 className="font-display text-[28px] md:text-[36px] leading-[1.05] font-light tracking-tight text-ink">
+          {heading}
+        </h2>
+        <ul className="divide-y divide-line border-y border-line">
+          {links.map((l) => (
+            <li key={l.href}>
+              <Link
+                href={l.href}
+                className="group grid grid-cols-1 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] gap-2 md:gap-10 py-6 md:py-7"
+              >
+                <span className="font-display text-[20px] md:text-[24px] font-light leading-snug text-ink transition-colors group-hover:text-blue">
+                  {l.label}
+                </span>
+                <span className="text-[17px] md:text-[18px] leading-relaxed text-body">{l.blurb}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );

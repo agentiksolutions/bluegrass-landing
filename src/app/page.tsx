@@ -234,7 +234,7 @@ export default function HomePage() {
             </ParallaxBand>
             <div>
               <h2 className="font-display text-[40px] md:text-[60px] leading-[1.02] font-light tracking-tight text-ink max-w-[16ch]">
-                Start with the work, then add AI.
+                Start with the work, then add AI
               </h2>
               <p className="mt-7 text-[19px] md:text-[21px] leading-snug text-body max-w-[44ch]">
                 The Roadmap starts with how your work gets done today. You show us in one screen
@@ -262,7 +262,7 @@ export default function HomePage() {
           </p>
           <div className="grid grid-cols-1 lg:grid-cols-2">
             <Link href="/work/pfsa" className="group block">
-              <ParallaxBand className="h-[44svh] min-h-[300px] lg:h-[50vh] bg-ink" distance={34}>
+              <ParallaxBand className="aspect-[2/1] lg:aspect-auto lg:h-[50vh] bg-ink" distance={34}>
                 <Image
                   src={photos.pfsaSite.src}
                   alt={photos.pfsaSite.alt}
@@ -281,7 +281,7 @@ export default function HomePage() {
               </div>
             </Link>
             <Link href="/work/restaurant-franchisee" className="group block">
-              <ParallaxBand className="h-[44svh] min-h-[300px] lg:h-[50vh] bg-ink" distance={34}>
+              <ParallaxBand className="aspect-[2/1] lg:aspect-auto lg:h-[50vh] bg-ink" distance={34}>
                 <Image
                   src="/images/scenes/store-blue-hour.webp"
                   alt="A small brick restaurant at blue hour, lit from inside, with a wet empty parking lot"

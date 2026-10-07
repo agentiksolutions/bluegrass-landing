@@ -143,8 +143,8 @@ export default function ContactPage() {
     <section className="pt-28 lg:pt-32 pb-20 px-4 md:px-10 max-w-[1360px] mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-20 gap-y-10 items-start">
         <div>
-          <h1 className="font-display text-[36px] lg:text-[44px] leading-tight font-bold tracking-tight text-ink">
-            Let&apos;s see if I can help.
+          <h1 className="font-display text-[44px] lg:text-[64px] leading-[1.0] font-extralight tracking-[-0.03em] text-ink">
+            Let&apos;s see if I can help
           </h1>
           {/* The person who reads the form. Laptop only; on a phone the form comes first. */}
           <Image
@@ -418,7 +418,7 @@ function SuccessState({
         </svg>
       </div>
 
-      <h2 className="font-display text-2xl font-bold text-graphite mb-3">
+      <h2 className="font-display text-[32px] font-light text-ink mb-3">
         Got it, {firstName}.
       </h2>
 
@@ -428,7 +428,7 @@ function SuccessState({
 
       {calendlyUrl ? (
         <>
-          <div className="text-[13px] font-semibold tracking-wide text-emerald uppercase mb-3">
+          <div className="text-[13px] font-semibold font-display text-emerald mb-3">
             Or book your call now
           </div>
           <a

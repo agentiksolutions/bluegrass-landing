@@ -84,7 +84,7 @@ export default function ReportPage() {
       <div className="min-h-screen px-5 py-10 pt-[108px]">
         <div className="max-w-[720px] mx-auto">
           <div className="mb-10">
-            <div className="text-[11px] font-semibold tracking-[2px] text-emerald uppercase mb-2">
+            <div className="text-[11px] font-semibold font-display tracking-[2px] text-emerald mb-2">
               AI Opportunity Report
             </div>
             <div className="text-[13px] text-stone mb-5">
@@ -99,7 +99,7 @@ export default function ReportPage() {
           </div>
 
           <div className="mb-10">
-            <div className="text-xs font-semibold tracking-[2px] text-stone uppercase mb-5">
+            <div className="text-xs font-semibold font-display tracking-[2px] text-stone mb-5">
               Top Opportunities
             </div>
             {report.opportunities.map((opp, i) => (
@@ -110,7 +110,7 @@ export default function ReportPage() {
                 <div className="flex justify-between items-start mb-3">
                   <h3 className="font-display text-xl font-bold">{opp.title}</h3>
                   <span
-                    className={`text-[11px] font-bold tracking-wider uppercase px-2.5 py-1 rounded-[3px] whitespace-nowrap ${impactColor(
+                    className={`text-[11px] font-bold px-2.5 py-1 rounded-[3px] whitespace-nowrap ${impactColor(
                       opp.impact
                     )}`}
                   >
@@ -128,14 +128,14 @@ export default function ReportPage() {
           </div>
 
           <div className="bg-emerald rounded-lg p-7 mb-10 text-warm-white">
-            <div className="text-[11px] font-semibold tracking-[2px] uppercase mb-3 opacity-70">
+            <div className="text-[11px] font-semibold font-display tracking-[2px] mb-3 opacity-70">
               This Week&apos;s Quick Win
             </div>
             <p className="text-[15px] leading-relaxed">{report.quickWin}</p>
           </div>
 
           <div className="border-t border-line pt-7 mb-10">
-            <div className="text-xs font-semibold tracking-[2px] text-stone uppercase mb-3">
+            <div className="text-xs font-semibold font-display tracking-[2px] text-stone mb-3">
               The Bottom Line
             </div>
             <p className="font-display text-xl leading-relaxed font-semibold italic text-graphite">

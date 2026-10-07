@@ -69,9 +69,9 @@ const industries: Record<
     ],
     tableHeaders: ["Location", "Revenue", "Food %", "Labor %", "Profit"],
     tableRows: [
-      ["Store #1, Hamburg", "$142,600", "27.1%", "30.8%", "$18,200"],
-      ["Store #2, Richmond Rd", "$128,400", "29.8%", "32.1%", "$14,100"],
-      ["Store #3, Nicholasville", "$118,900", "28.2%", "30.6%", "$16,800"],
+      ["Store A, Downtown", "$142,600", "27.1%", "30.8%", "$18,200"],
+      ["Store B, Eastside", "$128,400", "29.8%", "32.1%", "$14,100"],
+      ["Store C, Westside", "$118,900", "28.2%", "30.6%", "$16,800"],
     ],
   },
   contractor: {
@@ -228,7 +228,7 @@ export default function DashboardDemoPage() {
           </div>
 
           <h2 className="font-display text-[28px] font-bold mb-2">
-            Pick your industry.
+            Pick your industry
           </h2>
           <p className="text-sm text-stone mb-8">
             See what your numbers could look like in a real dashboard. Sample
@@ -512,7 +512,7 @@ export default function DashboardDemoPage() {
         <div className="bg-graphite rounded-lg p-9 flex flex-col md:flex-row justify-between items-center gap-4">
           <div>
             <h3 className="font-display text-xl font-bold text-warm-white mb-1.5">
-              This is what your data could look like.
+              This is what your data could look like
             </h3>
             <p className="text-[13px] text-stone leading-relaxed">
               Connected to your systems and updated automatically.

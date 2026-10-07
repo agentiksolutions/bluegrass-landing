@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { pageMeta } from "@/lib/metadata";
 import Link from "next/link";
-import SectionLabel from "@/components/section-label";
 import CTABand from "@/components/cta-band";
 import JsonLd from "@/components/json-ld";
 import RelatedLinks from "@/components/related-links";
@@ -78,38 +77,40 @@ export default function FAQPage() {
     <>
       <JsonLd data={faqJsonLd} />
 
-      <section className="pt-[148px] pb-8 px-6 md:px-12 max-w-content mx-auto">
-        <SectionLabel>Questions</SectionLabel>
-        <h1 className="font-display text-[clamp(36px,5vw,52px)] leading-[1.1] font-bold tracking-tight mb-4">
-          Questions we get asked.
-        </h1>
-        <p className="text-lg leading-relaxed text-charcoal max-w-[620px] mb-16">
-          Ten questions from intro calls, answered the way we answer them on
-          the phone.
-        </p>
+      <section className="mt-16 lg:mt-[72px] px-4 md:px-10 pt-16 md:pt-24 pb-14">
+        <div className="max-w-[1360px] mx-auto">
+          <h1 className="font-display text-[48px] sm:text-[68px] lg:text-[88px] leading-[0.95] font-extralight tracking-[-0.03em] text-ink">
+            Questions we get asked
+          </h1>
+          <p className="mt-6 text-[19px] md:text-[22px] leading-snug text-body max-w-[44ch]">
+            Ten questions from intro calls, answered the way we answer them on
+            the phone.
+          </p>
+        </div>
       </section>
 
-      <section className="px-6 md:px-12 pb-20 max-w-content mx-auto">
-        <div className="flex flex-col">
-          {faqs.map((f) => (
-            <div key={f.q} className="py-8 border-t border-line">
-              <h2 className="font-display text-xl font-bold mb-3 max-w-[680px]">
-                {f.q}
-              </h2>
-              <p className="text-[15px] leading-relaxed text-charcoal max-w-[680px]">
-                {f.a}
-              </p>
-              {f.link && (
-                <Link
-                  href={f.link.href}
-                  className="inline-block mt-4 text-[13px] font-semibold text-emerald hover:underline"
-                >
-                  {f.link.label} &rarr;
-                </Link>
-              )}
-            </div>
-          ))}
-          <div className="border-t border-line" />
+      <section className="px-4 md:px-10 pb-24 md:pb-32">
+        <div className="max-w-[1360px] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] gap-10 lg:gap-20">
+          <div className="lg:col-start-2 divide-y divide-line border-y border-line">
+            {faqs.map((f) => (
+              <div key={f.q} className="py-8 md:py-10">
+                <h2 className="font-display text-[22px] md:text-[26px] font-light leading-snug text-ink max-w-[40ch]">
+                  {f.q}
+                </h2>
+                <p className="mt-4 text-[18px] leading-relaxed text-body max-w-[64ch]">
+                  {f.a}
+                </p>
+                {f.link && (
+                  <Link
+                    href={f.link.href}
+                    className="inline-block mt-5 font-display text-[15px] text-blue underline underline-offset-4 decoration-blue/40 hover:decoration-blue"
+                  >
+                    {f.link.label} &rarr;
+                  </Link>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

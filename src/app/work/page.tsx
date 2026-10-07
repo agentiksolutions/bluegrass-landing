@@ -30,7 +30,7 @@ export default function WorkPage() {
     <>
       <section className="pt-28 lg:pt-32 pb-16 px-4 md:px-10 min-h-[100svh]">
         <div className="max-w-[1360px] mx-auto">
-          <h1 className="font-display text-[36px] lg:text-[48px] leading-tight font-bold tracking-tight text-ink">
+          <h1 className="font-display text-[48px] sm:text-[68px] lg:text-[88px] leading-[0.95] font-extralight tracking-[-0.03em] text-ink">
             Work
           </h1>
           <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -45,7 +45,7 @@ export default function WorkPage() {
                     className="object-contain"
                   />
                 </div>
-                <h2 className="mt-4 font-display text-[22px] font-bold text-ink group-hover:text-blue">
+                <h2 className="mt-5 font-display text-[24px] md:text-[30px] font-light text-ink transition-colors group-hover:text-blue">
                   {c.title}
                 </h2>
               </Link>

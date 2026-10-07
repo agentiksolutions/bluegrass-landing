@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { pageMeta } from "@/lib/metadata";
+import Image from "next/image";
 import Link from "next/link";
-import SectionLabel from "@/components/section-label";
 import CTABand from "@/components/cta-band";
 import RelatedLinks from "@/components/related-links";
 
@@ -58,51 +58,63 @@ const tools = [
 export default function AIToolsPage() {
   return (
     <>
-      <section className="pt-[148px] pb-8 px-6 md:px-12 max-w-content mx-auto">
-        <SectionLabel>What we build</SectionLabel>
-        <h1 className="font-display text-[clamp(36px,5vw,52px)] leading-[1.1] font-bold tracking-tight mb-4">
-          The tools we build most often.
-        </h1>
-        <p className="text-lg leading-relaxed text-charcoal max-w-[620px] mb-4">
-          Every business believes its problem is unique. The problems mostly are.
-          The tools that solve them turn out to be the same eight, arranged
-          differently.
-        </p>
-        <p className="text-[15px] leading-relaxed text-charcoal max-w-[620px] mb-16">
-          Each one below comes with what it will not do, because that is the part
-          you need before you buy, rather than after.
-        </p>
-      </section>
-
-      <section className="px-6 md:px-12 pb-20 max-w-content mx-auto">
-        <div className="flex flex-col">
-          {tools.map((t) => (
-            <div key={t.title} className="py-8 border-t border-line">
-              <h2 className="font-display text-xl font-bold mb-3">{t.title}</h2>
-              <p className="text-[15px] leading-relaxed text-charcoal max-w-[680px] mb-4">
-                {t.what}
-              </p>
-              <p className="text-[14px] leading-relaxed text-stone max-w-[680px]">
-                {t.limit}
-              </p>
-            </div>
-          ))}
-          <div className="border-t border-line" />
+      <section className="relative mt-16 lg:mt-[72px] bg-ink">
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:min-h-[max(520px,calc(90svh-72px))]">
+          <div className="order-2 lg:order-1 px-4 md:px-10 py-12 lg:py-16 flex flex-col justify-center">
+            <h1 className="font-display text-[40px] sm:text-[54px] lg:text-[66px] leading-[1.0] font-extralight tracking-[-0.03em] text-ink max-w-[13ch]">
+              The tools we build most often
+            </h1>
+            <p className="mt-7 text-[19px] md:text-[21px] leading-snug text-body max-w-[38ch]">
+              Every business believes its problem is unique. The problems mostly are.
+              The tools that solve them turn out to be the same eight, arranged
+              differently.
+            </p>
+          </div>
+          <div className="order-1 lg:order-2 relative min-h-[300px] sm:min-h-[420px]">
+            <Image
+              src="/images/scenes/inbox-sorting.webp"
+              alt="An office manager at dusk pointing at an inbox sorted into groups on a large monitor"
+              fill
+              priority
+              sizes="(min-width: 1024px) 58vw, 100vw"
+              className="object-cover"
+            />
+          </div>
         </div>
       </section>
 
-      <section className="bg-cream py-20 px-6 md:px-12">
-        <div className="max-w-content mx-auto">
-          <div className="max-w-[680px]">
-            <h2 className="font-display text-2xl font-bold mb-6">
-              A person approves anything that leaves the building.
-            </h2>
-            <p className="text-[15px] leading-relaxed text-charcoal mb-4">
+      <section className="px-4 md:px-10 py-24 md:py-32">
+        <div className="max-w-[1360px] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] gap-10 lg:gap-20">
+          <p className="text-[18px] md:text-[19px] leading-relaxed text-body max-w-[36ch]">
+            Each one below comes with what it will not do, because that is the part
+            you need before you buy, rather than after.
+          </p>
+          <ul className="divide-y divide-line border-y border-line">
+            {tools.map((t) => (
+              <li key={t.title} className="grid grid-cols-1 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] gap-3 md:gap-10 py-8 md:py-10">
+                <h2 className="font-display text-[24px] md:text-[30px] font-light leading-tight text-ink">{t.title}</h2>
+                <div>
+                  <p className="text-[18px] md:text-[19px] leading-relaxed text-body">{t.what}</p>
+                  <p className="mt-4 text-[17px] leading-relaxed text-muted">{t.limit}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="bg-band px-4 md:px-10 py-24 md:py-32">
+        <div className="max-w-[1360px] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] gap-10 lg:gap-20">
+          <h2 className="font-display text-[32px] md:text-[48px] leading-[1.05] font-light tracking-tight text-ink">
+            A person approves anything that leaves the building
+          </h2>
+          <div className="max-w-[62ch] space-y-5">
+            <p className="text-[18px] md:text-[19px] leading-relaxed text-body">
               Every one of these proposes and a person decides. No email reaches a
               customer, no document publishes, and no record changes because an
               automation felt confident about it.
             </p>
-            <p className="text-[15px] leading-relaxed text-charcoal">
+            <p className="text-[18px] md:text-[19px] leading-relaxed text-body">
               That is slower than full automation. As you watch a tool get it
               right over time, you can widen what it is allowed to do. That
               decision stays yours.
@@ -111,24 +123,26 @@ export default function AIToolsPage() {
         </div>
       </section>
 
-      <section className="py-20 px-6 md:px-12 max-w-content mx-auto">
-        <div className="max-w-[680px]">
-          <h2 className="font-display text-2xl font-bold mb-6">
-            What we do not sell.
+      <section className="px-4 md:px-10 py-24 md:py-32">
+        <div className="max-w-[1360px] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] gap-10 lg:gap-20">
+          <h2 className="font-display text-[32px] md:text-[48px] leading-[1.05] font-light tracking-tight text-ink">
+            What we do not sell
           </h2>
-          <p className="text-[15px] leading-relaxed text-charcoal mb-4">
-            Customer-facing chatbots are a different product with different risks,
-            and they are not what we do. Neither is anything we cannot show you
-            running before you pay for it.
-          </p>
-          <p className="text-[15px] leading-relaxed text-charcoal">
-            If you want to see the difference, the{" "}
-            <Link href="/showroom" className="text-emerald hover:underline">
-              showroom
-            </Link>{" "}
-            has working tools you can use right now without giving anyone your
-            email address.
-          </p>
+          <div className="max-w-[62ch] space-y-5">
+            <p className="text-[18px] md:text-[19px] leading-relaxed text-body">
+              Customer-facing chatbots are a different product with different risks,
+              and they are not what we do. Neither is anything we cannot show you
+              running before you pay for it.
+            </p>
+            <p className="text-[18px] md:text-[19px] leading-relaxed text-body">
+              If you want to see the difference, the{" "}
+              <Link href="/showroom" className="text-blue underline underline-offset-4 decoration-blue/40 hover:decoration-blue">
+                showroom
+              </Link>{" "}
+              has working tools you can use right now without giving anyone your
+              email address.
+            </p>
+          </div>
         </div>
       </section>
 

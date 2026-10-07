@@ -19,7 +19,7 @@ export default function CTABand({
     <section className="bg-band px-4 md:px-10 py-16 md:py-20">
       <div className="max-w-[1360px] mx-auto flex flex-col md:flex-row md:items-end md:justify-between gap-8">
         <div className="max-w-[560px]">
-          <h2 className="font-display text-[30px] md:text-[36px] leading-tight font-bold tracking-tight text-ink">
+          <h2 className="font-display text-[32px] md:text-[44px] leading-[1.08] font-light tracking-tight text-ink">
             {headline}
           </h2>
           {subtext && <p className="mt-3 text-[18px] leading-relaxed text-body">{subtext}</p>}

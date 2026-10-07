@@ -20,7 +20,7 @@ export function CaseStudyHero({
       <div className="w-full max-w-[1360px] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] gap-0 lg:gap-12 lg:items-center lg:px-10 lg:py-12">
         <div className="order-2 lg:order-1 px-4 md:px-10 lg:px-0 py-8 lg:py-0">
           <p className="font-display text-[16px] font-semibold text-blue">{label}</p>
-          <h1 className="mt-2 font-display text-[36px] lg:text-[48px] leading-[1.05] font-bold tracking-tight text-ink">
+          <h1 className="mt-2 font-display text-[40px] lg:text-[60px] leading-[1.0] font-extralight tracking-[-0.03em] text-ink">
             {title}
           </h1>
           <div className="mt-5 text-[19px] leading-relaxed text-body">{intro}</div>
@@ -45,7 +45,7 @@ export function CaseSection({ title, children }: { title: string; children: Reac
   return (
     <section className="px-4 md:px-10 py-10 md:py-12">
       <div className="max-w-[1360px] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] gap-4 lg:gap-16 border-t border-line pt-8">
-        <h2 className="font-display text-[26px] font-bold tracking-tight text-ink">{title}</h2>
+        <h2 className="font-display text-[28px] md:text-[36px] font-light tracking-tight text-ink">{title}</h2>
         <div className="text-[19px] leading-relaxed text-body space-y-4 max-w-[64ch]">{children}</div>
       </div>
     </section>
@@ -55,7 +55,7 @@ export function CaseSection({ title, children }: { title: string; children: Reac
 export function CaseQuote({ quote, cite = "Phil Fifield" }: { quote: string; cite?: string }) {
   return (
     <blockquote className="border-t border-ink/20 pt-4">
-      <p className="font-display text-[21px] leading-snug font-medium text-ink">&ldquo;{quote}&rdquo;</p>
+      <p className="font-display text-[24px] md:text-[32px] leading-snug font-light text-ink">&ldquo;{quote}&rdquo;</p>
       <cite className="block mt-2 not-italic font-display text-[14px] text-muted">{cite}</cite>
     </blockquote>
   );
