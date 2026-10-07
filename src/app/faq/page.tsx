@@ -40,7 +40,7 @@ const faqs: { q: string; a: string; link?: { href: string; label: string } }[] =
   },
   {
     q: "Is this going to replace my employees?",
-    a: "No, and we would tell you if we thought otherwise. The work we build takes the repetitive parts of a job away from the people doing it so they spend their time on the parts that need judgment. Every system we build assumes a person approves anything consequential before it goes out.",
+    a: "No, and we would tell you if we thought otherwise. The work we build takes the repetitive parts of a job away from the people doing it so they spend their time on the parts that need judgment. Every system we build assumes a person approves anything that goes to a customer.",
   },
   {
     q: "Who owns what you build?",

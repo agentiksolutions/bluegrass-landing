@@ -31,7 +31,6 @@ interface Report {
     title: string;
     impact: string;
     description: string;
-    savings: string;
   }[];
   quickWin: string;
   bottomLine: string;
@@ -85,7 +84,7 @@ export default function ReportPage() {
         <div className="max-w-[720px] mx-auto">
           <div className="mb-10">
             <div className="text-[11px] font-semibold font-display tracking-[2px] text-emerald mb-2">
-              AI Opportunity Report
+              AI Readiness Report
             </div>
             <div className="text-[13px] text-stone mb-5">
               Prepared for{" "}
@@ -117,12 +116,9 @@ export default function ReportPage() {
                     {opp.impact} Impact
                   </span>
                 </div>
-                <p className="text-sm leading-relaxed text-charcoal mb-3">
+                <p className="text-sm leading-relaxed text-charcoal">
                   {opp.description}
                 </p>
-                <div className="text-[13px] font-semibold text-emerald">
-                  Est. savings: {opp.savings}
-                </div>
               </div>
             ))}
           </div>
@@ -202,7 +198,7 @@ export default function ReportPage() {
             Bluegrass <span className="text-emerald">Advisory</span>
           </div>
           <p className="text-sm text-stone">
-            AI Opportunity Report: free, with no signup
+            AI Readiness Report: free, with no signup
           </p>
         </div>
 

@@ -106,13 +106,13 @@ export default function AIToolsPage() {
       <section className="bg-band px-4 md:px-10 py-24 md:py-32">
         <div className="max-w-[1360px] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] gap-10 lg:gap-20">
           <h2 className="font-display text-[32px] md:text-[48px] leading-[1.05] font-light tracking-tight text-ink">
-            A person approves anything that leaves the building
+            A person approves anything that goes to a customer
           </h2>
           <div className="max-w-[62ch] space-y-5">
             <p className="text-[18px] md:text-[19px] leading-relaxed text-body">
-              Every one of these proposes and a person decides. No email reaches a
-              customer, no document publishes, and no record changes because an
-              automation felt confident about it.
+              Every one of these proposes and a person decides. No email or
+              document reaches a customer because an automation felt confident
+              about it.
             </p>
             <p className="text-[18px] md:text-[19px] leading-relaxed text-body">
               That is slower than full automation. As you watch a tool get it

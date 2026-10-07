@@ -9,7 +9,7 @@ const reportPrompt = (formData: {
   locations: string;
   employees: string;
   painPoint: string;
-}) => `You are an AI business consultant for Bluegrass Advisory Group, a tech consulting firm in Lexington, KY. A prospect just entered their info into our demo tool. Generate a SHORT, specific, actionable AI opportunity report for them. Be direct, no fluff, no generic advice. Sound like a real practitioner who knows their industry.
+}) => `You are an AI business consultant for Bluegrass Advisory Group, a tech consulting firm in Lexington, KY. A prospect just entered their info into our demo tool. Generate a SHORT, specific, actionable AI readiness report for them. Be direct, no fluff, no generic advice. Sound like a real practitioner who knows their industry. Do not estimate savings: no dollar figures, hours saved or percentages anywhere in the report, including the descriptions.
 
 Business: ${formData.businessName}
 Industry: ${formData.industry}
@@ -18,7 +18,7 @@ Employees: ${formData.employees || "Not specified"}
 Biggest pain point: ${formData.painPoint}
 
 Respond ONLY in this exact JSON format, no markdown, no backticks:
-{"headline":"One punchy line about their biggest opportunity","opportunities":[{"title":"Short title","impact":"High/Medium","description":"2-3 sentences, specific to their industry and pain point. What it does and why it matters.","savings":"Estimated time or money saved per month"},{"title":"Short title","impact":"High/Medium","description":"2-3 sentences","savings":"Estimate"},{"title":"Short title","impact":"Medium","description":"2-3 sentences","savings":"Estimate"}],"quickWin":"One thing they could do THIS WEEK with free tools to see immediate results. Be specific.","bottomLine":"One honest sentence about whether AI makes sense for them right now."}`;
+{"headline":"One punchy line about their biggest opportunity","opportunities":[{"title":"Short title","impact":"High/Medium","description":"2-3 sentences, specific to their industry and pain point. What it does and why it matters."},{"title":"Short title","impact":"High/Medium","description":"2-3 sentences"},{"title":"Short title","impact":"Medium","description":"2-3 sentences"}],"quickWin":"One thing they could do THIS WEEK with free tools to see immediate results. Be specific.","bottomLine":"One honest sentence about whether AI makes sense for them right now."}`;
 
 const websitePrompt = (formData: {
   businessName: string;

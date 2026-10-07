@@ -6,15 +6,15 @@ import CTABand from "@/components/cta-band";
 export const metadata: Metadata = pageMeta({
   title: "Showroom",
   description:
-    "Try AI tools for your business without signing up. Interactive demos for dashboards, websites, and AI opportunity reports. Lexington, KY.",
+    "Try AI tools for your business without signing up. Interactive demos for dashboards, websites, and AI readiness reports. Lexington, KY.",
   path: "/showroom",
 });
 
 const rooms = [
   {
     id: "report",
-    title: "AI Opportunity Report",
-    desc: "Enter your business details and get a report on where AI could save you time and money, specific to your industry and size.",
+    title: "AI Readiness Report",
+    desc: "Enter your business details and get a short report on where AI fits your business, specific to your industry and size.",
     href: "/showroom/report",
   },
   {
