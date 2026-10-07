@@ -25,6 +25,13 @@ scene faces the screen on purpose, so no visitor takes him for Phil.
 | `scenes/inbox-sorting.webp` | AI integration page | An office manager pointing at an inbox sorted into groups |
 | `scenes/back-office-dashboard.webp` | Dashboards page | A restaurant manager looking up at a back-office dashboard |
 | `scenes/process-map.webp` | Operations page | A hand-drawn process map on a whiteboard at night |
+| `scenes/assessment-walkthrough.webp` | AI assessment page | One person pointing at a spreadsheet while another takes notes |
+| `scenes/owner-reviewing-plan.webp` | AI consulting cost page | An owner at a kitchen table at night reading a printed plan |
+| `scenes/lexington-downtown.webp` | Lexington page | Historic brick storefronts at blue hour, one upstairs window lit |
+| `scenes/small-business-counter.webp` | Kentucky small business page | An owner at the counter after closing with a laptop and order slips |
+| `scenes/multi-location-truck.webp` | Multi-location dashboards page | A manager in a truck at dusk checking a tablet of locations |
+| `scenes/back-office.webp` (reused) | Hospitality page | Same still as the home Support row |
+| `scenes/inbox-sorting.webp` (reused) | AI tools page | Same still as the AI integration page |
 
 Blog covers in `public/images/insights/`, same model and brief:
 
