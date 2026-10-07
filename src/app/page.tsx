@@ -4,10 +4,10 @@ import Image from "next/image";
 import CTABand from "@/components/cta-band";
 import HeroNetwork from "@/components/hero-network";
 import JsonLd from "@/components/json-ld";
-import { BlurWords, FadeIn, ParallaxBand, ScrollThread } from "@/components/motion";
+import { BlurWords, FadeIn, ScrollThread } from "@/components/motion";
 import { getAllPosts } from "@/lib/mdx";
 import { pageMeta } from "@/lib/metadata";
-import { AssistantPanel, PortalPanel, StatusBoard, SystemsMap } from "@/components/work-panels";
+import { AssistantPanel, SupportThread, SystemsMap } from "@/components/work-panels";
 import { photos } from "@/lib/photos";
 import { BOOKING_URL } from "@/lib/site";
 
@@ -84,7 +84,7 @@ const services: {
   line: string;
   names: string;
   href: string;
-  visual: "academy" | "assistant" | "status";
+  visual: "academy" | "assistant" | "support";
 }[] = [
   {
     title: "Education",
@@ -105,7 +105,7 @@ const services: {
     line: "We keep it running and pick up when you call.",
     names: "Monthly plans · Office Hours · Embedded Retainer · Workspace Tune-Up",
     href: "/services",
-    visual: "status",
+    visual: "support",
   },
 ];
 
@@ -138,14 +138,14 @@ const markets = [
 
 function ServiceVisual({ visual }: { visual: (typeof services)[number]["visual"] }) {
   if (visual === "assistant") return <AssistantPanel />;
-  if (visual === "status") return <StatusBoard />;
+  if (visual === "support") return <SupportThread />;
   return (
     <Image
-      src="/images/work/academy.webp"
+      src="/images/work/academy-4k.webp"
       alt="The BAG Academy course page: AI Foundations, a practical course on using AI at work, with the lesson list down the side"
       fill
-      sizes="(min-width: 1024px) 58vw, 100vw"
-      className="object-cover object-left-top"
+      sizes="(min-width: 1024px) 760px, 100vw"
+      className="object-cover"
     />
   );
 }
@@ -155,23 +155,23 @@ export default function HomePage() {
 
   // Motion on this page (Phil, 2026-09-26: "It has to flow"), each idea used once:
   // the hero network, the only thing that keeps moving; the hero words out of a blur; one thread
-  // down the left edge that fills as you scroll; the job board ticking to done; the systems map
-  // drawing its lines; the PFSA screenshot drifting with the scroll. Everything else stays still.
+  // down the left edge that fills as you scroll; the support reply fading in; the systems map
+  // drawing its lines. Everything else stays still.
   return (
     <>
       <JsonLd data={organizationJsonLd} />
       <JsonLd data={websiteJsonLd} />
 
       {/* 1. Hero. The network is drawn live on the device, so it is sharp at any resolution. */}
-      <section className="relative h-[100svh] min-h-[600px] mt-16 lg:mt-[72px] overflow-hidden bg-ink">
+      <section className="relative h-[100svh] md:h-[84svh] min-h-[560px] md:max-h-[860px] mt-16 lg:mt-[72px] overflow-hidden bg-ink">
         <HeroNetwork />
-        <div className="relative px-4 md:px-10 pt-14 md:pt-20">
-          <div className="max-w-[1360px] mx-auto">
-            <h1 className="font-display text-[44px] sm:text-[68px] lg:text-[104px] leading-[0.95] font-extralight tracking-[-0.03em] text-ink max-w-[13ch]">
+        <div className="relative h-full px-4 md:px-10 pt-14 md:pt-0 md:flex md:items-center">
+          <div className="max-w-[1360px] w-full mx-auto">
+            <h1 className="font-display text-[44px] sm:text-[64px] lg:text-[84px] leading-[0.97] font-extralight tracking-[-0.03em] text-ink max-w-[12ch]">
               <BlurWords text="Your AI partner in Central Kentucky." />
             </h1>
             <FadeIn delay={1.3}>
-              <p className="mt-7 text-[19px] md:text-[23px] leading-snug text-body max-w-[40ch]">
+              <p className="mt-7 text-[19px] md:text-[23px] leading-snug text-body max-w-[30ch]">
                 We teach your team, build your AI tools, and support them after.
               </p>
             </FadeIn>
@@ -248,32 +248,33 @@ export default function HomePage() {
           <h2 className="px-4 md:px-10 max-w-[1360px] mx-auto mb-14 md:mb-20 font-display text-[40px] md:text-[64px] leading-none font-light tracking-tight text-ink">
             How we help
           </h2>
-          {services.map((s, i) => (
-            <Link
-              key={s.title}
-              href={s.href}
-              className={`group grid grid-cols-1 items-center ${
-                i % 2
-                  ? "lg:grid-cols-[minmax(0,42fr)_minmax(0,58fr)]"
-                  : "lg:grid-cols-[minmax(0,58fr)_minmax(0,42fr)]"
-              } ${i > 0 ? "mt-20 md:mt-32" : ""}`}
-            >
-              <div
-                className={`relative overflow-hidden ${
-                  s.visual === "academy" ? "aspect-[16/10] lg:aspect-auto lg:h-[60vh]" : "min-h-[380px] lg:h-[60vh]"
-                } ${i % 2 ? "lg:order-2" : ""}`}
+          <div className="px-4 md:px-10 max-w-[1360px] mx-auto space-y-20 md:space-y-28">
+            {services.map((s, i) => (
+              <Link
+                key={s.title}
+                href={s.href}
+                className={`group grid grid-cols-1 gap-8 lg:gap-16 items-center ${
+                  i % 2 ? "lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]" : "lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]"
+                }`}
               >
-                <ServiceVisual visual={s.visual} />
-              </div>
-              <div className={`px-4 md:px-10 py-10 lg:py-0 ${i % 2 ? "lg:order-1" : ""}`}>
-                <h3 className="font-display text-[44px] md:text-[72px] leading-none font-extralight tracking-tight text-ink transition-colors group-hover:text-blue">
-                  {s.title}
-                </h3>
-                <p className="mt-6 text-[19px] md:text-[22px] leading-snug text-body max-w-[34ch]">{s.line}</p>
-                <p className="mt-4 font-display text-[15px] text-muted max-w-[40ch]">{s.names}</p>
-              </div>
-            </Link>
-          ))}
+                {/* Every visual sits in the same 16:9 frame so the three rows line up. */}
+                <div
+                  className={`relative overflow-hidden rounded-lg border border-line ${
+                    s.visual === "academy" ? "aspect-[16/9] bg-white" : "min-h-[380px] sm:min-h-0 sm:aspect-[16/9] bg-ink"
+                  } ${i % 2 ? "lg:order-2" : ""}`}
+                >
+                  <ServiceVisual visual={s.visual} />
+                </div>
+                <div className={i % 2 ? "lg:order-1" : ""}>
+                  <h3 className="font-display text-[44px] md:text-[64px] leading-none font-extralight tracking-tight text-ink transition-colors group-hover:text-blue">
+                    {s.title}
+                  </h3>
+                  <p className="mt-6 text-[19px] md:text-[22px] leading-snug text-body max-w-[34ch]">{s.line}</p>
+                  <p className="mt-4 font-display text-[15px] text-muted max-w-[40ch]">{s.names}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
         </section>
 
         {/* 5. Start from the work: the Roadmap's real deliverable, and the path after it. */}
@@ -306,54 +307,61 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* 6. Recent work: the real result for each, in plain words. */}
-        <section className="bg-band pt-24 md:pt-32">
-          <h2 className="px-4 md:px-10 max-w-[1360px] mx-auto mb-12 md:mb-16 font-display text-[40px] md:text-[64px] leading-none font-light tracking-tight text-ink">
-            Recent work
-          </h2>
-          <div className="grid grid-cols-1 lg:grid-cols-2">
-            <Link href="/work/pfsa" className="group block">
-              <ParallaxBand className="aspect-[2/1] lg:aspect-auto lg:h-[50vh] bg-ink" distance={34}>
-                <Image
-                  src={photos.pfsaSite.src}
-                  alt={photos.pfsaSite.alt}
-                  fill
-                  sizes="(min-width: 1024px) 50vw, 100vw"
-                  className="object-cover object-top"
-                />
-              </ParallaxBand>
-              <div className="px-4 md:px-10 py-8">
-                <p className="font-display text-[22px] md:text-[28px] leading-tight font-light text-ink transition-colors group-hover:text-blue">
-                  The PFSA, a Lexington nonprofit
-                </p>
-                <p className="mt-3 text-[18px] leading-snug text-body max-w-[46ch]">
-                  The board stopped tracking donations in Quicken. Donations, receipts and meeting
-                  minutes now live in one portal.
-                </p>
-              </div>
-            </Link>
-            <Link href="/work/restaurant-franchisee" className="group block">
-              <div className="relative min-h-[340px] lg:h-[50vh]">
-                <PortalPanel />
-              </div>
-              <div className="px-4 md:px-10 py-8">
-                <p className="font-display text-[22px] md:text-[28px] leading-tight font-light text-ink transition-colors group-hover:text-blue">
-                  A restaurant franchisee in Central Kentucky
-                </p>
-                <p className="mt-3 text-[18px] leading-snug text-body max-w-[46ch]">
-                  The managers used to run three stores off scattered files and calls to Phil. Now
-                  they open one portal.
-                </p>
-              </div>
-            </Link>
-          </div>
-          <div className="px-4 md:px-10 max-w-[1360px] mx-auto py-20 md:py-28">
-            <blockquote>
-              <p className="font-display text-[28px] md:text-[48px] leading-[1.08] font-light tracking-tight text-ink max-w-[22ch]">
-                {"“No one is literate on AI, but they all use the portal.”"}
-              </p>
-              <cite className="block mt-5 not-italic font-display text-[15px] text-muted">Phil Fifield</cite>
-            </blockquote>
+        {/* 6. Recent work: the result for each in plain words, with the real screens. */}
+        <section className="bg-band px-4 md:px-10 py-24 md:py-32">
+          <div className="max-w-[1360px] mx-auto">
+            <h2 className="mb-12 md:mb-16 font-display text-[40px] md:text-[64px] leading-none font-light tracking-tight text-ink">
+              Recent work
+            </h2>
+            <div className="space-y-20 md:space-y-28">
+              <Link
+                href="/work/restaurant-franchisee"
+                className="group grid grid-cols-1 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] gap-8 lg:gap-16 items-center"
+              >
+                <div className="relative aspect-[16/9] overflow-hidden rounded-lg border border-line bg-white">
+                  <Image
+                    src="/images/work/manager-portal.webp"
+                    alt="The manager portal's store home screen in demo mode: secret shopper progress, period health score, sales, labor and hiring for a demo store"
+                    fill
+                    sizes="(min-width: 1024px) 760px, 100vw"
+                    className="object-cover"
+                  />
+                </div>
+                <div>
+                  <p className="font-display text-[28px] md:text-[40px] leading-[1.05] font-light text-ink transition-colors group-hover:text-blue">
+                    A restaurant franchisee in Central Kentucky
+                  </p>
+                  <p className="mt-5 text-[18px] md:text-[19px] leading-relaxed text-body max-w-[44ch]">
+                    The managers used to run three stores off scattered files and calls to Phil. Now
+                    they open one portal for their numbers, checklists and the weekly newsletter.
+                  </p>
+                  <p className="mt-4 font-display text-[14px] text-muted">The portal, shown in demo mode</p>
+                </div>
+              </Link>
+              <Link
+                href="/work/pfsa"
+                className="group grid grid-cols-1 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] gap-8 lg:gap-16 items-center"
+              >
+                <div className="lg:order-2 relative aspect-[16/9] overflow-hidden rounded-lg border border-line bg-white">
+                  <Image
+                    src={photos.pfsaSite.src}
+                    alt={photos.pfsaSite.alt}
+                    fill
+                    sizes="(min-width: 1024px) 760px, 100vw"
+                    className="object-cover object-top"
+                  />
+                </div>
+                <div className="lg:order-1">
+                  <p className="font-display text-[28px] md:text-[40px] leading-[1.05] font-light text-ink transition-colors group-hover:text-blue">
+                    The PFSA, a Lexington nonprofit
+                  </p>
+                  <p className="mt-5 text-[18px] md:text-[19px] leading-relaxed text-body max-w-[44ch]">
+                    The board stopped tracking donations in Quicken. Donations, receipts and meeting
+                    minutes now live in one portal.
+                  </p>
+                </div>
+              </Link>
+            </div>
           </div>
         </section>
 

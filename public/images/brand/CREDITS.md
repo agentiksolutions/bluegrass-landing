@@ -33,13 +33,14 @@ scene faces the screen on purpose, so no visitor takes him for Phil.
 | `scenes/back-office.webp` (reused) | Hospitality page | Same still as the home Support row |
 | `scenes/inbox-sorting.webp` (reused) | AI tools page | Same still as the AI integration page |
 
-Blog covers in `public/images/insights/`, same model and brief:
+Blog covers in `public/images/insights/` (2026-10-07; Phil on the night covers: "too dark",
+"dude is looking weird"). No generated people:
 
 | File | Post | Shows |
 |---|---|---|
-| `ai-trust-gap-night.webp` | The AI Trust Gap | A shop owner behind the counter after close, arms crossed, looking at a laptop |
-| `choosing-an-ai-consultant-night.webp` | How to Choose an AI Consultant | Two people at a coffee shop table at dusk, one passing over a notebook of questions |
-| `automating-our-own-back-office-night.webp` | What We Automated in Our Own Back Office First | A restaurant back office at night, a printer pushing out a report beside a laptop |
+| `ai-trust-gap-card.webp` | The AI Trust Gap | A card of the article's three steps, rendered from HTML in the brand fonts |
+| `choosing-an-ai-consultant-card.webp` | How to Choose an AI Consultant | A card of the article's six questions, rendered the same way |
+| `automating-our-own-back-office-portal.webp` | What We Automated in Our Own Back Office First | The manager portal in its built-in demo mode, cropped |
 
 Every post is **required** to name a `cover` in its frontmatter. A post without one fails
 `npm run build` with a message naming the file (`src/lib/mdx.ts`, `requireCover`).
@@ -48,8 +49,10 @@ Every post is **required** to name a `cover` in its frontmatter. A post without 
 
 Phil, 2026-10-07: the generated scenes "are weird". Every scene was the same shot (a person
 from behind in a dark room), and the sameness read as AI. The home page now uses only Phil's
-own photo, a screenshot of the live Academy (`images/work/academy.webp`, taken from this site's
-/academy page), the PFSA site screenshot, and panels drawn in code. The Education and Build
+own photo, screenshots of the live Academy (`images/work/academy-4k.webp`, this site's /academy
+page) and of the manager portal (`images/work/manager-portal.webp`, its built-in demo mode with
+sample data for a demo store; the company name and the demo person's name were removed before
+capture), the PFSA site screenshot, and panels drawn in code. Both screenshots are 3840x2160. The Education and Build
 loops (`videos/workshop.mp4`, `videos/builder.mp4`) were removed; they are in git history. The
 inner pages still carry scenes until Phil reviews this direction.
 

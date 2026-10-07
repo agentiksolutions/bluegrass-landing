@@ -6,7 +6,7 @@ import { motion, useReducedMotion } from "motion/react";
 // no client data. Every figure is sample data and each panel says so. The portal follows the
 // real manager portal's layout without its numbers; the assistant follows the Business AI
 // Setup description in the Engagement Catalog; the map is the Roadmap's one-page systems map.
-// Each panel moves differently (board ticks in, map draws in, assistant holds still) so the
+// Each panel moves differently (support reply fades in, map draws in, assistant holds still) so the
 // page never repeats one animation section after section.
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -28,99 +28,49 @@ function Check({ done }: { done: boolean }) {
   );
 }
 
-/** Store home of a multi-location manager portal. */
-export function PortalPanel() {
-  const figures = [
-    { label: "Sales this period", value: "$84,210", note: "+3.1% on last year" },
-    { label: "Labor", value: "24.6%", note: "Goal 25%" },
-    { label: "Average check", value: "$19.40", note: "+$0.35" },
-  ];
-  const checklist = [
-    { item: "Opening checklist", done: true },
-    { item: "Delivery tablets on", done: true },
-    { item: "Bread order placed", done: true },
-    { item: "Closing checklist", done: false },
-  ];
+/** A support request and its fix, the kind a monthly plan covers. The reply fades in once. */
+export function SupportThread() {
+  const still = useReducedMotion();
   return (
-    <div className="absolute inset-0 grid place-items-center bg-white p-4 sm:p-8">
+    <div className="absolute inset-0 grid place-items-center p-4 sm:p-8">
       <div
         role="img"
-        aria-label="A store home screen in a manager portal, shown with sample data: period sales, labor and average check for one of three stores, and today's checklist"
+        aria-label="A support request, shown with sample data: a client asks whether the inbox sorter can handle a vendor's new invoice layout, and Phil replies that the sorter is updated, marked done and covered by the monthly plan"
         className="w-full max-w-[560px] overflow-hidden rounded-lg border border-line bg-tint font-display"
       >
         <div className="flex items-center justify-between border-b border-line px-5 py-3">
-          <div className="flex gap-1 text-[13px]">
-            {["Store A", "Store B", "Store C"].map((s, i) => (
-              <span key={s} className={`rounded px-2.5 py-1 ${i === 0 ? "bg-blue text-white" : "text-muted"}`}>
-                {s}
-              </span>
-            ))}
+          <span className="text-[14px] text-ink">Support request</span>
+          <span className="text-[12px] text-muted">Sample data</span>
+        </div>
+        <div className="space-y-4 p-5 text-[14px] sm:text-[15px] leading-snug">
+          <div className="max-w-[88%]">
+            <p className="mb-1 text-[12px] text-muted">You</p>
+            <p className="rounded-lg border border-line px-4 py-3 text-body">
+              The linen company changed their invoice layout. Can the inbox sorter still catch their bills?
+            </p>
           </div>
-          <span className="text-[12px] text-muted">Sample data</span>
+          <motion.div
+            className="ml-auto max-w-[88%]"
+            initial={still ? false : { opacity: 0, y: 8 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-15% 0px" }}
+            transition={{ duration: 0.8, ease: EASE, delay: 0.5 }}
+          >
+            <p className="mb-1 text-right text-[12px] text-muted">Phil</p>
+            <p className="rounded-lg bg-blue px-4 py-3 text-white">
+              Updated the sorter for their new layout. Their bills sort into Vendor bills again.
+            </p>
+          </motion.div>
         </div>
-        <div className="grid grid-cols-3 divide-x divide-line border-b border-line">
-          {figures.map((f) => (
-            <div key={f.label} className="px-4 py-4">
-              <p className="text-[11px] sm:text-[12px] text-muted">{f.label}</p>
-              <p className="mt-1 text-[20px] sm:text-[26px] font-extralight tracking-tight text-ink">{f.value}</p>
-              <p className="mt-0.5 text-[11px] sm:text-[12px] text-blue">{f.note}</p>
-            </div>
-          ))}
+        <div className="flex items-center gap-3 border-t border-line px-5 py-3 text-[12px] sm:text-[13px] text-muted">
+          <Check done />
+          <span className="text-ink">Done</span>
+          <span className="ml-auto">Covered by your monthly plan</span>
         </div>
-        <ul className="divide-y divide-line">
-          {checklist.map((c) => (
-            <li key={c.item} className="flex items-center gap-3 px-5 py-2.5 text-[13px] sm:text-[14px] text-body">
-              <Check done={c.done} />
-              {c.item}
-            </li>
-          ))}
-        </ul>
       </div>
     </div>
   );
 }
-
-/** Scheduled jobs reporting in, each one ticking to done as the panel comes into view. */
-export function StatusBoard() {
-  const still = useReducedMotion();
-  const jobs = [
-    { name: "Inbox sorted", time: "6:02 AM" },
-    { name: "Morning briefing sent", time: "7:45 AM" },
-    { name: "Weekly sales report built", time: "8:00 AM" },
-    { name: "Invoices matched to orders", time: "9:30 AM" },
-  ];
-  return (
-    <div className="absolute inset-0 grid place-items-center bg-white p-4 sm:p-8">
-      <div
-        role="img"
-        aria-label="A status board of scheduled jobs, shown with sample data: inbox sorted, morning briefing sent, weekly sales report built and invoices matched, each marked done"
-        className="w-full max-w-[520px] overflow-hidden rounded-lg border border-line bg-tint font-display"
-      >
-        <div className="flex items-center justify-between border-b border-line px-5 py-3">
-          <span className="text-[14px] text-ink">This morning</span>
-          <span className="text-[12px] text-muted">Sample data</span>
-        </div>
-        <ul className="divide-y divide-line">
-          {jobs.map((j, i) => (
-            <motion.li
-              key={j.name}
-              className="flex items-center gap-3 px-5 py-3.5 text-[14px] sm:text-[15px] text-body"
-              initial={still ? false : { opacity: 0.35 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true, margin: "-15% 0px" }}
-              transition={{ duration: 0.6, ease: EASE, delay: 0.3 + i * 0.45 }}
-            >
-              <Check done />
-              <span className="flex-1">{j.name}</span>
-              <span className="text-[12px] sm:text-[13px] text-muted">{j.time}</span>
-            </motion.li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  );
-}
-
 
 /** A Business AI Setup workspace: skills down the side, a morning question and its answer. */
 export function AssistantPanel() {

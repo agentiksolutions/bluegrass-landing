@@ -31,11 +31,6 @@ const personJsonLd = {
   },
 };
 
-const beliefs = [
-  "I develop the tool, I give them the tool, and then they use the tool.",
-  "Solving it at the expense of having to maintain it isn't saving any time. I'm just switching roles.",
-  "Now I check it. I don't just send it off.",
-];
 
 export default function AboutPage() {
   return (
@@ -101,19 +96,6 @@ export default function AboutPage() {
               Seated, with part of the store team at a hiring fair.
             </figcaption>
           </figure>
-        </div>
-      </section>
-
-      <section className="bg-band px-4 md:px-10 py-16 md:py-20">
-        <div className="max-w-[1360px] mx-auto">
-          <h2 className="font-display text-[32px] md:text-[48px] font-light tracking-tight text-ink">How I work</h2>
-          <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-8">
-            {beliefs.map((b) => (
-              <blockquote key={b} className="border-t border-ink/20 pt-4">
-                <p className="font-display text-[22px] md:text-[26px] leading-snug font-light text-ink">&ldquo;{b}&rdquo;</p>
-              </blockquote>
-            ))}
-          </div>
         </div>
       </section>
 

@@ -99,9 +99,11 @@ export default function HeroNetwork({ className = "" }: { className?: string }) 
       glow.width = Math.max(1, Math.round(cw * GLOW_SCALE));
       glow.height = Math.max(1, Math.round(ch * GLOW_SCALE));
       const wide = cw >= 768;
-      fit = Math.min((cw * (wide ? 0.84 : 0.94)) / W, (ch * (wide ? 0.6 : 0.42)) / H);
-      ox = cw * (wide ? 0.54 : 0.5);
-      oy = ch * (wide ? 0.6 : 0.64);
+      // Wide screens: the state sits in the right half beside the headline (Phil, 2026-10-07:
+      // the first screen was "too spread out"). Phones keep it under the words.
+      fit = Math.min((cw * (wide ? 0.5 : 0.94)) / W, (ch * (wide ? 0.6 : 0.42)) / H);
+      ox = cw * (wide ? 0.71 : 0.5);
+      oy = ch * (wide ? 0.52 : 0.64);
     };
     resize();
     const ro = new ResizeObserver(resize);
@@ -770,7 +772,7 @@ function StillWeb() {
     <svg
       viewBox={MARK.viewBox}
       aria-hidden="true"
-      className="absolute left-1/2 top-[64%] md:left-[54%] md:top-[60%] w-[94%] md:w-[min(84%,133vh)] -translate-x-1/2 -translate-y-1/2"
+      className="absolute left-1/2 top-[64%] md:left-[71%] md:top-[52%] w-[94%] md:w-[min(50%,116vh)] -translate-x-1/2 -translate-y-1/2"
     >
       <path d={d.join("")} fill="none" stroke={SILK} strokeOpacity={0.5} strokeWidth={0.6} vectorEffect="non-scaling-stroke" />
       <path d={MARK.state} fill="none" stroke={SILK} strokeOpacity={0.6} strokeWidth={0.8} vectorEffect="non-scaling-stroke" />
