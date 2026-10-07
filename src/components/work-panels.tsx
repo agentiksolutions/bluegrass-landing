@@ -176,93 +176,147 @@ export function AssistantPanel() {
   );
 }
 
-/** The Roadmap's one-page systems map: the tools a business runs on and what moves between them. */
+/** The Roadmap's one-page systems map: the tools a business runs on, who uses each one, what
+ *  moves between them, and which of those moves someone types by hand. */
 export function SystemsMap() {
   const still = useReducedMotion();
-  const boxes = [
-    { id: "pos", x: 10, y: 30, label: "Point of sale", who: "Managers" },
-    { id: "time", x: 10, y: 160, label: "Timekeeping", who: "Managers" },
-    { id: "acct", x: 350, y: 30, label: "Accounting", who: "Bookkeeper" },
-    { id: "mail", x: 180, y: 290, label: "Email", who: "Everyone", start: true },
-    { id: "sheet", x: 350, y: 160, label: "Spreadsheets", who: "Owner" },
-    { id: "drive", x: 10, y: 290, label: "Shared drive", who: "Everyone" },
+  type Node = { id: string; x: number; y: number; w: number; h: number; label: string; who: string };
+  const nodes: Node[] = [
+    { id: "pos", x: 16, y: 34, w: 180, h: 66, label: "Point of sale", who: "Managers" },
+    { id: "time", x: 16, y: 196, w: 180, h: 66, label: "Timekeeping", who: "Managers" },
+    { id: "mail", x: 16, y: 358, w: 180, h: 66, label: "Email", who: "Everyone" },
+    { id: "sheet", x: 330, y: 181, w: 200, h: 96, label: "Spreadsheets", who: "Owner, every Monday" },
+    { id: "acct", x: 664, y: 34, w: 180, h: 66, label: "Accounting", who: "Bookkeeper" },
+    { id: "report", x: 664, y: 196, w: 180, h: 66, label: "Weekly report", who: "Owner and managers" },
   ];
-  // Three columns of 160 with 10-unit gutters inside the 520-wide view.
-  const W = 160;
-  const H = 62;
-  const c = (id: string) => {
-    const b = boxes.find((x) => x.id === id)!;
-    return { x: b.x + W / 2, y: b.y + H / 2 };
+  const n = (id: string) => nodes.find((x) => x.id === id)!;
+  // [from, to, typed by hand?, label, from-side y offset, to-side y offset]
+  const edges: [string, string, boolean, string, number, number][] = [
+    ["pos", "acct", false, "daily sales", -12, -12],
+    ["pos", "sheet", true, "sales, typed in", 16, -26],
+    ["time", "sheet", true, "hours, exported", 0, 0],
+    ["mail", "sheet", true, "vendor bills, typed in", 0, 26],
+    ["sheet", "acct", true, "invoices, retyped", -26, 14],
+    ["sheet", "report", true, "built by hand", 0, 0],
+  ];
+  const START = "mail>sheet";
+
+  const curve = (e: (typeof edges)[number]) => {
+    const a = n(e[0]);
+    const b = n(e[1]);
+    const x1 = a.x + a.w;
+    const y1 = a.y + a.h / 2 + e[4];
+    const x2 = b.x - 8;
+    const y2 = b.y + b.h / 2 + e[5];
+    const k = (x2 - x1) * 0.45;
+    // Midpoint of the cubic at t = 0.5, for the label.
+    const mx = (x1 + 3 * (x1 + k) + 3 * (x2 - k) + x2) / 8;
+    const my = (y1 + 3 * y1 + 3 * y2 + y2) / 8;
+    return { d: `M ${x1} ${y1} C ${x1 + k} ${y1}, ${x2 - k} ${y2}, ${x2} ${y2}`, mx, my };
   };
-  const links: [string, string, string][] = [
-    ["pos", "acct", "daily sales"],
-    ["pos", "sheet", "weekly report"],
-    ["time", "sheet", "hours"],
-    ["acct", "sheet", "invoices"],
-    ["mail", "sheet", "vendor bills"],
-    ["drive", "mail", "files"],
-  ];
+
   return (
-    <div
-      role="img"
-      aria-label="A one-page systems map, shown with sample data: point of sale, timekeeping, accounting, email, spreadsheets and a shared drive, with lines for what moves between them and email marked as the place to start"
-      className="w-full overflow-hidden rounded-lg border border-line bg-tint font-display"
-    >
+    <div className="w-full overflow-hidden rounded-lg border border-line bg-tint font-display">
       <div className="flex items-center justify-between border-b border-line px-5 py-3">
         <span className="text-[14px] text-ink">Systems map</span>
         <span className="text-[12px] text-muted">Sample data</span>
       </div>
-      <svg viewBox="0 0 520 372" className="block w-full h-auto" aria-hidden="true">
-        {links.map(([a, b, label], i) => {
-          const p = c(a);
-          const q = c(b);
+
+      {/* Drawn map from small tablets up. */}
+      <svg
+        viewBox="0 0 860 470"
+        className="hidden sm:block w-full h-auto"
+        role="img"
+        aria-label="A one-page systems map, shown with sample data. Point of sale, timekeeping and email feed a spreadsheet the owner updates every Monday, mostly by typing figures in by hand. The spreadsheet feeds accounting and the weekly report. Only daily sales move to accounting on their own. Vendor bills from email are marked as the place to start."
+      >
+        <defs>
+          <marker id="arrow-auto" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0 0 L10 5 L0 10 z" fill="#81A7F8" />
+          </marker>
+          <marker id="arrow-hand" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0 0 L10 5 L0 10 z" fill="#8A94AA" />
+          </marker>
+        </defs>
+
+        {edges.map((e, i) => {
+          const { d, mx, my } = curve(e);
+          const start = `${e[0]}>${e[1]}` === START;
+          const w = e[3].length * 6.6 + 18;
           return (
-            <g key={a + b}>
-              <motion.line
-                x1={p.x}
-                y1={p.y}
-                x2={q.x}
-                y2={q.y}
-                stroke="#81A7F8"
-                strokeOpacity={0.55}
-                strokeWidth={1.4}
-                initial={still ? false : { pathLength: 0 }}
-                whileInView={{ pathLength: 1 }}
-                viewport={{ once: true, margin: "-10% 0px" }}
-                transition={{ duration: 1.1, ease: EASE, delay: 0.2 + i * 0.25 }}
+            <motion.g
+              key={e[0] + e[1]}
+              initial={still ? false : { opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true, margin: "-10% 0px" }}
+              transition={{ duration: 0.7, ease: EASE, delay: 0.25 + i * 0.22 }}
+            >
+              <path
+                d={d}
+                fill="none"
+                stroke={e[2] ? "#8A94AA" : "#81A7F8"}
+                strokeWidth={e[2] ? 1.4 : 1.8}
+                strokeDasharray={e[2] ? "5 5" : undefined}
+                markerEnd={`url(#${e[2] ? "arrow-hand" : "arrow-auto"})`}
               />
-              <text
-                x={(p.x + q.x) / 2}
-                y={(p.y + q.y) / 2 - 6}
-                textAnchor="middle"
-                fontSize="11"
-                fill="#8A94AA"
-              >
-                {label}
+              <rect x={mx - w / 2} y={my - 11} width={w} height={22} rx={5} fill={start ? "#0033A0" : "#111A2E"} stroke={start ? "#81A7F8" : "#1E2A44"} />
+              <text x={mx} y={my + 4} textAnchor="middle" fontSize="12" fill={start ? "#FFFFFF" : "#B6BFD1"}>
+                {e[3]}
+              </text>
+            </motion.g>
+          );
+        })}
+
+        {nodes.map((b) => {
+          const hub = b.id === "sheet";
+          const start = b.id === "mail";
+          return (
+            <g key={b.id}>
+              <rect
+                x={b.x}
+                y={b.y}
+                width={b.w}
+                height={b.h}
+                rx={10}
+                fill={hub ? "#111A2E" : "#0C1322"}
+                stroke={hub || start ? "#81A7F8" : "#2E3B5C"}
+                strokeWidth={hub ? 1.6 : 1}
+              />
+              <text x={b.x + 16} y={b.y + (hub ? 40 : 29)} fontSize={hub ? 19 : 16.5} fill="#E6EAF2">
+                {b.label}
+              </text>
+              <text x={b.x + 16} y={b.y + (hub ? 64 : 50)} fontSize="12.5" fill="#8A94AA">
+                {b.who}
               </text>
             </g>
           );
         })}
-        {boxes.map((b) => (
-          <g key={b.id}>
-            <rect
-              x={b.x}
-              y={b.y}
-              width={W}
-              height={H}
-              rx={8}
-              fill={b.start ? "#0033A0" : "#0C1322"}
-              stroke={b.start ? "#81A7F8" : "#1E2A44"}
-            />
-            <text x={b.x + 14} y={b.y + 26} fontSize="15" fill="#E6EAF2">
-              {b.label}
-            </text>
-            <text x={b.x + 14} y={b.y + 46} fontSize="11.5" fill={b.start ? "#D6E1FB" : "#8A94AA"}>
-              {b.start ? "Start here" : b.who}
-            </text>
-          </g>
-        ))}
+
+        <g transform="translate(16 452)" fontSize="12" fill="#8A94AA">
+          <line x1="0" y1="-4" x2="26" y2="-4" stroke="#81A7F8" strokeWidth="1.8" />
+          <text x="34" y="0">Moves on its own</text>
+          <line x1="170" y1="-4" x2="196" y2="-4" stroke="#8A94AA" strokeWidth="1.4" strokeDasharray="5 5" />
+          <text x="204" y="0">Typed by hand</text>
+          <rect x="330" y="-14" width="22" height="18" rx="4" fill="#0033A0" stroke="#81A7F8" />
+          <text x="360" y="0">Where we would start</text>
+        </g>
       </svg>
+
+      {/* Phones: the same map as a list, so nothing shrinks past reading size. */}
+      <ul className="sm:hidden divide-y divide-line text-[14px]">
+        {edges.map((e) => {
+          const start = `${e[0]}>${e[1]}` === START;
+          return (
+            <li key={e[0] + e[1]} className="flex items-center gap-2 px-5 py-3">
+              <span className="text-ink">{n(e[0]).label}</span>
+              <span aria-hidden="true" className="text-muted">to</span>
+              <span className="text-ink">{n(e[1]).label}</span>
+              <span className={`ml-auto rounded px-2.5 py-0.5 text-[12px] ${start ? "bg-blue text-white" : e[2] ? "text-muted" : "text-blue"}`}>
+                {e[2] ? "by hand" : "on its own"}
+              </span>
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 }
