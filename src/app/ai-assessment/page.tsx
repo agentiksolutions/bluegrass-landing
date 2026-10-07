@@ -26,12 +26,12 @@ const steps = [
   {
     num: "03",
     title: "The interview",
-    body: "A live conversation about how the business runs. For a single department it is about 90 minutes. For a multi-entity business it is several sessions with the owner and the people who actually run each piece, spread across a week.",
+    body: "A live conversation about how the business runs. For a single department it is one session. For a multi-entity business it is several sessions with the owner and the people who run each piece.",
   },
   {
     num: "04",
     title: "The review",
-    body: "We read everything you sent and map what you currently run against what the work actually requires. This is the quiet part, and it is where most of the hours go.",
+    body: "We read everything you sent and map what you currently run against what the work requires. This is the quiet part, and it is where most of the hours go.",
   },
   {
     num: "05",
@@ -41,12 +41,12 @@ const steps = [
   {
     num: "06",
     title: "The walkthrough",
-    body: "Before the live call, a recorded walkthrough of the document lands in your inbox. Watch it on your own time so the call is about your questions instead of our narration.",
+    body: "Before the live call, we send a recorded walkthrough of the document. Watch it when it suits you, so the call is about your questions instead of our narration.",
   },
   {
     num: "07",
     title: "The readout",
-    body: "A live call to go through the recommendations and make decisions. Then an email window stays open for follow-up questions, which runs two weeks on a focused assessment and a month on a larger one.",
+    body: "A live call to go through the recommendations and make decisions. After it, you can email follow-up questions during a window we agree on before you sign.",
   },
 ];
 
@@ -57,15 +57,15 @@ const outcomes = [
   },
   {
     label: "Tools-based optimization",
-    body: "Your stack is fine. The gap is that nothing talks to anything, and the fix is automation around what you already pay for.",
+    body: "Your stack is fine. The gap is that nothing talks to anything, and the answer is automation around what you already pay for.",
   },
   {
     label: "Process first",
-    body: "The tools are not the problem. Documentation, training, and who-does-what are the problem, and buying software would bury it.",
+    body: "Documentation, training, and who-does-what are the problem. Buying software would bury it.",
   },
   {
     label: "Embedded support",
-    body: "The work is ongoing rather than a project, and a fractional AI operations person is the right shape.",
+    body: "The work is ongoing rather than a project, and an Embedded Retainer is the right shape.",
   },
   {
     label: "Walk away",
@@ -90,8 +90,8 @@ export default function AIAssessmentPage() {
         </h1>
         <p className="text-lg leading-relaxed text-charcoal max-w-[620px] mb-4">
           Most firms will quote you a build before they understand the business.
-          An assessment is the step that makes the build worth paying for, and it
-          stands on its own if you never hire anyone to do the work.
+          An assessment tells you whether a build will pay off, and it stands
+          on its own if you never hire anyone to do the work.
         </p>
         <p className="text-[15px] leading-relaxed text-charcoal max-w-[620px] mb-16">
           Here is the whole sequence, start to finish.
@@ -128,9 +128,9 @@ export default function AIAssessmentPage() {
             Five ways an assessment can end.
           </h2>
           <p className="text-[15px] leading-relaxed text-charcoal max-w-[620px] mb-10">
-            Every assessment lands on one of these. The fifth one is the reason
-            the other four are worth reading: a roadmap that always recommends
-            buying more from the firm that wrote it is a sales document.
+            Every assessment lands on one of these. The fifth one matters most:
+            a roadmap that always recommends buying more from the firm that
+            wrote it is a sales document.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {outcomes.map((o) => (
@@ -218,7 +218,7 @@ export default function AIAssessmentPage() {
 
       <CTABand
         headline="Start with the call."
-        subtext="Thirty minutes, no charge, no pitch. You leave with a recommendation even if the recommendation is that an assessment would be a waste of your money right now."
+        subtext="Thirty minutes, at no charge. You leave with a recommendation, even if it is that an assessment would be a waste of your money right now."
       />
     </>
   );

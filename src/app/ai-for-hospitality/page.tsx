@@ -14,21 +14,21 @@ export const metadata: Metadata = pageMeta({
 });
 
 const weeklyReality = [
-  "Invoices from twenty-odd vendors land in one inbox and someone has to sort them by location before anything can be coded.",
+  "Invoices from many vendors arrive in one inbox and someone has to sort them by location before anything can be coded.",
   "The weekly manager meeting happens, decisions get made, and by Thursday nobody agrees on what was decided.",
   "Every location reports its numbers a different way, so comparing them is a manual job that lands on one person.",
   "The answer to a policy question lives in a binder, a shared drive, or the head of whoever has been there longest.",
-  "The people who could fix any of this are on the floor all day, which is where they should be.",
+  "The people who could change any of this are on the floor all day, which is where they should be.",
 ];
 
 const builds = [
   {
     title: "Vendor invoice triage",
-    body: "Mail comes in, gets classified by vendor and location, and only the items that need a human decision surface. Nothing gets paid automatically. The pile stops being a pile.",
+    body: "Mail comes in, gets classified by vendor and location, and only the items that need a human decision surface. Nothing gets paid automatically.",
   },
   {
-    title: "Meeting notes that write themselves",
-    body: "A recurring meeting gets transcribed and turned into a summary with action items attached to names. Last week's items carry forward on their own, so accountability survives past the meeting.",
+    title: "Meeting notes and action items",
+    body: "A recurring meeting gets transcribed and turned into a summary with action items attached to names. Last week's open items carry into this week's summary.",
   },
   {
     title: "A weekly internal update",
@@ -36,7 +36,7 @@ const builds = [
   },
   {
     title: "One screen for every location",
-    body: "Sales, labor, and whatever else you actually manage to, side by side across locations, updated without anyone rebuilding a spreadsheet.",
+    body: "Sales, labor, and whatever else you manage to, side by side across locations, updated without anyone rebuilding a spreadsheet.",
   },
   {
     title: "Your procedures, searchable",
@@ -76,7 +76,7 @@ export default function HospitalityPage() {
 
       <section className="px-6 md:px-12 pb-20 max-w-content mx-auto">
         <h2 className="font-display text-2xl font-bold mb-8">
-          The week most operations are actually having.
+          The week most operations are having.
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {weeklyReality.map((w) => (
@@ -138,7 +138,7 @@ export default function HospitalityPage() {
                 an assessment
               </Link>{" "}
               if the scope justifies one. Single-location operations often skip
-              straight to building one thing and living with it for a month.
+              straight to building one thing and living with it before adding a second.
             </p>
             <p className="text-[15px] leading-relaxed text-charcoal">
               Multi-location operations usually start with the numbers, because
@@ -176,7 +176,7 @@ export default function HospitalityPage() {
 
       <CTABand
         headline="Tell us where the week goes."
-        subtext="Thirty minutes about how your locations actually run. If the answer is a process fix rather than software, we will say that."
+        subtext="Thirty minutes about how your locations run. If the answer is a process change rather than software, we will say that."
       />
     </>
   );

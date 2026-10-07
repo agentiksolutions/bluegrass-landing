@@ -1,5 +1,5 @@
+import Image from "next/image";
 import Link from "next/link";
-import SectionLabel from "./section-label";
 import Button from "./button";
 import CTABand from "./cta-band";
 import JsonLd from "./json-ld";
@@ -11,9 +11,9 @@ interface RelatedPost {
 }
 
 interface ServicePageProps {
-  label: string;
   title: string;
   subtitle: string;
+  image: { src: string; alt: string };
   deliverables: string[];
   whoItsFor: string[];
   showroomLink?: { href: string; label: string };
@@ -21,10 +21,11 @@ interface ServicePageProps {
   serviceJsonLd?: Record<string, unknown>;
 }
 
+// Same shape as /services: a scene beside the headline, then plain ruled lists.
 export default function ServicePageTemplate({
-  label,
   title,
   subtitle,
+  image,
   deliverables,
   whoItsFor,
   showroomLink,
@@ -34,76 +35,76 @@ export default function ServicePageTemplate({
   return (
     <>
       {serviceJsonLd && <JsonLd data={serviceJsonLd} />}
-      {/* Hero */}
-      <section className="pt-[148px] pb-16 px-6 md:px-12 max-w-content mx-auto">
-        <SectionLabel>{label}</SectionLabel>
-        <h1 className="font-display text-[clamp(36px,5vw,52px)] leading-[1.1] font-bold tracking-tight mb-5">
-          {title}
-        </h1>
-        <p className="text-lg leading-relaxed text-charcoal max-w-[560px]">
-          {subtitle}
-        </p>
-      </section>
 
-      {/* Deliverables */}
-      <section className="px-6 md:px-12 pb-16 max-w-content mx-auto">
-        <h2 className="font-display text-2xl font-bold mb-8">What you get.</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {deliverables.map((d) => (
-            <div
-              key={d}
-              className="flex items-start gap-3 p-5 bg-white rounded-lg border border-line"
-            >
-              <span className="w-2 h-2 rounded-full bg-emerald mt-1.5 shrink-0" />
-              <span className="text-[15px] leading-relaxed text-charcoal">{d}</span>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Who it's for */}
-      <section className="bg-cream py-20 px-6 md:px-12">
-        <div className="max-w-content mx-auto">
-          <h2 className="font-display text-2xl font-bold mb-8">
-            Who this is for.
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {whoItsFor.map((w) => (
-              <p key={w} className="text-[15px] leading-relaxed text-charcoal">
-                &bull; {w}
-              </p>
-            ))}
+      <section className="relative mt-16 lg:mt-[72px] bg-ink">
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:min-h-[max(520px,calc(90svh-72px))]">
+          <div className="order-2 lg:order-1 px-4 md:px-10 py-12 lg:py-16 flex flex-col justify-center">
+            <h1 className="font-display text-[40px] sm:text-[54px] lg:text-[66px] leading-[1.0] font-extralight tracking-[-0.03em] text-ink max-w-[13ch]">
+              {title}
+            </h1>
+            <p className="mt-7 text-[19px] md:text-[21px] leading-snug text-body max-w-[38ch]">{subtitle}</p>
+          </div>
+          <div className="order-1 lg:order-2 relative min-h-[300px] sm:min-h-[420px]">
+            <Image src={image.src} alt={image.alt} fill priority sizes="(min-width: 1024px) 58vw, 100vw" className="object-cover" />
           </div>
         </div>
       </section>
 
-      {/* Showroom link */}
-      {showroomLink && (
-        <section className="py-16 px-6 md:px-12 max-w-content mx-auto text-center">
-          <p className="text-stone text-sm mb-4">See it in action</p>
-          <Button href={showroomLink.href}>{showroomLink.label}</Button>
-        </section>
-      )}
-
-      {/* Related articles */}
-      {relatedPosts && relatedPosts.length > 0 && (
-        <section className="py-16 px-6 md:px-12 max-w-content mx-auto">
-          <h2 className="font-display text-2xl font-bold mb-8">
-            Related articles.
+      <section className="px-4 md:px-10 py-24 md:py-32">
+        <div className="max-w-[1360px] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] gap-10 lg:gap-20">
+          <h2 className="font-display text-[36px] md:text-[52px] leading-none font-light tracking-tight text-ink">
+            What you get
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {relatedPosts.map((post) => (
-              <Link key={post.href} href={post.href} className="group">
-                <div className="p-6 bg-white rounded-lg border border-line transition-all group-hover:border-emerald group-hover:-translate-y-0.5">
-                  <span className="text-[10px] font-bold tracking-[1.5px] text-emerald uppercase">
-                    {post.category}
-                  </span>
-                  <h3 className="font-display text-lg font-bold leading-snug mt-2 text-graphite group-hover:text-emerald transition-colors">
-                    {post.title}
-                  </h3>
-                </div>
-              </Link>
+          <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-12 border-t border-line">
+            {deliverables.map((d) => (
+              <li key={d} className="border-b border-line py-5 text-[18px] leading-relaxed text-body">
+                {d}
+              </li>
             ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="bg-band px-4 md:px-10 py-24 md:py-32">
+        <div className="max-w-[1360px] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] gap-10 lg:gap-20">
+          <h2 className="font-display text-[32px] md:text-[44px] leading-[1.05] font-light tracking-tight text-ink">
+            Who this is for
+          </h2>
+          <ul className="divide-y divide-line border-y border-line">
+            {whoItsFor.map((w) => (
+              <li key={w} className="py-6 font-display text-[19px] md:text-[23px] font-light leading-snug text-ink">
+                {w}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {(showroomLink || (relatedPosts && relatedPosts.length > 0)) && (
+        <section className="px-4 md:px-10 py-20 md:py-28">
+          <div className="max-w-[1360px] mx-auto flex flex-col lg:flex-row lg:items-start lg:justify-between gap-12">
+            {relatedPosts && relatedPosts.length > 0 && (
+              <div>
+                <h2 className="font-display text-[22px] md:text-[26px] font-light text-ink">Related reading</h2>
+                <ul className="mt-6 space-y-4">
+                  {relatedPosts.map((post) => (
+                    <li key={post.href}>
+                      <Link
+                        href={post.href}
+                        className="font-display text-[18px] md:text-[20px] text-blue underline underline-offset-4 decoration-blue/40 hover:decoration-blue"
+                      >
+                        {post.title}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {showroomLink && (
+              <div className="shrink-0">
+                <Button href={showroomLink.href}>{showroomLink.label}</Button>
+              </div>
+            )}
           </div>
         </section>
       )}

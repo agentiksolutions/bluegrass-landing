@@ -8,7 +8,7 @@ import CTABand from "@/components/cta-band";
 export const metadata: Metadata = pageMeta({
   title: "Showroom",
   description:
-    "Try AI tools for your business with no signup and no sales pitch. Interactive demos for dashboards, websites, and AI opportunity reports. Lexington, KY.",
+    "Try AI tools for your business without signing up. Interactive demos for dashboards, websites, and AI opportunity reports. Lexington, KY.",
   path: "/showroom",
 });
 
@@ -17,9 +17,9 @@ const rooms = [
     id: "report",
     num: "01",
     title: "AI Opportunity Report",
-    desc: "Enter your business info. Get a custom report on where AI can actually save you time and money. Specific to your industry, your size, your problems.",
+    desc: "Enter your business details and get a report on where AI could save you time and money, specific to your industry and size.",
     tag: "Interactive",
-    time: "2 min",
+    time: "Free",
     href: "/showroom/report",
   },
   {
@@ -28,14 +28,14 @@ const rooms = [
     title: "Website Generator",
     desc: "See a live preview of what a professional website could look like for your business. Pick a style, describe what you do, and watch it build.",
     tag: "Live Preview",
-    time: "1 min",
+    time: "Free",
     href: "/showroom/website",
   },
   {
     id: "dashboard",
     num: "03",
     title: "Dashboard Demo",
-    desc: "Explore an interactive dashboard for your industry. Real charts, real KPIs, real alerts. This is what your numbers look like when they're organized.",
+    desc: "Explore a sample dashboard for your industry, with charts, KPIs and alerts laid out the way we would build them.",
     tag: "Interactive",
     time: "Browse",
     href: "/showroom/dashboard",
@@ -61,8 +61,8 @@ export default function ShowroomPage() {
           See it before you buy it.
         </h1>
         <p className="text-[17px] leading-relaxed text-stone max-w-[520px]">
-          No signup. No sales pitch. Interactive tools that show you what AI can
-          do for your business. Try as many as you want.
+          Interactive tools that show what AI can do for your business. There
+          is nothing to sign up for, and you can try as many as you want.
         </p>
       </div>
 
@@ -102,7 +102,7 @@ export default function ShowroomPage() {
       {/* Bottom CTA */}
       <CTABand
         headline="Seen enough?"
-        subtext="30 minutes. No pitch. Tell us about your business and we'll tell you what's worth building."
+        subtext="Book 30 minutes. Tell us about your business and we'll tell you what we would build first."
       />
     </>
   );

@@ -248,7 +248,7 @@ export default function DashboardDemoPage() {
           </div>
 
           <p className="text-center text-[11px] text-[#ccc] mt-11">
-            Interactive. No signup. No data collected.
+            Interactive, with nothing to sign up for. This page collects no data.
           </p>
         </div>
       </div>
@@ -515,8 +515,7 @@ export default function DashboardDemoPage() {
               This is what your data could look like.
             </h3>
             <p className="text-[13px] text-stone leading-relaxed">
-              Connected to your real systems. Updating automatically. No
-              spreadsheets.
+              Connected to your systems and updated automatically.
             </p>
           </div>
           <a

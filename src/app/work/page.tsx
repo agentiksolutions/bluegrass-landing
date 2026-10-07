@@ -29,7 +29,7 @@ export default function WorkPage() {
   return (
     <>
       <section className="pt-28 lg:pt-32 pb-16 px-4 md:px-10 min-h-[100svh]">
-        <div className="max-w-[1160px] mx-auto">
+        <div className="max-w-[1360px] mx-auto">
           <h1 className="font-display text-[36px] lg:text-[48px] leading-tight font-bold tracking-tight text-ink">
             Work
           </h1>

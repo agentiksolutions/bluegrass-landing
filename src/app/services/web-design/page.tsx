@@ -5,16 +5,16 @@ import ServicePageTemplate from "@/components/service-page-template";
 export const metadata: Metadata = pageMeta({
   title: "Web Design & Development",
   description:
-    "Custom web design for Kentucky businesses. No templates. Professional sites built for speed, SEO, and conversions. Based in Lexington, KY.",
+    "Custom web design for Kentucky businesses. Sites built to load fast, show up in search and get customers to call. Based in Lexington, KY.",
   path: "/services/web-design",
 });
 
 export default function WebDesignPage() {
   return (
     <ServicePageTemplate
-      label="Web Design & Development"
-      title="Your business deserves a real website."
-      subtitle="A custom site designed around your business, your customers, and your goals. Built to load fast, look sharp, and convert visitors into calls."
+      image={{ src: "/images/scenes/shop-website.webp", alt: "A shop owner after closing, checking a website on a laptop at the counter" }}
+      title="A website built for your business."
+      subtitle="A custom site designed around your business and your customers, built to load fast and turn visitors into calls."
       deliverables={[
         "Custom design, built for your business",
         "Mobile-responsive layout that works on every device",
@@ -23,12 +23,12 @@ export default function WebDesignPage() {
         "Hosting setup and domain configuration",
         "Google Business Profile and analytics integration",
         "Content writing for your key pages",
-        "30-day post-launch support for edits and tweaks",
+        "Support after launch for edits and changes",
       ]}
       whoItsFor={[
         "Businesses with no website or a website that looks like it was built in 2015",
         "Companies that tried Wix or Squarespace and outgrew it",
-        "Anyone who's embarrassed to hand out their URL",
+        "Anyone who hesitates to hand out their web address",
         "Businesses where the website doesn't match the quality of the work they do",
       ]}
       showroomLink={{

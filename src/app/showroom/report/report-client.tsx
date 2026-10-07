@@ -15,11 +15,11 @@ const industries = [
 ];
 
 const painPoints = [
-  "Drowning in spreadsheets and manual processes",
+  "Too many spreadsheets and manual processes",
   "No real visibility into my numbers",
   "Website is outdated or nonexistent",
   "Losing money but can't pinpoint where",
-  "Staff turnover and training is killing us",
+  "Staff turnover and constant retraining",
   "Spending too much time on admin work",
   "Can't keep up with competitors",
   "Don't know where to start with technology",
@@ -148,9 +148,8 @@ export default function ReportPage() {
               Want to dig deeper?
             </h3>
             <p className="text-sm text-stone mb-6 leading-relaxed">
-              This report is a starting point. A 30-minute conversation gives us
-              enough to tell you exactly what&apos;s worth building and what it
-              would cost.
+              This report is a starting point. In a 30-minute call we can tell
+              you what we would build first.
             </p>
             <a
               href="mailto:phil@bluegrassadvisorygroup.com"
@@ -203,7 +202,7 @@ export default function ReportPage() {
             Bluegrass <span className="text-emerald">Advisory</span>
           </div>
           <p className="text-sm text-stone">
-            AI Opportunity Report: free, instant, no signup
+            AI Opportunity Report: free, with no signup
           </p>
         </div>
 
@@ -374,8 +373,7 @@ export default function ReportPage() {
         )}
 
         <p className="text-center text-xs text-[#ccc] mt-12">
-          No email required. No data stored. Just a free look at what&apos;s
-          possible.
+          No email required, and nothing you enter is stored.
         </p>
       </div>
     </div>

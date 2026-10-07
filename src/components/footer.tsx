@@ -16,7 +16,7 @@ const siteLinks = [
 export default function Footer() {
   return (
     <footer className="bg-band border-t border-line px-4 md:px-10 pt-12 pb-8 font-display text-ink">
-      <div className="max-w-[1160px] mx-auto">
+      <div className="max-w-[1360px] mx-auto">
         <div className="flex flex-col md:flex-row md:justify-between gap-8">
           <div>
             <Logo height={52} className="max-w-full h-auto" />

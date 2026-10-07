@@ -16,12 +16,12 @@ const tools = [
   {
     title: "Inbox and invoice triage",
     what: "Mail arriving in a shared inbox gets read, classified by type and by which part of the business it belongs to, and only the items needing a decision surface for a person.",
-    limit: "It triages, it does not pay. Accuracy depends on how consistently a sender formats what they send, and a new vendor needs a round of tuning before it reads them reliably.",
+    limit: "It sorts and flags. A person still approves and pays. Accuracy depends on how consistently a sender formats what they send, and a new vendor needs a round of tuning before it reads them reliably.",
   },
   {
     title: "Meeting notes and action items",
     what: "A recurring meeting is transcribed and comes back as a summary with decisions and action items attached to names. This week's items carry into next week automatically.",
-    limit: "Transcription quality tracks audio quality. It also mistakes a verbal shrug for a commitment now and then, so a person reads it before it goes out.",
+    limit: "Transcription quality tracks audio quality. It also sometimes reads a vague remark as a commitment, so a person reads it before it goes out.",
   },
   {
     title: "A daily briefing",
@@ -30,13 +30,13 @@ const tools = [
   },
   {
     title: "Recurring internal communications",
-    what: "A weekly or monthly internal update assembled from inputs your team already produces, in the same format every time, tracking whether last period's commitments actually happened.",
+    what: "A weekly or monthly internal update assembled from inputs your team already produces, in the same format every time, tracking whether last period's commitments happened.",
     limit: "Some inputs still have to be handed over until their source is connected. The draft is automatic, the approval is not.",
   },
   {
     title: "Searchable documents",
     what: "Your procedures, contracts, and training material in one place you can ask questions of in plain English, with answers drawn from the actual documents rather than a generic model.",
-    limit: "It returns what your documents say. Stale procedures produce confidently stale answers, so this one is worth doing after a cleanup rather than before.",
+    limit: "It returns what your documents say. Stale procedures produce confidently stale answers, so do this one after a cleanup.",
   },
   {
     title: "Research before a conversation",
@@ -46,7 +46,7 @@ const tools = [
   {
     title: "Voice notes into records",
     what: "A recording from a site visit or a drive home comes back transcribed, sorted by which part of the business it concerns, with the action items pulled out.",
-    limit: "Somebody has to actually press record, and speaker names need a contact list before it can label who said what.",
+    limit: "Somebody has to press record, and speaker names need a contact list before it can label who said what.",
   },
   {
     title: "Dashboards",
@@ -103,10 +103,9 @@ export default function AIToolsPage() {
               automation felt confident about it.
             </p>
             <p className="text-[15px] leading-relaxed text-charcoal">
-              That is slower than full automation, and it is why nothing has gone
-              out on its own that we had to walk back. As
-              you watch a tool get it right for a few months, you can widen what
-              it is allowed to do. That decision stays yours.
+              That is slower than full automation. As you watch a tool get it
+              right over time, you can widen what it is allowed to do. That
+              decision stays yours.
             </p>
           </div>
         </div>
@@ -143,7 +142,7 @@ export default function AIToolsPage() {
           {
             href: "/ai-assessment",
             label: "What an AI assessment involves",
-            blurb: "The step that decides which of these you actually need.",
+            blurb: "The step that decides which of these you need.",
           },
           {
             href: "/ai-for-hospitality",
@@ -160,7 +159,7 @@ export default function AIToolsPage() {
 
       <CTABand
         headline="Which one would you start with?"
-        subtext="Thirty minutes. Tell us where the hours go and we will tell you which of these is worth building, and which would be a waste of your money."
+        subtext="Thirty minutes. Tell us where the hours go and we will tell you which of these to build first, and which would be a waste of your money."
       />
     </>
   );

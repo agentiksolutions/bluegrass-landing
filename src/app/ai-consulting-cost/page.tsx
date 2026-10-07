@@ -162,8 +162,8 @@ export default function CostPage() {
       />
 
       <CTABand
-        headline="Get a real number."
-        subtext="Book 30 minutes. Tell us the scope and we will tell you what it takes, or tell you it is not worth doing yet."
+        headline="Start with the scope."
+        subtext="Book 30 minutes. Tell us the scope and we will tell you what it takes, or that it is too early."
       />
     </>
   );

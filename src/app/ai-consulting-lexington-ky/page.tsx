@@ -83,9 +83,8 @@ export default function LexingtonPage() {
           AI consulting in Lexington.
         </h1>
         <p className="text-lg leading-relaxed text-charcoal max-w-[600px] mb-6">
-          We are based here. Most of the businesses we work with sit inside an
-          hour of downtown, so we can be in your building watching how the work
-          actually moves before anyone talks about building something.
+          We are based here, so we can be in your building watching how the
+          work moves before anyone talks about building something.
         </p>
         <p className="text-[15px] leading-relaxed text-charcoal max-w-[600px] mb-16">
           The starting point is a 30-minute call. Book one from the{" "}
@@ -99,9 +98,8 @@ export default function LexingtonPage() {
       <section className="px-6 md:px-12 pb-20 max-w-content mx-auto">
         <h2 className="font-display text-2xl font-bold mb-6">Where we work.</h2>
         <p className="text-[15px] leading-relaxed text-charcoal max-w-[620px] mb-8">
-          Central Kentucky, in person. Lexington and the counties around it are
-          close enough for a half day on site, and that is usually how an
-          engagement starts.
+          We work in person across Central Kentucky. Lexington and the counties
+          around it are close enough for us to visit on site.
         </p>
         <div className="flex flex-wrap gap-2 mb-8">
           {counties.map((c) => (
@@ -144,7 +142,7 @@ export default function LexingtonPage() {
             <Link href="/ai-assessment" className="text-emerald hover:underline">
               an assessment
             </Link>{" "}
-            rather than a build. Some of them get solved by fixing a process and
+            rather than a build. Some of them get solved by changing a process and
             buying nothing.
           </p>
         </div>

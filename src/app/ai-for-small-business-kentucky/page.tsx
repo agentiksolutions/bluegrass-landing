@@ -16,7 +16,7 @@ export const metadata: Metadata = pageMeta({
 const firstBuilds = [
   {
     title: "A morning briefing",
-    body: "One email before you start the day, pulled from your inbox, your calendar, and whatever else you check first. It replaces the twenty minutes you spend working out what today is.",
+    body: "One email before you start the day, pulled from your inbox, your calendar, and whatever else you check first. It replaces the time you spend working out what today is.",
   },
   {
     title: "Inbox triage",
@@ -24,7 +24,7 @@ const firstBuilds = [
   },
   {
     title: "An assistant that knows your business",
-    body: "A version of a general AI tool loaded with how your company actually works, so the answers come back in your terms instead of generic ones.",
+    body: "A version of a general AI tool loaded with how your company works, so the answers come back in your terms instead of generic ones.",
   },
   {
     title: "Meeting summaries",
@@ -34,7 +34,7 @@ const firstBuilds = [
 
 const readiness = [
   "A task that eats real hours every week. If you cannot name one, the right move is to wait.",
-  "Somebody who will actually use the thing. A tool the owner builds and nobody opens is money spent on a demo.",
+  "Somebody who will use the thing. A tool the owner builds and nobody opens is money spent on a demo.",
   "Your existing documents, however messy. SOPs, price lists, vendor terms, the spreadsheet you keep reworking.",
   "A willingness to change one habit. Every build that stuck changed how somebody starts their day.",
 ];
@@ -48,14 +48,14 @@ export default function KentuckySmallBusinessPage() {
           Where the first dollar goes.
         </h1>
         <p className="text-lg leading-relaxed text-charcoal max-w-[620px] mb-4">
-          Most small business owners we talk to have heard for two years that AI
-          is going to change everything, have tried a chatbot once, and still do
+          Most small business owners we talk to have heard that AI is going to
+          change everything, have tried a chatbot once, and still do
           not know which job in their business it should do first.
         </p>
         <p className="text-[15px] leading-relaxed text-charcoal max-w-[620px] mb-16">
           The useful version of this is smaller than the headlines suggest. You
           pick one job that eats hours, you automate that one job, and you live
-          with it for a month before touching anything else.
+          with it before touching anything else.
         </p>
       </section>
 
@@ -65,7 +65,7 @@ export default function KentuckySmallBusinessPage() {
         </h2>
         <p className="text-[15px] leading-relaxed text-charcoal max-w-[620px] mb-10">
           Almost every small business we set up starts with one of these. They
-          are cheap to build, they pay back in time rather than in a spreadsheet
+          are small builds, they pay back in time rather than in a spreadsheet
           projection, and it is easy to tell whether they worked.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -107,12 +107,12 @@ export default function KentuckySmallBusinessPage() {
           <p className="text-[15px] leading-relaxed text-charcoal mb-4">
             It happens on plenty of intro calls. A business with three employees
             and a process that lives in one person&apos;s head does not have an AI
-            problem. Automating a broken process gets you a faster broken process.
+            problem. Automating a messy process gets you a faster messy process.
           </p>
           <p className="text-[15px] leading-relaxed text-charcoal mb-4">
             When that is the answer, you get it on the call along with a couple of
-            free resources, and we go our separate ways. It costs us a sale and it
-            is the only version of this business worth running.
+            free resources, and we go our separate ways. It costs us a sale, and it
+            is the only way we want to run this business.
           </p>
           <p className="text-[15px] leading-relaxed text-charcoal">
             If you want the longer version of how we reach that conclusion, it is
@@ -140,7 +140,7 @@ export default function KentuckySmallBusinessPage() {
           {
             href: "/services/operations",
             label: "Operations consulting",
-            blurb: "For when the process is the thing that needs fixing first.",
+            blurb: "For when the process is the thing that needs work first.",
           },
           {
             href: "/insights/ai-trust-gap",
@@ -152,7 +152,7 @@ export default function KentuckySmallBusinessPage() {
 
       <CTABand
         headline="Bring us one job you hate."
-        subtext="Thirty minutes. Tell us the task that eats your week and we will tell you whether it is worth automating, and roughly what that would involve."
+        subtext="Thirty minutes. Tell us the task that eats your week and we will tell you whether to automate it, and roughly what that would involve."
       />
     </>
   );

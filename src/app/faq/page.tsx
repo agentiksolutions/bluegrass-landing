@@ -17,13 +17,13 @@ export const metadata: Metadata = pageMeta({
 // crawler reads is the answer a person reads.
 const faqs: { q: string; a: string; link?: { href: string; label: string } }[] = [
   {
-    q: "What does Bluegrass Advisory Group actually do?",
+    q: "What does Bluegrass Advisory Group do?",
     a: "We learn how your business runs, find the work that is eating hours, and build the tools that take it off your team. In practice that comes out as four things: websites, AI integrated into the work you already do, dashboards that pull your numbers into one place, and operations consulting when the process is the real problem.",
     link: { href: "/services", label: "See the four services" },
   },
   {
     q: "Do you only work with businesses in Lexington?",
-    a: "We are based in Lexington and most engagements are in Central Kentucky, close enough to spend a half day in your building. We work with businesses elsewhere in Kentucky over screen share, and the work is the same apart from the site visit.",
+    a: "We are based in Lexington and work in person across Central Kentucky. We work with businesses elsewhere in Kentucky over screen share, and the work is the same apart from the site visit.",
     link: { href: "/ai-consulting-lexington-ky", label: "Counties we cover in person" },
   },
   {
@@ -49,11 +49,11 @@ const faqs: { q: string; a: string; link?: { href: string; label: string } }[] =
   },
   {
     q: "What happens if something breaks after you hand it over?",
-    a: "Anything we build is designed to say when it has failed rather than quietly stopping, because the expensive version of a broken automation is the one nobody notices for three months. Where you want ongoing coverage, that is an arrangement we set up deliberately rather than something you drift into.",
+    a: "Anything we build is designed to say when it has failed rather than quietly stopping, because the expensive version of a broken automation is the one nobody notices for months. Where you want ongoing coverage, that is an arrangement we set up deliberately rather than something you drift into.",
   },
   {
     q: "What do you need from me to get started?",
-    a: "A questionnaire filled in, whatever documents you already have, and a couple of hours of interview time. On system access we ask your administrator to issue us a named read-only account rather than asking you to send a password, so access is yours to revoke the day the work ends.",
+    a: "A questionnaire filled in, whatever documents you already have, and some interview time. On system access we ask your administrator to issue us a named read-only account rather than asking you to send a password, so access is yours to revoke the day the work ends.",
   },
   {
     q: "How long does it take?",
@@ -84,8 +84,8 @@ export default function FAQPage() {
           Questions we get asked.
         </h1>
         <p className="text-lg leading-relaxed text-charcoal max-w-[620px] mb-16">
-          These are the ten that come up on almost every intro call, answered the
-          way we answer them on the phone.
+          Ten questions from intro calls, answered the way we answer them on
+          the phone.
         </p>
       </section>
 
@@ -124,7 +124,7 @@ export default function FAQPage() {
           {
             href: "/about",
             label: "About the practice",
-            blurb: "Who you would actually be working with, and where we came from.",
+            blurb: "Who you would be working with.",
           },
           {
             href: "/showroom",

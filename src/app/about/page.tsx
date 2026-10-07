@@ -71,7 +71,7 @@ export default function AboutPage() {
       </section>
 
       <section className="px-4 md:px-10 py-16 md:py-20">
-        <div className="max-w-[1160px] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] gap-10 lg:gap-16 items-start">
+        <div className="max-w-[1360px] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] gap-10 lg:gap-16 items-start">
           <div className="text-[19px] leading-relaxed text-body space-y-5 max-w-[62ch]">
             <p>
               I am president of The PFSA, a nonprofit in Lexington. I started Bluegrass Advisory Group
@@ -105,7 +105,7 @@ export default function AboutPage() {
       </section>
 
       <section className="bg-band px-4 md:px-10 py-16 md:py-20">
-        <div className="max-w-[1160px] mx-auto">
+        <div className="max-w-[1360px] mx-auto">
           <h2 className="font-display text-[28px] font-bold tracking-tight text-ink">How I work</h2>
           <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-8">
             {beliefs.map((b) => (

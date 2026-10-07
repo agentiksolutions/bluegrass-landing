@@ -17,7 +17,7 @@ export default function CTABand({
 }: CTABandProps) {
   return (
     <section className="bg-band px-4 md:px-10 py-16 md:py-20">
-      <div className="max-w-[1160px] mx-auto flex flex-col md:flex-row md:items-end md:justify-between gap-8">
+      <div className="max-w-[1360px] mx-auto flex flex-col md:flex-row md:items-end md:justify-between gap-8">
         <div className="max-w-[560px]">
           <h2 className="font-display text-[30px] md:text-[36px] leading-tight font-bold tracking-tight text-ink">
             {headline}

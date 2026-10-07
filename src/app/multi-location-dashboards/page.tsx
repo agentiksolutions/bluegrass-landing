@@ -22,11 +22,11 @@ const whatBreaks = [
 ];
 
 const whatYouSee = [
-  "Every location side by side, on the metrics you actually manage to.",
+  "Every location side by side, on the metrics you manage to.",
   "Comparisons against last week, last period, and the same stretch last year.",
   "Alerts when a number crosses a line you set, so you are not hunting for it.",
   "Access by role, so a manager sees their site and the owner sees everything.",
-  "A phone layout, because most of these get checked in a parking lot.",
+  "A phone layout, for checking the numbers from the parking lot.",
 ];
 
 export default function MultiLocationDashboardsPage() {
@@ -92,7 +92,7 @@ export default function MultiLocationDashboardsPage() {
       <section className="py-20 px-6 md:px-12 max-w-content mx-auto">
         <div className="max-w-[680px]">
           <h2 className="font-display text-2xl font-bold mb-6">
-            The hard part is not the screen.
+            Definitions come first.
           </h2>
           <p className="text-[15px] leading-relaxed text-charcoal mb-4">
             Building a dashboard is the easy half. The half that takes the time
@@ -103,8 +103,8 @@ export default function MultiLocationDashboardsPage() {
           <p className="text-[15px] leading-relaxed text-charcoal mb-4">
             So the first pass is always definitions. We write down what each
             metric counts, where it comes from, and which system wins when two of
-            them disagree. That document is worth more than the dashboard, and it
-            is the reason the dashboard gets trusted.
+            them disagree. That document is the reason people trust the
+            dashboard.
           </p>
           <p className="text-[15px] leading-relaxed text-charcoal">
             If your locations report in different shapes today, that work comes
@@ -144,7 +144,7 @@ export default function MultiLocationDashboardsPage() {
 
       <CTABand
         headline="Bring your three reports."
-        subtext="Send us the reports your locations produce today and we will tell you what it takes to get them onto one screen that agrees with itself."
+        subtext="Send us the reports your locations produce today and we will tell you what it takes to get them onto one screen with one set of definitions."
       />
     </>
   );

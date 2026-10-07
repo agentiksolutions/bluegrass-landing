@@ -140,7 +140,7 @@ export default function ContactPage() {
   };
 
   return (
-    <section className="pt-28 lg:pt-32 pb-20 px-4 md:px-10 max-w-[1160px] mx-auto">
+    <section className="pt-28 lg:pt-32 pb-20 px-4 md:px-10 max-w-[1360px] mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-20 gap-y-10 items-start">
         <div>
           <h1 className="font-display text-[36px] lg:text-[44px] leading-tight font-bold tracking-tight text-ink">
@@ -382,7 +382,7 @@ export default function ContactPage() {
           <div className="mt-8 bg-band p-6 rounded">
             <h2 className="text-[16px] font-semibold text-ink mb-3">What happens next</h2>
             <ol className="text-[16px] text-body leading-relaxed space-y-1.5 list-decimal list-inside">
-              <li>You send this form. It takes about three minutes.</li>
+              <li>You send this form.</li>
               <li>I review it and reply.</li>
               <li>We set up a free 30-minute call.</li>
               <li>You get a recommendation, and sometimes it is to wait.</li>
@@ -445,8 +445,8 @@ function SuccessState({
         </>
       ) : (
         <div className="bg-cream p-5 rounded-md text-[14px] text-charcoal leading-relaxed">
-          I&apos;ll be in touch to schedule the call. Check
-          your inbox. A confirmation email should arrive in the next minute or two.
+          I&apos;ll be in touch to schedule the call. A confirmation
+          email is on its way to your inbox.
         </div>
       )}
 

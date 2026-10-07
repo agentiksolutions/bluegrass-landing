@@ -9,7 +9,7 @@ import { CaseClose, CaseQuote, CaseSection, CaseStudyHero } from "@/components/c
 export const metadata: Metadata = pageMeta({
   title: "Case study: The PFSA, a Lexington nonprofit",
   description:
-    "A board portal, a public website and an online assistance application for The Public Foundation for Stewardship Advancement, all live within one week in February 2026.",
+    "A board portal, a public website and an online assistance application for The Public Foundation for Stewardship Advancement, all live in February 2026.",
   path: "/work/pfsa",
 });
 
@@ -61,8 +61,7 @@ export default function PfsaCaseStudy() {
 
       <CaseSection title="Results">
         <p>
-          The portal, the website and the online application went live within one week in February
-          2026. Quicken was retired for donation tracking the same month.
+          The portal, the website and the online application went live in February 2026. Quicken was retired for donation tracking the same month.
         </p>
         <p>
           The board&apos;s first assistance case went through the new system from intake to a

@@ -44,7 +44,7 @@ export function CaseStudyHero({
 export function CaseSection({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section className="px-4 md:px-10 py-10 md:py-12">
-      <div className="max-w-[1160px] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] gap-4 lg:gap-16 border-t border-line pt-8">
+      <div className="max-w-[1360px] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] gap-4 lg:gap-16 border-t border-line pt-8">
         <h2 className="font-display text-[26px] font-bold tracking-tight text-ink">{title}</h2>
         <div className="text-[19px] leading-relaxed text-body space-y-4 max-w-[64ch]">{children}</div>
       </div>
@@ -65,7 +65,7 @@ export function CaseClose({ note }: { note?: string }) {
   return (
     <>
       {note && (
-        <p className="px-4 md:px-10 pb-10 max-w-[1160px] mx-auto font-display text-[14px] text-muted">{note}</p>
+        <p className="px-4 md:px-10 pb-10 max-w-[1360px] mx-auto font-display text-[14px] text-muted">{note}</p>
       )}
       <CTABand headline="Want something like this for your business?" />
     </>

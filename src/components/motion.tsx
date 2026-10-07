@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import {
   motion,
   useReducedMotion,
@@ -136,5 +136,28 @@ export function ScrollThread() {
     >
       <motion.div className="h-full w-full origin-top bg-[#81A7F8]" style={{ scaleY: still ? 1 : scaleY }} />
     </div>
+  );
+}
+
+/** A muted clip that loops behind a picture slot. Reduced motion holds it on its poster frame. */
+export function LoopVideo({ src, poster, label }: { src: string; poster: string; label: string }) {
+  const still = useReducedMotion();
+  const ref = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    if (still) ref.current?.pause();
+  }, [still]);
+  return (
+    <video
+      ref={ref}
+      src={src}
+      poster={poster}
+      autoPlay
+      muted
+      loop
+      playsInline
+      preload="metadata"
+      aria-label={label}
+      className="absolute inset-0 h-full w-full object-cover"
+    />
   );
 }

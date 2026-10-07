@@ -213,9 +213,8 @@ export default function WebsiteGeneratorPage() {
                   This is what {formData.businessName} could look like.
                 </h3>
                 <p className="text-sm text-stone leading-relaxed max-w-[420px]">
-                  This is a quick concept. The real thing would be fully custom,
-                  mobile-responsive, and built to convert. Want to talk about
-                  making it real?
+                  This is a quick concept. The real site would be custom-built
+                  and work on phones. Want to talk about it?
                 </p>
               </div>
 
@@ -394,7 +393,7 @@ export default function WebsiteGeneratorPage() {
               Pick a style.
             </h2>
             <p className="text-sm text-stone mb-8">
-              This sets the tone for your preview. The real thing would be fully
+              This sets the tone for your preview. The real site would be
               custom.
             </p>
             <div className="flex flex-col gap-2.5">
@@ -467,7 +466,7 @@ export default function WebsiteGeneratorPage() {
         )}
 
         <p className="text-center text-[11px] text-[#ccc] mt-11">
-          Free. No signup. Takes about 10 seconds.
+          Free, with no signup.
         </p>
       </div>
     </div>
