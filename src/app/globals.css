@@ -35,3 +35,9 @@
     @apply max-w-content mx-auto;
   }
 }
+
+/* Hero option B: the work drifts left inside Kentucky. 1320 = three tiles of 430 plus gaps. */
+@keyframes ky-pan {
+  from { transform: translateX(0); }
+  to { transform: translateX(-1320px); }
+}
