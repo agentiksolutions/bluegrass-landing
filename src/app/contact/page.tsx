@@ -1,9 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import Script from "next/script";
 import Link from "next/link";
 import Image from "next/image";
 import { photos } from "@/lib/photos";
+
+declare global {
+  interface Window {
+    turnstile?: {
+      render: (el: HTMLElement, opts: { sitekey: string }) => string;
+      reset: (id?: string) => void;
+      remove: (id: string) => void;
+    };
+  }
+}
+
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
 type FormState = {
   contact_name: string;
@@ -51,6 +64,29 @@ export default function ContactPage() {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const startedAt = useRef(Date.now());
+  const turnstileBox = useRef<HTMLDivElement>(null);
+  const turnstileId = useRef<string | null>(null);
+
+  // Explicit render: the implicit scan runs once per page load, so a second
+  // client-side visit to /contact would show no widget. The script's onReady
+  // covers the first load; the effect covers every later mount.
+  const renderTurnstile = useCallback(() => {
+    if (!TURNSTILE_SITE_KEY || !window.turnstile || !turnstileBox.current) return;
+    turnstileId.current ??= window.turnstile.render(turnstileBox.current, {
+      sitekey: TURNSTILE_SITE_KEY,
+    });
+  }, []);
+  const resetTurnstile = () => {
+    if (turnstileId.current) window.turnstile?.reset(turnstileId.current);
+  };
+  useEffect(() => {
+    renderTurnstile();
+    return () => {
+      if (turnstileId.current) window.turnstile?.remove(turnstileId.current);
+      turnstileId.current = null;
+    };
+  }, [renderTurnstile]);
 
   const calendlyUrl =
     process.env.NEXT_PUBLIC_CALENDLY_URL ||
@@ -63,16 +99,22 @@ export default function ContactPage() {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
     setSubmitting(true);
+    const fields = new FormData(e.currentTarget);
 
     try {
       const res = await fetch("/api/intake", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          ...form,
+          bag_hp: fields.get("bag_hp") || "",
+          elapsed_ms: Date.now() - startedAt.current,
+          turnstile_token: fields.get("cf-turnstile-response") || "",
+        }),
       });
 
       const data = await res.json();
@@ -82,6 +124,7 @@ export default function ContactPage() {
           data.error ||
             "Something went wrong. Please try again or email phil@bluegrassadvisorygroup.com directly.",
         );
+        resetTurnstile();
         setSubmitting(false);
         return;
       }
@@ -91,6 +134,7 @@ export default function ContactPage() {
       setError(
         "Network error. Please try again or email phil@bluegrassadvisorygroup.com directly.",
       );
+      resetTurnstile();
       setSubmitting(false);
     }
   };
@@ -268,6 +312,26 @@ export default function ContactPage() {
                 />
               </div>
 
+              {/* Bot checks: a field people never see, and Turnstile when keys are set. */}
+              <input
+                type="text"
+                name="bag_hp"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                className="absolute -left-[9999px] h-px w-px overflow-hidden"
+              />
+              {TURNSTILE_SITE_KEY && (
+                <>
+                  <Script
+                    src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
+                    strategy="afterInteractive"
+                    onReady={renderTurnstile}
+                  />
+                  <div ref={turnstileBox} />
+                </>
+              )}
+
               {/* Error */}
               {error && (
                 <div className="p-3 bg-red-50 border border-red-200 rounded-md text-[14px] text-red-800">
@@ -313,16 +377,13 @@ export default function ContactPage() {
             <div>
               <span className="font-semibold text-ink">Based in:</span> Lexington, Kentucky
             </div>
-            <div>
-              <span className="font-semibold text-ink">Reply:</span> within 24 hours
-            </div>
           </div>
 
           <div className="mt-8 bg-band p-6 rounded">
             <h2 className="text-[16px] font-semibold text-ink mb-3">What happens next</h2>
             <ol className="text-[16px] text-body leading-relaxed space-y-1.5 list-decimal list-inside">
               <li>You send this form. It takes about three minutes.</li>
-              <li>I reply within 24 hours.</li>
+              <li>I review it and reply.</li>
               <li>We set up a free 30-minute call.</li>
               <li>You get a recommendation, and sometimes it is to wait.</li>
             </ol>
@@ -362,7 +423,7 @@ function SuccessState({
       </h2>
 
       <p className="text-[15px] text-charcoal leading-relaxed mb-8 max-w-sm mx-auto">
-        Your answers are in. I&apos;ll read them and reply within 24 hours.
+        Your answers are in. I&apos;ll read them and reply.
       </p>
 
       {calendlyUrl ? (
@@ -384,7 +445,7 @@ function SuccessState({
         </>
       ) : (
         <div className="bg-cream p-5 rounded-md text-[14px] text-charcoal leading-relaxed">
-          I&apos;ll be in touch within 24 hours to schedule the call. Check
+          I&apos;ll be in touch to schedule the call. Check
           your inbox. A confirmation email should arrive in the next minute or two.
         </div>
       )}

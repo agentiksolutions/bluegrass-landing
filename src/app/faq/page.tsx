@@ -28,7 +28,7 @@ const faqs: { q: string; a: string; link?: { href: string; label: string } }[] =
   },
   {
     q: "What happens on the first call?",
-    a: "Thirty minutes, no charge. We ask which parts of the business are in play, how many tools your team touches in a day, and who else has to agree before anything happens. Nothing gets sold on the call. Within a day you get an email with a recommendation and the reasoning behind it.",
+    a: "Thirty minutes, no charge. We ask which parts of the business are in play, how many tools your team touches in a day, and who else has to agree before anything happens. Nothing gets sold on the call. After the call you get an email with a recommendation and the reasoning behind it.",
   },
   {
     q: "What does it cost?",
@@ -57,7 +57,7 @@ const faqs: { q: string; a: string; link?: { href: string; label: string } }[] =
   },
   {
     q: "How long does it take?",
-    a: "An assessment runs about a week when the scope is one department or one decision, and four to six weeks when it covers several entities with different people running each one. A first working build is usually a couple of weeks from signing. Anything longer than that gets broken into phases so you see something running early.",
+    a: "Timing is agreed with you for each project, and it depends on how much of the business is in scope. Larger work gets broken into phases so you see something running early.",
     link: { href: "/ai-assessment", label: "The assessment, step by step" },
   },
 ];

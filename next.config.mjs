@@ -12,6 +12,20 @@ const nextConfig = {
       { source: "/prompt-studio", destination: "/prompt-studio/index.html" },
     ];
   },
+  async redirects() {
+    return [
+      {
+        source: "/insights/automated-35-workflows",
+        destination: "/insights",
+        permanent: true,
+      },
+      {
+        source: "/insights/cut-12-hours-admin",
+        destination: "/insights",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

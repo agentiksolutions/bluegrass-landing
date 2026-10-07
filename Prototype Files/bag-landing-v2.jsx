@@ -366,7 +366,6 @@ const BAGLanding = () => {
             <div style={{ fontSize: "15px", color: "#888", lineHeight: 2 }}>
               <div><strong style={{ color: "#1C1C1E" }}>Email:</strong> phil@bluegrassadvisorygroup.com</div>
               <div><strong style={{ color: "#1C1C1E" }}>Based in:</strong> Lexington, Kentucky</div>
-              <div><strong style={{ color: "#1C1C1E" }}>Response time:</strong> Usually within 24 hours</div>
             </div>
           </div>
 

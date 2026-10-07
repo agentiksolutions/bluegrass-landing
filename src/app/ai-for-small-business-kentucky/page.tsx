@@ -66,7 +66,7 @@ export default function KentuckySmallBusinessPage() {
         <p className="text-[15px] leading-relaxed text-charcoal max-w-[620px] mb-10">
           Almost every small business we set up starts with one of these. They
           are cheap to build, they pay back in time rather than in a spreadsheet
-          projection, and you can tell within two weeks whether it worked.
+          projection, and it is easy to tell whether they worked.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {firstBuilds.map((b) => (
