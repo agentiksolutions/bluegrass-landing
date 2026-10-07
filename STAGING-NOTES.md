@@ -22,7 +22,8 @@ Before these go live: Tyler's OK on store photos (franchise brand); written OK f
 ## Logo
 
 The official logo (Grok concept 1, picked by Phil at 00:00 on 2026-09-24) is in place. Every file is a
-byte copy from `Brand/logo-2026-09-23/official/`:
+byte copy from `Brand/logo-2026-09-23/official/`, a folder that exists only once the logo pull request
+(Bluegrass-Advisory/bluegrass-advisory-group #27, branch `overnight/logo`, commit fc207a9) merges:
 
 - Header and footer: `public/brand/logo.svg` = `logo-lockup-small.svg` (star-only mark). Both render
   under 150 px tall, where the node network does not read, so neither uses the nodes version.
@@ -83,8 +84,10 @@ Open questions kept out of the rendered pages:
 - The dashboard demo in the showroom labels its sample restaurant stores "Hamburg", "Richmond Rd"
   and "Nicholasville". Next to the franchisee case study, those names point toward the real
   stores. Consider neutral names.
-- The Academy and Prompt Studio came back from `academy-restore` without restyling. They carry
-  272 and 537 em dashes, and the Academy's sample prompts use "crew" and "subcontractors".
+- The Academy and Prompt Studio are restyled to the locked brand in the companion pull request
+  (agentiksolutions/bluegrass-landing #12, merge it before this one). It removes all 809 em dashes
+  and the one "subcontractors" mention. Still open for Phil there: a read-through of the dash
+  replacements, "crew" (11 times), the "BAG" name in the title and button, and emoji icons.
 - About (194 words) and Services (162 words) came in under the word targets of about 280 and 210.
   The first-screen and photo targets are met.
 
