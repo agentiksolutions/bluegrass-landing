@@ -9,7 +9,7 @@ import { photos } from "@/lib/photos";
 export const metadata: Metadata = pageMeta({
   title: "About",
   description:
-    "Phil Fifield has spent over 15 years in restaurants, most of them running operations. He runs operations for a Five Guys franchisee in Central Kentucky and founded Bluegrass Advisory Group.",
+    "Phil Fifield has spent 15 years in restaurants, most of them running operations. He runs operations for a Five Guys franchisee in Central Kentucky and founded Bluegrass Advisory Group.",
   path: "/about",
 });
 
@@ -58,7 +58,7 @@ export default function AboutPage() {
               Founder &amp; Principal, Bluegrass Advisory Group
             </p>
             <p className="mt-6 text-[20px] leading-relaxed text-body max-w-[34ch]">
-              I&apos;ve spent over 15 years in restaurants, most of them running operations. Now I help
+              I&apos;ve spent 15 years in restaurants, most of them running operations. Now I help
               Kentucky businesses get ahead with AI.
             </p>
           </div>
@@ -73,7 +73,7 @@ export default function AboutPage() {
             <div className="mt-5 space-y-5">
               <p>
                 I started as a crew member and worked my way up to manager. I got there by working hard.
-                I&apos;ve now spent over 15 years in restaurants, most of them running operations.
+                I&apos;ve now spent 15 years in restaurants, most of them running operations.
               </p>
               <p>
                 Improving how a business runs is the part of the work I&apos;m proudest of. When the
