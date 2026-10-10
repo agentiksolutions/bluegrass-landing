@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 type IntakePayload = {
   contact_name: string;
@@ -177,6 +178,19 @@ async function turnstileOk(token: string, ip: string | null): Promise<boolean> {
 }
 
 export async function POST(request: NextRequest) {
+  // ponytail: in-memory counter per serverless instance, so best effort only.
+  // Move to a shared store (Vercel KV or Upstash) if spam spreads across instances.
+  const limit = checkRateLimit(`intake:${getClientIp(request) ?? "unknown"}`);
+  if (!limit.allowed) {
+    return NextResponse.json(
+      {
+        error:
+          "Too many submissions from your network. Please wait an hour or email phil@bluegrassadvisorygroup.com directly.",
+      },
+      { status: 429 },
+    );
+  }
+
   try {
     const raw = (await request.json()) as IntakePayload & {
       bag_hp?: string;
@@ -278,9 +292,15 @@ export async function POST(request: NextRequest) {
 
     // Airtable CRM: contact plus pipeline row. Awaited, because the function
     // is frozen once the response goes out and a detached write gets cut off.
-    await pushToAirtable(body).catch((err) =>
-      console.error("Airtable push failed:", err),
-    );
+    // A failed save flags Phil's notification and skips the prospect's
+    // confirmation, so neither side reads it as a clean success.
+    let crmError: string | null = null;
+    try {
+      await pushToAirtable(body);
+    } catch (err) {
+      crmError = String(err instanceof Error ? err.message : err).slice(0, 300);
+      console.error("Airtable push failed:", crmError);
+    }
 
     // Email: fire and forget. Don't block form success on email send.
     const notificationEmail =
@@ -304,10 +324,11 @@ export async function POST(request: NextRequest) {
       from: fromAddress,
       to: [notificationEmail],
       reply_to: body.email,
-      subject: `New BAG intake: ${body.contact_name} @ ${body.company_name}`,
+      subject: `${crmError ? "NOT in Airtable: " : ""}New BAG intake: ${body.contact_name} @ ${body.company_name}`,
       html: `
         <div style="${read} max-width: 600px; line-height: 1.6; color: #3B4350; background: #FFFFFF;">
           ${logo}
+          ${crmError ? `<p style="${head} color: #B42318; font-weight: 700; border: 1px solid #B42318; padding: 12px; margin: 16px 0;">NOT in Airtable. This lead did not save to the BAG CRM, so add it by hand. Error: ${escapeHtml(crmError)}</p>` : ""}
           <h2 style="${head} color: #161B22; border-bottom: 2px solid #0033A0; padding: 16px 0 8px; margin: 0 0 8px;">New website intake</h2>
           <table cellpadding="6" cellspacing="0" style="border-collapse: collapse; width: 100%;">
             <tr><td ${cell}>Name</td><td ${val}>${escapeHtml(body.contact_name)}</td></tr>
@@ -331,8 +352,8 @@ export async function POST(request: NextRequest) {
       `,
     });
 
-    // Auto-confirmation to prospect
-    const phConfirmation = sendResendEmail({
+    // Auto-confirmation to prospect, only when the lead fully saved.
+    const phConfirmation = crmError ? null : sendResendEmail({
       from: fromAddress,
       to: [body.email],
       reply_to: notificationEmail,
@@ -374,11 +395,22 @@ export async function POST(request: NextRequest) {
     // Wait on email sends but don't fail the request if they don't work
     const [notif, confirm] = await Promise.all([phNotification, phConfirmation]);
     if (!notif.ok) console.warn("Notification email failed:", notif.error);
-    if (!confirm.ok) console.warn("Confirmation email failed:", confirm.error);
+    if (confirm && !confirm.ok) console.warn("Confirmation email failed:", confirm.error);
+
+    if (crmError) {
+      return NextResponse.json(
+        {
+          error:
+            "We received your details, but they did not save completely on our side. Please also email phil@bluegrassadvisorygroup.com so your request is not missed.",
+          crmSaved: false,
+        },
+        { status: 502 },
+      );
+    }
 
     return NextResponse.json({
       ok: true,
-      emailsSent: notif.ok && confirm.ok,
+      emailsSent: notif.ok && !!confirm?.ok,
     });
   } catch (err) {
     console.error("Intake route error:", err);
