@@ -10,6 +10,7 @@ Before these go live: Tyler's OK on store photos (franchise brand); written OK f
 - The store photos are saved as `public/photos/store-a.jpg` and `store-b.jpg` so the file names do
   not name the towns. The front of `store-b.jpg` still shows its street number (2467) on the
   building. Decide whether that is acceptable before it goes live.
+- `public/photos/manager-portal-cropped.webp` (added 2026-10-16, waiting on Tyler's OK): the 4K manager portal capture from `images/work/manager-portal.webp`, cropped to 3280 x 1845 (16:9) so the sidebar (FG badge, red Home button, "Proprietary & confidential" footer) and the red date bar are gone. Not referenced by any page yet. The hero tile (`images/work/tiles/manager-portal.webp`) and the blog cover (`images/insights/automating-our-own-back-office-portal.webp`) come from the same capture and still show the badge, the red bar and the footer.
 - `public/photos/pfsa-website.jpg` is a screenshot of the public PFSA home page (www.thepfsa.org),
   taken 2026-09-23. It shows no people and no donor data.
 - All photos were resized and saved without their original metadata. Checked after saving: every
