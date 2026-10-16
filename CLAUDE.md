@@ -114,7 +114,7 @@ SUPABASE_ANON_KEY          Optional — for /api/lead
 - Deploy: `git push` to main → Vercel auto-deploy
 
 ## Rules
-- No pricing on the website
+- Say what an offer is and what it costs (Phil, 2026-10-06). Never say how or when the client pays: no 50/50, deposits, upfront or payment methods. Contracts state the terms. The Roadmap shows $2,500, credited toward a Business AI Setup (Phil, 2026-10-16, Open Decisions row 312)
 - Case studies allowed (Phil, 2026-09-23): PFSA by name; the restaurant client only as "a Five Guys franchisee in Central Kentucky" until its owner agrees to be named. Quotes on the site are Phil's own words; no client testimonials without written permission
 - No Tailwind blue, no Inter/Roboto fonts
 - Keep the limestone and white editorial look (the warm white palette was retired 2026-09-23)

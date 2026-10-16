@@ -228,7 +228,7 @@ export default function HomePage() {
                 You work with Phil Fifield
               </h2>
               <p className="mt-7 text-[19px] md:text-[22px] leading-snug text-body max-w-[44ch]">
-                He has run businesses for over 15 years. Today he runs operations for a restaurant
+                He has spent 15 years in restaurants. Today he runs operations for a restaurant
                 franchisee in Central Kentucky and is president of a Lexington nonprofit. He built
                 the AI systems both of them run on, and he runs them himself.
               </p>
