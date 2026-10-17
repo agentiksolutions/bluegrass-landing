@@ -74,7 +74,7 @@ public/showroom/      Legacy static HTML demos (slys-nubian still exists)
 ## Environment Variables
 ```
 ANTHROPIC_API_KEY          Required for /api/generate (showroom rooms 1 & 2)
-NEXT_PUBLIC_GA_ID          G-YKB8RMQ7LS (hardcoded in layout.tsx)
+NEXT_PUBLIC_GA_ID          G-YKB8RMQ7LS (hardcoded in src/components/cookie-consent.tsx)
 SUPABASE_URL               Optional — for /api/lead
 SUPABASE_ANON_KEY          Optional — for /api/lead
 ```
@@ -91,7 +91,7 @@ SUPABASE_ANON_KEY          Optional — for /api/lead
 - `/contact` is a client component, so its metadata lives in `src/app/contact/layout.tsx`
 - Home page carries Organization + ProfessionalService and WebSite JSON-LD
 - The three showroom demos carry an `sr-only` H1 in their `page.tsx` shim
-- GA4 via next/script afterInteractive
+- GA4 loads only after the visitor clicks Accept on the cookie banner (`src/components/cookie-consent.tsx`). Never add a tracking script outside that component; tracking before consent is a legal risk (attorney, 2026-10-16). Update `/privacy` when a third party is added
 - @tailwindcss/typography for blog prose styling
 
 ## Dependencies

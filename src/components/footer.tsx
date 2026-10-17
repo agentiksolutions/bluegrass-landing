@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CookieSettingsButton } from "@/components/cookie-consent";
 
 const footerCols = [
   {
@@ -73,7 +74,13 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="border-t border-[#2a2a2a] pt-5 flex flex-col md:flex-row justify-between text-[11px] text-[#444] gap-2">
-          <span>&copy; {new Date().getFullYear()} Bluegrass Advisory Group, LLC</span>
+          <span className="flex flex-wrap gap-x-4 gap-y-1">
+            <span>&copy; {new Date().getFullYear()} Bluegrass Advisory Group, LLC</span>
+            <Link href="/privacy" className="hover:text-warm-white transition-colors duration-200">
+              Privacy
+            </Link>
+            <CookieSettingsButton className="hover:text-warm-white transition-colors duration-200" />
+          </span>
           <span>Business Operations &middot; AI Integration &middot; Lexington, KY</span>
         </div>
       </div>
