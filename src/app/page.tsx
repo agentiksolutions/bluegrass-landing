@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import Button from "@/components/button";
 import CTABand from "@/components/cta-band";
 import JsonLd from "@/components/json-ld";
-import KentuckyFlow from "@/components/v2/kentucky-flow";
+import DataToDashboard from "@/components/v2/data-to-dashboard";
+import HomeHero from "@/components/v2/home-hero";
+import ScrollVideo from "@/components/v2/scroll-video";
+import ClientLogos from "@/components/v2/client-logos";
 import { AssistantPanel, SupportThread, SystemsMap } from "@/components/v2/panels";
 import { FadeUp, Reveal } from "@/components/v2/reveal";
 import {
@@ -18,7 +20,6 @@ import {
 } from "@/components/v2/scroll-sections";
 import { pageMeta } from "@/lib/metadata";
 import { photos } from "@/lib/photos";
-import { BOOKING_URL } from "@/lib/site";
 
 const organizationJsonLd = {
   "@context": "https://schema.org",
@@ -112,41 +113,14 @@ export default function HomePage() {
       <JsonLd data={organizationJsonLd} />
       <JsonLd data={websiteJsonLd} />
 
-      {/* 1. Hero: Kentucky drawn by moving light, live on the device. */}
-      <section data-nav="dark" className="night relative h-[100svh] min-h-[620px] overflow-hidden bg-night text-night-text">
-        <KentuckyFlow />
-        <div className="pointer-events-none relative mx-auto flex h-full max-w-page flex-col justify-end px-4 pb-14 md:px-10 md:pb-20">
-          <div data-quiet className="w-fit max-w-full">
-          <Reveal
-            as="h1"
-            onLoad
-            delay={0.1}
-            text={"Your AI partner\nin Central Kentucky."}
-            className="font-display text-[46px] font-medium leading-[0.98] tracking-[-0.04em] sm:text-[68px] lg:text-[104px]"
-          />
-          </div>
-          <FadeUp delay={0.9} className="pointer-events-auto mt-8 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
-            <p className="max-w-[30ch] text-[19px] leading-snug text-night-body md:text-[22px]">
-              We teach your team, build your AI tools, and support them after.
-            </p>
-            <div className="flex flex-wrap items-center gap-x-7 gap-y-4">
-              <Button href={BOOKING_URL}>Book a call</Button>
-              <a
-                href="#how-we-help"
-                className="font-display text-[15px] font-semibold text-night-text underline decoration-night-blue/60 underline-offset-4 hover:decoration-night-blue"
-              >
-                See how we help
-              </a>
-            </div>
-          </FadeUp>
-          <p className="absolute right-4 top-24 hidden font-display text-[13px] text-night-body md:right-10 md:block">
-            The star is Lexington.
-          </p>
-        </div>
-      </section>
+      {/* 1. Hero: the Kentucky mark in 3D on desktops, moving light in 2D elsewhere. */}
+      <HomeHero />
 
       {/* 2. What we help with: each line lights up while the section holds. */}
       <PinnedStatements heading="What we help with" items={problems} />
+
+      {/* The signature sequence: scattered inputs become a working dashboard as you scroll. */}
+      <DataToDashboard />
 
       {/* 3. Who you work with. */}
       <section className="bg-band px-4 py-24 md:px-10 md:py-36">
@@ -179,6 +153,15 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* The firm's mark in 3D, rendered in Blender and scrubbed by scroll. */}
+      <ScrollVideo
+        src="/videos/ky-flight-scrub.mp4"
+        srcSmall="/videos/ky-flight-scrub-720.mp4"
+        poster="/videos/ky-flight-first.jpg"
+        still="/videos/ky-flight-poster.jpg"
+        lines={["Based in Lexington.", "Working with Central Kentucky businesses.", "Starting with how your work gets done."]}
+      />
 
       {/* 4. How we help: a night chapter that holds while the three services pass sideways. */}
       <HorizontalTrack
@@ -276,10 +259,13 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 7. Who we work with: a preview follows the pointer on hover. */}
+      {/* Who we have worked with (staging only; see the permission note in the component). */}
+      <ClientLogos />
+
+      {/* 7. Industries: a preview follows the pointer on hover. */}
       <section className="bg-band px-4 py-24 md:px-10 md:py-36">
         <div className="mx-auto grid max-w-page grid-cols-1 gap-12 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-20">
-          <Reveal text="Who we work with" className="max-w-[10ch] font-display text-[40px] font-light leading-[1.02] tracking-[-0.03em] text-ink md:text-[56px]" />
+          <Reveal text="Industries" className="max-w-[10ch] font-display text-[40px] font-light leading-[1.02] tracking-[-0.03em] text-ink md:text-[56px]" />
           <HoverList items={markets} />
         </div>
       </section>

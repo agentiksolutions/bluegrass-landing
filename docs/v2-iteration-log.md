@@ -117,3 +117,22 @@ The contact form has no Supabase or Airtable keys on the preview, so it errors b
 - The Academy and Prompt Studio are static pages carried over unchanged. Their teaching samples
   contain markdown bullets (" - "), sample prompts with ", not" and a mention of n8n as a public
   automation tool. Left as is: outside this redesign.
+
+## Round 6 (2026-10-20, new direction: scroll as the centrepiece, real 3D, client logos)
+
+New since round 5:
+- **3D hero** (`src/lib/ky-3d.ts`, `home-hero.tsx`): three.js r170, loaded only on desktops with WebGL 2 and motion on. The firm's Kentucky mark is extruded into a slab. Live flowing light on its top face is drawn to a canvas texture. The node network carries travelling pulses, the star glows at Lexington, and bloom post-processing lights it all. The hero pins for one screen while scroll flies the camera from a wide three-quarter view down to the star and the words lift away. The pointer tilts the view. Phones, tablets and reduced motion keep the 2D canvas. Tone mapping darkened the clear colour to (6, 10, 16), so the background input was set to land on the page ink (22, 27, 34), measured.
+- **Signature sequence** (`data-to-dashboard.tsx`): messy inputs become a working dashboard. See `docs/v2-references.md` for how it is built.
+- **Blender flight** (`scroll-video.tsx`, `public/videos/ky-flight-*`, script in `scripts/render/ky_flight.py`): rendered with Cycles on the Mac mini's M4 at 1920x1080, 150 frames, 7.7 s a frame. It is encoded on the Mac with every frame a keyframe, 5.2 MB, plus a 3.0 MB 720p file for phones. The section pins for 2.4 screens while scroll moves the camera, and three plain lines take turns over a legibility scrim.
+- **Who we've worked with** (`client-logos.tsx`): STAGING ONLY. **Pending permission before live: Five Guys trademark use (no endorsement implied), Tyler Barton/BRG, Greer, Activate, StoneCreek, Proliferation.** The list was verified against the BAG CRM: Greer Companies, Activate, StoneCreek Management, Proliferation Marketing and United Property Holdings have signed contracts and paid invoices. Five Guys (Phil runs operations for a franchisee) and The PFSA (Phil is president) were added at Phil's request. Logos come from each company's own website (PFSA's from its own site code) and were converted on the Mac to one limestone monochrome treatment. StoneCreek and United Property Holdings publish no logo, so their names are set in type. Greer's own site serves only a 158 px PNG, so ask Greer for a vector. A line under the logos says they imply no endorsement.
+- **References:** `docs/v2-references.md`. Hydra OS is taken to be hydraos.ai, which needs Phil's confirmation.
+- **Higgsfield: no free models, needs Phil's call on a pass.** Unlimited Kling 3.0 and Nano Banana are paywalled, and Grok Imagine costs credits. The balance is still 0.81. Every visual here is three.js, Blender on the Mac, real screenshots or panels drawn in code.
+- The home page's markets heading is now "Industries", so it does not read twice next to "Who we've worked with".
+
+| Defect | Fix |
+|---|---|
+| The first 3D frame rendered on black with the state cut off at the top | Scene background compensated for tone mapping; wide shot reframed so the state sits up and right of the headline with its east end in frame |
+| 3D light overexposed as the camera dived (bloom and emissive ramped too hard) | Bloom 0.6 to 0.75, emissive ramp cut to +0.25, star light ramp cut to +2 |
+| The words over the Blender flight sat on bright network lines | A legibility scrim fills the bottom 55% of that section |
+| Client logos at uneven sizes and an uneven last row | Per-logo heights balanced by eye; rows centred |
+| Proliferation's script logo showed a faint box edge | Re-converted with a threshold so the old white background goes fully clear |

@@ -89,7 +89,7 @@ export default function KentuckyFlow({ className = "" }: { className?: string })
     // The headline's box on the canvas, padded; light inside it is drawn faint.
     let quiet = { l: 0, r: 0, t: 0, b: 0 };
     const measureQuiet = () => {
-      const words = canvas.parentElement?.querySelector<HTMLElement>("[data-quiet]");
+      const words = canvas.closest("section")?.querySelector<HTMLElement>("[data-quiet]");
       if (!words) return;
       const c = canvas.getBoundingClientRect();
       const r = words.getBoundingClientRect();
