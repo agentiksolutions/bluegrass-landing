@@ -86,6 +86,15 @@ export default function KentuckyFlow({ className = "" }: { className?: string })
 
     const t0 = performance.now();
     let scrollPull = 0;
+    // The headline's box on the canvas, padded; light inside it is drawn faint.
+    let quiet = { l: 0, r: 0, t: 0, b: 0 };
+    const measureQuiet = () => {
+      const words = canvas.parentElement?.querySelector<HTMLElement>("[data-quiet]");
+      if (!words) return;
+      const c = canvas.getBoundingClientRect();
+      const r = words.getBoundingClientRect();
+      quiet = { l: r.left - c.left - 24, r: r.right - c.left + 24, t: r.top - c.top - 16, b: r.bottom - c.top + 16 };
+    };
     const pointer = { x: -1e4, y: -1e4, on: false };
 
     const spawn = (i: number, t: number) => {
@@ -115,6 +124,7 @@ export default function KentuckyFlow({ className = "" }: { className?: string })
       canvas.width = Math.round(w * dpr);
       canvas.height = Math.round(h * dpr);
       fit = fitFor(w, h);
+      measureQuiet();
       const want = w < 768 ? 1100 : w < 1280 ? 2200 : 3000;
       if (want !== n) {
         n = want;
@@ -162,7 +172,9 @@ export default function KentuckyFlow({ className = "" }: { className?: string })
       const pX = (pointer.x - ox) / s;
       const pY = (pointer.y - oy) / s;
 
-      const paths = [new Path2D(), new Path2D()];
+      // Third path: light that passes behind the headline is drawn faint so the words stay clear.
+      const paths = [new Path2D(), new Path2D(), new Path2D(), new Path2D()];
+      const q = quiet;
       for (let i = 0; i < n; i++) {
         const x = px[i];
         const y = py[i];
@@ -197,8 +209,12 @@ export default function KentuckyFlow({ className = "" }: { className?: string })
           spawn(i, t);
           continue;
         }
-        const path = paths[tone[i]];
-        path.moveTo(ox + x * s, oy + y * s);
+        const sx = ox + x * s;
+        const sy = oy + y * s;
+        const inQuiet = (pad: number) => sx > q.l - pad && sx < q.r + pad && sy > q.t - pad && sy < q.b + pad;
+        // A soft edge: faint inside the headline box, half strength in a band around it.
+        const path = inQuiet(0) ? paths[2] : inQuiet(36) ? paths[3] : paths[tone[i]];
+        path.moveTo(sx, sy);
         path.lineTo(ox + nx * s, oy + ny * s);
         px[i] = nx;
         py[i] = ny;
@@ -209,6 +225,10 @@ export default function KentuckyFlow({ className = "" }: { className?: string })
       ctx.stroke(paths[0]);
       ctx.strokeStyle = "rgba(157,178,232,0.9)";
       ctx.stroke(paths[1]);
+      ctx.strokeStyle = "rgba(242,241,236,0.1)";
+      ctx.stroke(paths[2]);
+      ctx.strokeStyle = "rgba(242,241,236,0.28)";
+      ctx.stroke(paths[3]);
 
       // The Lexington star, as drawn in the official mark.
       ctx.save();

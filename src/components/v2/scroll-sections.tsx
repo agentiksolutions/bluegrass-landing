@@ -136,7 +136,7 @@ export function TrackCard({
   children: React.ReactNode;
 }) {
   return (
-    <article className="min-[821px]:w-[min(64vw,880px)] min-[821px]:shrink-0">
+    <article className="min-[821px]:w-[min(70vw,1000px)] min-[821px]:shrink-0">
       <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[minmax(0,7fr)_minmax(0,4fr)] lg:gap-10">
         <div>{children}</div>
         <div>

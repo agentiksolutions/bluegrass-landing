@@ -116,6 +116,7 @@ export default function HomePage() {
       <section data-nav="dark" className="night relative h-[100svh] min-h-[620px] overflow-hidden bg-night text-night-text">
         <KentuckyFlow />
         <div className="pointer-events-none relative mx-auto flex h-full max-w-page flex-col justify-end px-4 pb-14 md:px-10 md:pb-20">
+          <div data-quiet className="w-fit max-w-full">
           <Reveal
             as="h1"
             onLoad
@@ -123,6 +124,7 @@ export default function HomePage() {
             text={"Your AI partner\nin Central Kentucky."}
             className="font-display text-[46px] font-medium leading-[0.98] tracking-[-0.04em] sm:text-[68px] lg:text-[104px]"
           />
+          </div>
           <FadeUp delay={0.9} className="pointer-events-auto mt-8 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
             <p className="max-w-[30ch] text-[19px] leading-snug text-night-body md:text-[22px]">
               We teach your team, build your AI tools, and support them after.

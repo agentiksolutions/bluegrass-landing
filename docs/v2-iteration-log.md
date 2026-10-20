@@ -79,3 +79,12 @@ performance 87 to 88, accessibility 96 to 100, best practices 100, SEO 100. Larg
 | Showroom tools opened on a bare white screen with an off-brand two-color wordmark and a second title | Night opening band with the tool's name; the in-tool wordmark and repeated title removed; the full firm name where the tools still sign their output |
 | Contact page was the one page without a night opening | Night band behind the heading; the form card and Phil's photo rise out of it onto white |
 | Built Examples had no picture of the example | The PFSA site screenshot opens the page |
+
+## Round 4 (home at full resolution, frame by frame)
+
+| Defect | Fix |
+|---|---|
+| Hero light still ran bright behind "Your AI partner" on wide screens | The canvas reads the headline's box and draws light inside it at 10% strength, with a 36 px band at 28%, so the words sit on a quiet patch while the state keeps moving around them |
+| Systems map could still be drawing its lines a full second after it was on screen | Drawing starts at 30% visibility and runs in about 1.5 s instead of 3 |
+| Service cards in the night track left wide empty margins at 1440 | Cards widened to 70% of the screen (1000 px cap) |
+| A local review run showed missing script chunks | Not a site defect: the push hook rebuilt `.next` under the running preview server. The review script now restarts the server after every build |

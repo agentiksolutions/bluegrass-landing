@@ -27,7 +27,7 @@ function useOnce(build: (el: HTMLElement) => gsap.core.Timeline) {
           io.disconnect();
         }
       },
-      { threshold: 0.5 },
+      { threshold: 0.3 },
     );
     io.observe(el);
     return () => {
@@ -207,8 +207,8 @@ export function SystemsMap() {
     });
     return gsap
       .timeline()
-      .from(el.querySelectorAll("[data-node]"), { autoAlpha: 0, y: 8, duration: 0.6, stagger: 0.08, ease: EASE })
-      .to(lines, { strokeDashoffset: 0, duration: 1.1, stagger: 0.18, ease: "power2.inOut" }, "-=0.2")
+      .from(el.querySelectorAll("[data-node]"), { autoAlpha: 0, y: 8, duration: 0.45, stagger: 0.05, ease: EASE })
+      .to(lines, { strokeDashoffset: 0, duration: 0.8, stagger: 0.1, ease: "power2.inOut" }, 0.3)
       .from(el.querySelectorAll("[data-tag]"), { autoAlpha: 0, duration: 0.4, stagger: 0.12 }, "-=0.8")
       // Hand-typed moves go back to dashes once drawn.
       .call(() =>
