@@ -190,3 +190,5 @@ Round 12 full sweep:
 - Rendered copy: no dashes and no slop tells. Home copy 286 words, small print excluded.
 
 - Round 13: the service cards in the night track swing in from an angle and out of depth as they slide into view (GSAP `containerAnimation` on the horizontal track). The 3D star ignores tone mapping so it stays pure white when bloom is off, and the dive ends a little higher so the star's surroundings read.
+
+- Round 14: the About headshot drifts in depth like the other inner-page openings.

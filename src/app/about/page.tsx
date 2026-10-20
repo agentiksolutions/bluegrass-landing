@@ -5,6 +5,7 @@ import { pageMeta } from "@/lib/metadata";
 import CTABand from "@/components/cta-band";
 import JsonLd from "@/components/json-ld";
 import { FadeUp, Reveal } from "@/components/v2/reveal";
+import { Drift } from "@/components/v2/scroll-sections";
 import { photos } from "@/lib/photos";
 
 export const metadata: Metadata = pageMeta({
@@ -38,7 +39,8 @@ export default function AboutPage() {
 
       <section data-nav="dark" data-nomotion className="night bg-night text-night-text">
         <div className="mx-auto grid max-w-page grid-cols-1 items-end gap-12 px-4 pb-16 pt-28 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:px-10 md:pb-24 md:pt-36 lg:gap-20">
-          <FadeUp onLoad delay={0.1} className="mx-auto w-full max-w-[440px] md:mx-0">
+          <Drift amount={-70} className="mx-auto w-full max-w-[440px] md:mx-0">
+          <FadeUp onLoad delay={0.1}>
             <Image
               src={photos.headshot.src}
               alt={photos.headshot.alt}
@@ -49,6 +51,7 @@ export default function AboutPage() {
               className="h-auto w-full rounded-[6px]"
             />
           </FadeUp>
+          </Drift>
           <div className="pb-2">
             <Reveal
               as="h1"
