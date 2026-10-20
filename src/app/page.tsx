@@ -5,7 +5,7 @@ import CTABand from "@/components/cta-band";
 import JsonLd from "@/components/json-ld";
 import DataToDashboard from "@/components/v2/data-to-dashboard";
 import HomeHero from "@/components/v2/home-hero";
-import CountyPulse from "@/components/v2/county-pulse";
+import ScrollVideo from "@/components/v2/scroll-video";
 import ClientLogos from "@/components/v2/client-logos";
 import { AssistantPanel, StorePanel, SupportThread, SystemsMap } from "@/components/v2/panels";
 import { FadeUp, Reveal } from "@/components/v2/reveal";
@@ -151,8 +151,15 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Kentucky's county borders firing like neurons, drawn in code. */}
-      <CountyPulse />
+      {/* The firm's mark in 3D, rendered in Blender and scrubbed by scroll. */}
+      <ScrollVideo
+        src="/videos/ky-flight-scrub.mp4"
+        srcSmall="/videos/ky-flight-portrait.mp4"
+        posterSmall="/videos/ky-flight-portrait-first.jpg"
+        poster="/videos/ky-flight-first.jpg"
+        still="/videos/ky-flight-poster.jpg"
+        lines={[]}
+      />
 
       {/* 4. How we help: a night chapter that holds while the three services pass sideways. */}
       <HorizontalTrack

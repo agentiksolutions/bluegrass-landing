@@ -372,3 +372,7 @@ What the trace showed and what changed:
   - Lighthouse mobile scores 93 (TBT 34 ms, LCP 3.2 s); desktop scores 94.
 
 - **Phone crop fix:** at 430 px the western tip ran off the screen. The 116% width is removed, and on phones the tilt now pivots on the bottom edge, so the whole state sits inside the 16 px gutters: canvas x 16 to 414 at 430 px, 16 to 359 at 375 px.
+
+## Phil rejected the county canvas: flight video restored
+
+Phil: "i didnt want that..... i wanthed the one there but those things removed." He wants the same Blender flight video with only the node layer removed. The flight section, its videos and its wiring are restored exactly as at 0e9bcf2, and county-pulse.tsx is deleted. The solid blue state in the closing band stays. scroll-sections.tsx is not restored: its only change since 0e9bcf2 is the removal of MarkBuild, which the closing band no longer uses.
