@@ -33,7 +33,8 @@ export default function HomeHero() {
     if (!can3D()) return;
     let cancelled = false;
     let timer = 0;
-    import("@/lib/ky-3d").then(({ mountKentucky3D }) => {
+    let wait = 0;
+    const start = () => import("@/lib/ky-3d").then(({ mountKentucky3D }) => {
       if (cancelled || !stageRef.current) return;
       // If this machine cannot keep the scene smooth, go back to the 2D light for good.
       kyRef.current = mountKentucky3D(stageRef.current, () => {
@@ -47,8 +48,20 @@ export default function HomeHero() {
       // Keep the 2D light until the 3D canvas has faded in over it.
       timer = window.setTimeout(() => setMode("3d"), 1300);
     });
+    // three.js loads only once the page has finished loading and the main thread has gone quiet,
+    // so it never competes with the first paint; the 2D light holds the hero until then.
+    const later = () => {
+      wait = window.setTimeout(() => {
+        if ("requestIdleCallback" in window) window.requestIdleCallback(() => void start(), { timeout: 2000 });
+        else void start();
+      }, 400);
+    };
+    if (document.readyState === "complete") later();
+    else window.addEventListener("load", later, { once: true });
     return () => {
       cancelled = true;
+      window.removeEventListener("load", later);
+      window.clearTimeout(wait);
       window.clearTimeout(timer);
       kyRef.current?.dispose();
       kyRef.current = null;
@@ -105,12 +118,16 @@ export default function HomeHero() {
               className="font-display text-[46px] font-medium leading-[0.98] tracking-[-0.04em] sm:text-[68px] lg:text-[104px]"
             />
           </div>
-          <FadeUp onLoad delay={0.9} className="pointer-events-auto mt-8 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+          {/* The line paints with the first frame (it is the largest text, so it sets LCP); only the
+              button fades in. */}
+          <div className="pointer-events-auto mt-8 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
             <p className="min-h-[2.5em] max-w-[30ch] text-[19px] leading-snug text-night-body md:text-[22px]">
               We train your team, build your tools and keep them running.
             </p>
-            <Button href={BOOKING_URL}>Book a free call</Button>
-          </FadeUp>
+            <FadeUp onLoad delay={0.6}>
+              <Button href={BOOKING_URL}>Book a free call</Button>
+            </FadeUp>
+          </div>
         </div>
       </div>
     </section>

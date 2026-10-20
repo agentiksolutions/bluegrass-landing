@@ -43,21 +43,6 @@
   }
 }
 
-/* Lenis smooth scroll (its recommended base styles). */
-html.lenis,
-html.lenis body {
-  height: auto;
-}
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
-}
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
-}
-.lenis.lenis-stopped {
-  overflow: clip;
-}
-
 /* Masked word reveal. Words are visible in the server HTML. The inline script in layout.tsx
    adds .js before first paint, which lowers them behind their masks until <Reveal> raises them.
    .motion-off (reduced motion) and the 4-second failsafe (.rv-done) show everything. */

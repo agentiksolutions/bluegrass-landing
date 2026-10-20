@@ -1,7 +1,7 @@
 "use client";
 
 import { useLayoutEffect, useRef } from "react";
-import { gsap, EASE, motionOff } from "@/lib/gsap";
+import { gsap, EASE, motionOff, whenIdle } from "@/lib/gsap";
 
 // STAGING ONLY. Approved (Phil, 2026-10-20): Five Guys (trademark use, no endorsement implied) and Activate.
 // Pending permission before live: Tyler Barton/BRG, Greer, StoneCreek, Proliferation, United Property Holdings. Phil asked for this section on
@@ -32,22 +32,24 @@ export default function ClientLogos() {
   useLayoutEffect(() => {
     const el = ref.current;
     if (!el || motionOff()) return;
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        el.querySelectorAll("[data-logo]"),
-        { autoAlpha: 0, yPercent: 60, rotationX: -50 },
-        {
-          autoAlpha: 1,
-          yPercent: 0,
-          rotationX: 0,
-          duration: 1.1,
-          ease: EASE,
-          stagger: 0.08,
-          scrollTrigger: { trigger: el, start: "top 70%", once: true },
-        },
-      );
-    }, el);
-    return () => ctx.revert();
+    return whenIdle(() => {
+      const ctx = gsap.context(() => {
+        gsap.fromTo(
+          el.querySelectorAll("[data-logo]"),
+          { autoAlpha: 0, yPercent: 60, rotationX: -50 },
+          {
+            autoAlpha: 1,
+            yPercent: 0,
+            rotationX: 0,
+            duration: 1.1,
+            ease: EASE,
+            stagger: 0.08,
+            scrollTrigger: { trigger: el, start: "top 70%", once: true },
+          },
+        );
+      }, el);
+      return () => ctx.revert();
+    });
   }, []);
 
   return (
@@ -59,7 +61,7 @@ export default function ClientLogos() {
             <li key={c.name} data-logo className="flex h-28 w-1/2 items-center justify-center border-t border-night-line px-4 pt-6 sm:w-1/3 lg:w-1/4">
               {c.logo ? (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img src={c.logo} alt={c.name} className={`${c.h} w-auto max-w-full object-contain opacity-85 transition-opacity duration-300 hover:opacity-100`} />
+                <img src={c.logo} alt={c.name} loading="lazy" decoding="async" className={`${c.h} w-auto max-w-full object-contain opacity-85 transition-opacity duration-300 hover:opacity-100`} />
               ) : (
                 <span className="text-center font-display text-[19px] font-medium leading-tight tracking-[-0.01em] text-night-text opacity-85 md:text-[22px]">
                   {c.name}

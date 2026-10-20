@@ -1,7 +1,7 @@
 "use client";
 
 import { useLayoutEffect, useRef } from "react";
-import { gsap, WIDE, motionOff } from "@/lib/gsap";
+import { gsap, WIDE, motionOff, whenIdle } from "@/lib/gsap";
 
 /**
  * A pre-rendered 3D flight over the firm's Kentucky mark (Blender, Cycles), scrubbed by scroll:
@@ -32,73 +32,77 @@ export default function ScrollVideo({
     const el = ref.current;
     const video = videoRef.current;
     if (!el || !video || motionOff()) return;
-    // Fetch the video only when the section is about a screen away, so it never competes with
-    // the first screen for bandwidth.
-    const near = new IntersectionObserver(
-      ([e]) => {
-        if (!e.isIntersecting) return;
-        const small = window.innerWidth < 821;
-        video.src = small ? srcSmall : src;
-        if (small) video.poster = posterSmall;
-        video.load();
-        near.disconnect();
-      },
-      { rootMargin: "120% 0px" },
-    );
-    near.observe(el);
+    return whenIdle(() => {
+      // Fetch the video only when the section is about a screen away, so it never competes with
+      // the first screen for bandwidth.
+      const near = new IntersectionObserver(
+        ([e]) => {
+          if (!e.isIntersecting) return;
+          const small = window.innerWidth < 821;
+          video.preload = "auto";
+          video.src = small ? srcSmall : src;
+          // The poster also waits until now: as an attribute it downloads with the first screen.
+          video.poster = small ? posterSmall : poster;
+          video.load();
+          near.disconnect();
+        },
+        { rootMargin: "120% 0px" },
+      );
+      near.observe(el);
 
-    let target = 0;
-    let raf = 0;
-    const seek = () => {
-      raf = 0;
-      if (video.readyState >= 1 && Number.isFinite(video.duration)) {
-        const t = target * (video.duration - 0.04);
-        if (Math.abs(video.currentTime - t) > 0.01) video.currentTime = t;
-      }
-    };
-    const mm = gsap.matchMedia();
-    const ctx = gsap.context(() => {
-      // Wide screens: the section holds while scroll moves the camera.
-      mm.add(WIDE, () => {
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: el,
-            start: "top top",
-            end: () => "+=" + window.innerHeight * 2.4,
-            pin: true,
-            scrub: 0.5,
-            onUpdate: (s) => {
-              target = s.progress;
-              if (!raf) raf = requestAnimationFrame(seek);
+      let target = 0;
+      let raf = 0;
+      const seek = () => {
+        raf = 0;
+        if (video.readyState >= 1 && Number.isFinite(video.duration)) {
+          const t = target * (video.duration - 0.04);
+          if (Math.abs(video.currentTime - t) > 0.01) video.currentTime = t;
+        }
+      };
+      const mm = gsap.matchMedia();
+      const ctx = gsap.context(() => {
+        // Wide screens: the section holds while scroll moves the camera.
+        mm.add(WIDE, () => {
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: el,
+              start: "top top",
+              end: () => "+=" + window.innerHeight * 1.2,
+              pin: true,
+              scrub: 0.5,
+              onUpdate: (s) => {
+                target = s.progress;
+                if (!raf) raf = requestAnimationFrame(seek);
+              },
             },
-          },
+          });
+          el.querySelectorAll<HTMLElement>("[data-line]").forEach((line, i, all) => {
+            const at = (i / all.length) * 0.9;
+            tl.fromTo(line, { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 0.12, ease: "power2.out" }, at);
+            if (i < all.length - 1) tl.to(line, { autoAlpha: 0, y: -40, duration: 0.1, ease: "power2.in" }, at + 0.22);
+          });
+          tl.to({}, { duration: 0.1 });
         });
-        el.querySelectorAll<HTMLElement>("[data-line]").forEach((line, i, all) => {
-          const at = (i / all.length) * 0.9;
-          tl.fromTo(line, { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 0.12, ease: "power2.out" }, at);
-          if (i < all.length - 1) tl.to(line, { autoAlpha: 0, y: -40, duration: 0.1, ease: "power2.in" }, at + 0.22);
+        // Phones: no pin and no scrubbing (iOS often shows no frame of a paused video). The flight
+        // plays muted on a loop while on screen, which phones allow.
+        mm.add("(max-width: 820px)", () => {
+          video.loop = true;
+          const io = new IntersectionObserver(([e]) => (e.isIntersecting ? video.play().catch(() => {}) : video.pause()), { threshold: 0.25 });
+          io.observe(el);
+          return () => {
+            io.disconnect();
+            video.pause();
+          };
         });
-        tl.to({}, { duration: 0.1 });
-      });
-      // Phones: no pin and no scrubbing (iOS often shows no frame of a paused video). The flight
-      // plays muted on a loop while on screen, which phones allow.
-      mm.add("(max-width: 820px)", () => {
-        video.loop = true;
-        const io = new IntersectionObserver(([e]) => (e.isIntersecting ? video.play().catch(() => {}) : video.pause()), { threshold: 0.25 });
-        io.observe(el);
-        return () => {
-          io.disconnect();
-          video.pause();
-        };
-      });
-    }, el);
-    return () => {
-      near.disconnect();
-      cancelAnimationFrame(raf);
-      mm.revert();
-      ctx.revert();
-    };
-  }, [src, srcSmall, posterSmall]);
+      }, el);
+      return () => {
+        near.disconnect();
+        cancelAnimationFrame(raf);
+        mm.revert();
+        ctx.revert();
+      };
+    });
+  }, [src, srcSmall, poster, posterSmall]);
 
   return (
     <section ref={ref} data-nav="dark" data-nomotion className="night relative h-[100svh] overflow-hidden bg-night text-night-text">
@@ -108,8 +112,7 @@ export default function ScrollVideo({
         ref={videoRef}
         muted
         playsInline
-        preload="auto"
-        poster={poster}
+        preload="none"
         aria-hidden="true"
         className="absolute inset-0 h-full w-full object-cover [.motion-off_&]:hidden"
       />

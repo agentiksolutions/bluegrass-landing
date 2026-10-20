@@ -1,7 +1,7 @@
 "use client";
 
 import { useLayoutEffect, useRef } from "react";
-import { gsap, motionOff } from "@/lib/gsap";
+import { gsap, motionOff, whenIdle } from "@/lib/gsap";
 import { OUTLINE, STAR } from "@/lib/kentucky-web";
 import { COUNTY_ARCS } from "@/lib/ky-counties";
 import { MARK } from "@/lib/mark-geometry";
@@ -16,21 +16,23 @@ export default function KentuckyLine({ className = "" }: { className?: string })
   useLayoutEffect(() => {
     const el = ref.current;
     if (!el || motionOff()) return;
-    const ctx = gsap.context(() => {
-      const outline = el.querySelector<SVGPathElement>("[data-outline]")!;
-      const len = outline.getTotalLength();
-      gsap
-        .timeline({ delay: 0.4 })
-        .fromTo(outline, { strokeDasharray: len, strokeDashoffset: len }, { strokeDashoffset: 0, duration: 2.4, ease: "power2.inOut" })
-        .fromTo(el.querySelector("[data-counties]"), { opacity: 0 }, { opacity: 1, duration: 1.2 }, "-=0.8")
-        .fromTo(
-          el.querySelector("[data-star]"),
-          { scale: 0, rotate: -72 },
-          { scale: 1, rotate: 0, duration: 0.8, ease: "back.out(2)", transformOrigin: `${STAR[0]}px ${STAR[1]}px` },
-          "-=0.6",
-        );
-    }, el);
-    return () => ctx.revert();
+    return whenIdle(() => {
+      const ctx = gsap.context(() => {
+        const outline = el.querySelector<SVGPathElement>("[data-outline]")!;
+        const len = outline.getTotalLength();
+        gsap
+          .timeline({ delay: 0.4 })
+          .fromTo(outline, { strokeDasharray: len, strokeDashoffset: len }, { strokeDashoffset: 0, duration: 2.4, ease: "power2.inOut" })
+          .fromTo(el.querySelector("[data-counties]"), { opacity: 0 }, { opacity: 1, duration: 1.2 }, "-=0.8")
+          .fromTo(
+            el.querySelector("[data-star]"),
+            { scale: 0, rotate: -72 },
+            { scale: 1, rotate: 0, duration: 0.8, ease: "back.out(2)", transformOrigin: `${STAR[0]}px ${STAR[1]}px` },
+            "-=0.6",
+          );
+      }, el);
+      return () => ctx.revert();
+    });
   }, []);
 
   return (

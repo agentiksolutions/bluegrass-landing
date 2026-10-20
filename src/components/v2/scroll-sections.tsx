@@ -3,7 +3,7 @@
 import { useLayoutEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { gsap, EASE, WIDE, motionOff } from "@/lib/gsap";
+import { gsap, EASE, WIDE, motionOff, whenIdle } from "@/lib/gsap";
 import { MARK } from "@/lib/mark-geometry";
 
 // Scroll-driven sections for V2. Each motion idea appears once on a page (Phil, 2026-09-26: no
@@ -15,19 +15,21 @@ function useGsap(build: (el: HTMLElement, mm: gsap.MatchMedia) => void, deps: un
   useLayoutEffect(() => {
     const el = ref.current;
     if (!el || motionOff()) return;
-    const mm = gsap.matchMedia();
-    const ctx = gsap.context(() => build(el, mm), el);
-    return () => {
-      mm.revert();
-      ctx.revert();
-    };
+    return whenIdle(() => {
+      const mm = gsap.matchMedia();
+      const ctx = gsap.context(() => build(el, mm), el);
+      return () => {
+        mm.revert();
+        ctx.revert();
+      };
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
   return ref;
 }
 
 /**
- * The statements light up one at a time while the section holds still (about two screens). Each
+ * The statements light up one at a time while the section holds still (about a screen and a half). Each
  * line starts pale, turns ink, and the hairline under it draws across. Then the page turns to
  * night under the reader and the lines go limestone, handing off to the dark section below.
  */
@@ -39,7 +41,7 @@ export function PinnedStatements({ heading, items }: { heading: string; items: s
         scrollTrigger: {
           trigger: el,
           start: "top top",
-          end: () => "+=" + window.innerHeight * 2,
+          end: () => "+=" + window.innerHeight * 1.4,
           pin: true,
           scrub: 0.6,
           // The header switches to its night colors once the page has turned.
@@ -108,7 +110,8 @@ export function HorizontalTrack({
           scrollTrigger: {
             trigger: el,
             start: "top top",
-            end: () => "+=" + distance(),
+            // Half a pixel of scroll per pixel of slide (Phil, speed): the track passes in half the scroll.
+            end: () => "+=" + distance() * 0.5,
             pin: true,
             scrub: 0.8,
             invalidateOnRefresh: true,

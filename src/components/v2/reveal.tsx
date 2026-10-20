@@ -1,7 +1,7 @@
 "use client";
 
 import { createElement, useLayoutEffect, useRef } from "react";
-import { gsap, ScrollTrigger, EASE, REVEAL_S, motionOff } from "@/lib/gsap";
+import { gsap, EASE, REVEAL_S, motionOff, whenIdle } from "@/lib/gsap";
 
 type Tag = "h1" | "h2" | "h3" | "p" | "span" | "div";
 
@@ -33,23 +33,25 @@ export function Reveal({
     // First-screen headlines rise with a CSS animation from the first paint (see globals.css), so
     // they never wait for the page script to load.
     if (!el || motionOff() || onLoad) return;
-    const ctx = gsap.context(() => {
-      const words = el.querySelectorAll(".rv-w > span");
-      gsap.fromTo(
-        words,
-        { y: 0, yPercent: 110 },
-        {
-          y: 0,
-          yPercent: 0,
-          duration: REVEAL_S,
-          ease: EASE,
-          stagger,
-          delay,
-          scrollTrigger: onLoad ? undefined : { trigger: el, start: "top 88%", once: true },
-        },
-      );
-    }, el);
-    return () => ctx.revert();
+    return whenIdle(() => {
+      const ctx = gsap.context(() => {
+        const words = el.querySelectorAll(".rv-w > span");
+        gsap.fromTo(
+          words,
+          { y: 0, yPercent: 110 },
+          {
+            y: 0,
+            yPercent: 0,
+            duration: REVEAL_S,
+            ease: EASE,
+            stagger,
+            delay,
+            scrollTrigger: onLoad ? undefined : { trigger: el, start: "top 88%", once: true },
+          },
+        );
+      }, el);
+      return () => ctx.revert();
+    });
   }, [delay, onLoad, stagger]);
 
   const lines = text.split("\n");
@@ -94,14 +96,16 @@ export function FadeUp({
   useLayoutEffect(() => {
     const el = ref.current;
     if (!el || motionOff() || onLoad) return;
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        el,
-        { autoAlpha: 0, y: 28 },
-        { autoAlpha: 1, y: 0, duration: REVEAL_S, ease: EASE, delay, scrollTrigger: { trigger: el, start: "top 90%", once: true } },
-      );
-    }, el);
-    return () => ctx.revert();
+    return whenIdle(() => {
+      const ctx = gsap.context(() => {
+        gsap.fromTo(
+          el,
+          { autoAlpha: 0, y: 28 },
+          { autoAlpha: 1, y: 0, duration: REVEAL_S, ease: EASE, delay, scrollTrigger: { trigger: el, start: "top 90%", once: true } },
+        );
+      }, el);
+      return () => ctx.revert();
+    });
   }, [delay, onLoad]);
 
   return createElement(
@@ -109,14 +113,4 @@ export function FadeUp({
     onLoad ? { ref, className, "data-fade-load": "", style: { "--d": `${delay}s` } as React.CSSProperties } : { ref, className, "data-fade": "" },
     children,
   );
-}
-
-/** Re-measure pins once fonts and images have settled. */
-export function useRefreshOnLoad() {
-  useLayoutEffect(() => {
-    const done = () => ScrollTrigger.refresh();
-    if (document.readyState === "complete") return;
-    window.addEventListener("load", done, { once: true });
-    return () => window.removeEventListener("load", done);
-  }, []);
 }

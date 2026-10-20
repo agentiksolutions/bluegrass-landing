@@ -318,3 +318,37 @@ Research is in `docs/v2-references.md` (GOV.UK, Stripe, Vercel, Linear, Apple UK
 - Earlier pending items: the logo note was updated in e5cd5cb (Five Guys and Activate approved). "Over 15 years": no years figure is on the site to change.
 
 - **Correction (team-lead):** the round 2 redraw of the Five Guys mark is reverted, because a redraw alters a trademark. The file is back to the official vector paths from e945c7e in one color: the box is limestone and the letters are knocked out with an SVG mask (`scratchpad/fg_onecolor.py`). It is still mid-row.
+
+## Phil feedback: speed ("this website is super slow")
+
+Measured on the local production build. Lighthouse 13.5: mobile is a Moto G Power profile with a 4x CPU slowdown and slow 4G (simulated); desktop is Lighthouse's desktop preset. Scroll frames come from `scratchpad/scrollperf.py`, which wheel-scrolls the whole home page in headless Chrome and records every animation-frame gap and long task.
+
+| | Before (21b6645) | After |
+|---|---|---|
+| Mobile score | 82 | 92 (two runs: 92, 92) |
+| Mobile Total Blocking Time | 226 ms | 32 to 37 ms |
+| Mobile LCP | 4.1 s | 3.2 s |
+| Desktop score | 66 | 93 to 95 |
+| Desktop Total Blocking Time | 617 ms | 128 to 157 ms |
+| Desktop LCP | 1.9 s | 1.2 s |
+| Bytes on first load, mobile (all / JS) | 668 KB / 212 KB | 401 KB / 209 KB |
+| Phone scroll, 4x CPU: frames over 50 ms, long tasks | 25, 16 totalling 1,695 ms | 18, 2 totalling 108 ms |
+| Desktop scroll, page with the 2D hero: fps, frames over 50 ms | not taken | 60 fps, 0 |
+
+What the trace showed and what changed:
+- **Hydration was one 460 ms task on a phone.** Every scroll animation built its triggers and measured the layout in the same commit. The fix is `whenIdle()` in `src/lib/gsap.ts`: each section's setup now runs in its own short idle-time task, in mount order, so pins still stack. Duplicate whole-page `ScrollTrigger.refresh()` calls on first load are gone; ScrollTrigger re-measures on the load event by itself. The unused `useRefreshOnLoad` hook is deleted.
+- **The LCP was the hero line, which faded in about 4 s late.** It now paints with the first frame; only the button fades in.
+- **About 270 KB of images loaded with the first screen.** The logo wall images now load lazily, and the flight video's poster is set only when the section is near.
+- **Lenis is removed.** Scrolling is native, anchor links use the browser's smooth scroll, and the menu scroll lock is a plain overflow style. The lenis package and its CSS are gone.
+- **Pins are about half as long:**
+  - data-to-dashboard: 3.2 screens to 1.6
+  - services track: one pixel of scroll per pixel of slide, now half
+  - flight video: 2.4 screens to 1.2
+  - statements: 2 screens to 1.4
+- **3D hero:** three.js loads only after the window load event, 400 ms later, at idle, and still only at 1024 px and wider with WebGL2. Particles are cut from 2,600 to 1,500, the warm-up from 90 steps to 40, and bloom renders at half resolution. The scene already stopped off screen and in hidden tabs; the frame-time governor stays.
+- **2D hero:** points cut from 3,000/2,200/1,100 to 1,700/1,300/700 by width. It already stopped off screen and in hidden tabs.
+
+**Not proven:** desktop scroll with the 3D hero. In headless Chrome the WebGL scene renders on the CPU (SwiftShader). Every slow desktop frame fell within the first 2.4 screens, where the 3D hero is pinned; with WebGL off, the same scroll held 60 fps with none over 50 ms. A real GPU, or the governor's fallback to 2D, decides it on the visitor's machine. It needs one check on a real laptop.
+- Sweep after the speed pass:
+  - 29 pages at 390, 768 and 1440 px (87 runs) and with reduced motion (58 runs): no overflow and no errors.
+  - Checks: interaction 11 of 11, consent 20 of 20, every internal link returns 200, no broken images.

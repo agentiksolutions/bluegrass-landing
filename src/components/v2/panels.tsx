@@ -1,7 +1,7 @@
 "use client";
 
 import { useLayoutEffect, useRef } from "react";
-import { gsap, EASE, motionOff } from "@/lib/gsap";
+import { gsap, EASE, motionOff, whenIdle } from "@/lib/gsap";
 
 // Small views of the kind of software BAG builds, drawn in code so they stay sharp at any size and
 // carry no client data. Every figure is sample data and each panel says so. The assistant follows
@@ -16,24 +16,26 @@ function useOnce(build: (el: HTMLElement) => gsap.core.Timeline) {
   useLayoutEffect(() => {
     const el = ref.current;
     if (!el || motionOff()) return;
-    let tl: gsap.core.Timeline | undefined;
-    const ctx = gsap.context(() => {
-      tl = build(el).pause();
-    }, el);
-    const io = new IntersectionObserver(
-      ([e]) => {
-        if (e.isIntersecting) {
-          tl?.play();
-          io.disconnect();
-        }
-      },
-      { threshold: 0.3 },
-    );
-    io.observe(el);
-    return () => {
-      io.disconnect();
-      ctx.revert();
-    };
+    return whenIdle(() => {
+      let tl: gsap.core.Timeline | undefined;
+      const ctx = gsap.context(() => {
+        tl = build(el).pause();
+      }, el);
+      const io = new IntersectionObserver(
+        ([e]) => {
+          if (e.isIntersecting) {
+            tl?.play();
+            io.disconnect();
+          }
+        },
+        { threshold: 0.3 },
+      );
+      io.observe(el);
+      return () => {
+        io.disconnect();
+        ctx.revert();
+      };
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return ref;

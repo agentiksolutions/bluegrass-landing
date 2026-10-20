@@ -132,7 +132,8 @@ export default function KentuckyFlow({ className = "" }: { className?: string })
       canvas.height = Math.round(h * dpr);
       measureQuiet();
       fit = fitFor(w, h, quiet.t);
-      const want = w < 768 ? 1100 : w < 1280 ? 2200 : 3000;
+      // Trimmed for speed (Phil, 2026-10-20): fewer points, the same current.
+      const want = w < 768 ? 700 : w < 1280 ? 1300 : 1700;
       if (want !== n) {
         n = want;
         px = new Float32Array(n);

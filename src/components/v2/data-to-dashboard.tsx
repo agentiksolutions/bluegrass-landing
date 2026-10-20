@@ -1,7 +1,7 @@
 "use client";
 
 import { useLayoutEffect, useRef } from "react";
-import { gsap, WIDE, motionOff } from "@/lib/gsap";
+import { gsap, WIDE, motionOff, whenIdle } from "@/lib/gsap";
 
 // The signature sequence (Phil, 2026-10-20: visitors should watch their own messy data turn into
 // a live dashboard). Scattered inputs float in depth: spreadsheet cells, receipt lines, point of
@@ -73,124 +73,126 @@ export default function DataToDashboard({ title = "Your numbers, in one dashboar
   useLayoutEffect(() => {
     const el = ref.current;
     if (!el || motionOff()) return;
-    const stage = el.querySelector<HTMLElement>("[data-stage]")!;
-    const chips = Array.from(el.querySelectorAll<HTMLElement>("[data-chip]"));
-    const r = rand(20261020);
+    return whenIdle(() => {
+      const stage = el.querySelector<HTMLElement>("[data-stage]")!;
+      const chips = Array.from(el.querySelectorAll<HTMLElement>("[data-chip]"));
+      const r = rand(20261020);
 
-    // Each chip's flight starts from a scattered point in depth and ends at its panel's slot.
-    const scatter = chips.map(() => ({
-      x: (r() - 0.5) * 1.1,
-      y: (r() - 0.5) * 0.9,
-      z: -200 + r() * 600,
-      rx: (r() - 0.5) * 70,
-      ry: (r() - 0.5) * 80,
-      rz: (r() - 0.5) * 40,
-    }));
-    // Chips sit centred in the stage before any transform, so the flight is the slot's offset from
-    // the stage centre. Measured from layout, never from a chip mid-flight.
-    const delta = (chip: HTMLElement) => {
-      const slot = el.querySelector<HTMLElement>(`[data-slot="${chip.dataset.chip}"]`)!;
-      // Measure the board where it ends up, flat, not where its tilt has it right now.
-      const board = el.querySelector<HTMLElement>("[data-board]")!;
-      const moved = [board, ...Array.from(el.querySelectorAll<HTMLElement>("[data-panel]"))];
-      const saved = moved.map((m) => m.style.transform);
-      moved.forEach((m) => (m.style.transform = "none"));
-      const s = stage.getBoundingClientRect();
-      const b = slot.getBoundingClientRect();
-      moved.forEach((m, i) => (m.style.transform = saved[i]));
-      return { x: b.left + b.width / 2 - (s.left + s.width / 2), y: b.top + b.height / 2 - (s.top + s.height / 2) };
-    };
+      // Each chip's flight starts from a scattered point in depth and ends at its panel's slot.
+      const scatter = chips.map(() => ({
+        x: (r() - 0.5) * 1.1,
+        y: (r() - 0.5) * 0.9,
+        z: -200 + r() * 600,
+        rx: (r() - 0.5) * 70,
+        ry: (r() - 0.5) * 80,
+        rz: (r() - 0.5) * 40,
+      }));
+      // Chips sit centred in the stage before any transform, so the flight is the slot's offset from
+      // the stage centre. Measured from layout, never from a chip mid-flight.
+      const delta = (chip: HTMLElement) => {
+        const slot = el.querySelector<HTMLElement>(`[data-slot="${chip.dataset.chip}"]`)!;
+        // Measure the board where it ends up, flat, not where its tilt has it right now.
+        const board = el.querySelector<HTMLElement>("[data-board]")!;
+        const moved = [board, ...Array.from(el.querySelectorAll<HTMLElement>("[data-panel]"))];
+        const saved = moved.map((m) => m.style.transform);
+        moved.forEach((m) => (m.style.transform = "none"));
+        const s = stage.getBoundingClientRect();
+        const b = slot.getBoundingClientRect();
+        moved.forEach((m, i) => (m.style.transform = saved[i]));
+        return { x: b.left + b.width / 2 - (s.left + s.width / 2), y: b.top + b.height / 2 - (s.top + s.height / 2) };
+      };
 
-    const build = (tl: gsap.core.Timeline) => {
-      // Chips are hidden in the server HTML; shown here outside the timeline so a refresh that
-      // invalidates the timeline cannot hide them again.
-      gsap.set(chips, { visibility: "visible", opacity: 1 });
-      // Before the build: empty figures and an unwritten report (the server HTML holds the finished
-      // values for crawlers and reduced motion).
-      el.querySelectorAll<HTMLElement>("[data-count]").forEach((n) => {
-        const zero = (n.dataset.pre || "") + (0).toFixed(Number(n.dataset.dec || 0)) + (n.dataset.suf || "");
-        const done = n.textContent;
-        tl.call(() => void (n.textContent = zero), [], 0);
-        tl.call(() => void (n.textContent = done), [], 3.11);
-      });
-      const reportEl = el.querySelector<HTMLElement>("[data-report]")!;
-      tl.call(() => void (reportEl.textContent = ""), [], 0.001);
-      const sw = () => stage.clientWidth;
-      const sh = () => stage.clientHeight;
-      // Phase 1: the mess drifts in depth.
-      chips.forEach((c, i) => {
-        const s = scatter[i];
-        tl.fromTo(
-          c,
-          { x: () => s.x * sw(), y: () => s.y * sh(), z: s.z, rotationX: s.rx, rotationY: s.ry, rotation: s.rz },
-          { x: () => s.x * sw() * 0.85, y: () => s.y * sh() * 0.85, z: s.z + 120, rotationX: s.rx * 0.6, rotationY: s.ry * 0.6, duration: 1, ease: "none" },
-          0,
-        );
-      });
-      tl.fromTo(el.querySelectorAll("[data-panel]"), { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: 0.5, stagger: 0.08 }, 0.8);
-      // The dashboard arrives tilted back in depth and settles flat as the inputs land on it.
-      tl.fromTo(el.querySelector("[data-board]"), { rotationX: 28, scale: 0.86, transformOrigin: "50% 100%" }, { rotationX: 0, scale: 1, duration: 1.6, ease: "power2.inOut" }, 0.7);
-      // Phase 2: every chip flies to its slot and dissolves into the panel.
-      chips.forEach((c, i) => {
-        tl.to(
-          c,
-          {
-            x: () => delta(c).x,
-            y: () => delta(c).y,
-            z: 0,
-            rotationX: 0,
-            rotationY: 0,
-            rotation: 0,
-            scale: 0.4,
-            duration: 1,
-            ease: "power2.inOut",
-          },
-          1 + (i % 8) * 0.06,
-        ).fromTo(c, { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.25, immediateRender: false }, 1.85 + (i % 8) * 0.06);
-      });
-      // Phase 3: the dashboard draws and counts.
-      tl.fromTo(el.querySelectorAll("[data-bar]"), { scaleY: 0 }, { scaleY: 1, transformOrigin: "bottom", duration: 0.8, stagger: 0.06, ease: "power2.out" }, 2.1);
-      const line = el.querySelector<SVGPathElement>("[data-line]")!;
-      const len = line.getTotalLength();
-      tl.fromTo(line, { strokeDasharray: len, strokeDashoffset: len }, { strokeDashoffset: 0, duration: 1, ease: "none" }, 2.1);
-      el.querySelectorAll<HTMLElement>("[data-count]").forEach((n) => {
-        const end = parseFloat(n.dataset.count!);
-        const dec = Number(n.dataset.dec || 0);
-        const pre = n.dataset.pre || "";
-        const suf = n.dataset.suf || "";
-        const o = { v: 0 };
-        tl.to(o, { v: end, duration: 1, ease: "power1.out", onUpdate: () => void (n.textContent = pre + o.v.toLocaleString("en-US", { minimumFractionDigits: dec, maximumFractionDigits: dec }) + suf) }, 2.1);
-      });
-      // Phase 4: the dashboard does its job.
-      tl.fromTo(el.querySelector("[data-alert]"), { autoAlpha: 0, x: 40 }, { autoAlpha: 1, x: 0, duration: 0.4, ease: "back.out(1.6)" }, 3.2);
-      const report = el.querySelector<HTMLElement>("[data-report]")!;
-      const typed = { n: 0 };
-      tl.to(typed, { n: REPORT.length, duration: 1.3, ease: "none", onUpdate: () => void (report.textContent = REPORT.slice(0, Math.round(typed.n))) }, 3.4);
-      tl.fromTo(el.querySelectorAll("[data-shift]"), { scale: 0, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 0.3, stagger: { each: 0.025, from: "start" } }, 3.5);
-      tl.to({}, { duration: 0.4 }); // a short hold on the finished dashboard
-    };
-
-    const mm = gsap.matchMedia();
-    const ctx = gsap.context(() => {
-      mm.add(WIDE, () => {
-        const tl = gsap.timeline({
-          scrollTrigger: { trigger: el, start: "top top", end: () => "+=" + window.innerHeight * 3.2, pin: true, scrub: 0.8, invalidateOnRefresh: true },
+      const build = (tl: gsap.core.Timeline) => {
+        // Chips are hidden in the server HTML; shown here outside the timeline so a refresh that
+        // invalidates the timeline cannot hide them again.
+        gsap.set(chips, { visibility: "visible", opacity: 1 });
+        // Before the build: empty figures and an unwritten report (the server HTML holds the finished
+        // values for crawlers and reduced motion).
+        el.querySelectorAll<HTMLElement>("[data-count]").forEach((n) => {
+          const zero = (n.dataset.pre || "") + (0).toFixed(Number(n.dataset.dec || 0)) + (n.dataset.suf || "");
+          const done = n.textContent;
+          tl.call(() => void (n.textContent = zero), [], 0);
+          tl.call(() => void (n.textContent = done), [], 3.11);
         });
-        build(tl);
-      });
-      mm.add("(max-width: 820px)", () => {
-        const tl = gsap.timeline({ paused: true });
-        build(tl);
-        tl.timeScale(1.6);
-        const io = new IntersectionObserver(([e]) => e.isIntersecting && (tl.play(), io.disconnect()), { threshold: 0.35 });
-        io.observe(stage);
-        return () => io.disconnect();
-      });
-    }, el);
-    return () => {
-      mm.revert();
-      ctx.revert();
-    };
+        const reportEl = el.querySelector<HTMLElement>("[data-report]")!;
+        tl.call(() => void (reportEl.textContent = ""), [], 0.001);
+        const sw = () => stage.clientWidth;
+        const sh = () => stage.clientHeight;
+        // Phase 1: the mess drifts in depth.
+        chips.forEach((c, i) => {
+          const s = scatter[i];
+          tl.fromTo(
+            c,
+            { x: () => s.x * sw(), y: () => s.y * sh(), z: s.z, rotationX: s.rx, rotationY: s.ry, rotation: s.rz },
+            { x: () => s.x * sw() * 0.85, y: () => s.y * sh() * 0.85, z: s.z + 120, rotationX: s.rx * 0.6, rotationY: s.ry * 0.6, duration: 1, ease: "none" },
+            0,
+          );
+        });
+        tl.fromTo(el.querySelectorAll("[data-panel]"), { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: 0.5, stagger: 0.08 }, 0.8);
+        // The dashboard arrives tilted back in depth and settles flat as the inputs land on it.
+        tl.fromTo(el.querySelector("[data-board]"), { rotationX: 28, scale: 0.86, transformOrigin: "50% 100%" }, { rotationX: 0, scale: 1, duration: 1.6, ease: "power2.inOut" }, 0.7);
+        // Phase 2: every chip flies to its slot and dissolves into the panel.
+        chips.forEach((c, i) => {
+          tl.to(
+            c,
+            {
+              x: () => delta(c).x,
+              y: () => delta(c).y,
+              z: 0,
+              rotationX: 0,
+              rotationY: 0,
+              rotation: 0,
+              scale: 0.4,
+              duration: 1,
+              ease: "power2.inOut",
+            },
+            1 + (i % 8) * 0.06,
+          ).fromTo(c, { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.25, immediateRender: false }, 1.85 + (i % 8) * 0.06);
+        });
+        // Phase 3: the dashboard draws and counts.
+        tl.fromTo(el.querySelectorAll("[data-bar]"), { scaleY: 0 }, { scaleY: 1, transformOrigin: "bottom", duration: 0.8, stagger: 0.06, ease: "power2.out" }, 2.1);
+        const line = el.querySelector<SVGPathElement>("[data-line]")!;
+        const len = line.getTotalLength();
+        tl.fromTo(line, { strokeDasharray: len, strokeDashoffset: len }, { strokeDashoffset: 0, duration: 1, ease: "none" }, 2.1);
+        el.querySelectorAll<HTMLElement>("[data-count]").forEach((n) => {
+          const end = parseFloat(n.dataset.count!);
+          const dec = Number(n.dataset.dec || 0);
+          const pre = n.dataset.pre || "";
+          const suf = n.dataset.suf || "";
+          const o = { v: 0 };
+          tl.to(o, { v: end, duration: 1, ease: "power1.out", onUpdate: () => void (n.textContent = pre + o.v.toLocaleString("en-US", { minimumFractionDigits: dec, maximumFractionDigits: dec }) + suf) }, 2.1);
+        });
+        // Phase 4: the dashboard does its job.
+        tl.fromTo(el.querySelector("[data-alert]"), { autoAlpha: 0, x: 40 }, { autoAlpha: 1, x: 0, duration: 0.4, ease: "back.out(1.6)" }, 3.2);
+        const report = el.querySelector<HTMLElement>("[data-report]")!;
+        const typed = { n: 0 };
+        tl.to(typed, { n: REPORT.length, duration: 1.3, ease: "none", onUpdate: () => void (report.textContent = REPORT.slice(0, Math.round(typed.n))) }, 3.4);
+        tl.fromTo(el.querySelectorAll("[data-shift]"), { scale: 0, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 0.3, stagger: { each: 0.025, from: "start" } }, 3.5);
+        tl.to({}, { duration: 0.4 }); // a short hold on the finished dashboard
+      };
+
+      const mm = gsap.matchMedia();
+      const ctx = gsap.context(() => {
+        mm.add(WIDE, () => {
+          const tl = gsap.timeline({
+            scrollTrigger: { trigger: el, start: "top top", end: () => "+=" + window.innerHeight * 1.6, pin: true, scrub: 0.8, invalidateOnRefresh: true },
+          });
+          build(tl);
+        });
+        mm.add("(max-width: 820px)", () => {
+          const tl = gsap.timeline({ paused: true });
+          build(tl);
+          tl.timeScale(1.6);
+          const io = new IntersectionObserver(([e]) => e.isIntersecting && (tl.play(), io.disconnect()), { threshold: 0.35 });
+          io.observe(stage);
+          return () => io.disconnect();
+        });
+      }, el);
+      return () => {
+        mm.revert();
+        ctx.revert();
+      };
+    });
   }, []);
 
   return (

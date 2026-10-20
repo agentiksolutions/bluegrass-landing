@@ -69,7 +69,7 @@ function makeFlow(scale: number) {
     const r = (y / CELL) | 0;
     return c >= 0 && r >= 0 && c < cols && r < rows && mask[r * cols + c] === 1;
   };
-  const N = 2600;
+  const N = 1500; // trimmed from 2600 for speed (Phil, 2026-10-20)
   const px = new Float32Array(N);
   const py = new Float32Array(N);
   const life = new Float32Array(N);
@@ -228,9 +228,12 @@ export function mountKentucky3D(host: HTMLElement, onSlow?: () => void): Ky3D {
 
   const composer = new EffectComposer(renderer);
   composer.addPass(new RenderPass(scene, camera));
-  const bloom = new UnrealBloomPass(new THREE.Vector2(width(), height()), 0.6, 0.5, 0.72);
+  // Bloom works at half resolution: a soft glow loses nothing and costs a quarter of the pixels.
+  const bloom = new UnrealBloomPass(new THREE.Vector2(width() / 2, height() / 2), 0.6, 0.5, 0.72);
   composer.addPass(bloom);
   composer.addPass(new OutputPass());
+  const halfBloom = () => bloom.setSize((width() * renderer.getPixelRatio()) / 2, (height() * renderer.getPixelRatio()) / 2);
+  halfBloom(); // addPass sized it to full resolution
 
   // Camera path: a wide three-quarter view from the southwest, then a flight down to Lexington.
   const starWorld = new THREE.Vector3(toX(STAR[0]), DEPTH, -toY(STAR[1]));
@@ -322,6 +325,7 @@ export function mountKentucky3D(host: HTMLElement, onSlow?: () => void): Ky3D {
       bloom.enabled = false;
       renderer.setPixelRatio(1);
       composer.setPixelRatio(1);
+      halfBloom();
       stage = 1;
     } else {
       stage = 2;
@@ -346,7 +350,7 @@ export function mountKentucky3D(host: HTMLElement, onSlow?: () => void): Ky3D {
   };
 
   // Warm the light up off screen so the first visible frame is already full of motion.
-  for (let i = 0; i < 90; i++) flow.step(i * 0.016 + 3, 0.18);
+  for (let i = 0; i < 40; i++) flow.step(i * 0.016 + 3, 0.18);
   render();
   requestAnimationFrame(() => (renderer.domElement.style.opacity = "1"));
 
@@ -357,7 +361,7 @@ export function mountKentucky3D(host: HTMLElement, onSlow?: () => void): Ky3D {
   const ro = new ResizeObserver(() => {
     renderer.setSize(width(), height());
     composer.setSize(width(), height());
-    bloom.setSize(width(), height());
+    halfBloom();
     frame();
   });
   ro.observe(host);
