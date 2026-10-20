@@ -4,7 +4,6 @@ import { useLayoutEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { gsap, EASE, WIDE, motionOff, whenIdle } from "@/lib/gsap";
-import { MARK } from "@/lib/mark-geometry";
 
 // Scroll-driven sections for V2. Each motion idea appears once on a page (Phil, 2026-09-26: no
 // animation repeated section after section). Pins and sideways tracks run only above 820 px;
@@ -339,51 +338,6 @@ export function HoverList({ items }: { items: { label: string; href: string; lin
           </div>
         ))}
       </div>
-    </div>
-  );
-}
-
-/**
- * The official mark builds itself as the closing section scrolls in: the state outline traces,
- * the node lines draw, the nodes appear, and the Lexington star lands last. Geometry comes from
- * public/brand/mark.svg (src/lib/mark-geometry.ts), so this is the real logo, not a drawing of it.
- */
-export function MarkBuild({ className = "" }: { className?: string }) {
-  const ref = useGsap((el) => {
-    const outline = el.querySelector<SVGPathElement>("[data-outline]")!;
-    const len = outline.getTotalLength();
-    gsap.set(outline, { strokeDasharray: len, strokeDashoffset: len });
-    const lines = el.querySelectorAll<SVGLineElement>("[data-l]");
-    lines.forEach((l) => {
-      const d = Math.hypot(+l.getAttribute("x2")! - +l.getAttribute("x1")!, +l.getAttribute("y2")! - +l.getAttribute("y1")!);
-      gsap.set(l, { strokeDasharray: d, strokeDashoffset: d });
-    });
-    gsap
-      .timeline({ scrollTrigger: { trigger: el, start: "top 90%", end: "bottom 80%", scrub: 0.7 } })
-      .to(outline, { strokeDashoffset: 0, duration: 1, ease: "none" })
-      .fromTo(el.querySelector("[data-fill]"), { opacity: 0 }, { opacity: 1, duration: 0.4 }, 0.8)
-      .to(lines, { strokeDashoffset: 0, duration: 0.8, stagger: 0.004, ease: "none" }, 0.9)
-      .from(el.querySelectorAll("[data-c]"), { scale: 0, transformOrigin: "center", duration: 0.3, stagger: 0.008 }, 1.2)
-      .from(el.querySelector("[data-star]"), { scale: 0, rotate: -90, transformOrigin: "647px 183px", duration: 0.5, ease: "back.out(2)" }, 1.7);
-  });
-
-  return (
-    <div ref={ref} className={className}>
-      <svg viewBox={MARK.viewBox} className="h-auto w-full" role="img" aria-label="The Bluegrass Advisory Group mark: Kentucky with a network of nodes and a star at Lexington">
-        <path data-fill d={MARK.state} fill="#0033A0" />
-        <path data-outline d={MARK.state} fill="none" stroke="#9DB2E8" strokeWidth="2" />
-        <g stroke="#FFFFFF" strokeOpacity="0.85" strokeWidth="2.2">
-          {MARK.lines.map((l, i) => (
-            <line key={i} data-l x1={l[0]} y1={l[1]} x2={l[2]} y2={l[3]} />
-          ))}
-        </g>
-        <g fill="#FFFFFF">
-          {MARK.circles.map((c, i) => (
-            <circle key={i} data-c cx={c[0]} cy={c[1]} r={c[2]} />
-          ))}
-        </g>
-        <path data-star d={MARK.star} fill="#FFFFFF" />
-      </svg>
     </div>
   );
 }

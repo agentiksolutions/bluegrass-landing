@@ -352,3 +352,21 @@ What the trace showed and what changed:
 - Sweep after the speed pass:
   - 29 pages at 390, 768 and 1440 px (87 runs) and with reduced motion (58 runs): no overflow and no errors.
   - Checks: interaction 11 of 11, consent 20 of 20, every internal link returns 200, no broken images.
+
+## Phil's Vercel comments (home page, iPhone 430 px)
+
+- **Closing band (thread WUJCERWOhthd):** "this should just be a solid blue state like our logo."
+  - The building mark (outline, node lines, nodes) is replaced by the logo's own Kentucky path, filled solid #0033A0 with its white star, as in public/brand/logo.svg.
+  - Geometry comes from src/lib/mark-geometry.ts, which is generated from the official mark. It fades up once.
+  - `MarkBuild` is deleted.
+- **Flight section (thread kdpKrboRxaXv):** remove the nodes over the 3D state; the county lines should fire into each other like neurons.
+  - The two Blender videos, their posters and `scroll-video.tsx` are replaced by `county-pulse.tsx`, one canvas drawn in code.
+  - The state lies tilted in depth with CSS (34 degrees on desktop, 18 on phones), with a darker copy underneath as its edge.
+  - Pulses (44 on desktop, 22 on phones) run along the real county borders (src/lib/ky-counties.ts) and light each border they cross.
+  - At a junction a pulse fires into a neighboring border. Where a border meets the state line, it turns back.
+  - No nodes. It needs no new packages and starts only near the screen. It stops off screen and in hidden tabs, and reduced motion draws one still frame.
+  - It no longer pins, and it removes about 9.6 MB of video from the repo.
+- **Checks:**
+  - Build and lint are clean, and interaction checks pass 11 of 11.
+  - The rendered pages have no dashes.
+  - Lighthouse mobile scores 93 (TBT 34 ms, LCP 3.2 s); desktop scores 94.
