@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { pageMeta } from "@/lib/metadata";
-import { photos } from "@/lib/photos";
 import { CaseClose, CaseQuote, CaseSection, CaseStudyHero, CaseVisual } from "@/components/case-study";
-import { TipPanel } from "@/components/v2/panels";
+import { StorePanel, TipPanel } from "@/components/v2/panels";
 
 // Facts come from docs/case-study-facts-2026-09-23.md (sourced rows only) and Phil's own
 // words in docs/phil-impact-in-his-words-2026-09-23.md. No payroll, no store names, no store towns.
@@ -20,7 +19,7 @@ export default function FranchiseeCaseStudy() {
       <CaseStudyHero
         label="A Five Guys franchisee in Central Kentucky"
         title="Three stores, one manager portal"
-        photo={photos.portal}
+        visual={<StorePanel />}
         intro={
           <p>
             I run operations for this franchisee and built these systems for it.

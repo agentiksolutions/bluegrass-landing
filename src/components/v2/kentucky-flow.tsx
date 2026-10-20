@@ -18,14 +18,21 @@ const CELL = 5; // inside-the-state lookup grid, in drawing units
 
 type Fit = { s: number; ox: number; oy: number };
 
-function fitFor(w: number, h: number): Fit {
+/** wordsTop: where the headline starts on the canvas; the state always ends above it. */
+function fitFor(w: number, h: number, wordsTop: number): Fit {
   if (w < 768) {
     // Phones: the state runs past both edges in the upper half; the words sit below it.
     const s = (w * 1.32) / W0;
     return { s, ox: w / 2 - (STAR[0] - 40) * s, oy: h * 0.2 };
   }
-  const s = Math.min((w * 0.76) / W0, (h * 0.62) / H0);
-  return { s, ox: w - W0 * s - w * 0.03, oy: h * 0.38 - (H0 * s) / 2 };
+  const floor = wordsTop > 0 ? wordsTop - 12 : h * 0.7;
+  if (w < 1024 || h > w * 0.9) {
+    // Tablets: the state spans the width, centred in the space above the headline.
+    const s = Math.min((w * 1.02) / W0, (floor - 90) / H0);
+    return { s, ox: (w - W0 * s) / 2, oy: Math.max(90, (90 + floor - H0 * s) / 2) };
+  }
+  const s = Math.min((w * 0.76) / W0, (h * 0.62) / H0, (floor - h * 0.1) / H0);
+  return { s, ox: w - W0 * s - w * 0.03, oy: Math.min(h * 0.38 - (H0 * s) / 2, floor - H0 * s) };
 }
 
 function buildMask() {
@@ -123,8 +130,8 @@ export default function KentuckyFlow({ className = "" }: { className?: string })
       dpr = Math.min(window.devicePixelRatio || 1, w < 768 ? 1.75 : 2);
       canvas.width = Math.round(w * dpr);
       canvas.height = Math.round(h * dpr);
-      fit = fitFor(w, h);
       measureQuiet();
+      fit = fitFor(w, h, quiet.t);
       const want = w < 768 ? 1100 : w < 1280 ? 2200 : 3000;
       if (want !== n) {
         n = want;

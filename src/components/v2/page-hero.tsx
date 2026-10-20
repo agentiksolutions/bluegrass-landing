@@ -32,7 +32,7 @@ export default function PageHero({
   return (
     <section data-nav="dark" data-nomotion className="night relative overflow-hidden bg-night text-night-text">
       <div
-        className={`mx-auto grid max-w-page grid-cols-1 items-center gap-12 px-4 pb-16 pt-32 md:px-10 lg:gap-16 ${
+        className={`mx-auto grid max-w-page-pad grid-cols-1 items-center gap-12 px-4 pb-16 pt-32 md:px-10 lg:gap-16 ${
           compact ? "lg:pb-20 lg:pt-40" : "lg:min-h-[88svh] lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:pb-24 lg:pt-36"
         }`}
       >

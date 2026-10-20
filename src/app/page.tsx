@@ -7,10 +7,9 @@ import DataToDashboard from "@/components/v2/data-to-dashboard";
 import HomeHero from "@/components/v2/home-hero";
 import ScrollVideo from "@/components/v2/scroll-video";
 import ClientLogos from "@/components/v2/client-logos";
-import { AssistantPanel, SupportThread, SystemsMap } from "@/components/v2/panels";
+import { AssistantPanel, StorePanel, SupportThread, SystemsMap } from "@/components/v2/panels";
 import { FadeUp, Reveal } from "@/components/v2/reveal";
 import {
-  ClipExpand,
   HorizontalTrack,
   HoverList,
   PathSteps,
@@ -63,8 +62,8 @@ export const metadata: Metadata = {
 // Copy comes from the reviewed staging home page (homepage-21st). Sources: Engagement Catalog
 // "right tier if" lines and brand decision item 36 for the problems; the catalog's small-business
 // path for the steps; each market line from that market's own page on this site.
-// Pictures are real things only: Phil's headshot, the live Academy, the manager portal in demo
-// mode, the PFSA site, and panels drawn in code marked "Sample data".
+// Pictures are real things only: Phil's headshot, the live Academy, the PFSA site, and panels drawn
+// in code marked "Sample data".
 const problems = [
   "Your team uses AI, and there are no written rules for it.",
   "You know AI could help, and you don't know where to start.",
@@ -83,7 +82,7 @@ const markets = [
   {
     label: "Restaurants and hospitality",
     href: "/ai-for-hospitality",
-    image: "/images/work/tiles/portal-store.webp",
+    image: "/images/work/tiles/store-screen.webp",
     imageAlt: "",
   },
   {
@@ -224,21 +223,17 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 6. Recent work: the portal opens to full width, then the two projects. */}
+      {/* 6. Recent work: the two projects, each with its screen. */}
       <section className="bg-white pb-24 md:pb-36">
-        <div className="mx-auto max-w-page px-4 md:px-10">
+        <div className="mx-auto max-w-page-pad px-4 md:px-10">
           <Reveal text="Recent work" className="mb-12 font-display text-[40px] font-light leading-none tracking-[-0.03em] text-ink md:mb-16 md:text-[64px]" />
         </div>
-        <ClipExpand
-          src={photos.portal.src}
-          alt={photos.portal.alt}
-          width={photos.portal.width}
-          height={photos.portal.height}
-          caption="The manager portal, shown in demo mode."
-        />
-        <div className="mx-auto mt-16 grid max-w-page grid-cols-1 gap-16 px-4 md:mt-24 md:px-10 lg:grid-cols-2 lg:gap-20">
+        <div className="mx-auto grid max-w-page-pad grid-cols-1 items-start gap-16 px-4 md:px-10 lg:grid-cols-2 lg:gap-20">
           <FadeUp>
-            <Link href="/work/restaurant-franchisee" className="group block border-t border-line pt-8">
+            <Link href="/work/restaurant-franchisee" className="group block">
+              <div className="mb-8 rounded-[6px] bg-night p-4 transition-transform duration-700 ease-out group-hover:-translate-y-1 sm:p-6">
+                <StorePanel />
+              </div>
               <p className="font-display text-[28px] font-medium leading-tight tracking-[-0.02em] text-ink transition-colors group-hover:text-blue md:text-[36px]">
                 A restaurant franchisee in Central Kentucky
               </p>
@@ -248,7 +243,17 @@ export default function HomePage() {
             </Link>
           </FadeUp>
           <FadeUp delay={0.12}>
-            <Link href="/work/pfsa" className="group block border-t border-line pt-8">
+            <Link href="/work/pfsa" className="group block">
+              <div className="mb-8 overflow-hidden rounded-[6px] border border-line transition-transform duration-700 ease-out group-hover:-translate-y-1">
+                <Image
+                  src={photos.pfsaSite.src}
+                  alt={photos.pfsaSite.alt}
+                  width={photos.pfsaSite.width}
+                  height={photos.pfsaSite.height}
+                  sizes="(min-width: 1024px) 640px, 100vw"
+                  className="h-auto w-full"
+                />
+              </div>
               <p className="font-display text-[28px] font-medium leading-tight tracking-[-0.02em] text-ink transition-colors group-hover:text-blue md:text-[36px]">
                 The PFSA, a Lexington nonprofit
               </p>

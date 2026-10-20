@@ -6,6 +6,7 @@ import { photos } from "@/lib/photos";
 import CTABand from "@/components/cta-band";
 import PageHero from "@/components/v2/page-hero";
 import { FadeUp } from "@/components/v2/reveal";
+import { StorePanel } from "@/components/v2/panels";
 
 export const metadata: Metadata = pageMeta({
   title: "Work",
@@ -14,14 +15,15 @@ export const metadata: Metadata = pageMeta({
   path: "/work",
 });
 
-// The store photos wait for the franchise owner's OK (photos.ts), so each case shows its real screen.
+// The store photos wait for the franchise owner's OK (photos.ts). The franchisee case shows its store
+// screen redrawn in code with sample figures; the PFSA case shows its real public site.
 const cases = [
   {
     href: "/work/restaurant-franchisee",
-    photo: photos.portal,
+    photo: null,
     title: "A Five Guys franchisee in Central Kentucky",
     line: "Three stores' numbers, checklists and the weekly newsletter in one manager portal.",
-    caption: "The manager portal, shown in demo mode",
+    caption: "The store screen, redrawn with sample data",
   },
   {
     href: "/work/pfsa",
@@ -47,14 +49,20 @@ export default function WorkPage() {
                 }`}
               >
                 <div className={`overflow-hidden rounded-[6px] border border-line bg-band ${i % 2 ? "lg:order-2" : ""}`}>
-                  <Image
-                    src={c.photo.src}
-                    alt={c.photo.alt}
-                    width={c.photo.width}
-                    height={c.photo.height}
-                    sizes="(min-width: 1024px) 760px, 100vw"
-                    className="h-auto w-full transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-                  />
+                  {c.photo ? (
+                    <Image
+                      src={c.photo.src}
+                      alt={c.photo.alt}
+                      width={c.photo.width}
+                      height={c.photo.height}
+                      sizes="(min-width: 1024px) 760px, 100vw"
+                      className="h-auto w-full transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                    />
+                  ) : (
+                    <div className="bg-night p-4 sm:p-8">
+                      <StorePanel />
+                    </div>
+                  )}
                 </div>
                 <div className={i % 2 ? "lg:order-1" : ""}>
                   <h2 className="font-display text-[32px] font-light leading-[1.05] tracking-[-0.03em] text-ink transition-colors group-hover:text-blue md:text-[48px]">

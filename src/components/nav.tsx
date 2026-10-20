@@ -72,7 +72,7 @@ export default function Nav() {
           open ? "bg-night" : tone === "top" ? "bg-transparent" : tone === "dark" ? "bg-night/95" : "bg-white/95 border-b border-line"
         }`}
       >
-        <div className="mx-auto flex h-16 max-w-page items-center justify-between gap-4 px-4 md:px-10 lg:h-[72px]">
+        <div className="mx-auto flex h-16 max-w-page-pad items-center justify-between gap-4 px-4 md:px-10 lg:h-[72px]">
           <Link href="/" aria-label="Bluegrass Advisory Group, home" className="relative shrink-0">
             <span className={`block transition-opacity duration-300 ${onDark ? "opacity-0" : "opacity-100"}`}>
               <Logo height={40} className="h-[34px] w-auto sm:h-[40px]" />

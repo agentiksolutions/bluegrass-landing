@@ -122,3 +122,13 @@ html.lenis body {
     scroll-behavior: auto !important;
   }
 }
+
+/* Industries list: each label rises out of its row once the list is on screen (HoverList sets
+   data-in). Plain CSS so it cannot fight the label's own hover transition. */
+.js:not(.motion-off) [data-rise] {
+  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(var(--i, 0) * 90ms);
+}
+.js:not(.motion-off) [data-rise-list]:not([data-in]) [data-rise] {
+  transform: translateY(110%);
+}

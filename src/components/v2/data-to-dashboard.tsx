@@ -195,7 +195,7 @@ export default function DataToDashboard({ title = "Your numbers, turned into a d
 
   return (
     <section ref={ref} data-nav="dark" data-nomotion className="night relative overflow-hidden bg-night text-night-text">
-      <div className="mx-auto flex min-h-[100svh] max-w-page flex-col px-4 pb-10 pt-24 md:px-10 min-[821px]:pt-28">
+      <div className="mx-auto flex min-h-[100svh] max-w-page-pad flex-col px-4 pb-10 pt-24 md:px-10 min-[821px]:pt-28">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <h2 className="max-w-[20ch] font-display text-[34px] font-light leading-[1.04] tracking-[-0.03em] md:text-[52px]">
             {title}

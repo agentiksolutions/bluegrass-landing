@@ -27,20 +27,34 @@ function useGsap(build: (el: HTMLElement, mm: gsap.MatchMedia) => void, deps: un
 }
 
 /**
- * The statements light up one at a time while the section holds still. Each line starts pale,
- * turns ink, and the hairline under it draws across.
+ * The statements light up one at a time while the section holds still (about two screens). Each
+ * line starts pale, turns ink, and the hairline under it draws across. Then the page turns to
+ * night under the reader and the lines go limestone, handing off to the dark section below.
  */
 export function PinnedStatements({ heading, items }: { heading: string; items: string[] }) {
   const ref = useGsap((el, mm) => {
     const rows = el.querySelectorAll<HTMLElement>("[data-row]");
     mm.add(WIDE, () => {
       const tl = gsap.timeline({
-        scrollTrigger: { trigger: el, start: "top top", end: () => "+=" + window.innerHeight * 1.6, pin: true, scrub: 0.6 },
+        scrollTrigger: {
+          trigger: el,
+          start: "top top",
+          end: () => "+=" + window.innerHeight * 2,
+          pin: true,
+          scrub: 0.6,
+          // The header switches to its night colors once the page has turned.
+          onUpdate: (s) => (s.progress > 0.86 ? (el.dataset.nav = "dark") : delete el.dataset.nav),
+        },
       });
       rows.forEach((r, i) => {
         tl.fromTo(r.querySelector("[data-text]"), { color: "#8B919A" }, { color: "#161B22", duration: 1, ease: "none" }, i)
           .fromTo(r.querySelector("[data-rule]"), { scaleX: 0 }, { scaleX: 1, duration: 1, ease: "none" }, i);
       });
+      const end = rows.length + 0.2;
+      tl.to(el, { backgroundColor: "#161B22", duration: 0.9, ease: "power1.inOut" }, end)
+        .to(el.querySelectorAll("[data-text], [data-heading]"), { color: "#F2F1EC", duration: 0.9, ease: "power1.inOut" }, end)
+        .to(el.querySelectorAll("[data-rule]"), { backgroundColor: "#2C333E", duration: 0.9 }, end)
+        .to({}, { duration: 0.3 });
     });
     mm.add("(max-width: 820px)", () => {
       rows.forEach((r) =>
@@ -51,8 +65,10 @@ export function PinnedStatements({ heading, items }: { heading: string; items: s
 
   return (
     <section ref={ref} data-nomotion className="relative bg-white">
-      <div className="mx-auto grid min-h-[100svh] max-w-page grid-cols-1 content-center gap-10 px-4 py-24 md:px-10 min-[821px]:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] min-[821px]:gap-16">
-        <h2 className="font-display text-[15px] font-semibold text-blue">{heading}</h2>
+      <div className="mx-auto grid min-h-[100svh] max-w-page-pad grid-cols-1 content-center gap-10 px-4 py-24 md:px-10 min-[821px]:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] min-[821px]:gap-16">
+        <h2 data-heading className="max-w-[10ch] font-display text-[40px] font-light leading-[1.02] tracking-[-0.03em] text-ink md:text-[56px]">
+          {heading}
+        </h2>
         <ul>
           {items.map((t) => (
             <li key={t} data-row className="relative py-6 md:py-8">
@@ -200,39 +216,6 @@ export function PathSteps({ steps }: { steps: { title: string; line?: string }[]
   );
 }
 
-/** A screenshot that opens from a framed window to the full width of the page as it scrolls in. */
-export function ClipExpand({
-  src,
-  alt,
-  width,
-  height,
-  caption,
-}: {
-  src: string;
-  alt: string;
-  width: number;
-  height: number;
-  caption: string;
-}) {
-  const ref = useGsap((el) => {
-    const frame = el.querySelector("[data-frame]");
-    const img = el.querySelector("img");
-    gsap
-      .timeline({ scrollTrigger: { trigger: el, start: "top 85%", end: "center 55%", scrub: 0.5 } })
-      .fromTo(frame, { clipPath: "inset(12% 16% 12% 16% round 10px)" }, { clipPath: "inset(0% 0% 0% 0% round 6px)", ease: "none" }, 0)
-      .fromTo(img, { scale: 1.18 }, { scale: 1, ease: "none" }, 0);
-  });
-
-  return (
-    <figure ref={ref} className="mx-auto max-w-page px-4 md:px-10">
-      <div data-frame className="overflow-hidden rounded-[6px] border border-line bg-band">
-        <Image src={src} alt={alt} width={width} height={height} sizes="(min-width: 1360px) 1280px, 100vw" className="h-auto w-full will-change-transform" />
-      </div>
-      <figcaption className="mt-4 font-display text-[14px] text-muted">{caption}</figcaption>
-    </figure>
-  );
-}
-
 /** A photo that rises out of its frame while the image inside settles. */
 export function PhotoReveal({
   src,
@@ -264,10 +247,16 @@ export function PhotoReveal({
 
 /**
  * A list of links. On a mouse, a preview of each one follows the pointer while you hover it;
- * on touch, the previews are left out and the list reads on its own.
+ * on touch, each row carries its picture inline. On every screen the rows rise into place in turn.
  */
 export function HoverList({ items }: { items: { label: string; href: string; line?: string; image: string; imageAlt: string }[] }) {
   const ref = useGsap((el, mm) => {
+    // The labels rise in CSS (globals.css) once the list is a fifth on screen.
+    mm.add("(min-width: 0px)", () => {
+      const io = new IntersectionObserver(([e]) => e.isIntersecting && ((el.dataset.in = ""), io.disconnect()), { threshold: 0.2 });
+      io.observe(el);
+      return () => io.disconnect();
+    });
     mm.add("(hover: hover) and (pointer: fine)", () => {
       const box = el.querySelector<HTMLElement>("[data-preview]")!;
       const imgs = box.querySelectorAll<HTMLElement>("[data-img]");
@@ -307,16 +296,24 @@ export function HoverList({ items }: { items: { label: string; href: string; lin
   });
 
   return (
-    <div ref={ref} data-nomotion className="relative">
+    <div ref={ref} data-nomotion data-rise-list className="relative">
       <ul className="border-t border-line">
-        {items.map((m) => (
+        {items.map((m, i) => (
           <li key={m.href} data-item className="border-b border-line">
             <Link href={m.href} className="group flex items-center justify-between gap-6 py-7 md:py-9">
-              <span className="font-display text-[28px] font-light leading-tight tracking-[-0.025em] text-ink transition-[transform,color] duration-300 ease-out group-hover:translate-x-2 group-hover:text-blue md:text-[48px]">
-                {m.label}
+              <span className="block overflow-hidden pb-1">
+                <span data-rise style={{ "--i": i } as React.CSSProperties} className="block">
+                  <span className="block font-display text-[28px] font-light leading-tight tracking-[-0.025em] text-ink transition-[transform,color] duration-300 ease-out group-hover:translate-x-2 group-hover:text-blue md:text-[48px]">
+                    {m.label}
+                  </span>
+                </span>
+              </span>
+              {/* Touch screens have no hover, so the picture sits in the row. */}
+              <span aria-hidden="true" className="relative hidden aspect-[16/10] w-[120px] shrink-0 overflow-hidden rounded-[4px] border border-line bg-white sm:w-[180px] [@media(hover:none)]:block">
+                <Image src={m.image} alt="" fill sizes="180px" className="object-cover object-left-top" />
               </span>
               {m.line && <span className="hidden max-w-[36ch] text-[18px] leading-relaxed text-body md:block">{m.line}</span>}
-              <svg aria-hidden="true" viewBox="0 0 16 16" className="h-5 w-5 shrink-0 -translate-x-2 text-blue opacity-0 transition-all duration-300 ease-out group-hover:translate-x-0 group-hover:opacity-100" fill="none" stroke="currentColor" strokeWidth="1.6">
+              <svg aria-hidden="true" viewBox="0 0 16 16" className="h-5 w-5 shrink-0 [@media(hover:none)]:hidden -translate-x-2 text-blue opacity-0 transition-all duration-300 ease-out group-hover:translate-x-0 group-hover:opacity-100" fill="none" stroke="currentColor" strokeWidth="1.6">
                 <path d="M2 8h11M9 4l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </Link>

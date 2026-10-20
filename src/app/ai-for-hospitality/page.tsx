@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { pageMeta } from "@/lib/metadata";
 import PageHero from "@/components/v2/page-hero";
-import { photos } from "@/lib/photos";
+import { StorePanel } from "@/components/v2/panels";
 import Link from "next/link";
 import CTABand from "@/components/cta-band";
 import RelatedLinks from "@/components/related-links";
@@ -56,7 +56,7 @@ export default function HospitalityPage() {
       <PageHero
         title="AI for hospitality businesses"
         intro="Phil runs operations for a Five Guys franchisee in Central Kentucky, and the first tools we built were built for that job."
-        shot={photos.portal}
+        visual={<StorePanel />}
       />
 
       <section className="px-4 md:px-10 py-24 md:py-32">

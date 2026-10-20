@@ -44,6 +44,9 @@ const config: Config = {
       maxWidth: {
         content: "960px",
         page: "1360px",
+        // A box that carries its own side padding: 1360px of content inside 40px a side, so it
+        // lines up with sections that pad outside a max-w-page box.
+        "page-pad": "1440px",
       },
       transitionTimingFunction: {
         // The motion template's ease (templates/website-motion, measured on dci.build).

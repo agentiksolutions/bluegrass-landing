@@ -3,19 +3,22 @@ import PageHero from "./v2/page-hero";
 
 type Photo = { src: string; width: number; height: number; alt: string };
 
-// Shared frame for the case study pages: a night opening with the real screen, then ruled sections.
+// Shared frame for the case study pages: a night opening with a real screen or a panel drawn in
+// code, then ruled sections.
 export function CaseStudyHero({
   label,
   title,
   intro,
   photo,
+  visual,
 }: {
   label: string;
   title: string;
   intro: React.ReactNode;
-  photo: Photo;
+  photo?: Photo;
+  visual?: React.ReactNode;
 }) {
-  return <PageHero label={label} title={title} intro={intro} shot={photo} />;
+  return <PageHero label={label} title={title} intro={intro} shot={photo} visual={visual} />;
 }
 
 export function CaseSection({ title, children }: { title: string; children: React.ReactNode }) {
@@ -41,7 +44,7 @@ export function CaseQuote({ quote, cite = "Phil Fifield" }: { quote: string; cit
 export function CaseClose({ note }: { note?: string }) {
   return (
     <>
-      {note && <p className="mx-auto max-w-page px-4 pb-10 font-display text-[14px] text-muted md:px-10">{note}</p>}
+      {note && <p className="mx-auto max-w-page-pad px-4 pb-10 font-display text-[14px] text-muted md:px-10">{note}</p>}
       <div className="pb-16" />
       <CTABand headline="Want something like this for your business?" />
     </>

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { pageMeta } from "@/lib/metadata";
 import ServicePageTemplate from "@/components/service-page-template";
-import { photos } from "@/lib/photos";
 import DataToDashboard from "@/components/v2/data-to-dashboard";
+import { LocationsPanel } from "@/components/v2/panels";
 
 export const metadata: Metadata = pageMeta({
   title: "Dashboards & Data",
@@ -14,7 +14,7 @@ export const metadata: Metadata = pageMeta({
 export default function DashboardsPage() {
   return (
     <ServicePageTemplate
-      shot={photos.portal}
+      visual={<LocationsPanel />}
       feature={<DataToDashboard title="What a dashboard build looks like." />}
       title="Your numbers, in one place."
       subtitle="We build dashboards that pull your data from the apps you already use, update automatically, and show the numbers behind the decisions you make."

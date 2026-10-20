@@ -38,7 +38,7 @@ export default function AboutPage() {
       <JsonLd data={personJsonLd} />
 
       <section data-nav="dark" data-nomotion className="night bg-night text-night-text">
-        <div className="mx-auto grid max-w-page grid-cols-1 items-end gap-12 px-4 pb-16 pt-28 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:px-10 md:pb-24 md:pt-36 lg:gap-20">
+        <div className="mx-auto grid max-w-page-pad grid-cols-1 items-end gap-12 px-4 pb-16 pt-28 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:px-10 md:pb-24 md:pt-36 lg:gap-20">
           <Drift amount={-70} className="mx-auto w-full max-w-[440px] md:mx-0">
           <FadeUp onLoad delay={0.1}>
             <Image
@@ -133,7 +133,7 @@ export default function AboutPage() {
           </div>
 
           <aside className="lg:sticky lg:top-28">
-            <h2 className="font-display text-[15px] font-semibold text-blue">Today</h2>
+            <h2 className="font-display text-[28px] font-light tracking-[-0.02em] text-ink md:text-[34px]">My roles today</h2>
             <ul className="mt-4 border-t border-line">
               {today.map((t) => (
                 <li key={t.role} className="border-b border-line py-5">
@@ -142,17 +142,6 @@ export default function AboutPage() {
                 </li>
               ))}
             </ul>
-            <div className="mt-10 overflow-hidden rounded-[6px] border border-line">
-              <Image
-                src={photos.portal.src}
-                alt={photos.portal.alt}
-                width={photos.portal.width}
-                height={photos.portal.height}
-                sizes="(min-width: 1024px) 420px, 100vw"
-                className="h-auto w-full"
-              />
-            </div>
-            <p className="mt-3 font-display text-[14px] text-muted">The manager portal, shown in demo mode.</p>
           </aside>
         </div>
       </section>

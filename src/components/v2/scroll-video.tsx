@@ -115,7 +115,7 @@ export default function ScrollVideo({
       />
       {/* A legibility scrim under the words, not decoration: the lit network runs under them. */}
       <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-[55%] bg-gradient-to-t from-night via-night/70 to-transparent" />
-      <div className="relative mx-auto flex h-full max-w-page items-end px-4 pb-16 md:px-10 md:pb-24">
+      <div className="relative mx-auto flex h-full max-w-page-pad items-end px-4 pb-16 md:px-10 md:pb-24">
         {/* Wide screens with motion: the lines take turns in one spot. Otherwise only the last shows. */}
         <div className="relative w-full font-display text-[40px] font-light leading-[1.02] tracking-[-0.03em] md:text-[72px] track:h-[2.4em]">
           {lines.map((l, i) => (

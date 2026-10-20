@@ -19,7 +19,7 @@ export default function PrivacyPage() {
   return (
     <>
     <PageHero compact title="Privacy notice" intro="Effective date: October 16, 2026" />
-    <section className="mx-auto max-w-page px-4 pb-24 pt-16 md:px-10 md:pt-20">
+    <section className="mx-auto max-w-page-pad px-4 pb-24 pt-16 md:px-10 md:pt-20">
       <div className="max-w-[680px]">
 
         <p className={p}>

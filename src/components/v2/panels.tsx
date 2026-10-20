@@ -535,3 +535,64 @@ export function BoardPanel() {
     </div>
   );
 }
+
+/**
+ * A store screen of the kind the franchisee's manager portal shows, redrawn in code with sample
+ * figures (it replaces a screenshot of the real portal). The score gauge sweeps, the cards count in.
+ */
+export function StorePanel() {
+  const cards = [
+    { label: "Sales, this period", value: "$38.6K", note: "101% of forecast" },
+    { label: "Labor", value: "23.8%", note: "Target 25%" },
+    { label: "Sales per labor hour", value: "$64", note: "Crew hours only" },
+    { label: "Guest score", value: "92", note: "Up 5 on last period" },
+  ];
+  const ref = useOnce((el) =>
+    gsap
+      .timeline()
+      .fromTo(el.querySelector("[data-gauge]"), { strokeDashoffset: 100 }, { strokeDashoffset: 8, duration: 1.4, ease: EASE })
+      .from(el.querySelector("[data-progress]"), { scaleX: 0, transformOrigin: "left center", duration: 1, ease: EASE }, 0.1)
+      .from(el.querySelectorAll("[data-card]"), { autoAlpha: 0, y: 14, duration: 0.6, stagger: 0.08, ease: EASE }, 0.3),
+  );
+  return (
+    <div
+      ref={ref}
+      role="img"
+      data-nomotion
+      aria-label="A store screen with sample data: a period health score of 92 out of 100, the period one quarter done, and four cards for sales, labor, sales per labor hour and guest score"
+      className="w-full overflow-hidden rounded-[6px] border border-night-line bg-night-2 font-display"
+    >
+      <PanelHead title="Good morning, Location A" />
+      <div className="grid grid-cols-1 gap-3 p-4 sm:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] sm:p-5">
+        <div className="flex flex-col items-center justify-center rounded-[4px] border border-night-line bg-night px-4 py-5">
+          <p className="self-start text-[12px] text-night-body">Period health</p>
+          <svg viewBox="0 0 120 70" className="mt-2 w-[150px]" aria-hidden="true">
+            <path d="M10 62 A50 50 0 0 1 110 62" fill="none" stroke="#2C333E" strokeWidth="9" strokeLinecap="round" pathLength="100" />
+            <path data-gauge d="M10 62 A50 50 0 0 1 110 62" fill="none" stroke="#9DB2E8" strokeWidth="9" strokeLinecap="round" pathLength="100" strokeDasharray="100" strokeDashoffset="8" />
+          </svg>
+          <p className="-mt-9 text-[34px] font-medium tracking-[-0.02em] text-night-text">92</p>
+          <p className="text-[12px] text-night-body">Strong</p>
+        </div>
+        <div className="flex flex-col justify-between gap-4 rounded-[4px] border border-night-line bg-night px-4 py-5">
+          <div className="flex justify-between text-[12px] text-night-body">
+            <span>Period 6, week 2 of 4</span>
+            <span>Day 9 of 28</span>
+          </div>
+          <span className="h-2 rounded-[2px] bg-night-line">
+            <span data-progress className="block h-full w-[32%] rounded-[2px] bg-night-blue" />
+          </span>
+          <p className="text-[14px] leading-snug text-night-text">On pace to beat forecast. Two shifts still need a closer.</p>
+        </div>
+        <div className="grid grid-cols-2 gap-3 sm:col-span-2 sm:grid-cols-4">
+          {cards.map((c) => (
+            <div key={c.label} data-card className="rounded-[4px] border border-night-line bg-night p-3">
+              <p className="text-[11px] text-night-body">{c.label}</p>
+              <p className="mt-1 text-[22px] font-medium tracking-[-0.02em] text-night-text">{c.value}</p>
+              <p className="text-[11px] text-night-body">{c.note}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}

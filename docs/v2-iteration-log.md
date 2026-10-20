@@ -198,3 +198,27 @@ Round 12 full sweep:
 - Round 16: buttons lean toward a mouse pointer (up to about 13 px) and spring back when it leaves. Mouse only, never touch, and off under reduced motion because it lives with Lenis. Checked: hover moved the hero button to translate(12.7, 6.4); leaving returned it to 0, 0.
 
 Close-out checks (05:35 ET): all 33 preview paths return 200 on deployment 918c85b. Production is still main c8ec4c7. origin/main is c8ec4c7; homepage-21st is 4f54af4, with 0 changed files. Higgsfield CLI: 0.81 credits, unchanged all night, nothing generated. Mac: the render folder is gone and 20 GB is free.
+
+## External review round 1 (reviewer built 9883856; fixed on top of round 16)
+
+| # | Finding | Fix |
+|---|---|---|
+| 1 | The Kentucky outline ran through "Your AI partner" at 1440 and under reduced motion | The 2D hero measures the headline before placing the state and scales it so the state's bottom edge ends at least 12 px above the headline box. With motion on at 1024 px and wider, the 3D hero replaced the 2D one in round 6 |
+| 2 | The core story was missing: messy data turning into a dashboard | Already built in round 6 as `DataToDashboard`. It pins for 3.2 screens: 24 hand-typed inputs (cells, receipts, register rows, emails, punches) fly into place, the panels draw and count, an alert fires and the summary writes itself. Marked "Sample data" |
+| 3 | Motion was mostly reveals, the 4-line pin ran about 5 screens, and "Who we work with" had no hover preview on touch | The statement pin now runs 2 screens. As its payoff, the page turns to night under the reader and the lines go limestone, handing off to the dashboard sequence; the header switches with it. Industries labels rise out of their rows in turn. On touch screens each row carries its picture inline |
+| 4 | The portal screenshot rendered em dashes, colored card edge strips and internal figures | The screenshot and its tile are deleted from the repo. `StorePanel` (panels.tsx) redraws a store screen in code with sample figures: no dashes, no edge strips, no tiers, payouts or wage notes. It is used on home (Recent work), /work, /work/restaurant-franchisee and /ai-for-hospitality. /services/dashboards uses `LocationsPanel`; About drops the image. The Industries tile is a capture of `StorePanel`, encoded on the Mac. Nothing was recaptured from a live system. This also removes the "Tyler's OK on the portal screenshot" item |
+| 5 | Left edges did not line up (x=80 and x=40) | New `max-w-page-pad` token (1440 px box with its own 40 px padding) on the 11 containers that padded inside `max-w-page`, the header included. Every heading on home and About now measures x=40 at 1440 |
+| 6 | Phone portal was 330 px wide and unreadable | The screenshot is gone; `StorePanel` stacks at 390 with readable type |
+| 7 | Clip-expand cut off the portal's left edge | `ClipExpand` had one use (the portal) and is deleted |
+| 8 | Blue eyebrow labels above headings | "What we help with" is the section's real heading at display size. About's "Today" became the heading "My roles today" |
+| 9 | 768 hero was half empty | Tablets (under 1024 px, or portrait) scale the state to the full width, centred in the space above the headline |
+| 10 | Turnstile does not render | **For Phil:** the Turnstile site key is not set in the preview environment, so the widget does not render there. No Vercel env was changed |
+
+Bug found while checking item 3: on a touch phone the Industries labels stayed hidden. Their GSAP scroll trigger never fired (a stale position under sections that settle late), and the tween shared its element with the label's hover transition. The rise is now plain CSS on its own wrapper, started by an IntersectionObserver. Checked on an iPhone 13 emulation with touch: all four labels at transform none.
+
+Sweep after review round 1:
+- All 29 pages at 390, 768 and 1440: 87 runs, no overflow, no errors.
+- Reduced motion: 58 runs, clean.
+- Interaction checks: 11 of 11 pass.
+- Links: 39 internal, all 200; external links fine; no broken images.
+- Rendered copy: no dashes and no slop. Home copy is 279 words.

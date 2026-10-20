@@ -92,7 +92,7 @@ export default function HomeHero() {
       <div ref={stageRef} className="absolute inset-0" aria-hidden="true">
         {mode === "2d" && <KentuckyFlow />}
       </div>
-      <div className="pointer-events-none relative mx-auto flex h-full max-w-page flex-col justify-end px-4 pb-14 md:px-10 md:pb-20">
+      <div className="pointer-events-none relative mx-auto flex h-full max-w-page-pad flex-col justify-end px-4 pb-14 md:px-10 md:pb-20">
         <div data-hero-words>
           <div data-quiet className="w-fit max-w-full">
             <Reveal
