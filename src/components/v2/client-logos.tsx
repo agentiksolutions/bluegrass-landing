@@ -3,8 +3,8 @@
 import { useLayoutEffect, useRef } from "react";
 import { gsap, EASE, motionOff } from "@/lib/gsap";
 
-// STAGING ONLY. Pending permission before live: Five Guys trademark use (no endorsement implied),
-// Tyler Barton/BRG, Greer, Activate, StoneCreek, Proliferation, United Property Holdings. Phil asked for this section on
+// STAGING ONLY. Approved (Phil, 2026-10-20): Five Guys (trademark use, no endorsement implied) and Activate.
+// Pending permission before live: Tyler Barton/BRG, Greer, StoneCreek, Proliferation, United Property Holdings. Phil asked for this section on
 // 2026-10-20; it overrides the "no client names" rule on the site-v2 staging branch only.
 //
 // Who is listed, and why (verified 2026-10-20 against the BAG CRM, signed contracts and paid
