@@ -88,3 +88,17 @@ performance 87 to 88, accessibility 96 to 100, best practices 100, SEO 100. Larg
 | Systems map could still be drawing its lines a full second after it was on screen | Drawing starts at 30% visibility and runs in about 1.5 s instead of 3 |
 | Service cards in the night track left wide empty margins at 1440 | Cards widened to 70% of the screen (1000 px cap) |
 | A local review run showed missing script chunks | Not a site defect: the push hook rebuilt `.next` under the running preview server. The review script now restarts the server after every build |
+
+## Round 5 (final sweep: 29 pages at three widths, reduced motion, interactions)
+
+87 normal runs and 8 reduced-motion runs: no sideways overflow, no page errors, every page 200.
+Rendered HTML: no em or en dashes, no spaced hyphens, no ", not " tails, no banned words. Home copy
+296 words. Interaction checks 11 of 11.
+
+| Defect | Fix |
+|---|---|
+| With reduced motion on a wide screen, the services track stayed one long row with no pin, so Build and Support sat off screen where nothing could scroll to them (the overflow check could not see it: the page clips sideways overflow) | The row layout now applies only on wide screens with motion on (a `track:` Tailwind variant); otherwise the cards stack. Checked in both modes |
+
+Open, not defects: smoothness is unmeasured (headless). The showroom report and website tools
+need the Anthropic key, which the preview does not have, so they stop at their error message.
+The contact form has no Supabase or Airtable keys on the preview, so it errors by design.

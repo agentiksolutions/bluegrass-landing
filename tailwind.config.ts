@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import plugin from "tailwindcss/plugin";
 
 // V2 (2026-10-20). The locked brand (Brand/BRAND-DECISIONS-2026-09-23.md): white page, limestone
 // bands, UK blue #0033A0 as the one accent on light. Dark "night" chapters use ink #161B22 with
@@ -59,7 +60,12 @@ const config: Config = {
       },
     },
   },
-  plugins: [require("@tailwindcss/typography")],
+  plugins: [
+    require("@tailwindcss/typography"),
+    // track: wide screens with motion on. The services track runs sideways only then; with reduced
+    // motion or no JavaScript it stacks, so no card sits off screen where nothing can scroll to it.
+    plugin(({ addVariant }) => addVariant("track", "@media (min-width: 821px) { .js:not(.motion-off) & }")),
+  ],
 };
 
 export default config;

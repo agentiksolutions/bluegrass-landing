@@ -105,15 +105,15 @@ export function HorizontalTrack({
 
   return (
     <section ref={ref} id={id} data-nav="dark" className="night relative overflow-hidden bg-night text-night-text scroll-mt-0">
-      <div className="flex min-h-[100svh] flex-col justify-center py-24 min-[821px]:py-0">
+      <div className="flex min-h-[100svh] flex-col justify-center py-24 track:py-0">
         <div
           data-track
-          className="flex flex-col gap-16 px-4 md:px-10 min-[821px]:w-max min-[821px]:flex-row min-[821px]:items-center min-[821px]:gap-[6vw] min-[821px]:pl-[max(2.5rem,calc((100vw-1360px)/2+2.5rem))] min-[821px]:pr-[8vw]"
+          className="flex flex-col gap-16 px-4 md:px-10 track:w-max track:flex-row track:items-center track:gap-[6vw] track:pl-[max(2.5rem,calc((100vw-1360px)/2+2.5rem))] track:pr-[8vw]"
         >
-          <div className="min-[821px]:w-[min(30vw,420px)] min-[821px]:shrink-0">{intro}</div>
+          <div className="track:w-[min(30vw,420px)] track:shrink-0">{intro}</div>
           {children}
         </div>
-        <div className="mx-4 mt-16 hidden h-px bg-night-line md:mx-10 min-[821px]:block">
+        <div className="mx-4 mt-16 hidden h-px bg-night-line md:mx-10 track:block">
           <div data-progress className="h-px origin-left bg-night-blue" />
         </div>
       </div>
@@ -136,7 +136,7 @@ export function TrackCard({
   children: React.ReactNode;
 }) {
   return (
-    <article className="min-[821px]:w-[min(70vw,1000px)] min-[821px]:shrink-0">
+    <article className="track:w-[min(70vw,1000px)] track:shrink-0">
       <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[minmax(0,7fr)_minmax(0,4fr)] lg:gap-10">
         <div>{children}</div>
         <div>
