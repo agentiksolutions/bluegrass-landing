@@ -194,3 +194,5 @@ Round 12 full sweep:
 - Round 14: the About headshot drifts in depth like the other inner-page openings.
 
 - Round 15: phones get a portrait Blender render of the flight (1080x1920, all-intra, 4.5 MB, `scripts/render/ky_flight_portrait.py`) with its own first-frame poster, playing muted on a loop. The 720p landscape file is removed.
+
+- Round 16: buttons lean toward a mouse pointer (up to about 13 px) and spring back when it leaves. Mouse only, never touch, and off under reduced motion because it lives with Lenis. Checked: hover moved the hero button to translate(12.7, 6.4); leaving returned it to 0, 0.

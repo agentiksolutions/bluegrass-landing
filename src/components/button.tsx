@@ -31,13 +31,13 @@ export default function Button({ href, children, variant = "primary", className 
 
   if (external || href.startsWith("http")) {
     return (
-      <a href={href} className={classes} target="_blank" rel="noopener noreferrer">
+      <a href={href} data-magnetic className={classes} target="_blank" rel="noopener noreferrer">
         {inner}
       </a>
     );
   }
   return (
-    <Link href={href} className={classes}>
+    <Link href={href} data-magnetic className={classes}>
       {inner}
     </Link>
   );

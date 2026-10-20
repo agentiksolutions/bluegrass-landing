@@ -53,7 +53,25 @@ export default function SmoothScroll() {
     };
     document.addEventListener("click", onClick);
 
+    // Buttons lean a few pixels toward a mouse pointer and spring back when it leaves.
+    let pulled: HTMLElement | null = null;
+    const release = () => {
+      if (pulled) gsap.to(pulled, { x: 0, y: 0, duration: 0.5, ease: "elastic.out(1, 0.5)" });
+      pulled = null;
+    };
+    const onPointer = (e: PointerEvent) => {
+      if (e.pointerType !== "mouse") return;
+      const el = (e.target as HTMLElement).closest<HTMLElement>("[data-magnetic]");
+      if (el !== pulled) release();
+      if (!el) return;
+      pulled = el;
+      const r = el.getBoundingClientRect();
+      gsap.to(el, { x: (e.clientX - r.left - r.width / 2) * 0.18, y: (e.clientY - r.top - r.height / 2) * 0.3, duration: 0.3, ease: "power3.out" });
+    };
+    document.addEventListener("pointermove", onPointer);
+
     return () => {
+      document.removeEventListener("pointermove", onPointer);
       document.removeEventListener("click", onClick);
       gsap.ticker.remove(tick);
       lenis?.destroy();
