@@ -207,10 +207,12 @@ export default function CountyPulse() {
     <section data-nav="dark" data-nomotion className="night relative overflow-hidden bg-night text-night-text">
       <div className="mx-auto flex max-w-page-pad items-center px-4 py-16 md:min-h-[80svh] md:px-10 md:py-24">
         <div className="w-full [perspective:1400px]">
+          {/* On phones the tilt pivots on the bottom edge, so the near edge keeps the gutter width
+              and the far edge recedes inside it. */}
           <canvas
             ref={canvasRef}
             aria-hidden="true"
-            className="-mx-[8%] block h-auto w-[116%] max-w-none [transform:rotateX(18deg)] md:mx-auto md:w-[90%] md:[transform:rotateX(34deg)]"
+            className="mx-auto block h-auto w-full origin-bottom [transform:rotateX(18deg)] md:w-[90%] md:origin-center md:[transform:rotateX(34deg)]"
           />
         </div>
       </div>

@@ -370,3 +370,5 @@ What the trace showed and what changed:
   - Build and lint are clean, and interaction checks pass 11 of 11.
   - The rendered pages have no dashes.
   - Lighthouse mobile scores 93 (TBT 34 ms, LCP 3.2 s); desktop scores 94.
+
+- **Phone crop fix:** at 430 px the western tip ran off the screen. The 116% width is removed, and on phones the tilt now pivots on the bottom edge, so the whole state sits inside the 16 px gutters: canvas x 16 to 414 at 430 px, 16 to 359 at 375 px.
