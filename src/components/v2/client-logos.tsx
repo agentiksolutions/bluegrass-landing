@@ -52,7 +52,7 @@ export default function ClientLogos() {
     <section ref={ref} data-nav="dark" data-nomotion className="night bg-night px-4 py-24 text-night-text md:px-10 md:py-32">
       <div className="mx-auto max-w-page">
         <h2 className="font-display text-[34px] font-light leading-none tracking-[-0.03em] md:text-[56px]">Who we&apos;ve worked with</h2>
-        <ul className="mt-14 flex flex-wrap justify-center gap-y-12 [perspective:800px]">
+        <ul data-imagery className="mt-14 flex flex-wrap justify-center gap-y-12 [perspective:800px]">
           {CLIENTS.map((c) => (
             <li key={c.name} data-logo className="flex h-28 w-1/2 items-center justify-center border-t border-night-line px-4 pt-6 sm:w-1/3 lg:w-1/4">
               {c.logo ? (
@@ -67,8 +67,7 @@ export default function ClientLogos() {
           ))}
         </ul>
         <p className="mt-12 max-w-[70ch] font-display text-[13px] leading-relaxed text-night-body">
-          Logos belong to their owners and do not imply endorsement. Five Guys appears because Phil runs operations for a
-          Five Guys franchisee in Central Kentucky.
+          Logos belong to their owners and imply no endorsement of Bluegrass Advisory Group.
         </p>
       </div>
     </section>

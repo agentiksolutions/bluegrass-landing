@@ -136,3 +136,12 @@ New since round 5:
 | The words over the Blender flight sat on bright network lines | A legibility scrim fills the bottom 55% of that section |
 | Client logos at uneven sizes and an uneven last row | Per-logo heights balanced by eye; rows centred |
 | Proliferation's script logo showed a faint box edge | Re-converted with a threshold so the old white background goes fully clear |
+
+## Round 7 (home, all widths)
+
+| Defect | Fix |
+|---|---|
+| A blank white screen between the pinned statements and the dashboard | The 3D hero's pin is created after three.js loads, later than the pins below it, so every trigger was measured one screen short. The hero now re-sorts and refreshes all triggers once its pin exists |
+| The scattered inputs never appeared: the chip layer faded with the panels | The word-count marker `data-panel` doubled as the panel-animation selector. The marker is now `data-imagery`, and chips are shown outside the timeline so a refresh cannot hide them |
+| Dashboard figures and the weekly report showed their final values before the build | They start at zero and blank and count or type in. The server HTML keeps the finished values for crawlers and reduced motion |
+| Home copy at 351 words after the new sections | Step lines, one video line, the hero caption and the long logo note trimmed. 299 words |

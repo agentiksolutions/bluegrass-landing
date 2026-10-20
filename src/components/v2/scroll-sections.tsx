@@ -153,7 +153,7 @@ export function TrackCard({
 }
 
 /** The path a client takes: a line draws down the steps as you scroll and each step lights up. */
-export function PathSteps({ steps }: { steps: { title: string; line: string }[] }) {
+export function PathSteps({ steps }: { steps: { title: string; line?: string }[] }) {
   const ref = useGsap((el) => {
     const dots = el.querySelectorAll<HTMLElement>("[data-dot]");
     const words = el.querySelectorAll<HTMLElement>("[data-step]");
@@ -183,7 +183,7 @@ export function PathSteps({ steps }: { steps: { title: string; line: string }[] 
                 <span className="sr-only">Step {i + 1}: </span>
                 {s.title}
               </p>
-              <p className="mt-1.5 max-w-[40ch] text-[17px] leading-snug text-body">{s.line}</p>
+              {s.line && <p className="mt-1.5 max-w-[40ch] text-[17px] leading-snug text-body">{s.line}</p>}
             </div>
           </li>
         ))}

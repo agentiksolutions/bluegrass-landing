@@ -96,6 +96,19 @@ export default function DataToDashboard() {
     };
 
     const build = (tl: gsap.core.Timeline) => {
+      // Chips are hidden in the server HTML; shown here outside the timeline so a refresh that
+      // invalidates the timeline cannot hide them again.
+      gsap.set(chips, { visibility: "visible", opacity: 1 });
+      // Before the build: empty figures and an unwritten report (the server HTML holds the finished
+      // values for crawlers and reduced motion).
+      el.querySelectorAll<HTMLElement>("[data-count]").forEach((n) => {
+        const zero = (n.dataset.pre || "") + (0).toFixed(Number(n.dataset.dec || 0)) + (n.dataset.suf || "");
+        const done = n.textContent;
+        tl.call(() => void (n.textContent = zero), [], 0);
+        tl.call(() => void (n.textContent = done), [], 3.11);
+      });
+      const reportEl = el.querySelector<HTMLElement>("[data-report]")!;
+      tl.call(() => void (reportEl.textContent = ""), [], 0.001);
       const sw = () => stage.clientWidth;
       const sh = () => stage.clientHeight;
       // Phase 1: the mess drifts in depth.
@@ -103,7 +116,7 @@ export default function DataToDashboard() {
         const s = scatter[i];
         tl.fromTo(
           c,
-          { x: () => s.x * sw(), y: () => s.y * sh(), z: s.z, rotationX: s.rx, rotationY: s.ry, rotation: s.rz, autoAlpha: 1 },
+          { x: () => s.x * sw(), y: () => s.y * sh(), z: s.z, rotationX: s.rx, rotationY: s.ry, rotation: s.rz },
           { x: () => s.x * sw() * 0.85, y: () => s.y * sh() * 0.85, z: s.z + 120, rotationX: s.rx * 0.6, rotationY: s.ry * 0.6, duration: 1, ease: "none" },
           0,
         );
@@ -125,7 +138,7 @@ export default function DataToDashboard() {
             ease: "power2.inOut",
           },
           1 + (i % 8) * 0.06,
-        ).to(c, { autoAlpha: 0, duration: 0.25 }, 1.85 + (i % 8) * 0.06);
+        ).fromTo(c, { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.25, immediateRender: false }, 1.85 + (i % 8) * 0.06);
       });
       // Phase 3: the dashboard draws and counts.
       tl.fromTo(el.querySelectorAll("[data-bar]"), { scaleY: 0 }, { scaleY: 1, transformOrigin: "bottom", duration: 0.8, stagger: 0.06, ease: "power2.out" }, 2.1);
@@ -184,7 +197,7 @@ export default function DataToDashboard() {
 
         <div data-stage className="relative mt-8 flex-1 [perspective:1400px]">
           {/* The mess. Hidden from screen readers: it is the same sample data the panels show. */}
-          <div aria-hidden="true" data-panel className="pointer-events-none absolute inset-0 z-20 grid place-items-center [transform-style:preserve-3d]">
+          <div aria-hidden="true" data-imagery className="pointer-events-none absolute inset-0 z-20 grid place-items-center [transform-style:preserve-3d]">
             {CHIPS.map((c, i) => (
               <span
                 key={i}

@@ -4,7 +4,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Button from "@/components/button";
 import KentuckyFlow from "./kentucky-flow";
 import { FadeUp, Reveal } from "./reveal";
-import { gsap, motionOff } from "@/lib/gsap";
+import { gsap, ScrollTrigger, motionOff } from "@/lib/gsap";
 import type { Ky3D } from "@/lib/ky-3d";
 import { BOOKING_URL } from "@/lib/site";
 
@@ -67,6 +67,10 @@ export default function HomeHero() {
         .to(el.querySelector("[data-hero-words]"), { yPercent: -35, autoAlpha: 0, ease: "power1.in", duration: 0.6 }, 0.35)
         .to({}, { duration: 0.05 });
     }, el);
+    // This pin is created after the 3D scene loads, later than the pins below it, so every
+    // trigger on the page is re-sorted and re-measured with the hero's extra screen counted.
+    ScrollTrigger.sort();
+    ScrollTrigger.refresh();
     const onMove = (e: PointerEvent) => kyRef.current?.setPointer((e.clientX / window.innerWidth) * 2 - 1, (e.clientY / window.innerHeight) * 2 - 1);
     el.addEventListener("pointermove", onMove);
     return () => {
@@ -106,9 +110,6 @@ export default function HomeHero() {
             </div>
           </FadeUp>
         </div>
-        <p className="absolute right-4 top-24 hidden font-display text-[13px] text-night-body md:right-10 md:block">
-          The star is Lexington.
-        </p>
       </div>
     </section>
   );

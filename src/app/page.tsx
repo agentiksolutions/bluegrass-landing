@@ -73,10 +73,10 @@ const problems = [
 ];
 
 const steps = [
-  { title: "Free intro call", line: "Thirty minutes about your business." },
-  { title: "Roadmap", line: "A one-page map of your systems and a plan." },
-  { title: "Business AI Setup", line: "The tools that fit, set up and taught." },
-  { title: "A monthly plan", line: "We keep it running." },
+  { title: "Free intro call" },
+  { title: "Roadmap" },
+  { title: "Business AI Setup" },
+  { title: "A monthly plan" },
 ];
 
 const markets = [
@@ -160,7 +160,7 @@ export default function HomePage() {
         srcSmall="/videos/ky-flight-scrub-720.mp4"
         poster="/videos/ky-flight-first.jpg"
         still="/videos/ky-flight-poster.jpg"
-        lines={["Based in Lexington.", "Working with Central Kentucky businesses.", "Starting with how your work gets done."]}
+        lines={["Based in Lexington.", "Starting with how your work gets done."]}
       />
 
       {/* 4. How we help: a night chapter that holds while the three services pass sideways. */}
