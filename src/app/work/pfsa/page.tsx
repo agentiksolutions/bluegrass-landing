@@ -18,12 +18,11 @@ export default function PfsaCaseStudy() {
   return (
     <>
       <CaseStudyHero
-        label="The PFSA"
         title="A back office for a Lexington nonprofit"
         photo={photos.pfsaSite}
         intro={
           <p>
-            A volunteer-run 501(c)(3), founded in 2005, where I am president.
+            The PFSA is a volunteer-run 501(c)(3), founded in 2005, where I am president.
           </p>
         }
       />

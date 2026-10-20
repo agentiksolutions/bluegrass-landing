@@ -17,12 +17,11 @@ export default function FranchiseeCaseStudy() {
   return (
     <>
       <CaseStudyHero
-        label="A Five Guys franchisee in Central Kentucky"
         title="Three stores, one manager portal"
         visual={<StorePanel />}
         intro={
           <p>
-            I run operations for this franchisee and built these systems for it.
+            I run operations for a Five Guys franchisee in Central Kentucky and built these systems for it.
           </p>
         }
       />

@@ -20,6 +20,7 @@ type Tone = "top" | "dark" | "light";
 /**
  * The header reads whatever section sits under it. Night sections carry data-nav="dark".
  * At the very top of a night hero the header has no fill, so the hero runs to the top edge.
+ * The switch is instant: a cross-fade read as a dim gray band with a half-faded logo.
  */
 export default function Nav() {
   const pathname = usePathname();
@@ -68,16 +69,16 @@ export default function Nav() {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 font-display transition-colors duration-300 ${
+        className={`fixed inset-x-0 top-0 z-50 font-display ${
           open ? "bg-night" : tone === "top" ? "bg-transparent" : tone === "dark" ? "bg-night/95" : "bg-white/95 border-b border-line"
         }`}
       >
         <div className="mx-auto flex h-16 max-w-page-pad items-center justify-between gap-4 px-4 md:px-10 lg:h-[72px]">
           <Link href="/" aria-label="Bluegrass Advisory Group, home" className="relative shrink-0">
-            <span className={`block transition-opacity duration-300 ${onDark ? "opacity-0" : "opacity-100"}`}>
+            <span className={`block ${onDark ? "opacity-0" : "opacity-100"}`}>
               <Logo height={40} className="h-[34px] w-auto sm:h-[40px]" />
             </span>
-            <span aria-hidden="true" className={`absolute inset-0 transition-opacity duration-300 ${onDark ? "opacity-100" : "opacity-0"}`}>
+            <span aria-hidden="true" className={`absolute inset-0 ${onDark ? "opacity-100" : "opacity-0"}`}>
               <Logo height={40} tone="dark" className="h-[34px] w-auto sm:h-[40px]" />
             </span>
           </Link>

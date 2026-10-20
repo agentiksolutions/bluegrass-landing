@@ -12,7 +12,7 @@ export function CaseStudyHero({
   photo,
   visual,
 }: {
-  label: string;
+  label?: string;
   title: string;
   intro: React.ReactNode;
   photo?: Photo;

@@ -55,8 +55,8 @@ export default function HomeHero() {
     };
   }, []);
 
-  // In 3D the hero holds for one screen while the camera flies down to Lexington and the words
-  // lift away; the pointer tilts the view.
+  // In 3D the hero holds for one screen: the words fade down first, then the camera flies to
+  // Lexington; the pointer tilts the view.
   useLayoutEffect(() => {
     const el = ref.current;
     if (!el || mode !== "3d") return;
@@ -69,10 +69,12 @@ export default function HomeHero() {
             end: () => "+=" + window.innerHeight,
             pin: true,
             scrub: 0.6,
-            onUpdate: (s) => kyRef.current?.setProgress(s.progress),
+            // The camera waits until the words have gone, so the slab never passes behind them.
+            onUpdate: (s) => kyRef.current?.setProgress(Math.max(0, (s.progress - 0.22) / 0.78)),
           },
         })
-        .to(el.querySelector("[data-hero-words]"), { yPercent: -35, autoAlpha: 0, ease: "power1.in", duration: 0.6 }, 0.35)
+        .to(el.querySelector("[data-hero-words]"), { yPercent: 18, autoAlpha: 0, ease: "power1.in", duration: 0.12 }, 0)
+        .to({}, { duration: 0.88 }, 0.12)
         .to({}, { duration: 0.05 });
     }, el);
     // This pin is created after the 3D scene loads, later than the pins below it, so every

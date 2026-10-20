@@ -301,3 +301,18 @@ Research is in `docs/v2-references.md` (GOV.UK, Stripe, Vercel, Linear, Apple UK
   - A limestone title block with "Effective" and "Last updated" dates (both October 16, 2026, the only date on record).
   - A contents list that stays beside the text on wide screens, sections divided by thin rules, and a 68-character reading column.
   - The wording is unchanged except the analytics paragraph, which said "click Accept" and "click Decline". It now says "accept analytics cookies" and "reject them" to match the new buttons.
+
+## External review round 2 (reviewer built a0eb609; the portal, left-edge and phone-portal items were already fixed in 11a7ab3)
+
+| # | Finding | Fix |
+|---|---|---|
+| 1 | 3D hero: on the first scroll step the slab's western tip slid behind the headline | The words now fade down and out over the first 11% of the hero scroll. The camera holds still until 22% (headroom for the scrub lag) before it starts its flight, so the slab never moves while the words are on screen. Checked at 0, 120, 240 and 360 px of scroll |
+| 2 | Five Guys mark was a filled limestone square with dark letters; the wall led with it | The SVG is redrawn as single-color line art: a limestone outline box and limestone letters, no fill, matching the other marks. Order is now Greer, Activate, Five Guys, The PFSA, Proliferation, StoneCreek, United Property Holdings, so Five Guys sits mid-row |
+| 3 | The Proliferation PNG showed a hard vertical edge after the wordmark | Trimmed on the Mac with Pillow (`scratchpad/trim_logo.py`): one full-height edge column cleared, cropped to the mark (1729x518 to 1642x458) |
+| 4 | The header showed a dim gray band with a half-faded logo when crossing night and limestone sections | The 300 ms color and logo cross-fade is removed; the header switches in one frame |
+| 5 | "How we help" slid off with the track, leaving an empty dark gap above it | The heading now sits above the track in the page container and stays put while the cards pass; the track fills the rest of the pinned screen and the progress rule sits under it |
+| 6 | Eyebrow labels on the case study and About | The franchisee case drops its label; the intro now reads "I run operations for a Five Guys franchisee in Central Kentucky and built these systems for it." The PFSA case drops "The PFSA" and its intro names it. About drops "Founder and Principal, Bluegrass Advisory Group"; the intro now opens "I founded Bluegrass Advisory Group." |
+| 7 | Cookie banner covered about 20% of a 390 screen and the hero CTA at 1440x900 | The consent card is now a slim bar. Desktop: one line along the bottom, 77 px (8.6% of 900), whose top edge (823) sits below the hero button's bottom (820). Phones: a 99 px bar (11.7% of 844) under the header, so the hero button at the bottom stays clear. It sits below the phone menu (caught by the menu test). Preferences open in the same bar |
+
+- Still 20 of 20 on `consent.py`, 11 of 11 on `interact.py`. No overflow or errors on /, /about, the two case studies, /services and /privacy at 390, 768 and 1440.
+- Earlier pending items: the logo note was updated in e5cd5cb (Five Guys and Activate approved). "Over 15 years": no years figure is on the site to change.

@@ -61,9 +61,9 @@ export default function AboutPage() {
               className="font-display text-[56px] font-light leading-[0.95] tracking-[-0.04em] md:text-[96px]"
             />
             <FadeUp onLoad delay={0.5}>
-              <p className="mt-4 font-display text-[17px] text-night-blue">Founder and Principal, Bluegrass Advisory Group</p>
               <p className="mt-7 max-w-[36ch] text-[20px] leading-relaxed text-night-body md:text-[22px]">
-                I run a franchisee&apos;s operations, lead a Lexington nonprofit, and built the systems both use.
+                I founded Bluegrass Advisory Group. I run a franchisee&apos;s operations, lead a Lexington nonprofit,
+                and built the systems both use.
               </p>
             </FadeUp>
           </div>

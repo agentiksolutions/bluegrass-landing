@@ -87,7 +87,7 @@ export function PinnedStatements({ heading, items }: { heading: string; items: s
 
 /**
  * A night chapter that holds still while its cards slide sideways. On narrow screens the cards
- * stack. The intro text stays on the left as the cards pass.
+ * stack. The heading holds above the track while the cards pass.
  */
 export function HorizontalTrack({
   id,
@@ -129,15 +129,16 @@ export function HorizontalTrack({
 
   return (
     <section ref={ref} id={id} data-nav="dark" className="night relative overflow-hidden bg-night text-night-text scroll-mt-0">
-      <div className="flex min-h-[100svh] flex-col justify-center py-24 track:py-0">
+      <div className="flex min-h-[100svh] flex-col py-24 track:h-[100svh] track:py-0">
+        {/* The heading stays put above the track while the cards pass. */}
+        <div className="mx-auto w-full max-w-page-pad px-4 pb-12 md:px-10 track:pb-0 track:pt-28">{intro}</div>
         <div
           data-track
-          className="flex flex-col gap-16 px-4 md:px-10 track:w-max track:flex-row track:items-center track:gap-[6vw] track:pl-[max(2.5rem,calc((100vw-1360px)/2+2.5rem))] track:pr-[8vw] track:[perspective:1600px]"
+          className="flex flex-col gap-16 px-4 md:px-10 track:w-max track:flex-1 track:flex-row track:items-center track:gap-[6vw] track:pl-[max(2.5rem,calc((100vw-1360px)/2+2.5rem))] track:pr-[8vw] track:[perspective:1600px]"
         >
-          <div className="track:w-[min(30vw,420px)] track:shrink-0">{intro}</div>
           {children}
         </div>
-        <div className="mx-4 mt-16 hidden h-px bg-night-line md:mx-10 track:block">
+        <div className="mx-4 mt-16 hidden h-px bg-night-line md:mx-10 track:mb-12 track:mt-0 track:block">
           <div data-progress className="h-px origin-left bg-night-blue" />
         </div>
       </div>
