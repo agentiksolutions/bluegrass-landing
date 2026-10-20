@@ -15,7 +15,7 @@ export default function DashboardsPage() {
   return (
     <ServicePageTemplate
       shot={photos.portal}
-      feature={<DataToDashboard />}
+      feature={<DataToDashboard title="What a dashboard build looks like." />}
       title="Your numbers, in one place."
       subtitle="We build dashboards that pull your data from the apps you already use, update automatically, and show the numbers behind the decisions you make."
       deliverables={[

@@ -67,7 +67,7 @@ function rand(seed: number) {
   };
 }
 
-export default function DataToDashboard() {
+export default function DataToDashboard({ title = "Your numbers, turned into a dashboard you'll actually use." }: { title?: string }) {
   const ref = useRef<HTMLElement>(null);
 
   useLayoutEffect(() => {
@@ -90,8 +90,14 @@ export default function DataToDashboard() {
     // the stage centre. Measured from layout, never from a chip mid-flight.
     const delta = (chip: HTMLElement) => {
       const slot = el.querySelector<HTMLElement>(`[data-slot="${chip.dataset.chip}"]`)!;
+      // Measure the board where it ends up, flat, not where its tilt has it right now.
+      const board = el.querySelector<HTMLElement>("[data-board]")!;
+      const moved = [board, ...Array.from(el.querySelectorAll<HTMLElement>("[data-panel]"))];
+      const saved = moved.map((m) => m.style.transform);
+      moved.forEach((m) => (m.style.transform = "none"));
       const s = stage.getBoundingClientRect();
       const b = slot.getBoundingClientRect();
+      moved.forEach((m, i) => (m.style.transform = saved[i]));
       return { x: b.left + b.width / 2 - (s.left + s.width / 2), y: b.top + b.height / 2 - (s.top + s.height / 2) };
     };
 
@@ -122,6 +128,8 @@ export default function DataToDashboard() {
         );
       });
       tl.fromTo(el.querySelectorAll("[data-panel]"), { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: 0.5, stagger: 0.08 }, 0.8);
+      // The dashboard arrives tilted back in depth and settles flat as the inputs land on it.
+      tl.fromTo(el.querySelector("[data-board]"), { rotationX: 28, scale: 0.86, transformOrigin: "50% 100%" }, { rotationX: 0, scale: 1, duration: 1.6, ease: "power2.inOut" }, 0.7);
       // Phase 2: every chip flies to its slot and dissolves into the panel.
       chips.forEach((c, i) => {
         tl.to(
@@ -190,7 +198,7 @@ export default function DataToDashboard() {
       <div className="mx-auto flex min-h-[100svh] max-w-page flex-col px-4 pb-10 pt-24 md:px-10 min-[821px]:pt-28">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <h2 className="max-w-[20ch] font-display text-[34px] font-light leading-[1.04] tracking-[-0.03em] md:text-[52px]">
-            Your numbers, turned into a dashboard you&apos;ll actually use.
+            {title}
           </h2>
           <p className="font-display text-[13px] text-night-body">Sample data</p>
         </div>
@@ -213,7 +221,8 @@ export default function DataToDashboard() {
           <div
             role="img"
             aria-label="A sample operations dashboard: net sales, labor and food cost for three locations, a daily sales chart, a labor alert for Location B, a weekly summary written automatically and a staff schedule filled in for the week"
-            className="relative z-10 grid h-full grid-cols-1 gap-3 font-display min-[821px]:grid-cols-12 min-[821px]:grid-rows-[auto_1fr_auto]"
+            data-board
+            className="relative z-10 grid h-full grid-cols-1 gap-3 font-display will-change-transform min-[821px]:grid-cols-12 min-[821px]:grid-rows-[auto_1fr_auto]"
           >
             {[
               { label: "Net sales, this week", slot: "sales", count: 48210, pre: "$", dec: 0, suf: "", note: "All three locations" },

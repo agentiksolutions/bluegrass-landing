@@ -374,3 +374,19 @@ export function MarkBuild({ className = "" }: { className?: string }) {
     </div>
   );
 }
+
+/** Moves its content up (negative) or down as its section scrolls away, for depth between layers. */
+export function Drift({ amount = -80, className = "", children }: { amount?: number; className?: string; children: React.ReactNode }) {
+  const ref = useGsap((el) => {
+    gsap.to(el, {
+      y: amount,
+      ease: "none",
+      scrollTrigger: { trigger: el.closest("section") ?? el, start: "top top", end: "bottom top", scrub: true },
+    });
+  });
+  return (
+    <div ref={ref} className={`will-change-transform ${className}`}>
+      {children}
+    </div>
+  );
+}

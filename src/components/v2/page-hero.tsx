@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { FadeUp, Reveal } from "./reveal";
 import KentuckyLine from "./kentucky-line";
+import { Drift } from "./scroll-sections";
 
 type Shot = { src: string; alt: string; width: number; height: number };
 
@@ -58,7 +59,8 @@ export default function PageHero({
           )}
         </div>
         {!compact && (shot || art) && (
-          <FadeUp onLoad delay={0.45} className="min-w-0">
+          <Drift amount={-90} className="min-w-0">
+          <FadeUp onLoad delay={0.45}>
             {shot ? (
               <div className="overflow-hidden rounded-[6px] border border-night-line bg-white">
                 <Image
@@ -75,6 +77,7 @@ export default function PageHero({
               art
             )}
           </FadeUp>
+          </Drift>
         )}
       </div>
     </section>

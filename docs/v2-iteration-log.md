@@ -156,3 +156,9 @@ New since round 5:
 | The data-to-dashboard sequence added to the dashboards service page and the multi-location guide | Reused as is |
 
 Lighthouse, mobile emulation, local production build: home performance 78 with accessibility, best practices and SEO all 100. The largest paint there is the cookie banner's paragraph, which appears after hydration (main's legal component, left as is). Services: 89. Layout shift: home 0.085, under the 0.1 line.
+
+## Round 9 (depth)
+
+- The dashboard now arrives tilted back in depth (28 degrees, 86% scale) and settles flat as the inputs land. The inputs' landing spots are measured with the board and panels flat, so they still hit their slots.
+- Every inner page's opening visual drifts upward slower than the page as you scroll (`Drift`), so the headline and the picture separate in depth.
+- The sequence takes a heading per page, so the dashboards pages do not repeat the home page's line.
