@@ -29,24 +29,14 @@ export default function FranchiseeCaseStudy() {
 
       <CaseSection title="Before">
         <p>
-          The store managers ran their stores off scattered files, handoffs by word of mouth and
-          questions to me.
+          Managers ran their stores off scattered files, word-of-mouth handoffs and questions to me.
         </p>
       </CaseSection>
 
       <CaseSection title="What I built">
         <p>
-          The managers now log into one website for their store results, training status, incident
-          reports, vendors and daily checklists. I started building it in April 2026.
-        </p>
-        <p>
-          Each Tuesday morning the portal puts together a newsletter for the managers from the
-          stores&apos; own reports.
-        </p>
-        <p>
-          It also covers the jobs that come up once in a while. A large catering order gets a
-          one-page printout with the math done. When a piece of equipment stops working, the portal
-          tells the manager who to call and walks them through troubleshooting.
+          Managers log into one website for store results, training status, incident reports, vendors
+          and daily checklists. Each Tuesday morning it builds their newsletter from the stores&apos; own reports.
         </p>
       </CaseSection>
       <CaseVisual caption="One of the portal's jobs: splitting the tip pool by hours worked.">
@@ -56,11 +46,9 @@ export default function FranchiseeCaseStudy() {
       <CaseSection title="In my words">
         <div className="grid grid-cols-1 gap-6 not-prose">
           <CaseQuote quote="No one is literate on AI, but they all use the portal." />
-          <CaseQuote quote="It's a one-sheet print-off. That way, we don't have to go back and remember what goes in that large cheeseburger box." />
-          <CaseQuote quote="We gave the store managers their time back. A lot of the paperwork runs on its own now, and the numbers reach them in a form they can read quickly, so they spend their time with guests and their people and make decisions with more confidence." />
+          <CaseQuote quote="We gave the store managers their time back." />
         </div>
       </CaseSection>
-
 
       <CaseClose />
     </>

@@ -98,7 +98,6 @@ export default function InsightPostPage({ params }: Props) {
 
       <CTABand
         headline="Want to talk about this?"
-        subtext="Book a 30-minute call and bring your questions."
       />
     </>
   );

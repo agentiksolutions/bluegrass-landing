@@ -63,8 +63,7 @@ export default function AboutPage() {
             <FadeUp onLoad delay={0.5}>
               <p className="mt-4 font-display text-[17px] text-night-blue">Founder and Principal, Bluegrass Advisory Group</p>
               <p className="mt-7 max-w-[36ch] text-[20px] leading-relaxed text-night-body md:text-[22px]">
-                I run operations for a restaurant franchisee and I&apos;m president of a Lexington nonprofit. I built the AI
-                systems both run on.
+                I run a franchisee&apos;s operations, lead a Lexington nonprofit, and built the systems both use.
               </p>
             </FadeUp>
           </div>
@@ -78,17 +77,9 @@ export default function AboutPage() {
             <h2 className="font-display text-[32px] font-light leading-[1.08] tracking-[-0.02em] text-ink md:text-[44px]">What I run today</h2>
             <div className="mt-6 space-y-5">
               <p>
-                I run operations for a Five Guys franchisee in Central Kentucky. I built the manager portal its three stores
-                run on so my managers could spend less time in the back office and more time with guests.
-              </p>
-              <p>
-                I took complicated processes and made them simpler. Then I put them in one dashboard that&apos;s easy to
-                read, with the workflows built in: their numbers, their checklists and the weekly newsletter. We still use
-                it today, and the managers don&apos;t need to know anything about AI to use it.
-              </p>
-              <p>
-                Improving how a business runs is the part of the work I&apos;m proudest of. When the company needed
-                something done, I took it on and did it as well as I could.
+                I run operations for a Five Guys franchisee in Central Kentucky and built the manager portal its three
+                stores run on. It puts their numbers, checklists and weekly newsletter in one place, and the managers
+                don&apos;t need to know anything about AI to use it.
               </p>
             </div>
 
@@ -97,26 +88,16 @@ export default function AboutPage() {
             </h2>
             <div className="mt-6 space-y-5">
               <p>
-                I started Bluegrass Advisory Group to help small and mid-sized businesses get ahead with AI. I teach what
-                I&apos;ve learned from coaching managers, and I consult from what has worked when I improved operations in
-                real businesses.
-              </p>
-              <p>
-                I&apos;m an operator first. I&apos;m not giving advice from a distance. I keep things realistic, and I like
-                to get to work.
+                I started Bluegrass Advisory Group to help small and mid-sized businesses get ahead with AI. I&apos;m an
+                operator first, and I consult from what has worked in real businesses.
               </p>
             </div>
 
             <h2 className="mt-16 font-display text-[32px] font-light leading-[1.08] tracking-[-0.02em] text-ink md:text-[44px]">What I care about</h2>
             <div className="mt-6 space-y-5">
               <p>
-                I try to do the next right thing. I&apos;m obsessed with results and with doing the job right, and I want my
-                customers and clients to know I&apos;m there for them. When something has my name on it, I put everything
-                into it.
-              </p>
-              <p>
-                Outside of work, I spend my time with my family and friends. Community matters a lot to me. I&apos;m
-                president of The PFSA, a nonprofit in Lexington, and its board runs on a portal I built.
+                I&apos;m obsessed with results, and when something has my name on it, I put everything into it. Outside
+                work, I&apos;m president of The PFSA, a Lexington nonprofit whose board runs on a portal I built.
               </p>
               <p>
                 See the{" "}

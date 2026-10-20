@@ -23,40 +23,26 @@ export default function PfsaCaseStudy() {
         photo={photos.pfsaSite}
         intro={
           <p>
-            A 501(c)(3) founded in 2005 and run by a volunteer board. I am its president.
+            A volunteer-run 501(c)(3), founded in 2005, where I am president.
           </p>
         }
       />
 
       <CaseSection title="Before">
         <p>
-          The Public Foundation for Stewardship Advancement kept its books in Quicken. Donation
-          receipts came from a Word template, one file per donor.
-        </p>
-        <p>
-          Requests for help came in on a three-page paper application and took about nine business
-          days from application to payment. No board minutes could be found for 2016 through 2024,
-          and meetings were not recorded.
+          The PFSA kept its books in Quicken and made donation receipts one Word file per donor.
+          Requests for help came on a three-page paper form and took about nine business days to pay.
         </p>
       </CaseSection>
 
       <CaseSection title="What I built">
         <p>
-          The board now has a portal for donors, donations, bank reconciliation, tax receipts, meeting
-          minutes and the assistance queue. The treasurer uploads the bank&apos;s export, the portal matches
-          deposits to donations, and a receipt cannot go out until the gift has been matched.
+          The board now runs donations, bank reconciliation, tax receipts, minutes and assistance
+          requests from one portal. A receipt cannot go out until the gift is matched to a deposit.
         </p>
         <p>
-          The PFSA also has a public website and an online assistance application built from the
-          board&apos;s paper form.
-        </p>
-        <p>
-          The application scores most of the board&apos;s rubric when it is submitted. Board members
-          score the rest in the portal, where the vote is recorded.
-        </p>
-        <p>
-          I also built a process that turned a board meeting recording into draft minutes for the
-          secretary to review. It was tested end to end in March 2026.
+          I also built a public website and an online application that scores most of the
+          board&apos;s rubric when it is submitted.
         </p>
       </CaseSection>
       <CaseVisual caption="What the board portal records, from a donation to a recorded vote.">
@@ -65,11 +51,8 @@ export default function PfsaCaseStudy() {
 
       <CaseSection title="Results">
         <p>
-          The portal, the website and the online application went live in February 2026. Quicken was retired for donation tracking the same month.
-        </p>
-        <p>
-          The board&apos;s first assistance case went through the new system from intake to a
-          recorded board vote to payment.
+          All three went live in February 2026, and Quicken was retired for donations that month. The
+          first assistance case went from intake to a recorded board vote to payment.
         </p>
         <CaseQuote quote="We built the nonprofit a back office and a website, so the board can put its energy into programs for Lexington, and give back without the stress of running the paperwork." />
       </CaseSection>

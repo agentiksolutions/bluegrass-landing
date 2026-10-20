@@ -18,85 +18,80 @@ export const metadata: Metadata = pageMeta({
 const roadmapSteps = [
   {
     title: "The intro call",
-    body: "Thirty minutes, no charge. We ask which parts of the business are in scope, how many tools your team touches in a day, and who else has to sign off. By the end of it you have a recommendation, and one of the things we recommend is doing nothing yet.",
+    body: "Thirty minutes, no charge. You leave with a recommendation, and sometimes it is to do nothing yet.",
   },
   {
     title: "The intake form",
-    body: "A questionnaire you fill in online about your business, your tools and your people. It is free, and we read it before we meet.",
+    body: "A free online questionnaire about your business, tools and people.",
   },
   {
     title: "The session",
-    body: "You and the people who do the work show us how it gets done today, in one recorded screen-share session. If you prefer, we do it at your office instead.",
+    body: "Your team shows us the work in one recorded screen share, or at your office.",
   },
   {
     title: "The systems map",
-    body: "A one-page drawing of the tools you use today, who uses each one, and how information moves between them. We build it from your intake form and the session.",
+    body: "One page showing your tools, who uses each one, and how information moves.",
   },
   {
     title: "The written plan",
-    body: "The three workflows to start with, which Business AI Setup package fits and why, what stays off limits for the assistant, and what happens in the first 30 days.",
+    body: "The first three workflows, which Business AI Setup package fits, what stays off limits, and the first 30 days.",
   },
   {
     title: "The readout call",
-    body: "We walk you through the map and the plan and answer your questions.",
+    body: "We walk you through the map and the plan.",
   },
 ];
 
 const discoverySteps = [
   {
     title: "Intake",
-    body: "Once Discovery is signed we send a questionnaire and a short list of things to send over. Whatever documents you already have are enough. Nobody needs to build a data room for us.",
+    body: "A questionnaire and whatever documents you already have.",
   },
   {
     title: "The interview",
-    body: "A live conversation about how the business runs. For a single department it is one session. For a multi-entity business it is several sessions with the owner and the people who run each piece.",
+    body: "Live sessions with the owner and the people who run each piece.",
   },
   {
     title: "The review",
-    body: "We read everything you sent and map what you currently run against what the work requires. This is the quiet part, and it is where most of the hours go.",
+    body: "We map what you run against what the work requires.",
   },
   {
     title: "The roadmap",
-    body: "You get a written document: where the business stands today, which opportunities are worth money, what order to do them in, and what a build would involve where a build is the answer. It arrives as a PDF plus the plain-text source, so it is yours to edit and yours to keep.",
-  },
-  {
-    title: "The walkthrough",
-    body: "Before the live call, we send a recorded walkthrough of the document. Watch it when it suits you, so the call is about your questions instead of our narration.",
+    body: "Where you stand, what is worth money, and what order to do it in. A PDF plus the plain-text source, yours to keep.",
   },
   {
     title: "The readout",
-    body: "A live call to go through the recommendations and make decisions. After it, you can email follow-up questions during a window we agree on before you sign.",
+    body: "A recorded walkthrough, then a live call to make decisions.",
   },
 ];
 
 const outcomes = [
   {
     label: "Custom build",
-    body: "Your situation needs systems that do not exist yet. The roadmap specifies them so any competent firm could build them, including one that is not us.",
+    body: "New systems, specified so any competent firm could build them.",
   },
   {
     label: "Tools-based optimization",
-    body: "Your stack is fine. The gap is that nothing talks to anything, and the answer is automation around what you already pay for.",
+    body: "Your tools are fine. Automation connects what you already pay for.",
   },
   {
     label: "Process first",
-    body: "Documentation, training, and who-does-what are the problem. Buying software would bury it.",
+    body: "Fix documentation, training and who-does-what before buying software.",
   },
   {
     label: "Embedded support",
-    body: "The work is ongoing rather than a project, and an Embedded Retainer is the right shape.",
+    body: "The work is ongoing, so an Embedded Retainer fits.",
   },
   {
     label: "Walk away",
-    body: "You got what you needed from Discovery and you can take it from here. We say so and the engagement ends there.",
+    body: "You can take it from here. We say so and stop.",
   },
 ];
 
 const notIncluded = [
-  "Building the recommendations. That is a separate engagement with its own fixed price.",
+  "Building the recommendations. That has its own fixed price.",
   "Custom workflows, agents, or integrations.",
-  "Ongoing revisions after the follow-up window closes.",
-  "Negotiating with your vendors on your behalf.",
+  "Negotiating with your vendors.",
 ];
 
 export default function AIAssessmentPage() {
@@ -104,7 +99,7 @@ export default function AIAssessmentPage() {
     <>
       <PageHero
         title="What an AI assessment involves"
-        intro="For most businesses the assessment is the Roadmap. It tells you where AI fits in your business and which setup to buy."
+        intro="Our Roadmap shows where AI fits and which setup to buy."
         visual={<SystemsMap />}
       />
 
@@ -114,9 +109,6 @@ export default function AIAssessmentPage() {
             <h2 className="font-display text-[32px] md:text-[48px] leading-[1.05] font-light tracking-tight text-ink">
               The Roadmap
             </h2>
-            <p className="mt-5 text-[18px] leading-relaxed text-body max-w-[36ch]">
-              Here is the whole sequence, start to finish.
-            </p>
           </div>
           <ol className="divide-y divide-line border-y border-line">
             {roadmapSteps.map((s) => (
@@ -137,11 +129,10 @@ export default function AIAssessmentPage() {
           <div className="max-w-[62ch] space-y-5">
             <p className="text-[18px] md:text-[19px] leading-relaxed text-body">
               The Roadmap is $2,500. All of it counts toward a Business AI Setup
-              package (Essentials, Professional or Custom) bought within 30 days
-              of the readout call.
+              bought within 30 days of the readout call.
             </p>
             <p className="text-[18px] md:text-[19px] leading-relaxed text-body">
-              The Roadmap is optional. You can buy a Business AI Setup without it.
+              It is optional.
             </p>
           </div>
         </div>
@@ -154,10 +145,8 @@ export default function AIAssessmentPage() {
               Discovery, for larger businesses
             </h2>
             <p className="mt-5 text-[18px] leading-relaxed text-body max-w-[36ch]">
-              Discovery &amp; Strategic Roadmap takes the place of the Roadmap
-              for businesses with several companies or entities, or custom work
-              over $10,000. You get an assessment of where you are, ranked
-              recommendations and a sequenced roadmap.
+              For several companies, or custom work over $10,000, Discovery
+              &amp; Strategic Roadmap replaces the Roadmap.
             </p>
           </div>
           <ol className="divide-y divide-line border-y border-line">
@@ -177,11 +166,6 @@ export default function AIAssessmentPage() {
             <h2 className="font-display text-[32px] md:text-[48px] leading-[1.05] font-light tracking-tight text-ink">
               Five ways Discovery can end
             </h2>
-            <p className="mt-5 text-[18px] leading-relaxed text-body max-w-[40ch]">
-              Every Discovery lands on one of these. The fifth one matters most:
-              a roadmap that always recommends buying more from the firm that
-              wrote it is a sales document.
-            </p>
           </div>
           <ul className="divide-y divide-line border-y border-line">
             {outcomes.map((o) => (
@@ -201,11 +185,7 @@ export default function AIAssessmentPage() {
               Discovery timing and price
             </h2>
             <p className="mt-8 text-[18px] md:text-[19px] leading-relaxed text-body max-w-[52ch]">
-              Timing is agreed with you for each project before you sign.
-            </p>
-            <p className="mt-5 text-[18px] md:text-[19px] leading-relaxed text-body max-w-[52ch]">
-              The price of Discovery is fixed before you sign, and it is set by
-              how much of the business is in scope. What moves it is covered on{" "}
+              Both are agreed before you sign. What moves the price is on{" "}
               <Link
                 href="/ai-consulting-cost"
                 className="text-blue underline underline-offset-4 decoration-blue/40 hover:decoration-blue"
@@ -259,7 +239,6 @@ export default function AIAssessmentPage() {
 
       <CTABand
         headline="Start with the call."
-        subtext="Thirty minutes, at no charge. You leave with a recommendation, even if it is that an assessment would be a waste of your money right now."
       />
     </>
   );

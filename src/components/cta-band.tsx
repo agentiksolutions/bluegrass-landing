@@ -14,7 +14,7 @@ interface CTABandProps {
 // and the booking link. The footer continues the same night background below it.
 export default function CTABand({
   headline = "Tell me what takes up your week.",
-  subtext = "Book a 30-minute call. We talk through your business, and I tell you whether I can help.",
+  subtext = "Book a free 30-minute call.",
   buttonText = "Book a call",
   buttonHref = BOOKING_URL,
 }: CTABandProps) {

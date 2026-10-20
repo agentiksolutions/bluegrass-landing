@@ -99,23 +99,15 @@ export default function HomeHero() {
               as="h1"
               onLoad
               delay={0.1}
-              text={"Your AI partner\nin Central Kentucky."}
+              text={"AI help for Central\nKentucky businesses."}
               className="font-display text-[46px] font-medium leading-[0.98] tracking-[-0.04em] sm:text-[68px] lg:text-[104px]"
             />
           </div>
           <FadeUp onLoad delay={0.9} className="pointer-events-auto mt-8 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
             <p className="min-h-[2.5em] max-w-[30ch] text-[19px] leading-snug text-night-body md:text-[22px]">
-              We teach your team, build your AI tools, and support them after.
+              We train your team, build your tools and keep them running.
             </p>
-            <div className="flex flex-wrap items-center gap-x-7 gap-y-4">
-              <Button href={BOOKING_URL}>Book a call</Button>
-              <a
-                href="#how-we-help"
-                className="font-display text-[15px] font-semibold text-night-text underline decoration-night-blue/60 underline-offset-4 hover:decoration-night-blue"
-              >
-                See how we help
-              </a>
-            </div>
+            <Button href={BOOKING_URL}>Book a free call</Button>
           </FadeUp>
         </div>
       </div>

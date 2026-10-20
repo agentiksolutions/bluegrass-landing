@@ -16,43 +16,43 @@ export const metadata: Metadata = pageMeta({
 const tools = [
   {
     title: "Inbox and invoice triage",
-    what: "Mail arriving in a shared inbox gets read, classified by type and by which part of the business it belongs to, and only the items needing a decision surface for a person.",
-    limit: "It sorts and flags. A person still approves and pays. Accuracy depends on how consistently a sender formats what they send, and a new vendor needs a round of tuning before it reads them reliably.",
+    what: "Sorts incoming mail and shows only what needs a decision.",
+    limit: "A person still approves and pays.",
   },
   {
     title: "Meeting notes and action items",
-    what: "A recurring meeting is transcribed and comes back as a summary with decisions and action items attached to names. This week's items carry into next week automatically.",
-    limit: "Transcription quality tracks audio quality. It also sometimes reads a vague remark as a commitment, so a person reads it before it goes out.",
+    what: "A summary with decisions and action items by name.",
+    limit: "A person reads it before it goes out.",
   },
   {
     title: "A daily briefing",
-    what: "One message at a set time that reads across the systems you would otherwise open one by one, and tells you what needs you today in priority order.",
-    limit: "It is only as good as the data behind it. If a source system is not connected yet, that section of the briefing is empty rather than wrong.",
+    what: "One message with what needs you today, in order.",
+    limit: "A system not yet connected shows up empty.",
   },
   {
     title: "Recurring internal communications",
-    what: "A weekly or monthly internal update assembled from inputs your team already produces, in the same format every time, tracking whether last period's commitments happened.",
-    limit: "Some inputs still have to be handed over until their source is connected. The draft is automatic, the approval is not.",
+    what: "Your weekly update, drafted in the same format every time.",
+    limit: "The draft is automatic. The approval is not.",
   },
   {
     title: "Searchable documents",
-    what: "Your procedures, contracts, and training material in one place you can ask questions of in plain English, with answers drawn from the actual documents rather than a generic model.",
-    limit: "It returns what your documents say. Stale procedures produce confidently stale answers, so do this one after a cleanup.",
+    what: "Ask a question and get the answer from your own documents.",
+    limit: "Stale procedures give stale answers, so clean up first.",
   },
   {
     title: "Research before a conversation",
-    what: "A structured profile on a company, a vendor, or a prospect assembled before you meet them, so you walk in knowing what is publicly knowable.",
-    limit: "Public sources only, and it is a starting point for your judgment rather than a substitute for it.",
+    what: "A profile of a company or prospect before you meet.",
+    limit: "Public sources only.",
   },
   {
     title: "Voice notes into records",
-    what: "A recording from a site visit or a drive home comes back transcribed, sorted by which part of the business it concerns, with the action items pulled out.",
-    limit: "Somebody has to press record, and speaker names need a contact list before it can label who said what.",
+    what: "A recording comes back transcribed, with action items pulled out.",
+    limit: "Somebody has to press record.",
   },
   {
     title: "Dashboards",
-    what: "The numbers you manage to, pulled from the systems that hold them, on one screen that updates itself.",
-    limit: "The build is the easy part. Getting two systems to agree on what a number means is the work, and it comes first.",
+    what: "The numbers you manage to, on one screen that updates itself.",
+    limit: "Getting two systems to agree on a number comes first.",
   },
 ];
 
@@ -61,15 +61,14 @@ export default function AIToolsPage() {
     <>
       <PageHero
         title="The tools we build most often"
-        intro="The tools that solve most business problems turn out to be the same eight, arranged differently."
+        intro="Eight tools solve most business problems. Here is each one, with its limit."
         visual={<InboxPanel />}
       />
 
       <section className="px-4 md:px-10 py-24 md:py-32">
         <div className="max-w-[1360px] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] gap-10 lg:gap-20">
           <p className="text-[18px] md:text-[19px] leading-relaxed text-body max-w-[36ch]">
-            Each one below comes with what it will not do, because that is the part
-            you need before you buy, rather than after.
+            What each one does, and what it will not do.
           </p>
           <ul className="divide-y divide-line border-y border-line">
             {tools.map((t) => (
@@ -92,14 +91,7 @@ export default function AIToolsPage() {
           </h2>
           <div className="max-w-[62ch] space-y-5">
             <p className="text-[18px] md:text-[19px] leading-relaxed text-body">
-              Every one of these proposes and a person decides. No email or
-              document reaches a customer because an automation felt confident
-              about it.
-            </p>
-            <p className="text-[18px] md:text-[19px] leading-relaxed text-body">
-              That is slower than full automation. As you watch a tool get it
-              right over time, you can widen what it is allowed to do. That
-              decision stays yours.
+              The tool proposes and a person decides. You choose when to give it more room.
             </p>
           </div>
         </div>
@@ -112,17 +104,14 @@ export default function AIToolsPage() {
           </h2>
           <div className="max-w-[62ch] space-y-5">
             <p className="text-[18px] md:text-[19px] leading-relaxed text-body">
-              Customer-facing chatbots are a different product with different risks,
-              and they are not what we do. Neither is anything we cannot show you
-              running before you pay for it.
+              Customer-facing chatbots, or anything we can&apos;t show you running first.
             </p>
             <p className="text-[18px] md:text-[19px] leading-relaxed text-body">
-              If you want to see the difference, the{" "}
+              The{" "}
               <Link href="/showroom" className="text-blue underline underline-offset-4 decoration-blue/40 hover:decoration-blue">
                 showroom
               </Link>{" "}
-              has working tools you can use right now without giving anyone your
-              email address.
+              has working tools you can try without giving us your email.
             </p>
           </div>
         </div>
@@ -155,7 +144,6 @@ export default function AIToolsPage() {
 
       <CTABand
         headline="Which one would you start with?"
-        subtext="Thirty minutes. Tell us where the hours go and we will tell you which of these to build first, and which would be a waste of your money."
       />
     </>
   );

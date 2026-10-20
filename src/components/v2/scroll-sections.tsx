@@ -164,12 +164,16 @@ export function TrackCard({
       <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[minmax(0,7fr)_minmax(0,4fr)] lg:gap-10">
         <div>{children}</div>
         <div>
-          <h3 className="font-display text-[44px] font-light leading-none tracking-[-0.03em] md:text-[64px]">{title}</h3>
+          <h3 className="font-display text-[44px] font-light leading-none tracking-[-0.03em] md:text-[64px]">
+            <Link href={href} className="group inline-flex items-baseline gap-3 hover:text-night-blue">
+              {title}
+              <span aria-hidden="true" className="text-[0.5em] text-night-blue transition-transform duration-300 group-hover:translate-x-1">
+                &rarr;
+              </span>
+            </Link>
+          </h3>
           <p className="mt-5 max-w-[30ch] text-[19px] leading-snug text-night-body md:text-[21px]">{line}</p>
           {names && <p className="mt-4 max-w-[34ch] font-display text-[14px] leading-relaxed text-night-body">{names}</p>}
-          <Link href={href} className="mt-6 inline-block font-display text-[15px] font-semibold text-night-blue underline decoration-night-blue/40 underline-offset-4 hover:decoration-night-blue">
-            More on {title.toLowerCase()}
-          </Link>
         </div>
       </div>
     </article>

@@ -17,22 +17,17 @@ export default function DashboardsPage() {
       visual={<LocationsPanel />}
       feature={<DataToDashboard title="What a dashboard build looks like." />}
       title="Your numbers, in one place."
-      subtitle="We build dashboards that pull your data from the apps you already use, update automatically, and show the numbers behind the decisions you make."
+      subtitle="Data from the apps you already use, updated automatically."
       deliverables={[
-        "Custom dashboard design based on your actual KPIs",
-        "Real-time data connections to your existing systems",
-        "Automated reports: daily, weekly, or on demand",
-        "Alert system for metrics that need attention",
-        "Multi-location comparison views",
-        "Mobile-friendly so you can check numbers anywhere",
-        "Role-based access for managers and owners",
-        "Training for your team to read and use the data",
+        "Built around the numbers you manage to",
+        "Reports daily, weekly or on demand",
+        "Alerts when a number needs attention",
+        "Locations side by side",
+        "Works on your phone",
       ]}
       whoItsFor={[
-        "Multi-location businesses who can't see all their numbers in one place",
-        "Business owners still running on spreadsheets and gut instinct",
-        "Managers who spend hours compiling reports manually",
-        "Anyone whose data sits in several apps that never show it together",
+        "Owners with more than one location",
+        "Managers who build reports by hand",
       ]}
       showroomLink={{
         href: "/showroom/dashboard",

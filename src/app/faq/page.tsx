@@ -18,47 +18,34 @@ export const metadata: Metadata = pageMeta({
 const faqs: { q: string; a: string; link?: { href: string; label: string } }[] = [
   {
     q: "What does Bluegrass Advisory Group do?",
-    a: "We learn how your business runs, find the work that is eating hours, and build the tools that take it off your team. In practice that comes out as four things: websites, AI integrated into the work you already do, dashboards that pull your numbers into one place, and operations consulting when the process is the real problem.",
+    a: "We find the work eating your team's hours and build tools that take it off them. That means websites, AI in your daily work, dashboards and operations consulting.",
     link: { href: "/services", label: "See the four services" },
   },
   {
-    q: "Do you only work with businesses in Lexington?",
-    a: "We are based in Lexington and work in person across Central Kentucky. We work with businesses elsewhere in Kentucky over screen share, and the work is the same apart from the site visit.",
-    link: { href: "/ai-consulting-lexington-ky", label: "Counties we cover in person" },
-  },
-  {
     q: "What happens on the first call?",
-    a: "Thirty minutes, no charge. We ask which parts of the business are in play, how many tools your team touches in a day, and who else has to agree before anything happens. Nothing gets sold on the call. After the call you get an email with a recommendation and the reasoning behind it.",
+    a: "Thirty minutes, no charge, and nothing gets sold. Afterward you get an email with our recommendation.",
   },
   {
     q: "What does it cost?",
-    a: "There is no price list on this site, because a number quoted before anyone understands the scope has to be padded to be safe. The work breaks into phases and each phase gets a firm price before you commit to it. Six things account for most of the difference between one quote and another.",
+    a: "The work comes in phases, and each phase gets a firm price before you commit.",
     link: { href: "/ai-consulting-cost", label: "What drives the cost" },
   },
   {
     q: "Do I need to understand AI before we talk?",
-    a: "No. Most of the people we work with have tried a chatbot once and stopped there. The first conversation is about how your business runs. Models and tools come later. Explaining the technology is our job, and if we cannot explain it in plain language then we do not understand it well enough to build it for you.",
+    a: "No. The first conversation is about how your business runs.",
   },
   {
     q: "Is this going to replace my employees?",
-    a: "No, and we would tell you if we thought otherwise. The work we build takes the repetitive parts of a job away from the people doing it so they spend their time on the parts that need judgment. Every system we build assumes a person approves anything that goes to a customer.",
+    a: "No. It takes the repetitive parts of a job so your people spend their time on what needs judgment.",
   },
   {
     q: "Who owns what you build?",
-    a: "You do. The documentation is plain text you can read and edit, the accounts are in your name, and there is no license to keep paying us for. If you decide to bring the work in house or hand it to another firm, everything goes with you. We are also not tied to a single AI vendor, and we will say so when a different model fits your case better.",
+    a: "You do. The accounts are in your name, there is no license to keep paying, and everything goes with you if you leave.",
   },
   {
-    q: "What happens if something breaks after you hand it over?",
-    a: "Anything we build is designed to say when it has failed rather than quietly stopping, because the expensive version of a broken automation is the one nobody notices for months. Where you want ongoing coverage, that is an arrangement we set up deliberately rather than something you drift into.",
-  },
-  {
-    q: "What do you need from me to get started?",
-    a: "A questionnaire filled in, whatever documents you already have, and some interview time. On system access we ask your administrator to issue us a named read-only account rather than asking you to send a password, so access is yours to revoke the day the work ends.",
-  },
-  {
-    q: "How long does it take?",
-    a: "Timing is agreed with you for each project, and it depends on how much of the business is in scope. Larger work gets broken into phases so you see something running early.",
-    link: { href: "/ai-assessment", label: "The assessment, step by step" },
+    q: "Do you only work with businesses in Lexington?",
+    a: "We work in person across Central Kentucky and by screen share elsewhere in Kentucky.",
+    link: { href: "/ai-consulting-lexington-ky", label: "Counties we cover in person" },
   },
 ];
 
@@ -78,7 +65,7 @@ export default function FAQPage() {
     <>
       <JsonLd data={faqJsonLd} />
 
-      <PageHero compact title="Questions we get asked" intro="Ten questions from intro calls, answered the way we answer them on the phone." />
+      <PageHero compact title="Questions we get asked" intro="The questions we hear most on intro calls." />
 
       <section className="px-4 pt-16 md:px-10 pb-24 md:pt-24 md:pb-32">
         <div className="max-w-[1360px] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] gap-10 lg:gap-20">

@@ -16,27 +16,27 @@ export const metadata: Metadata = pageMeta({
 const drivers = [
   {
     title: "How much of the business is in scope",
-    body: "One decision costs less than one department, which costs less than a whole company, which costs less than several companies under one owner. This is the single biggest driver, and it is the one you control. Narrowing the question is the cheapest thing you can do.",
+    body: "One decision costs less than a department, which costs less than a whole company. This is the biggest driver, and you control it.",
   },
   {
     title: "How many systems have to be understood",
-    body: "A business running three tools is a different job from one running a dozen that were bought at different times and do not speak to each other. Every integration point has to be mapped before anything can be built on top of it.",
+    body: "Three tools is a smaller job than a dozen that do not talk to each other.",
   },
   {
     title: "How many people have to agree",
-    body: "One owner who can decide in the room moves fast. Partners, a board, or department heads who each own a piece of the process means more interviews, more review rounds, and a longer path to a decision.",
+    body: "One owner who decides in the room moves fast. Partners or a board mean more interviews and review rounds.",
   },
   {
     title: "The state of the data",
-    body: "Clean systems with consistent naming are cheap to work with. Years of exports, duplicated records, and two spreadsheets that disagree are a migration, and a migration is real work before any AI touches it.",
+    body: "Clean data is cheap. Duplicate records and spreadsheets that disagree mean a migration first.",
   },
   {
     title: "Where it has to run",
-    body: "Something that runs on your laptop while you work costs less than something that has to run at three in the morning whether or not anyone is logged in. Always-on needs hardware or hosting, and that carries its own setup.",
+    body: "A tool on your laptop costs less than one that runs at three in the morning on its own hardware or hosting.",
   },
   {
     title: "How much your team needs written down",
-    body: "A solo owner needs a page. A company with managers and turnover needs procedures, training, and a way for the next person to pick it up. Documentation scales with headcount, and it is usually the part people underestimate.",
+    body: "A solo owner needs a page. A company with managers and turnover needs procedures and training.",
   },
 ];
 
@@ -45,16 +45,15 @@ export default function CostPage() {
     <>
       <PageHero
         title="What drives the cost"
-        intro="Two businesses can ask for the same thing and get very different numbers. Six things account for almost all of that gap."
+        intro="Six things explain why two similar requests get different prices."
         visual={<PlanPanel />}
       />
 
       <section className="px-4 md:px-10 py-24 md:py-32">
         <div className="max-w-[1360px] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] gap-10 lg:gap-20">
           <p className="text-[18px] md:text-[19px] leading-relaxed text-body max-w-[36ch]">
-            We do not publish a price list. A number quoted before anyone
-            understands the scope has to be padded to be safe, and you would be
-            paying for the padding.
+            We do not publish a price list. A quote before we know the scope
+            would have to be padded.
           </p>
           <ul className="divide-y divide-line border-y border-line">
             {drivers.map((d) => (
@@ -74,22 +73,14 @@ export default function CostPage() {
           </h2>
           <div className="max-w-[62ch] space-y-5">
             <p className="text-[18px] md:text-[19px] leading-relaxed text-body">
-              You get fixed numbers. The work breaks into phases and each phase
-              gets a firm price before you commit to it, so you are deciding on one
-              piece at a time with the previous piece already in your hands.
+              Each phase gets a fixed price before you commit to it.
             </p>
             <p className="text-[18px] md:text-[19px] leading-relaxed text-body">
-              An assessment is priced on scope at the start and does not move. A
-              build is priced once we know what is being built, which is usually
-              what the assessment is for. If a phase turns out to be smaller than
-              it looked, the price comes down.
-            </p>
-            <p className="text-[18px] md:text-[19px] leading-relaxed text-body">
-              The sequence itself is on{" "}
+              A build is priced once{" "}
               <Link href="/ai-assessment" className="text-blue underline underline-offset-4 decoration-blue/40 hover:decoration-blue">
-                the assessment page
-              </Link>
-              .
+                the assessment
+              </Link>{" "}
+              shows what to build.
             </p>
           </div>
         </div>
@@ -102,17 +93,13 @@ export default function CostPage() {
           </h2>
           <div className="max-w-[62ch] space-y-5">
             <p className="text-[18px] md:text-[19px] leading-relaxed text-body">
-              Bring one problem instead of ten. The fastest engagements start with
-              a single job that eats hours every week, get that running, and
-              expand from something that already works.
+              Bring one problem instead of ten.
             </p>
             <p className="text-[18px] md:text-[19px] leading-relaxed text-body">
-              Tidy what you already have. An hour spent putting your documents and
-              exports in one folder saves more than an hour of ours.
+              Put your documents and exports in one folder.
             </p>
             <p className="text-[18px] md:text-[19px] leading-relaxed text-body">
-              Decide who decides. The engagements that drift are the ones where
-              the person who has to approve the work was never in the room.
+              Have the person who approves the work in the room.
             </p>
           </div>
         </div>
@@ -145,7 +132,6 @@ export default function CostPage() {
 
       <CTABand
         headline="Start with the scope."
-        subtext="Book 30 minutes. Tell us the scope and we will tell you what it takes, or that it is too early."
       />
     </>
   );

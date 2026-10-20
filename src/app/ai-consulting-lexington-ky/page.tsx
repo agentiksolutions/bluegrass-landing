@@ -65,11 +65,11 @@ const counties = [
 ];
 
 const whatWeHear = [
-  "The numbers live in five systems and nobody sees them in one place.",
-  "A manager spends most of a day every week building a report somebody skims.",
-  "Someone tried a chatbot last year and the team never used it twice.",
-  "There is a pile of manual work that should have been automated years ago.",
-  "The owner is the only person who can answer half the questions.",
+  "The numbers live in five systems and never in one place.",
+  "A manager spends most of a day each week on a report.",
+  "The team tried a chatbot once and never used it again.",
+  "Manual work that should have been automated years ago.",
+  "Only the owner can answer half the questions.",
 ];
 
 export default function LexingtonPage() {
@@ -79,7 +79,7 @@ export default function LexingtonPage() {
 
       <PageHero
         title="AI consulting in Lexington"
-        intro="We are based here, so we can be in your building watching how the work moves before anyone talks about building something."
+        intro="We are based here, so we can watch the work in your building."
       />
 
       <section className="px-4 md:px-10 py-24 md:py-32">
@@ -87,8 +87,7 @@ export default function LexingtonPage() {
           <h2 className="font-display text-[32px] md:text-[48px] leading-[1.05] font-light tracking-tight text-ink">Where we work</h2>
           <div>
             <p className="text-[18px] md:text-[19px] leading-relaxed text-body max-w-[62ch]">
-              We work in person across Central Kentucky. Lexington and the counties
-              around it are close enough for us to visit on site.
+              We work on site across Central Kentucky.
             </p>
             <ul className="mt-10 flex flex-wrap gap-x-8 gap-y-3 border-y border-line py-7">
               {counties.map((c) => (
@@ -98,9 +97,7 @@ export default function LexingtonPage() {
               ))}
             </ul>
             <p className="mt-10 text-[18px] md:text-[19px] leading-relaxed text-body max-w-[62ch]">
-              We work with businesses elsewhere in Kentucky over screen share. The
-              work is the same. You lose the part where we walk your floor, which
-              matters more in some businesses than others.
+              Elsewhere in Kentucky, we work over screen share.
             </p>
           </div>
         </div>
@@ -120,13 +117,11 @@ export default function LexingtonPage() {
               ))}
             </ul>
             <p className="mt-10 text-[18px] md:text-[19px] leading-relaxed text-body max-w-[62ch]">
-              None of those are AI problems on their face. That is why we start
-              with{" "}
+              None of those start as AI problems, so we start with{" "}
               <Link href="/ai-assessment" className="text-blue underline underline-offset-4 decoration-blue/40 hover:decoration-blue">
                 an assessment
-              </Link>{" "}
-              rather than a build. Some of them get solved by changing a process and
-              buying nothing.
+              </Link>
+              . Some get solved by changing a process and buying nothing.
             </p>
           </div>
         </div>
@@ -137,18 +132,15 @@ export default function LexingtonPage() {
           <h2 className="font-display text-[32px] md:text-[48px] leading-[1.05] font-light tracking-tight text-ink">How it starts</h2>
           <ol className="divide-y divide-line border-y border-line">
             <li className="py-8 md:py-9 text-[18px] md:text-[19px] leading-relaxed text-body">
-                A 30-minute call. We ask which parts of the business are in play,
-                what tools you run day to day, and who else has to agree before
-                anything happens. Nothing gets sold on that call.
+                A 30-minute call about your business, your tools and who has to
+                agree. Nothing gets sold.
             </li>
             <li className="py-8 md:py-9 text-[18px] md:text-[19px] leading-relaxed text-body">
-                After the call you get an email with a recommendation and the reason
-                behind it. Sometimes the recommendation is that you do not need us
-                yet, with a couple of free things to go read instead.
+                An email with our recommendation. Sometimes it is that you do not
+                need us yet.
             </li>
             <li className="py-8 md:py-9 text-[18px] md:text-[19px] leading-relaxed text-body">
-                If it is a fit, you get a fixed price for the next phase before you
-                commit to it. Every phase after that works the same way.
+                If it fits, a fixed price for the next phase before you commit.
             </li>
           </ol>
         </div>
@@ -185,7 +177,6 @@ export default function LexingtonPage() {
 
       <CTABand
         headline="Let us take a look."
-        subtext="30 minutes on the phone or a coffee in Lexington. Tell us how the business runs today and we will tell you whether AI is worth your money yet."
       />
     </>
   );

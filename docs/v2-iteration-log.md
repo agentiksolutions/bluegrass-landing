@@ -222,3 +222,48 @@ Sweep after review round 1:
 - Interaction checks: 11 of 11 pass.
 - Links: 39 internal, all 200; external links fine; no broken images.
 - Rendered copy: no dashes and no slop. Home copy is 279 words.
+
+## Phil feedback: clearer, fewer words
+
+Phil, 2026-10-20 after viewing the preview: "Messaging isn't clear. Too many words."
+
+- **Home hero:** now reads "AI help for Central Kentucky businesses." with one line, "We train your team, build your tools and keep them running.", and one button, "Book a free call". The second link is gone.
+- **Home body:** every section has one short heading and at most one short line. Three problem statements instead of four. Recent work keeps its pictures with titles only. Shorter industry labels. Service cards link from the title, so the three "More on" links are gone.
+- **Closing band:** one line on every page ("Book a free 30-minute call."). The per-page closing paragraphs are removed.
+- **Inner pages:** each opens with a headline and one sentence. Body copy is cut by roughly half on the service, guide, case study, About, FAQ (10 questions down to 7) and showroom pages.
+- **Facts:** only facts already on the site. No new claims, no prices changed.
+- **Left as they were:** the three blog articles (long-form reading), /privacy (legal notice), the contact form, and the three showroom tool pages (already under 70 words).
+
+Words of copy in `main`, imagery and small print excluded. The count includes the screen-reader step labels and one arrow per service card, about 15 tokens on home; the visible home copy is about 130 words.
+
+| Page | Before | After | Opening before | Opening after |
+|---|---|---|---|---|
+| /about | 362 | 195 | 30 | 23 |
+| /ai-assessment | 851 | 419 | 27 | 16 |
+| /ai-consulting-cost | 607 | 315 | 26 | 14 |
+| /ai-consulting-lexington-ky | 405 | 255 | 26 | 17 |
+| /ai-for-hospitality | 503 | 315 | 26 | 17 |
+| /ai-for-small-business-kentucky | 494 | 260 | 29 | 22 |
+| /ai-tools-we-build | 689 | 322 | 22 | 19 |
+| /contact | 107 | 107 | 107 | 107 |
+| /faq | 690 | 263 | 18 | 12 |
+| / | 279 | 146 | 25 | 21 |
+| /insights | 133 | 133 | 13 | 13 |
+| /insights/ai-trust-gap | 582 | 579 | 26 | 26 |
+| /insights/automating-our-own-back-office | 935 | 932 | 27 | 27 |
+| /insights/choosing-an-ai-consultant | 928 | 925 | 21 | 21 |
+| /multi-location-dashboards | 404 | 262 | 26 | 17 |
+| /privacy | 399 | 399 | 7 | 7 |
+| /services | 623 | 376 | 29 | 23 |
+| /services/ai-integration | 194 | 106 | 26 | 15 |
+| /services/dashboards | 181 | 99 | 29 | 14 |
+| /services/operations | 174 | 106 | 24 | 16 |
+| /services/web-design | 172 | 106 | 26 | 14 |
+| /showroom | 156 | 103 | 22 | 18 |
+| /showroom/dashboard | 65 | 65 | 16 | 16 |
+| /showroom/examples | 86 | 57 | 17 | 8 |
+| /showroom/report | 43 | 43 | 17 | 17 |
+| /showroom/website | 45 | 45 | 14 | 14 |
+| /work | 100 | 78 | 12 | 10 |
+| /work/pfsa | 320 | 203 | 24 | 19 |
+| /work/restaurant-franchisee | 271 | 132 | 24 | 24 |

@@ -16,7 +16,7 @@ const examples = [
   {
     title: "The PFSA",
     description:
-      "The public website for The Public Foundation for Stewardship Advancement, covering its mission, board and community work. It works on phones and desktops.",
+      "The public website for The Public Foundation for Stewardship Advancement. It works on phones and desktops.",
     features: [
       "Mission and community work",
       "Board directory",
@@ -31,7 +31,7 @@ const examples = [
 export default function ExamplesPage() {
   return (
     <>
-      <PageHero title="Built examples" intro="Real sites and tools we've designed: working builds you can click through and interact with." shot={photos.pfsaSite} />
+      <PageHero title="Built examples" intro="Real builds you can click through." shot={photos.pfsaSite} />
 
       <section className="px-4 pt-12 md:px-10 pb-24 md:pt-20 md:pb-32">
         <div className="max-w-[1360px] mx-auto">
@@ -65,15 +65,11 @@ export default function ExamplesPage() {
             ))}
           </ul>
 
-          <p className="mt-10 font-display text-[15px] text-muted">
-            Each example here is a real build.
-          </p>
         </div>
       </section>
 
       <CTABand
         headline="Want something like this?"
-        subtext="Tell us about your business. We'll show you what we'd build."
       />
     </>
   );

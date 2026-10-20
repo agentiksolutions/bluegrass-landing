@@ -15,22 +15,17 @@ export default function AIIntegrationPage() {
     <ServicePageTemplate
       visual={<InboxPanel />}
       title="AI that fits how your business runs."
-      subtitle="Tools that do real work: research, reporting, document creation and customer communication, set up around how your business runs."
+      subtitle="Tools for research, reports, documents and customer drafts."
       deliverables={[
-        "AI readiness assessment: where it makes sense and where it doesn't",
-        "Custom AI workflows for your specific use cases",
-        "Document generation and report automation",
-        "Internal research and data analysis tools",
-        "Customer communication drafts, approved by a person before they go out",
-        "Integration with your existing tools and systems",
-        "Staff training so your team uses it",
-        "Ongoing support through Office Hours or an Embedded Retainer",
+        "An assessment of where AI fits",
+        "Reports and documents drafted for you",
+        "Customer drafts a person approves",
+        "Connected to the tools you use",
+        "Training for your team",
       ]}
       whoItsFor={[
-        "Businesses that know AI exists but don't know where to start",
-        "Companies spending hours on tasks that could be automated",
-        "Teams spending their week on manual research, reporting, or admin work",
-        "Business owners who want to stay ahead without becoming tech companies",
+        "Owners who don't know where to start",
+        "Teams buried in research, reports or admin",
       ]}
       showroomLink={{
         href: "/showroom/report",

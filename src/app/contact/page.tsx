@@ -294,7 +294,7 @@ export default function ContactPage() {
                   onChange={handleChange}
                   required
                   rows={4}
-                  placeholder="A few sentences on what you're trying to figure out, what you've tried, what's blocking you..."
+                  placeholder="What you're trying to figure out and what's blocking you"
                   className="w-full px-4 py-3 border border-line rounded text-[15px] bg-white outline-none focus:border-blue focus:ring-1 focus:ring-blue transition-colors resize-none"
                 />
               </div>

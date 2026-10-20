@@ -15,20 +15,16 @@ export default function WebDesignPage() {
     <ServicePageTemplate
       shot={photos.pfsaSite}
       title="A website built for your business."
-      subtitle="A website comes with Business AI Setup Professional and Custom. Professional includes a one-page website. Custom includes a full website."
+      subtitle="Included with Business AI Setup Professional and Custom."
       deliverables={[
-        "Professional: a one-page website",
-        "Professional: a domain and hosting in your own accounts",
-        "Custom: a full website",
-        "Custom: a dashboard or app, with a database if it needs one",
-        "Both: Claude set up for your business and training for your people",
-        "The Support plan fixes a broken website",
+        "Professional: a one-page site, domain and hosting in your accounts",
+        "Custom: a full site, plus a dashboard or app if you need one",
+        "Both: Claude set up and your team trained",
+        "The Support plan fixes a broken site",
       ]}
       whoItsFor={[
-        "Businesses with no website or a website that looks like it was built in 2015",
-        "Companies that tried Wix or Squarespace and outgrew it",
-        "Anyone who hesitates to hand out their web address",
-        "Businesses where the website doesn't match the quality of the work they do",
+        "Businesses with no site, or an outdated one",
+        "Anyone who outgrew Wix or Squarespace",
       ]}
       showroomLink={{
         href: "/showroom/website",

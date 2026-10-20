@@ -22,14 +22,14 @@ const cases = [
     href: "/work/restaurant-franchisee",
     photo: null,
     title: "A Five Guys franchisee in Central Kentucky",
-    line: "Three stores' numbers, checklists and the weekly newsletter in one manager portal.",
+    line: "Three stores' numbers, checklists and newsletter in one manager portal.",
     caption: "The store screen, redrawn with sample data",
   },
   {
     href: "/work/pfsa",
     photo: photos.pfsaSite,
     title: "The PFSA, a Lexington nonprofit",
-    line: "A board portal for donations, receipts and meeting minutes, a public website and an online application.",
+    line: "A board portal, a public website and an online application.",
     caption: "thepfsa.org",
   },
 ];
@@ -37,7 +37,7 @@ const cases = [
 export default function WorkPage() {
   return (
     <>
-      <PageHero compact title="Work" intro="Two businesses, the systems we built for them, and what changed." />
+      <PageHero compact title="Work" intro="Two businesses and the systems we built for them." />
       <section className="px-4 py-20 md:px-10 md:py-28">
         <div className="mx-auto max-w-page space-y-24 md:space-y-32">
           {cases.map((c, i) => (

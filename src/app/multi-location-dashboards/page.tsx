@@ -16,19 +16,18 @@ export const metadata: Metadata = pageMeta({
 });
 
 const whatBreaks = [
-  "Each site reports a slightly different way, so comparing them is a manual job before it is an insight.",
-  "The weekly report is built by hand, which means it is already two days old when you read it.",
-  "One person becomes the reporting bottleneck, and the numbers stop when they take a week off.",
-  "A problem at one location shows up in the numbers long after the manager already knew about it.",
-  "Nobody can answer a simple question about last month without opening three systems.",
+  "Each site reports differently, so comparing them is manual work.",
+  "The weekly report is built by hand and is two days old when you read it.",
+  "One person owns reporting, and the numbers stop when they take a week off.",
+  "A simple question about last month takes three systems to answer.",
 ];
 
 const whatYouSee = [
   "Every location side by side, on the metrics you manage to.",
-  "Comparisons against last week, last period, and the same stretch last year.",
-  "Alerts when a number crosses a line you set, so you are not hunting for it.",
-  "Access by role, so a manager sees their site and the owner sees everything.",
-  "A phone layout, for checking the numbers from the parking lot.",
+  "Comparisons to last week, last period, and last year.",
+  "Alerts when a number crosses a line you set.",
+  "Access by role: a manager sees their site, the owner sees everything.",
+  "A phone layout for checking from the parking lot.",
 ];
 
 export default function MultiLocationDashboardsPage() {
@@ -36,7 +35,7 @@ export default function MultiLocationDashboardsPage() {
     <>
       <PageHero
         title="Every location on one screen"
-        intro="At three or more locations you read about the week later, in reports that arrive on different days in different shapes."
+        intro="At three or more locations, reports arrive late and in different shapes."
         visual={<LocationsPanel />}
       />
       <DataToDashboard title="Three locations, counted the same way." />
@@ -59,7 +58,7 @@ export default function MultiLocationDashboardsPage() {
       <section className="bg-band px-4 md:px-10 py-24 md:py-32">
         <div className="max-w-[1360px] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] gap-10 lg:gap-20">
           <h2 className="font-display text-[32px] md:text-[48px] leading-[1.05] font-light tracking-tight text-ink">
-            What you end up looking at
+            What you see
           </h2>
           <div>
             <ul className="divide-y divide-line border-y border-line">
@@ -83,24 +82,16 @@ export default function MultiLocationDashboardsPage() {
           </h2>
           <div className="max-w-[62ch] space-y-5">
             <p className="text-[18px] md:text-[19px] leading-relaxed text-body">
-              Building a dashboard is the easy half. The half that takes the time
-              is getting two systems to agree on what a number means, because one
-              counts a void and the other does not, or one runs a week
-              Monday to Sunday and the other Sunday to Saturday.
+              The slow part is getting two systems to agree on a number, like
+              whether a void counts or which day the week starts.
             </p>
             <p className="text-[18px] md:text-[19px] leading-relaxed text-body">
-              So the first pass is always definitions. We write down what each
-              metric counts, where it comes from, and which system wins when two of
-              them disagree. That document is the reason people trust the
-              dashboard.
-            </p>
-            <p className="text-[18px] md:text-[19px] leading-relaxed text-body">
-              If your locations report in different shapes today, that work comes
-              first, and it is usually the recommendation that comes out of{" "}
+              We write down what each metric counts and which system wins. That
+              document is why people trust the dashboard, and{" "}
               <Link href="/ai-assessment" className="text-blue underline underline-offset-4 decoration-blue/40 hover:decoration-blue">
                 an assessment
-              </Link>
-              .
+              </Link>{" "}
+              usually puts it first.
             </p>
           </div>
         </div>
@@ -133,7 +124,6 @@ export default function MultiLocationDashboardsPage() {
 
       <CTABand
         headline="Bring your three reports."
-        subtext="Send us the reports your locations produce today and we will tell you what it takes to get them onto one screen with one set of definitions."
       />
     </>
   );

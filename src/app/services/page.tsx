@@ -21,67 +21,44 @@ export const metadata: Metadata = pageMeta({
 // should carry the capabilities and generally what we do.
 // Phil, 2026-10-07: "what we do is we pair them with the right tools that fit their business
 // needs." The other three lines follow the Engagement Catalog.
+// Phil, 2026-10-20: "Too many words." Copy cut to one short line per item.
 const whatWeDo = [
-  { name: "Pair you with the right tools", body: "We look at how your business runs and match it with the AI tools that fit your needs." },
-  { name: "Set them up on your accounts", body: "Connected to your email, calendar and files, read only to start. You own the accounts." },
-  { name: "Train your team", body: "Hands-on training at setup, and classes for your people when you want more." },
-  { name: "Keep it running", body: "A monthly plan keeps your setup current and adds to it as you go." },
+  { name: "Pair you with the right tools", body: "We match your business with the AI tools that fit." },
+  { name: "Set them up on your accounts", body: "Read only to start. You own the accounts." },
+  { name: "Train your team", body: "Hands-on at setup. Classes when you want more." },
+  { name: "Keep it running", body: "A monthly plan keeps it current." },
 ];
 
 const capabilities = [
-  {
-    name: "Email sorting",
-    body: "Sorts incoming mail into invoices, vendor messages and alerts. What needs you comes to the top with the sender, amount and next step.",
-  },
-  {
-    name: "Meeting notes",
-    body: "Turns a recorded meeting into a summary with decisions and action items by person. Open items carry into the next meeting.",
-  },
-  {
-    name: "Team updates",
-    body: "Drafts your weekly update or newsletter from meeting notes and reports, in the same format every time.",
-  },
-  {
-    name: "Daily briefing",
-    body: "Reads your tasks, open projects, bills waiting for review and what came in overnight, then gives you one short list.",
-  },
-  {
-    name: "Error recovery",
-    body: "Watches the jobs we set up. Routine problems are retried. Anything it cannot clear goes to the right person with the options.",
-  },
-  {
-    name: "Prospect research",
-    body: "Finds companies that match the customers you want, profiles each from public information and scores them for your calls.",
-  },
-  {
-    name: "Document search",
-    body: "Your policies, procedures, contracts and training in one place. Ask a question in plain English and get the answer from your own documents.",
-  },
-  {
-    name: "Recorded conversations",
-    body: "Turns site visits, calls and meetings into searchable notes with speakers, topics and action items.",
-  },
+  { name: "Email sorting", body: "What needs you comes to the top." },
+  { name: "Meeting notes", body: "Decisions and action items by person." },
+  { name: "Team updates", body: "Your weekly update, drafted the same way every time." },
+  { name: "Daily briefing", body: "One short list of what needs you today." },
+  { name: "Error recovery", body: "What it cannot clear goes to the right person." },
+  { name: "Prospect research", body: "Companies that match your customers, profiled and scored." },
+  { name: "Document search", body: "Ask a question. Get the answer from your own documents." },
+  { name: "Recorded conversations", body: "Site visits and calls become searchable notes." },
 ];
 
 const path = [
-  { name: "Free intro call", body: "Thirty minutes about your business. You get a recommendation after, sometimes to wait." },
-  { name: "Intake form", body: "A questionnaire about your business, tools and people. We read it before we meet." },
-  { name: "Roadmap", body: "You show us how the work gets done. You get a systems map and a plan for what to set up first." },
-  { name: "Business AI Setup", body: "Claude set up on your accounts, connected read only, with day-one skills and training." },
-  { name: "A monthly plan", body: "Updates, Support or Office Hours, to keep it current and add to it." },
+  { name: "Free intro call", body: "Thirty minutes. You get a recommendation after." },
+  { name: "Intake form", body: "We read it before we meet." },
+  { name: "Roadmap", body: "A systems map and what to set up first." },
+  { name: "Business AI Setup", body: "Claude on your accounts, with training." },
+  { name: "A monthly plan", body: "Updates, Support or Office Hours." },
 ];
 
 const larger = [
-  { name: "Discovery & Strategic Roadmap", body: "An assessment, ranked recommendations and a sequenced roadmap." },
+  { name: "Discovery & Strategic Roadmap", body: "Assessment and a ranked roadmap." },
   { name: "Implementation", body: "We build what the roadmap recommends." },
-  { name: "Embedded Retainer", body: "We become your ongoing AI operations team." },
+  { name: "Embedded Retainer", body: "Your ongoing AI operations team." },
 ];
 
 const also = [
-  { name: "Team training", body: "Classes for your people, at your office or by screen share.", href: "/academy" },
-  { name: "Workspace Tune-Up", body: "We check your Claude setup against current guidance and apply the fixes you approve.", href: "/contact" },
-  { name: "Websites", body: "A site that says plainly what you do. You own it and the hosting account.", href: "/services/web-design" },
-  { name: "Dashboards", body: "Your numbers from the systems you already use, on one screen.", href: "/services/dashboards" },
+  { name: "Team training", body: "Classes at your office or by screen share.", href: "/academy" },
+  { name: "Workspace Tune-Up", body: "We check your Claude setup and apply the fixes you approve.", href: "/contact" },
+  { name: "Websites", body: "You own the site and the hosting account.", href: "/services/web-design" },
+  { name: "Dashboards", body: "Your numbers on one screen.", href: "/services/dashboards" },
 ];
 
 const guides = [
@@ -100,7 +77,7 @@ export default function ServicesPage() {
     <>
       <PageHero
         title="What we do for your business"
-        intro="We pair your business with the AI tools that fit, set them up on your accounts and train your team."
+        intro="We pick the AI tools that fit, set them up and train your team."
         actions={<Button href={BOOKING_URL}>Book a call</Button>}
         visual={<AssistantPanel />}
       />
@@ -128,10 +105,8 @@ export default function ServicesPage() {
               Work your assistant can take on
             </h2>
             <p className="mt-8 max-w-[40ch] text-[18px] leading-relaxed text-night-body">
-              <span className="font-display text-night-text">Every job starts with a person approving it.</span> Your
-              assistant drafts and proposes, and someone on your team approves before anything is sent, published or
-              changed. As you get comfortable with a routine job, you can choose to let it run on its own with a log you
-              can check.
+              <span className="font-display text-night-text">A person approves every job.</span> Nothing is sent or
+              changed until someone on your team says yes.
             </p>
           </div>
           <ul className="border-t border-night-line">
@@ -158,7 +133,7 @@ export default function ServicesPage() {
         <div className="mx-auto grid max-w-page grid-cols-1 gap-16 lg:grid-cols-2 lg:gap-20">
           <div>
             <h2 className="font-display text-[30px] font-light leading-tight tracking-[-0.02em] text-ink md:text-[40px]">For larger businesses</h2>
-            <p className="mt-3 text-[17px] text-body">Several companies or entities, or custom work.</p>
+            <p className="mt-3 text-[17px] text-body">Several companies, or custom work.</p>
             <ul className="mt-8 divide-y divide-line border-y border-line">
               {larger.map((l) => (
                 <li key={l.name} className="py-5">
@@ -170,7 +145,7 @@ export default function ServicesPage() {
           </div>
           <div>
             <h2 className="font-display text-[30px] font-light leading-tight tracking-[-0.02em] text-ink md:text-[40px]">Also</h2>
-            <p className="mt-3 text-[17px] text-body">For any business, on its own or alongside a setup.</p>
+            <p className="mt-3 text-[17px] text-body">On their own or with a setup.</p>
             <ul className="mt-8 divide-y divide-line border-y border-line">
               {also.map((a) => (
                 <li key={a.name}>

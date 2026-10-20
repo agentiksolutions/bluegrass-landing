@@ -67,7 +67,7 @@ function rand(seed: number) {
   };
 }
 
-export default function DataToDashboard({ title = "Your numbers, turned into a dashboard you'll actually use." }: { title?: string }) {
+export default function DataToDashboard({ title = "Your numbers, in one dashboard." }: { title?: string }) {
   const ref = useRef<HTMLElement>(null);
 
   useLayoutEffect(() => {

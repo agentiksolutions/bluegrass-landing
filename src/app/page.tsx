@@ -65,10 +65,9 @@ export const metadata: Metadata = {
 // Pictures are real things only: Phil's headshot, the live Academy, the PFSA site, and panels drawn
 // in code marked "Sample data".
 const problems = [
-  "Your team uses AI, and there are no written rules for it.",
-  "You know AI could help, and you don't know where to start.",
-  "Your reports come from two systems that count the week differently.",
-  "You have AI questions and nobody to ask.",
+  "No AI rules for your team.",
+  "Not sure where to start.",
+  "Reports that don't agree.",
 ];
 
 const steps = [
@@ -80,13 +79,13 @@ const steps = [
 
 const markets = [
   {
-    label: "Restaurants and hospitality",
+    label: "Hospitality",
     href: "/ai-for-hospitality",
     image: "/images/work/tiles/store-screen.webp",
     imageAlt: "",
   },
   {
-    label: "Multi-location operators",
+    label: "Multi-location",
     href: "/multi-location-dashboards",
     image: "/images/work/tiles/systems-map.webp",
     imageAlt: "",
@@ -98,7 +97,7 @@ const markets = [
     imageAlt: "",
   },
   {
-    label: "Kentucky small businesses",
+    label: "Small businesses",
     href: "/ai-for-small-business-kentucky",
     image: "/images/work/tiles/assistant.webp",
     imageAlt: "",
@@ -139,8 +138,7 @@ export default function HomePage() {
             />
             <FadeUp>
               <p className="mt-8 max-w-[42ch] text-[19px] leading-relaxed text-body md:text-[22px]">
-                He runs operations for a restaurant franchisee in Central Kentucky and is president of The PFSA, a
-                Lexington nonprofit. He built the AI systems both run on.
+                He built the AI systems two Kentucky organizations run on.
               </p>
               <Link
                 href="/about"
@@ -160,7 +158,7 @@ export default function HomePage() {
         posterSmall="/videos/ky-flight-portrait-first.jpg"
         poster="/videos/ky-flight-first.jpg"
         still="/videos/ky-flight-poster.jpg"
-        lines={["Based in Lexington.", "Starting with how your work gets done."]}
+        lines={["Based in Lexington."]}
       />
 
       {/* 4. How we help: a night chapter that holds while the three services pass sideways. */}
@@ -174,7 +172,7 @@ export default function HomePage() {
       >
         <TrackCard
           title="Education"
-          line="Classes and workshops for owners and their teams."
+          line="Classes for your team."
           href="/academy"
         >
           <div className="overflow-hidden rounded-[6px] border border-night-line bg-white">
@@ -190,14 +188,14 @@ export default function HomePage() {
         </TrackCard>
         <TrackCard
           title="Build"
-          line="The AI tools that fit your business, set up and taught to your people."
+          line="Tools built for your business."
           href="/services"
         >
           <AssistantPanel />
         </TrackCard>
         <TrackCard
           title="Support"
-          line="We keep it running and pick up when you call."
+          line="We keep it running."
           href="/services"
         >
           <SupportThread />
@@ -208,15 +206,12 @@ export default function HomePage() {
       <section className="bg-white px-4 py-24 md:px-10 md:py-36">
         <div className="mx-auto max-w-page">
           <Reveal
-            text="Start with the work, then add AI"
+            text="How it starts"
             className="max-w-[18ch] font-display text-[40px] font-light leading-[1.02] tracking-[-0.03em] text-ink md:text-[64px]"
           />
           <div className="mt-14 grid grid-cols-1 items-start gap-14 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-20">
             <FadeUp>
               <SystemsMap />
-              <p className="mt-4 font-display text-[14px] text-muted">
-                A Roadmap systems map.
-              </p>
             </FadeUp>
             <PathSteps steps={steps} />
           </div>
@@ -235,10 +230,7 @@ export default function HomePage() {
                 <StorePanel />
               </div>
               <p className="font-display text-[28px] font-medium leading-tight tracking-[-0.02em] text-ink transition-colors group-hover:text-blue md:text-[36px]">
-                A restaurant franchisee in Central Kentucky
-              </p>
-              <p className="mt-4 max-w-[46ch] text-[18px] leading-relaxed text-body">
-                Three stores run on one manager portal.
+                A restaurant franchisee
               </p>
             </Link>
           </FadeUp>
@@ -255,10 +247,7 @@ export default function HomePage() {
                 />
               </div>
               <p className="font-display text-[28px] font-medium leading-tight tracking-[-0.02em] text-ink transition-colors group-hover:text-blue md:text-[36px]">
-                The PFSA, a Lexington nonprofit
-              </p>
-              <p className="mt-4 max-w-[46ch] text-[18px] leading-relaxed text-body">
-                Donations, receipts and minutes moved out of Quicken into one portal.
+                The PFSA
               </p>
             </Link>
           </FadeUp>
@@ -278,8 +267,8 @@ export default function HomePage() {
 
 
       <CTABand
-        headline="You don't need every answer first."
-        subtext="Book a 30-minute call. Bring the spreadsheet, the report or the question."
+        headline="Start with a free 30-minute call."
+        subtext=""
       />
     </>
   );

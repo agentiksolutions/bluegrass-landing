@@ -14,40 +14,39 @@ export const metadata: Metadata = pageMeta({
 });
 
 const weeklyReality = [
-  "Invoices from many vendors arrive in one inbox and someone has to sort them by location before anything can be coded.",
-  "The weekly manager meeting happens, decisions get made, and by Thursday nobody agrees on what was decided.",
-  "Every location reports its numbers a different way, so comparing them is a manual job that lands on one person.",
-  "The answer to a policy question lives in a binder, a shared drive, or the head of whoever has been there longest.",
-  "The people who could change any of this are on the floor all day, which is where they should be.",
+  "Invoices from many vendors arrive in one inbox, and someone sorts them by location.",
+  "By Thursday, nobody agrees on what the weekly manager meeting decided.",
+  "Every location reports differently, so one person compares them by hand.",
+  "Policy answers live in a binder or in the head of whoever has been there longest.",
 ];
 
 const builds = [
   {
     title: "Vendor invoice triage",
-    body: "Mail comes in, gets classified by vendor and location, and only the items that need a human decision surface. Nothing gets paid automatically.",
+    body: "Sorts mail by vendor and location and flags what needs a person. Nothing gets paid automatically.",
   },
   {
     title: "Meeting notes and action items",
-    body: "A recurring meeting gets transcribed and turned into a summary with action items attached to names. Last week's open items carry into this week's summary.",
+    body: "A summary with action items attached to names. Open items carry into next week.",
   },
   {
     title: "A weekly internal update",
-    body: "The same brief every week, built from the inputs you already produce, formatted the same way every time. It goes out whether or not anybody remembered to write it.",
+    body: "The same brief every week, built from inputs you already produce.",
   },
   {
     title: "One screen for every location",
-    body: "Sales, labor, and whatever else you manage to, side by side across locations, updated without anyone rebuilding a spreadsheet.",
+    body: "Sales and labor side by side, with no spreadsheet to rebuild.",
   },
   {
     title: "Your procedures, searchable",
-    body: "Every SOP, vendor agreement, and training document in one place you can ask questions of in plain English. New managers stop interrupting the one person who knows.",
+    body: "Ask your SOPs and training documents questions in plain English.",
   },
 ];
 
 const limits = [
-  "These tools triage. They do not pay bills, approve invoices, or send anything to a vendor.",
-  "A summary of a meeting is only as good as the audio, and someone reads it before it goes out.",
-  "A searchable document library returns what your documents say. If the SOP is four years stale, so is the answer.",
+  "They do not pay bills, approve invoices, or send anything to a vendor.",
+  "Someone reads each meeting summary before it goes out.",
+  "Search returns what your documents say. A stale SOP gives a stale answer.",
 ];
 
 export default function HospitalityPage() {
@@ -55,14 +54,14 @@ export default function HospitalityPage() {
     <>
       <PageHero
         title="AI for hospitality businesses"
-        intro="Phil runs operations for a Five Guys franchisee in Central Kentucky, and the first tools we built were built for that job."
+        intro="We built our first tools for a Five Guys franchisee in Central Kentucky."
         visual={<StorePanel />}
       />
 
       <section className="px-4 md:px-10 py-24 md:py-32">
         <div className="max-w-[1360px] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] gap-10 lg:gap-20">
           <h2 className="font-display text-[32px] md:text-[48px] leading-[1.05] font-light tracking-tight text-ink">
-            The week most operations are having
+            A typical week
           </h2>
           <ul className="divide-y divide-line border-y border-line">
             {weeklyReality.map((w) => (
@@ -109,20 +108,17 @@ export default function HospitalityPage() {
               Where a hospitality engagement starts
             </h2>
             <p className="mt-8 text-[18px] md:text-[19px] leading-relaxed text-body max-w-[52ch]">
-              With a conversation about where the hours go, then{" "}
+              With a talk about where the hours go, then{" "}
               <Link
                 href="/ai-assessment"
                 className="text-blue underline underline-offset-4 decoration-blue/40 hover:decoration-blue"
               >
                 an assessment
               </Link>{" "}
-              if the scope justifies one. Single-location operations often skip
-              straight to building one thing and living with it before adding a second.
+              if the scope justifies one.
             </p>
             <p className="mt-5 text-[18px] md:text-[19px] leading-relaxed text-body max-w-[52ch]">
-              Multi-location operations usually start with the numbers, because
-              until every location reports the same way, nothing downstream can
-              be trusted.
+              Multi-location operations usually start with the numbers.
             </p>
           </div>
         </div>
@@ -160,7 +156,6 @@ export default function HospitalityPage() {
 
       <CTABand
         headline="Tell us where the week goes."
-        subtext="Thirty minutes about how your locations run. If the answer is a process change rather than software, we will say that."
       />
     </>
   );

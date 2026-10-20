@@ -15,25 +15,25 @@ const rooms = [
   {
     id: "report",
     title: "AI Readiness Report",
-    desc: "Enter your business details and get a short report on where AI fits your business, specific to your industry and size.",
+    desc: "Enter your business details and get a short report on where AI fits.",
     href: "/showroom/report",
   },
   {
     id: "website",
     title: "Website Generator",
-    desc: "See a live preview of what a professional website could look like for your business. Pick a style, describe what you do, and watch it build.",
+    desc: "Pick a style, describe what you do, and watch a preview build.",
     href: "/showroom/website",
   },
   {
     id: "dashboard",
     title: "Dashboard Demo",
-    desc: "Explore a sample dashboard for your industry, with charts, KPIs and alerts laid out the way we would build them.",
+    desc: "A sample dashboard for your industry, laid out the way we would build it.",
     href: "/showroom/dashboard",
   },
   {
     id: "examples",
     title: "Built Examples",
-    desc: "Real sites and tools we've designed: working builds you can click through and interact with.",
+    desc: "Real builds you can click through.",
     href: "/showroom/examples",
   },
 ];
@@ -41,7 +41,7 @@ const rooms = [
 export default function ShowroomPage() {
   return (
     <>
-      <PageHero compact title="See it before you buy it" intro="Interactive tools that show what AI can do for your business. Nothing to sign up for." />
+      <PageHero compact title="See it before you buy it" intro="Try AI tools on your business, with nothing to sign up for." />
 
       <section className="px-4 pt-12 md:px-10 pb-24 md:pt-20 md:pb-32">
         <ul className="max-w-[1360px] mx-auto divide-y divide-line border-y border-line">
@@ -67,7 +67,6 @@ export default function ShowroomPage() {
       {/* Bottom CTA */}
       <CTABand
         headline="Seen enough?"
-        subtext="Book 30 minutes. Tell us about your business and we'll tell you what we would build first."
       />
     </>
   );

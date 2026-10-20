@@ -15,22 +15,17 @@ export default function OperationsPage() {
     <ServicePageTemplate
       visual={<SystemsMap />}
       title="Improve how the work runs."
-      subtitle="Unclear processes, too many tools and manual work. We find where the time and money go, and tackle it."
+      subtitle="We find where the time and money go, and tackle it."
       deliverables={[
-        "Full operational assessment: processes, tools, and team workflows",
-        "SOP documentation for your critical processes",
-        "Tool audit and recommendation: what to keep, what to replace",
-        "Communication system design for teams and management",
-        "Employee handbook and onboarding documentation",
-        "Process automation where it makes sense",
-        "Implementation: we build what the roadmap recommends",
-        "Ongoing check-ins through Office Hours or an Embedded Retainer",
+        "A review of your processes and tools",
+        "Written procedures for the work that matters",
+        "Which tools to keep and which to replace",
+        "Handbook and onboarding documents",
+        "Automation where it makes sense",
       ]}
       whoItsFor={[
-        "Growing businesses where things keep falling through the cracks",
-        "Companies where the owner is still doing everything manually",
-        "Teams with high turnover and no onboarding system",
-        "Businesses with good people and processes that need work",
+        "Growing businesses where things fall through the cracks",
+        "Owners still doing everything by hand",
       ]}
       showroomLink={{
         href: "/showroom",
