@@ -209,7 +209,7 @@ export function mountKentucky3D(host: HTMLElement, onSlow?: () => void): Ky3D {
 
   // The star.
   const starGeo = new THREE.ExtrudeGeometry(shapeFrom(pathPoints(MARK.star)), { depth: 0.06, bevelEnabled: false });
-  const star = new THREE.Mesh(starGeo, new THREE.MeshBasicMaterial({ color: 0xffffff }));
+  const star = new THREE.Mesh(starGeo, new THREE.MeshBasicMaterial({ color: 0xffffff, toneMapped: false }));
   star.position.z = DEPTH + 0.02;
   group.add(star);
   const starLight = new THREE.PointLight(0x9db2e8, 6, 4, 1.6);
@@ -236,7 +236,7 @@ export function mountKentucky3D(host: HTMLElement, onSlow?: () => void): Ky3D {
   const starWorld = new THREE.Vector3(toX(STAR[0]), DEPTH, -toY(STAR[1]));
   const shots = {
     wide: { pos: new THREE.Vector3(-2.1, 7.6, 10.6), look: new THREE.Vector3(-1.25, 0, 1.25) },
-    close: { pos: new THREE.Vector3(starWorld.x - 0.6, 1.6, starWorld.z + 2.1), look: starWorld.clone() },
+    close: { pos: new THREE.Vector3(starWorld.x - 0.7, 2.3, starWorld.z + 2.6), look: starWorld.clone() },
   };
   let progress = 0;
   let shown = 0;

@@ -87,7 +87,7 @@ export function HorizontalTrack({
       const track = el.querySelector<HTMLElement>("[data-track]")!;
       const bar = el.querySelector<HTMLElement>("[data-progress]")!;
       const distance = () => Math.max(0, track.scrollWidth - window.innerWidth + 80);
-      gsap
+      const slide = gsap
         .timeline({
           scrollTrigger: {
             trigger: el,
@@ -100,6 +100,14 @@ export function HorizontalTrack({
         })
         .to(track, { x: () => -distance(), ease: "none" }, 0)
         .fromTo(bar, { scaleX: 0 }, { scaleX: 1, ease: "none" }, 0);
+      // Each card swings in from an angle and out of depth as it slides into view.
+      el.querySelectorAll<HTMLElement>("article").forEach((card) => {
+        gsap.fromTo(
+          card,
+          { rotationY: -16, z: -120, autoAlpha: 0.35 },
+          { rotationY: 0, z: 0, autoAlpha: 1, ease: "none", scrollTrigger: { trigger: card, containerAnimation: slide, start: "left 95%", end: "left 35%", scrub: true } },
+        );
+      });
     });
   });
 
@@ -108,7 +116,7 @@ export function HorizontalTrack({
       <div className="flex min-h-[100svh] flex-col justify-center py-24 track:py-0">
         <div
           data-track
-          className="flex flex-col gap-16 px-4 md:px-10 track:w-max track:flex-row track:items-center track:gap-[6vw] track:pl-[max(2.5rem,calc((100vw-1360px)/2+2.5rem))] track:pr-[8vw]"
+          className="flex flex-col gap-16 px-4 md:px-10 track:w-max track:flex-row track:items-center track:gap-[6vw] track:pl-[max(2.5rem,calc((100vw-1360px)/2+2.5rem))] track:pr-[8vw] track:[perspective:1600px]"
         >
           <div className="track:w-[min(30vw,420px)] track:shrink-0">{intro}</div>
           {children}

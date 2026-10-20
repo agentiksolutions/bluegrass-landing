@@ -188,3 +188,5 @@ Round 12 full sweep:
 - Links: all 39 internal links return 200; the external links answer 200.
 - Images: every one loads, on all 29 pages.
 - Rendered copy: no dashes and no slop tells. Home copy 286 words, small print excluded.
+
+- Round 13: the service cards in the night track swing in from an angle and out of depth as they slide into view (GSAP `containerAnimation` on the horizontal track). The 3D star ignores tone mapping so it stays pure white when bloom is off, and the dive ends a little higher so the star's surroundings read.
