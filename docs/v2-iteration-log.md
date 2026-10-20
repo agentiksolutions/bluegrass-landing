@@ -196,3 +196,5 @@ Round 12 full sweep:
 - Round 15: phones get a portrait Blender render of the flight (1080x1920, all-intra, 4.5 MB, `scripts/render/ky_flight_portrait.py`) with its own first-frame poster, playing muted on a loop. The 720p landscape file is removed.
 
 - Round 16: buttons lean toward a mouse pointer (up to about 13 px) and spring back when it leaves. Mouse only, never touch, and off under reduced motion because it lives with Lenis. Checked: hover moved the hero button to translate(12.7, 6.4); leaving returned it to 0, 0.
+
+Close-out checks (05:35 ET): all 33 preview paths return 200 on deployment 918c85b. Production is still main c8ec4c7. origin/main is c8ec4c7; homepage-21st is 4f54af4, with 0 changed files. Higgsfield CLI: 0.81 credits, unchanged all night, nothing generated. Mac: the render folder is gone and 20 GB is free.
