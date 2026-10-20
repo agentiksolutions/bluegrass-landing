@@ -218,15 +218,8 @@ export default function DashboardDemoPage() {
   // ─── INDUSTRY PICKER ───
   if (!selected) {
     return (
-      <div className="min-h-screen flex items-center justify-center px-5 py-10">
+      <div className="flex justify-center px-5 py-16 md:py-24">
         <div className="max-w-[520px] w-full">
-          <div className="mb-11">
-            <div className="font-display text-xl font-bold mb-1.5">
-              Bluegrass <span className="text-emerald">Advisory</span>
-            </div>
-            <p className="text-[13px] text-stone">Dashboard Demo</p>
-          </div>
-
           <h2 className="font-display text-[28px] font-bold mb-2">
             Pick your industry
           </h2>
@@ -259,12 +252,12 @@ export default function DashboardDemoPage() {
 
   // ─── DASHBOARD ───
   return (
-    <div className="min-h-screen bg-[#F4F3F1] pt-[68px]">
+    <div className="min-h-screen bg-[#F4F3F1] pt-6">
       {/* Top bar */}
       <div className="bg-graphite px-8 py-3 flex justify-between items-center">
         <div className="flex items-center gap-4">
           <span className="font-display text-base text-warm-white font-bold">
-            Bluegrass <span className="text-emerald">Advisory</span>
+            Bluegrass Advisory Group
           </span>
           <span className="text-[#444] text-sm">|</span>
           <span className="text-stone text-[13px]">Dashboard Demo</span>
@@ -529,7 +522,7 @@ export default function DashboardDemoPage() {
         {/* Footer */}
         <div className="text-center mt-8 pt-5">
           <span className="font-display text-sm text-stone">
-            Bluegrass <span className="text-emerald">Advisory</span>
+            Bluegrass Advisory Group
           </span>
           <span className="text-[11px] text-stone mx-2.5">&middot;</span>
           <span className="text-[11px] text-stone">

@@ -140,10 +140,12 @@ export default function ContactPage() {
   };
 
   return (
-    <section className="pt-28 lg:pt-32 pb-20 px-4 md:px-10 max-w-[1360px] mx-auto">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-20 gap-y-10 items-start">
+    <section className="relative px-4 pb-20 pt-28 md:px-10 lg:pt-36">
+      {/* A night band behind the heading; the form card and photo rise out of it onto white. */}
+      <div data-nav="dark" aria-hidden="true" className="absolute inset-x-0 top-0 h-[290px] bg-night lg:h-[520px]" />
+      <div className="relative mx-auto grid max-w-[1360px] grid-cols-1 items-start gap-x-20 gap-y-10 lg:grid-cols-2">
         <div>
-          <h1 className="font-display text-[44px] lg:text-[64px] leading-[1.0] font-extralight tracking-[-0.03em] text-ink">
+          <h1 className="font-display text-[44px] font-light leading-[1.0] tracking-[-0.035em] text-night-text lg:text-[72px]">
             Let&apos;s see if I can help
           </h1>
           {/* The person who reads the form. Laptop only; on a phone the form comes first. */}

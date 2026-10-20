@@ -38,7 +38,7 @@ export function PinnedStatements({ heading, items }: { heading: string; items: s
         scrollTrigger: { trigger: el, start: "top top", end: () => "+=" + window.innerHeight * 1.6, pin: true, scrub: 0.6 },
       });
       rows.forEach((r, i) => {
-        tl.fromTo(r.querySelector("[data-text]"), { color: "#C9CCD1" }, { color: "#161B22", duration: 1, ease: "none" }, i)
+        tl.fromTo(r.querySelector("[data-text]"), { color: "#8B919A" }, { color: "#161B22", duration: 1, ease: "none" }, i)
           .fromTo(r.querySelector("[data-rule]"), { scaleX: 0 }, { scaleX: 1, duration: 1, ease: "none" }, i);
       });
     });
@@ -166,7 +166,7 @@ export function PathSteps({ steps }: { steps: { title: string; line: string }[] 
       gsap
         .timeline({ scrollTrigger: { trigger: words[i], start: "top 66%", toggleActions: "play none none reverse" } })
         .to(d, { backgroundColor: "#0033A0", borderColor: "#0033A0", scale: 1.15, duration: 0.35 })
-        .fromTo(words[i], { opacity: 0.35 }, { opacity: 1, duration: 0.35 }, 0);
+        .fromTo(words[i], { opacity: 0.75 }, { opacity: 1, duration: 0.35 }, 0);
     });
   });
 

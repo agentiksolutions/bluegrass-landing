@@ -80,7 +80,7 @@ export default function ReportPage() {
   // ─── REPORT VIEW ───
   if (report) {
     return (
-      <div className="min-h-screen px-5 py-10 pt-[108px]">
+      <div className="min-h-screen px-5 py-10 pt-16">
         <div className="max-w-[720px] mx-auto">
           <div className="mb-10">
             <div className="text-[11px] font-semibold font-display tracking-[2px] text-emerald mb-2">
@@ -179,7 +179,7 @@ export default function ReportPage() {
 
           <div className="text-center mt-10 pt-6 border-t border-line">
             <span className="font-display text-base text-graphite">
-              Bluegrass <span className="text-emerald">Advisory</span>
+              Bluegrass Advisory Group
             </span>
             <span className="text-xs text-[#ccc] mx-3">&middot;</span>
             <span className="text-xs text-stone">Lexington, Kentucky</span>
@@ -191,17 +191,8 @@ export default function ReportPage() {
 
   // ─── FORM VIEW ───
   return (
-    <div className="min-h-screen flex items-center justify-center px-5 py-10">
+    <div className="flex justify-center px-5 py-16 md:py-24">
       <div className="max-w-[540px] w-full">
-        <div className="text-center mb-12">
-          <div className="font-display text-[22px] font-bold mb-2">
-            Bluegrass <span className="text-emerald">Advisory</span>
-          </div>
-          <p className="text-sm text-stone">
-            AI Readiness Report: free, with no signup
-          </p>
-        </div>
-
         {/* Progress */}
         <div className="flex gap-1 mb-12">
           {[0, 1, 2].map((i) => (

@@ -119,7 +119,7 @@ export default function HomePage() {
           <Reveal
             as="h1"
             onLoad
-            delay={0.25}
+            delay={0.1}
             text={"Your AI partner\nin Central Kentucky."}
             className="font-display text-[46px] font-medium leading-[0.98] tracking-[-0.04em] sm:text-[68px] lg:text-[104px]"
           />

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { pageMeta } from "@/lib/metadata";
+import PageHero from "@/components/v2/page-hero";
 import DashboardDemoPage from "./dashboard-client";
 
 export const metadata: Metadata = pageMeta({
@@ -14,7 +15,7 @@ export const metadata: Metadata = pageMeta({
 export default function Page() {
   return (
     <>
-      <h1 className="sr-only">Dashboard Demo</h1>
+      <PageHero compact title="Dashboard Demo" intro="A sample dashboard for your industry, laid out the way we would build it." />
       <DashboardDemoPage />
     </>
   );

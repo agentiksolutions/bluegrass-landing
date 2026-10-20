@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { pageMeta } from "@/lib/metadata";
+import PageHero from "@/components/v2/page-hero";
 import WebsiteGeneratorPage from "./website-client";
 
 export const metadata: Metadata = pageMeta({
@@ -14,7 +15,7 @@ export const metadata: Metadata = pageMeta({
 export default function Page() {
   return (
     <>
-      <h1 className="sr-only">Website Generator</h1>
+      <PageHero compact title="Website Generator" intro="Pick a style, describe what you do, and watch a preview build." />
       <WebsiteGeneratorPage />
     </>
   );

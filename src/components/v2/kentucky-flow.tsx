@@ -98,7 +98,7 @@ export default function KentuckyFlow({ className = "" }: { className?: string })
         if (Math.hypot(x - STAR[0], y - STAR[1]) <= reach) {
           px[i] = x;
           py[i] = y;
-          life[i] = 40 + Math.random() * 160;
+          life[i] = 70 + Math.random() * 200;
           return;
         }
       }
@@ -141,7 +141,7 @@ export default function KentuckyFlow({ className = "" }: { className?: string })
 
       // Fade the old trails toward transparent; the night background shows through.
       ctx.globalCompositeOperation = "destination-out";
-      ctx.fillStyle = "rgba(0,0,0,0.075)";
+      ctx.fillStyle = "rgba(0,0,0,0.06)";
       ctx.fillRect(0, 0, w, h);
       ctx.globalCompositeOperation = "source-over";
 
@@ -158,7 +158,7 @@ export default function KentuckyFlow({ className = "" }: { className?: string })
       ctx.restore();
 
       const pull = 0.18 + scrollPull * 1.4;
-      const speed = 0.75 + scrollPull * 1.6;
+      const speed = 0.62 + scrollPull * 1.6;
       const pX = (pointer.x - ox) / s;
       const pY = (pointer.y - oy) / s;
 

@@ -86,7 +86,7 @@ export default function WebsiteGeneratorPage() {
     const accent = siteData.colorAccent || "#0D7C66";
 
     return (
-      <div className="min-h-screen bg-graphite p-6 pt-[92px]">
+      <div className="min-h-screen bg-graphite p-6 pt-10">
         <div className="max-w-[900px] mx-auto">
           {/* Browser chrome */}
           <div className="bg-[#2a2a2c] rounded-t-[10px] px-4 py-3 flex items-center gap-2">
@@ -253,7 +253,7 @@ export default function WebsiteGeneratorPage() {
 
           <div className="text-center mt-12 pt-6 border-t border-[#333]">
             <span className="font-display text-sm text-charcoal">
-              Bluegrass <span className="text-emerald">Advisory</span>
+              Bluegrass Advisory Group
             </span>
             <span className="text-[11px] text-[#444] mx-2.5">&middot;</span>
             <span className="text-[11px] text-charcoal">Lexington, Kentucky</span>
@@ -265,15 +265,8 @@ export default function WebsiteGeneratorPage() {
 
   // ─── FORM ───
   return (
-    <div className="min-h-screen flex items-center justify-center px-5 py-10">
+    <div className="flex justify-center px-5 py-16 md:py-24">
       <div className="max-w-[520px] w-full">
-        <div className="mb-11">
-          <div className="font-display text-xl font-bold mb-1.5">
-            Bluegrass <span className="text-emerald">Advisory</span>
-          </div>
-          <p className="text-[13px] text-stone">Website Preview Generator</p>
-        </div>
-
         {/* Progress */}
         <div className="flex gap-1 mb-11">
           {[0, 1].map((i) => (

@@ -64,3 +64,18 @@ Overflow: none. Page errors: none. Home copy: 296 words.
 Interaction checks (`interact.py`): 11 of 11 pass. Curtain covers and lifts, scroll resets to the
 top on a new page, anchor link lands on the track, FAQ opens, phone menu opens and closes after
 navigating, and with reduced motion every headline word is visible on arrival.
+
+## Round 3 (28 pages including the three showroom tools and all posts, three widths, 84 runs)
+
+Overflow: none. Page errors: none. Lighthouse (local production build, mobile emulation):
+performance 87 to 88, accessibility 96 to 100, best practices 100, SEO 100. Largest paint about
+3.4 s on emulated mobile, layout shift 0.04 or lower.
+
+| Defect | Fix |
+|---|---|
+| Lighthouse contrast: path steps waiting their turn sat at 35% opacity (1.9:1) | Waiting steps sit at 75%; statements not yet lit use #8B919A (above 3:1 at their 46 px size) |
+| Hero headline waited 0.25 s before rising, which pushed the largest paint later | Delay cut to 0.1 s |
+| Hero trails read short and bristly | Longer trails, slower drift |
+| Showroom tools opened on a bare white screen with an off-brand two-color wordmark and a second title | Night opening band with the tool's name; the in-tool wordmark and repeated title removed; the full firm name where the tools still sign their output |
+| Contact page was the one page without a night opening | Night band behind the heading; the form card and Phil's photo rise out of it onto white |
+| Built Examples had no picture of the example | The PFSA site screenshot opens the page |

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { pageMeta } from "@/lib/metadata";
+import PageHero from "@/components/v2/page-hero";
 import ReportPage from "./report-client";
 
 export const metadata: Metadata = pageMeta({
@@ -14,7 +15,7 @@ export const metadata: Metadata = pageMeta({
 export default function Page() {
   return (
     <>
-      <h1 className="sr-only">AI Readiness Report</h1>
+      <PageHero compact title="AI Readiness Report" intro="A short report on where AI fits your business, for your industry and size." />
       <ReportPage />
     </>
   );

@@ -3,6 +3,7 @@ import { pageMeta } from "@/lib/metadata";
 import Button from "@/components/button";
 import CTABand from "@/components/cta-band";
 import PageHero from "@/components/v2/page-hero";
+import { photos } from "@/lib/photos";
 
 export const metadata: Metadata = pageMeta({
   title: "Built Examples",
@@ -30,7 +31,7 @@ const examples = [
 export default function ExamplesPage() {
   return (
     <>
-      <PageHero compact title="Built examples" intro="Real sites and tools we've designed: working builds you can click through and interact with." />
+      <PageHero title="Built examples" intro="Real sites and tools we've designed: working builds you can click through and interact with." shot={photos.pfsaSite} />
 
       <section className="px-4 pt-12 md:px-10 pb-24 md:pt-20 md:pb-32">
         <div className="max-w-[1360px] mx-auto">
