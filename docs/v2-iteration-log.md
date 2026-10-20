@@ -376,3 +376,10 @@ What the trace showed and what changed:
 ## Phil rejected the county canvas: flight video restored
 
 Phil: "i didnt want that..... i wanthed the one there but those things removed." He wants the same Blender flight video with only the node layer removed. The flight section, its videos and its wiring are restored exactly as at 0e9bcf2, and county-pulse.tsx is deleted. The solid blue state in the closing band stays. scroll-sections.tsx is not restored: its only change since 0e9bcf2 is the removal of MarkBuild, which the closing band no longer uses.
+- **Flight re-rendered without the node network:**
+  - In `scripts/render/ky_flight.py` and `ky_flight_portrait.py` the white rods and dots are now behind `KY_NODES=1`, off by default. Nothing else in either script changed: camera keys, timing, lights, materials, the slab, the county lines, the star and the portrait bloom.
+  - Both were rendered on the Mac mini (Cycles, Metal, 64 samples, 150 frames each, about 16 minutes each).
+  - Both were encoded exactly as before, read from the old files' x264 headers: libx264, CRF 24, keyint 1, no B-frames, yuv420p, faststart, no audio.
+  - Sizes: the landscape file is 3.3 MB (was 5.2) and the portrait 3.0 MB (was 4.7). The first-frame, last-frame and portrait-first stills were made from the new frames.
+  - The Mac folder was deleted; the Mac has 19 GB free.
+  - The county lines are left exactly as they were. Making pulses glow along them would mean animated emission in the county material, which changes the look of every frame. That is a separate call for Phil.

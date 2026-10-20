@@ -91,13 +91,16 @@ TOP = EXT + BEV               # top face height
 
 curve_obj("Counties", [[P(a[i], a[i + 1]) for i in range(0, len(a), 2)] for a in ARCS],
           False, COUNTY, bevel=0.0035, z=TOP + 0.002, res=1)
-curve_obj("Lines", [[P(l[0], l[1]), P(l[2], l[3])] for l in MARK["lines"]],
-          False, NODE, bevel=0.007, z=TOP + 0.02, res=2)
-for i, (x, y, r) in enumerate(MARK["circles"]):
-    bpy.ops.mesh.primitive_uv_sphere_add(radius=0.055, location=(*P(x, y), TOP + 0.03), segments=24, ring_count=12)
-    o = bpy.context.active_object
-    o.data.materials.append(NODE)
-    bpy.ops.object.shade_smooth()
+# The node network (white rods and dots) is off: Phil, 2026-10-20, wanted the flight with "those
+# things removed". KY_NODES=1 renders it as before.
+if os.environ.get("KY_NODES") == "1":
+    curve_obj("Lines", [[P(l[0], l[1]), P(l[2], l[3])] for l in MARK["lines"]],
+              False, NODE, bevel=0.007, z=TOP + 0.02, res=2)
+    for i, (x, y, r) in enumerate(MARK["circles"]):
+        bpy.ops.mesh.primitive_uv_sphere_add(radius=0.055, location=(*P(x, y), TOP + 0.03), segments=24, ring_count=12)
+        o = bpy.context.active_object
+        o.data.materials.append(NODE)
+        bpy.ops.object.shade_smooth()
 star = curve_obj("Star", [path_pts(MARK["star"])], True, STAR, extrude=0.015, bevel=0.004, fill=True, z=TOP + 0.045)
 SX, SY = P(647.09, 183.35)    # Lexington: star centre, all hub lines meet here
 
