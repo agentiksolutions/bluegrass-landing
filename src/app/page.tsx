@@ -158,7 +158,7 @@ export default function HomePage() {
         posterSmall="/videos/ky-flight-portrait-first.jpg"
         poster="/videos/ky-flight-first.jpg"
         still="/videos/ky-flight-poster.jpg"
-        lines={["Based in Lexington."]}
+        lines={[]}
       />
 
       {/* 4. How we help: a night chapter that holds while the three services pass sideways. */}

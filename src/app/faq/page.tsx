@@ -18,8 +18,8 @@ export const metadata: Metadata = pageMeta({
 const faqs: { q: string; a: string; link?: { href: string; label: string } }[] = [
   {
     q: "What does Bluegrass Advisory Group do?",
-    a: "We find the work eating your team's hours and build tools that take it off them. That means websites, AI in your daily work, dashboards and operations consulting.",
-    link: { href: "/services", label: "See the four services" },
+    a: "We find the work eating your team's hours, set up the AI tools that take it off them, train your team and keep it running.",
+    link: { href: "/services", label: "See what we do" },
   },
   {
     q: "What happens on the first call?",

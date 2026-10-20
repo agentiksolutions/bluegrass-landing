@@ -267,3 +267,10 @@ Words of copy in `main`, imagery and small print excluded. The count includes th
 | /work | 100 | 78 | 12 | 10 |
 | /work/pfsa | 320 | 203 | 24 | 19 |
 | /work/restaurant-franchisee | 271 | 132 | 24 | 24 |
+
+## Copy calls from team-lead (after the fewer-words pass)
+
+- **Home video:** "Based in Lexington." is cut from the flight video, along with its scrim. The phone and email line stays in the closing band.
+- **FAQ:** the first answer now matches /services: "We find the work eating your team's hours, set up the AI tools that take it off them, train your team and keep it running." The link reads "See what we do"; "four services" is gone.
+- **/showroom/examples:** checked thepfsa.org with a read-only fetch of the live page and its script bundle. The site has a "Donate Now" flow with bank, PayPal and check options, so "Donation integration" stays. No event calendar was found, so "Event calendar" is removed.
+- **Hospitality intro:** left as written.

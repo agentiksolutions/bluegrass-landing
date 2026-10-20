@@ -21,7 +21,6 @@ const examples = [
       "Mission and community work",
       "Board directory",
       "Donation integration",
-      "Event calendar",
     ],
     href: "https://thepfsa.org",
     external: true,
