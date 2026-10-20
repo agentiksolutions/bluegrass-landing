@@ -6,18 +6,21 @@ import { gsap, WIDE, motionOff } from "@/lib/gsap";
 /**
  * A pre-rendered 3D flight over the firm's Kentucky mark (Blender, Cycles), scrubbed by scroll:
  * the section holds still while scrolling moves the camera from a low view of the state up and
- * over to the star at Lexington. Every frame of the video is a keyframe, so seeking is instant.
+ * Phones get a portrait render that plays on a loop instead. Reduced motion shows the last frame as a still.
  * Phones get the 720p file. Reduced motion shows the last frame as a still.
  */
 export default function ScrollVideo({
   src,
   srcSmall,
+  posterSmall,
   poster,
   still,
   lines,
 }: {
   src: string;
   srcSmall: string;
+  /** First frame of the phone file. */
+  posterSmall: string;
   poster: string;
   still: string;
   lines: string[];
@@ -34,7 +37,9 @@ export default function ScrollVideo({
     const near = new IntersectionObserver(
       ([e]) => {
         if (!e.isIntersecting) return;
-        video.src = window.innerWidth < 821 ? srcSmall : src;
+        const small = window.innerWidth < 821;
+        video.src = small ? srcSmall : src;
+        if (small) video.poster = posterSmall;
         video.load();
         near.disconnect();
       },
@@ -93,7 +98,7 @@ export default function ScrollVideo({
       mm.revert();
       ctx.revert();
     };
-  }, [src, srcSmall]);
+  }, [src, srcSmall, posterSmall]);
 
   return (
     <section ref={ref} data-nav="dark" data-nomotion className="night relative h-[100svh] overflow-hidden bg-night text-night-text">

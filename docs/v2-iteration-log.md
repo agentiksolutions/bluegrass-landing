@@ -192,3 +192,5 @@ Round 12 full sweep:
 - Round 13: the service cards in the night track swing in from an angle and out of depth as they slide into view (GSAP `containerAnimation` on the horizontal track). The 3D star ignores tone mapping so it stays pure white when bloom is off, and the dive ends a little higher so the star's surroundings read.
 
 - Round 14: the About headshot drifts in depth like the other inner-page openings.
+
+- Round 15: phones get a portrait Blender render of the flight (1080x1920, all-intra, 4.5 MB, `scripts/render/ky_flight_portrait.py`) with its own first-frame poster, playing muted on a loop. The 720p landscape file is removed.

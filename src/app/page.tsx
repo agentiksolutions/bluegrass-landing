@@ -157,7 +157,8 @@ export default function HomePage() {
       {/* The firm's mark in 3D, rendered in Blender and scrubbed by scroll. */}
       <ScrollVideo
         src="/videos/ky-flight-scrub.mp4"
-        srcSmall="/videos/ky-flight-scrub-720.mp4"
+        srcSmall="/videos/ky-flight-portrait.mp4"
+        posterSmall="/videos/ky-flight-portrait-first.jpg"
         poster="/videos/ky-flight-first.jpg"
         still="/videos/ky-flight-poster.jpg"
         lines={["Based in Lexington.", "Starting with how your work gets done."]}
