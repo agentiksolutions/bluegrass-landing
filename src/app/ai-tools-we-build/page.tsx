@@ -61,7 +61,7 @@ export default function AIToolsPage() {
     <>
       <PageHero
         title="The tools we build most often"
-        intro="Every business believes its problem is unique. The problems mostly are. The tools that solve them turn out to be the same eight, arranged differently."
+        intro="The tools that solve most business problems turn out to be the same eight, arranged differently."
         visual={<InboxPanel />}
       />
 

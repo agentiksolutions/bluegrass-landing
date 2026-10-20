@@ -16,7 +16,6 @@ import {
   PinnedStatements,
   TrackCard,
 } from "@/components/v2/scroll-sections";
-import { getAllPosts } from "@/lib/mdx";
 import { pageMeta } from "@/lib/metadata";
 import { photos } from "@/lib/photos";
 import { BOOKING_URL } from "@/lib/site";
@@ -73,45 +72,40 @@ const problems = [
 ];
 
 const steps = [
-  { title: "Free intro call", line: "Thirty minutes. Bring the spreadsheet, the report or the question." },
-  { title: "Roadmap", line: "One screen share. You get a one-page map of your systems and a written plan for what to set up first." },
-  { title: "Business AI Setup", line: "We pair you with the AI tools that fit, set them up and train your people." },
-  { title: "A monthly plan", line: "We keep it running and pick up when you call." },
+  { title: "Free intro call", line: "Thirty minutes about your business." },
+  { title: "Roadmap", line: "A one-page map of your systems and a plan." },
+  { title: "Business AI Setup", line: "The tools that fit, set up and taught." },
+  { title: "A monthly plan", line: "We keep it running." },
 ];
 
 const markets = [
   {
     label: "Restaurants and hospitality",
     href: "/ai-for-hospitality",
-    line: "Store managers open one portal for their numbers, checklists and the weekly newsletter.",
     image: "/images/work/tiles/portal-store.webp",
     imageAlt: "",
   },
   {
     label: "Multi-location operators",
     href: "/multi-location-dashboards",
-    line: "Every location's numbers on one screen, counted the same way.",
     image: "/images/work/tiles/systems-map.webp",
     imageAlt: "",
   },
   {
     label: "Nonprofits",
     href: "/work/pfsa",
-    line: "A board portal for donations, receipts and meeting minutes.",
     image: "/images/work/tiles/pfsa.webp",
     imageAlt: "",
   },
   {
     label: "Kentucky small businesses",
     href: "/ai-for-small-business-kentucky",
-    line: "Pick the one job that eats the most hours and set AI on that first.",
     image: "/images/work/tiles/assistant.webp",
     imageAlt: "",
   },
 ];
 
 export default function HomePage() {
-  const posts = getAllPosts().slice(0, 3);
 
   return (
     <>
@@ -171,7 +165,7 @@ export default function HomePage() {
             <FadeUp>
               <p className="mt-8 max-w-[42ch] text-[19px] leading-relaxed text-body md:text-[22px]">
                 He runs operations for a Five Guys franchisee in Central Kentucky and is president of The PFSA, a
-                Lexington nonprofit. He built the AI systems both of them run on, and he runs them himself.
+                Lexington nonprofit. He built the AI systems both run on.
               </p>
               <Link
                 href="/about"
@@ -190,16 +184,12 @@ export default function HomePage() {
         intro={
           <>
             <Reveal text="How we help" className="font-display text-[48px] font-light leading-none tracking-[-0.03em] md:text-[72px]" />
-            <p className="mt-6 max-w-[26ch] text-[19px] leading-snug text-night-body">
-              Classes for your team, tools built for your business, and someone to call after.
-            </p>
           </>
         }
       >
         <TrackCard
           title="Education"
           line="Classes and workshops for owners and their teams."
-          names="AI Academy · Team training sessions"
           href="/academy"
         >
           <div className="overflow-hidden rounded-[6px] border border-night-line bg-white">
@@ -215,8 +205,7 @@ export default function HomePage() {
         </TrackCard>
         <TrackCard
           title="Build"
-          line="We pair you with the AI tools that fit your business, set them up and train your people."
-          names="Roadmap · Business AI Setup · Implementation"
+          line="The AI tools that fit your business, set up and taught to your people."
           href="/services"
         >
           <AssistantPanel />
@@ -224,7 +213,6 @@ export default function HomePage() {
         <TrackCard
           title="Support"
           line="We keep it running and pick up when you call."
-          names="Monthly plans · Office Hours · Embedded Retainer · Workspace Tune-Up"
           href="/services"
         >
           <SupportThread />
@@ -242,7 +230,7 @@ export default function HomePage() {
             <FadeUp>
               <SystemsMap />
               <p className="mt-4 font-display text-[14px] text-muted">
-                The Roadmap starts with how your work gets done today, mapped on one page.
+                A Roadmap systems map.
               </p>
             </FadeUp>
             <PathSteps steps={steps} />
@@ -269,8 +257,7 @@ export default function HomePage() {
                 A Five Guys franchisee in Central Kentucky
               </p>
               <p className="mt-4 max-w-[46ch] text-[18px] leading-relaxed text-body">
-                The managers used to run three stores off scattered files and calls to Phil. Now they open one portal for
-                their numbers, checklists and the weekly newsletter.
+                Three stores run on one manager portal.
               </p>
             </Link>
           </FadeUp>
@@ -280,8 +267,7 @@ export default function HomePage() {
                 The PFSA, a Lexington nonprofit
               </p>
               <p className="mt-4 max-w-[46ch] text-[18px] leading-relaxed text-body">
-                The board stopped tracking donations in Quicken. Donations, receipts and meeting minutes now live in one
-                portal.
+                Donations, receipts and minutes moved out of Quicken into one portal.
               </p>
             </Link>
           </FadeUp>
@@ -296,39 +282,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 8. From the blog. */}
-      {posts.length > 0 && (
-        <section className="bg-white px-4 py-24 md:px-10 md:py-32">
-          <div className="mx-auto max-w-page">
-            <div className="flex items-end justify-between gap-6">
-              <h2 className="font-display text-[30px] font-light leading-tight tracking-[-0.02em] text-ink md:text-[44px]">From the blog</h2>
-              <Link href="/insights" className="font-display text-[15px] font-semibold text-blue underline underline-offset-4">
-                All posts
-              </Link>
-            </div>
-            <div className="mt-12 grid grid-cols-1 gap-12 md:grid-cols-3 md:gap-8">
-              {posts.map((p, i) => (
-                <FadeUp key={p.slug} delay={i * 0.08}>
-                  <Link href={`/insights/${p.slug}`} className="group block">
-                    <div className="relative aspect-[16/10] overflow-hidden rounded-[6px] bg-band">
-                      <Image
-                        src={p.cover}
-                        alt={p.coverAlt}
-                        fill
-                        sizes="(min-width: 768px) 33vw, 100vw"
-                        className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-                      />
-                    </div>
-                    <p className="mt-5 font-display text-[19px] font-medium leading-snug text-ink transition-colors group-hover:text-blue md:text-[21px]">
-                      {p.title}
-                    </p>
-                  </Link>
-                </FadeUp>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
 
       <CTABand
         headline="You don't need every answer first."

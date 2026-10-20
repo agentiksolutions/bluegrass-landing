@@ -131,7 +131,7 @@ export function TrackCard({
 }: {
   title: string;
   line: string;
-  names: string;
+  names?: string;
   href: string;
   children: React.ReactNode;
 }) {
@@ -142,7 +142,7 @@ export function TrackCard({
         <div>
           <h3 className="font-display text-[44px] font-light leading-none tracking-[-0.03em] md:text-[64px]">{title}</h3>
           <p className="mt-5 max-w-[30ch] text-[19px] leading-snug text-night-body md:text-[21px]">{line}</p>
-          <p className="mt-4 max-w-[34ch] font-display text-[14px] leading-relaxed text-night-body/80">{names}</p>
+          {names && <p className="mt-4 max-w-[34ch] font-display text-[14px] leading-relaxed text-night-body">{names}</p>}
           <Link href={href} className="mt-6 inline-block font-display text-[15px] font-semibold text-night-blue underline decoration-night-blue/40 underline-offset-4 hover:decoration-night-blue">
             More on {title.toLowerCase()}
           </Link>
@@ -258,7 +258,7 @@ export function PhotoReveal({
  * A list of links. On a mouse, a preview of each one follows the pointer while you hover it;
  * on touch, the previews are left out and the list reads on its own.
  */
-export function HoverList({ items }: { items: { label: string; href: string; line: string; image: string; imageAlt: string }[] }) {
+export function HoverList({ items }: { items: { label: string; href: string; line?: string; image: string; imageAlt: string }[] }) {
   const ref = useGsap((el, mm) => {
     mm.add("(hover: hover) and (pointer: fine)", () => {
       const box = el.querySelector<HTMLElement>("[data-preview]")!;
@@ -303,11 +303,14 @@ export function HoverList({ items }: { items: { label: string; href: string; lin
       <ul className="border-t border-line">
         {items.map((m) => (
           <li key={m.href} data-item className="border-b border-line">
-            <Link href={m.href} className="group grid grid-cols-1 gap-2 py-7 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:gap-10 md:py-9">
-              <span className="font-display text-[24px] font-medium leading-tight tracking-[-0.015em] text-ink transition-transform duration-300 ease-out group-hover:translate-x-2 group-hover:text-blue md:text-[32px]">
+            <Link href={m.href} className="group flex items-center justify-between gap-6 py-7 md:py-9">
+              <span className="font-display text-[28px] font-light leading-tight tracking-[-0.025em] text-ink transition-[transform,color] duration-300 ease-out group-hover:translate-x-2 group-hover:text-blue md:text-[48px]">
                 {m.label}
               </span>
-              <span className="self-center text-[18px] leading-relaxed text-body">{m.line}</span>
+              {m.line && <span className="hidden max-w-[36ch] text-[18px] leading-relaxed text-body md:block">{m.line}</span>}
+              <svg aria-hidden="true" viewBox="0 0 16 16" className="h-5 w-5 shrink-0 -translate-x-2 text-blue opacity-0 transition-all duration-300 ease-out group-hover:translate-x-0 group-hover:opacity-100" fill="none" stroke="currentColor" strokeWidth="1.6">
+                <path d="M2 8h11M9 4l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
             </Link>
           </li>
         ))}
@@ -343,7 +346,7 @@ export function MarkBuild({ className = "" }: { className?: string }) {
       gsap.set(l, { strokeDasharray: d, strokeDashoffset: d });
     });
     gsap
-      .timeline({ scrollTrigger: { trigger: el, start: "top 80%", end: "top 20%", scrub: 0.7 } })
+      .timeline({ scrollTrigger: { trigger: el, start: "top 90%", end: "bottom 80%", scrub: 0.7 } })
       .to(outline, { strokeDashoffset: 0, duration: 1, ease: "none" })
       .fromTo(el.querySelector("[data-fill]"), { opacity: 0 }, { opacity: 1, duration: 0.4 }, 0.8)
       .to(lines, { strokeDashoffset: 0, duration: 0.8, stagger: 0.004, ease: "none" }, 0.9)

@@ -15,7 +15,7 @@ export default function OperationsPage() {
     <ServicePageTemplate
       visual={<SystemsMap />}
       title="Improve how the work runs."
-      subtitle="Most businesses have the same problems: unclear processes, too many tools, communication gaps, and manual work that could be automated. We find where the time and money go, and tackle it."
+      subtitle="Unclear processes, too many tools and manual work. We find where the time and money go, and tackle it."
       deliverables={[
         "Full operational assessment: processes, tools, and team workflows",
         "SOP documentation for your critical processes",

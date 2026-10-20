@@ -35,7 +35,7 @@ Also read E:/Cortex/philip-brain/PHIL-OPERATOR-PROFILE.md for operating rules an
 /showroom/examples         Room 4: Built Examples
 /about                     About Phil / BAG
 /work                      Case studies: /work/restaurant-franchisee, /work/pfsa
-/privacy, /terms           Draft legal pages (noindex, "Draft" notice)
+/privacy                   Privacy notice (live since 2026-10-16). No Terms page yet
 /academy                   Static Academy + Prompt Studio in public/ (rewrites in next.config.mjs)
 /insights                  Blog listing (MDX)
 /insights/[slug]           Individual blog posts
@@ -54,6 +54,12 @@ Also read E:/Cortex/philip-brain/PHIL-OPERATOR-PROFILE.md for operating rules an
 - Logo: one component, `src/components/logo.tsx`, file `public/brand/logo.svg`
 - Photos: `src/lib/photos.ts`. Show them whole and centered; never cut through people or crop tight on Phil
 - Words: first screen 30 or fewer on every page, headline 7 or fewer, home 300 or fewer
+- V2 (branch site-v2, 2026-10-20): night chapters in ink #161B22 with limestone text and #9DB2E8 links
+  (hero, services track, inner-page openings, closing band, footer). Night sections carry data-nav="dark"
+  so the header switches. Motion lives in `src/components/v2/`: Lenis + GSAP ScrollTrigger
+  (`smooth-scroll.tsx`), masked word reveals (`reveal.tsx`), scroll sections, code-drawn panels
+  (`panels.tsx`, all marked "Sample data"), the live Kentucky hero (`kentucky-flow.tsx`) and the page
+  curtain. Reduced motion turns all of it off. Design notes per round: `docs/v2-iteration-log.md`
 
 ## Key Directories
 ```
@@ -61,8 +67,7 @@ src/app/              App Router pages
 src/components/       Shared components (nav, footer, button, card, etc.)
 src/lib/              Utilities (fonts, metadata, rate-limit, supabase, mdx)
 content/insights/     MDX blog articles
-public/photos/        Real photos (staging approval only, see STAGING-NOTES.md). The generated videos were removed 2026-09-23
-content/legal/        Draft Terms and Privacy Notice rendered at /terms and /privacy (not attorney reviewed)
+public/photos/        Phil's headshot and real screens (portal demo mode, PFSA site). Store and team photos are left out until their permissions exist
 public/showroom/      Legacy static HTML demos (slys-nubian still exists)
 ```
 

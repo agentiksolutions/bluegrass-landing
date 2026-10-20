@@ -32,7 +32,7 @@ export default function ExamplesPage() {
     <>
       <PageHero compact title="Built examples" intro="Real sites and tools we've designed: working builds you can click through and interact with." />
 
-      <section className="px-4 md:px-10 pb-24 md:pb-32">
+      <section className="px-4 pt-12 md:px-10 pb-24 md:pt-20 md:pb-32">
         <div className="max-w-[1360px] mx-auto">
           <ul className="divide-y divide-line border-y border-line">
             {examples.map((ex) => (

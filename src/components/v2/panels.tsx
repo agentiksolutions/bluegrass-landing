@@ -220,7 +220,7 @@ export function SystemsMap() {
   });
 
   return (
-    <div ref={ref} data-nomotion className="w-full overflow-hidden rounded-[6px] border border-line bg-white font-display">
+    <div ref={ref} data-nomotion data-panel className="w-full overflow-hidden rounded-[6px] border border-line bg-white font-display">
       <div className="flex items-center justify-between border-b border-line px-5 py-3">
         <span className="text-[14px] text-ink">Systems map</span>
         <span className="text-[12px] text-muted">Sample data</span>

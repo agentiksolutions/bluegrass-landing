@@ -20,7 +20,7 @@ export default function InsightsPage() {
       <PageHero compact title="Insights" intro="What we learn running AI in our own businesses, written for owners." />
 
       {first && (
-        <section className="px-4 md:px-10 pb-16 md:pb-24">
+        <section className="px-4 pt-16 md:px-10 pb-16 md:pt-24 md:pb-24">
           <Link
             href={`/insights/${first.slug}`}
             className="group max-w-[1360px] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] gap-8 lg:gap-14 items-center"

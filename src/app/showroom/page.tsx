@@ -41,9 +41,9 @@ const rooms = [
 export default function ShowroomPage() {
   return (
     <>
-      <PageHero compact title="See it before you buy it" intro="Interactive tools that show what AI can do for your business. There is nothing to sign up for, and you can try as many as you want." />
+      <PageHero compact title="See it before you buy it" intro="Interactive tools that show what AI can do for your business. Nothing to sign up for." />
 
-      <section className="px-4 md:px-10 pb-24 md:pb-32">
+      <section className="px-4 pt-12 md:px-10 pb-24 md:pt-20 md:pb-32">
         <ul className="max-w-[1360px] mx-auto divide-y divide-line border-y border-line">
           {rooms.map((room) => (
             <li key={room.id}>

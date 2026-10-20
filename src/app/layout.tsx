@@ -6,6 +6,7 @@ import Footer from "@/components/footer";
 import CookieConsent from "@/components/cookie-consent";
 import SmoothScroll from "@/components/v2/smooth-scroll";
 import PageMotion from "@/components/v2/page-motion";
+import RouteCurtain from "@/components/v2/route-curtain";
 import "./globals.css";
 
 export const metadata: Metadata = siteMetadata;
@@ -41,6 +42,7 @@ export default function RootLayout({
         <Footer />
         {/* GA4 loads only after the visitor accepts cookies. */}
         <CookieConsent />
+        <RouteCurtain />
       </body>
     </html>
   );

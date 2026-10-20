@@ -9,7 +9,8 @@ let lenis: Lenis | null = null;
 
 /** Scroll to an element or the top, through Lenis when it runs. */
 export function scrollToTarget(target: HTMLElement | number) {
-  const offset = -84; // fixed header height plus a little air
+  // Night chapters run edge to edge under the header; everything else clears it.
+  const offset = typeof target !== "number" && target.dataset.nav === "dark" ? 0 : -84;
   if (lenis) lenis.scrollTo(target, { offset: typeof target === "number" ? 0 : offset });
   else if (typeof target === "number") window.scrollTo({ top: target });
   else window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY + offset, behavior: "smooth" });

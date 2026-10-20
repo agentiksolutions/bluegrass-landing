@@ -24,8 +24,8 @@ function fitFor(w: number, h: number): Fit {
     const s = (w * 1.32) / W0;
     return { s, ox: w / 2 - (STAR[0] - 40) * s, oy: h * 0.2 };
   }
-  const s = Math.min((w * 0.8) / W0, (h * 0.7) / H0);
-  return { s, ox: w - W0 * s - w * 0.03, oy: h * 0.42 - (H0 * s) / 2 };
+  const s = Math.min((w * 0.76) / W0, (h * 0.62) / H0);
+  return { s, ox: w - W0 * s - w * 0.03, oy: h * 0.38 - (H0 * s) / 2 };
 }
 
 function buildMask() {

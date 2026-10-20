@@ -61,7 +61,7 @@ export default function AboutPage() {
               <p className="mt-4 font-display text-[17px] text-night-blue">Founder and Principal, Bluegrass Advisory Group</p>
               <p className="mt-7 max-w-[36ch] text-[20px] leading-relaxed text-night-body md:text-[22px]">
                 I run operations for a restaurant franchisee and I&apos;m president of a Lexington nonprofit. I built the AI
-                systems both of them run on. Now I help Kentucky businesses get ahead with AI.
+                systems both run on.
               </p>
             </FadeUp>
           </div>
@@ -72,7 +72,7 @@ export default function AboutPage() {
         <div className="mx-auto grid max-w-page grid-cols-1 items-start gap-14 lg:grid-cols-[minmax(0,7fr)_minmax(0,4fr)] lg:gap-24">
           {/* Written from Phil's own notes, 2026-10-07. */}
           <div className="max-w-[62ch] text-[19px] leading-relaxed text-body">
-            <h2 className="font-display text-[32px] font-light tracking-[-0.02em] text-ink md:text-[44px]">What I run today</h2>
+            <h2 className="font-display text-[32px] font-light leading-[1.08] tracking-[-0.02em] text-ink md:text-[44px]">What I run today</h2>
             <div className="mt-6 space-y-5">
               <p>
                 I run operations for a Five Guys franchisee in Central Kentucky. I built the manager portal its three stores
@@ -89,7 +89,7 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <h2 className="mt-16 font-display text-[32px] font-light tracking-[-0.02em] text-ink md:text-[44px]">
+            <h2 className="mt-16 font-display text-[32px] font-light leading-[1.08] tracking-[-0.02em] text-ink md:text-[44px]">
               Why I started Bluegrass Advisory Group
             </h2>
             <div className="mt-6 space-y-5">
@@ -104,7 +104,7 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <h2 className="mt-16 font-display text-[32px] font-light tracking-[-0.02em] text-ink md:text-[44px]">What I care about</h2>
+            <h2 className="mt-16 font-display text-[32px] font-light leading-[1.08] tracking-[-0.02em] text-ink md:text-[44px]">What I care about</h2>
             <div className="mt-6 space-y-5">
               <p>
                 I try to do the next right thing. I&apos;m obsessed with results and with doing the job right, and I want my

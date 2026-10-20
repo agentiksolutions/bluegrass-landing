@@ -19,7 +19,7 @@ export default function NotFound() {
             We couldn&apos;t find that page
           </h1>
           <p className="mt-6 max-w-[44ch] text-[19px] leading-snug text-night-body md:text-[22px]">
-            The link may be old or the page may have moved. Here are a few good places to pick back up.
+            The link may be old or the page may have moved.
           </p>
           <div className="mt-10 flex flex-wrap gap-3">
             <Button href="/">Back to home</Button>

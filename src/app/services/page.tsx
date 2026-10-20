@@ -100,7 +100,7 @@ export default function ServicesPage() {
     <>
       <PageHero
         title="What we do for your business"
-        intro="We pair your business with the AI tools that fit it, set them up on your own accounts and train your team to use them."
+        intro="We pair your business with the AI tools that fit, set them up on your accounts and train your team."
         actions={<Button href={BOOKING_URL}>Book a call</Button>}
         visual={<AssistantPanel />}
       />

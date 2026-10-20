@@ -45,7 +45,7 @@ export default function CostPage() {
     <>
       <PageHero
         title="What drives the cost"
-        intro="Two businesses can ask for the same thing and get numbers that are nowhere near each other. Six things account for almost all of that gap, and you can work out roughly where you sit before you ever talk to us."
+        intro="Two businesses can ask for the same thing and get very different numbers. Six things account for almost all of that gap."
         visual={<PlanPanel />}
       />
 

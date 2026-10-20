@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { pageMeta } from "@/lib/metadata";
-import Link from "next/link";
 import CTABand from "@/components/cta-band";
 import JsonLd from "@/components/json-ld";
 import RelatedLinks from "@/components/related-links";
 import PageHero from "@/components/v2/page-hero";
+import FaqList from "@/components/v2/faq-list";
 
 export const metadata: Metadata = pageMeta({
   title: "Frequently Asked Questions",
@@ -80,27 +80,10 @@ export default function FAQPage() {
 
       <PageHero compact title="Questions we get asked" intro="Ten questions from intro calls, answered the way we answer them on the phone." />
 
-      <section className="px-4 md:px-10 pb-24 md:pb-32">
+      <section className="px-4 pt-16 md:px-10 pb-24 md:pt-24 md:pb-32">
         <div className="max-w-[1360px] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] gap-10 lg:gap-20">
-          <div className="lg:col-start-2 divide-y divide-line border-y border-line">
-            {faqs.map((f) => (
-              <div key={f.q} className="py-8 md:py-10">
-                <h2 className="font-display text-[22px] md:text-[26px] font-light leading-snug text-ink max-w-[40ch]">
-                  {f.q}
-                </h2>
-                <p className="mt-4 text-[18px] leading-relaxed text-body max-w-[64ch]">
-                  {f.a}
-                </p>
-                {f.link && (
-                  <Link
-                    href={f.link.href}
-                    className="inline-block mt-5 font-display text-[15px] text-blue underline underline-offset-4 decoration-blue/40 hover:decoration-blue"
-                  >
-                    {f.link.label} &rarr;
-                  </Link>
-                )}
-              </div>
-            ))}
+          <div className="lg:col-start-2">
+            <FaqList faqs={faqs} />
           </div>
         </div>
       </section>
