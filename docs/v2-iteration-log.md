@@ -124,7 +124,7 @@ New since round 5:
 - **3D hero** (`src/lib/ky-3d.ts`, `home-hero.tsx`): three.js r170, loaded only on desktops with WebGL 2 and motion on. The firm's Kentucky mark is extruded into a slab. Live flowing light on its top face is drawn to a canvas texture. The node network carries travelling pulses, the star glows at Lexington, and bloom post-processing lights it all. The hero pins for one screen while scroll flies the camera from a wide three-quarter view down to the star and the words lift away. The pointer tilts the view. Phones, tablets and reduced motion keep the 2D canvas. Tone mapping darkened the clear colour to (6, 10, 16), so the background input was set to land on the page ink (22, 27, 34), measured.
 - **Signature sequence** (`data-to-dashboard.tsx`): messy inputs become a working dashboard. See `docs/v2-references.md` for how it is built.
 - **Blender flight** (`scroll-video.tsx`, `public/videos/ky-flight-*`, script in `scripts/render/ky_flight.py`): rendered with Cycles on the Mac mini's M4 at 1920x1080, 150 frames, 7.7 s a frame. It is encoded on the Mac with every frame a keyframe, 5.2 MB, plus a 3.0 MB 720p file for phones. The section pins for 2.4 screens while scroll moves the camera, and three plain lines take turns over a legibility scrim.
-- **Who we've worked with** (`client-logos.tsx`): STAGING ONLY. **Pending permission before live: Five Guys trademark use (no endorsement implied), Tyler Barton/BRG, Greer, Activate, StoneCreek, Proliferation.** The list was verified against the BAG CRM: Greer Companies, Activate, StoneCreek Management, Proliferation Marketing and United Property Holdings have signed contracts and paid invoices. Five Guys (Phil runs operations for a franchisee) and The PFSA (Phil is president) were added at Phil's request. Logos come from each company's own website (PFSA's from its own site code) and were converted on the Mac to one limestone monochrome treatment. StoneCreek and United Property Holdings publish no logo, so their names are set in type. Greer's own site serves only a 158 px PNG, so ask Greer for a vector. A line under the logos says they imply no endorsement.
+- **Who we've worked with** (`client-logos.tsx`): STAGING ONLY. **Pending permission before live: Five Guys trademark use (no endorsement implied), Tyler Barton/BRG, Greer, Activate, StoneCreek, Proliferation, United Property Holdings.** The list was verified against the BAG CRM: Greer Companies, Activate, StoneCreek Management, Proliferation Marketing and United Property Holdings have signed contracts and paid invoices. Five Guys (Phil runs operations for a franchisee) and The PFSA (Phil is president) were added at Phil's request. Logos come from each company's own website (PFSA's from its own site code) and were converted on the Mac to one limestone monochrome treatment. StoneCreek and United Property Holdings publish no logo, so their names are set in type. Greer's own site serves only a 158 px PNG, so ask Greer for a vector. A line under the logos says they imply no endorsement.
 - **References:** `docs/v2-references.md`. Hydra OS is taken to be hydraos.ai, which needs Phil's confirmation.
 - **Higgsfield: no free models, needs Phil's call on a pass.** Unlimited Kling 3.0 and Nano Banana are paywalled, and Grok Imagine costs credits. The balance is still 0.81. Every visual here is three.js, Blender on the Mac, real screenshots or panels drawn in code.
 - The home page's markets heading is now "Industries", so it does not read twice next to "Who we've worked with".
@@ -170,3 +170,21 @@ Lighthouse, mobile emulation, local production build: home performance 78 with a
 - Both sit in a night band between the case sections and build in when half on screen.
 
 - Round 11: the pointer now stirs the 3D light. A ray from the camera through the pointer meets the slab's top face, and the current swirls around that point while the pointer has moved in the last 1.5 s.
+
+**Scope note for rounds 6 to 11:** these were partial checks (the home page at all widths, then the single pages each change touched). The last full sweep before round 12 was round 5.
+
+## Round 12 (robustness, then a full sweep)
+
+| Defect | Fix |
+|---|---|
+| The 3D hero's per-frame cost was never measured on a real laptop. SwiftShader renders on the CPU, so the headless shots prove nothing about frame rate | The light texture is now 1225x550, uploaded every other frame, with the pixel ratio capped at 1.25. A frame-time governor runs on the visitor's machine: after 90 frames averaging over 22 ms it drops bloom and goes to pixel ratio 1; if the next 90 are still slow, the hero hands back to the 2D canvas. Disposing frees the WebGL context (`forceContextLoss`), so repeated home visits through the page curtain do not pile up contexts. Headless review runs will often show the 2D fallback for this reason |
+| Phones pinned the flight video and scrubbed it, but iOS often shows no frame of a paused video | Below 821 px there is no pin and no scrub; the 720p flight plays muted on a loop while on screen and pauses off screen. The lines show as one static line. **Unverified on a real iPhone** |
+| United Property Holdings was named on the logo strip but missing from the permission note | Added to the code comment and to this log's round 6 note |
+| Without the Five Guys clause, "Who we've worked with" next to the Five Guys logo read as work for Five Guys itself | Small print restored: "Five Guys: Phil runs operations for a Five Guys franchisee in Central Kentucky." It is small print, so it is left out of the home word count, like imagery. **Flag for Phil:** whether the Five Guys logo belongs in this strip at all |
+
+Round 12 full sweep:
+- All 29 pages at 390, 768 and 1440: 87 runs, no sideways overflow, no page errors.
+- Reduced motion at 390 and 1440: 58 runs, clean. Interaction checks: 11 of 11.
+- Links: all 39 internal links return 200; the external links answer 200.
+- Images: every one loads, on all 29 pages.
+- Rendered copy: no dashes and no slop tells. Home copy 286 words, small print excluded.

@@ -151,11 +151,13 @@ function makeFlow(scale: number) {
   return { canvas, step };
 }
 
-export function mountKentucky3D(host: HTMLElement): Ky3D {
+/** onSlow: called if this device cannot keep the scene smooth even without bloom; the caller
+ *  should dispose the scene and fall back to 2D. */
+export function mountKentucky3D(host: HTMLElement, onSlow?: () => void): Ky3D {
   const width = () => host.clientWidth;
   const height = () => host.clientHeight;
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.25));
   renderer.setSize(width(), height());
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.05;
@@ -168,7 +170,7 @@ export function mountKentucky3D(host: HTMLElement): Ky3D {
   const camera = new THREE.PerspectiveCamera(32, width() / height(), 0.1, 100);
 
   // The slab.
-  const flow = makeFlow(2);
+  const flow = makeFlow(1.25);
   const flowTex = new THREE.CanvasTexture(flow.canvas);
   flowTex.colorSpace = THREE.SRGBColorSpace;
   flowTex.anisotropy = 8;
@@ -264,6 +266,7 @@ export function mountKentucky3D(host: HTMLElement): Ky3D {
   frame();
 
   const clock = new THREE.Clock();
+  let frameNo = 0;
   let raf = 0;
   let running = false;
   const render = () => {
@@ -279,7 +282,8 @@ export function mountKentucky3D(host: HTMLElement): Ky3D {
     camera.lookAt(look);
 
     flow.step(t, 0.18 + shown * 1.4, stirAt());
-    flowTex.needsUpdate = true;
+    // Upload the light texture every other frame: half the GPU traffic, no visible difference.
+    if ((frameNo++ & 1) === 0) flowTex.needsUpdate = true;
     top.emissiveIntensity = 0.8 + shown * 0.25;
     starLight.intensity = 4 + Math.sin(t * 2) * 0.8 + shown * 2;
     bloom.strength = 0.6 + shown * 0.15;
@@ -298,8 +302,35 @@ export function mountKentucky3D(host: HTMLElement): Ky3D {
     star.rotation.z = Math.sin(t * 0.6) * 0.02;
     composer.render();
   };
-  const loop = () => {
+  // Frame-time governor, measured on the visitor's own machine: after 90 frames averaging over
+  // 22 ms, bloom goes and the pixel ratio drops to 1; if the next 90 are still slow, onSlow()
+  // hands the hero back to the 2D canvas.
+  let stage = 0;
+  let sampleStart = 0;
+  let samples = 0;
+  const govern = (now: number) => {
+    if (stage > 1) return;
+    if (!samples) sampleStart = now;
+    if (++samples < 90) return;
+    const avg = (now - sampleStart) / (samples - 1);
+    samples = 0;
+    if (avg <= 22) {
+      stage = 2;
+      return;
+    }
+    if (stage === 0) {
+      bloom.enabled = false;
+      renderer.setPixelRatio(1);
+      composer.setPixelRatio(1);
+      stage = 1;
+    } else {
+      stage = 2;
+      onSlow?.();
+    }
+  };
+  const loop = (now: number) => {
     render();
+    govern(now);
     raf = requestAnimationFrame(loop);
   };
   const start = () => {
@@ -310,6 +341,7 @@ export function mountKentucky3D(host: HTMLElement): Ky3D {
   };
   const stop = () => {
     running = false;
+    samples = 0; // time spent paused is not frame time
     cancelAnimationFrame(raf);
   };
 
@@ -343,6 +375,7 @@ export function mountKentucky3D(host: HTMLElement): Ky3D {
       document.removeEventListener("visibilitychange", onVis);
       composer.dispose();
       renderer.dispose();
+      renderer.forceContextLoss();
       [slabGeo, lineGeo, nodeGeo, starGeo].forEach((g) => g.dispose());
       [top, side].forEach((mt) => mt.dispose());
       flowTex.dispose();

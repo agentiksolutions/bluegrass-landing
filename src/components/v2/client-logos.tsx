@@ -4,7 +4,7 @@ import { useLayoutEffect, useRef } from "react";
 import { gsap, EASE, motionOff } from "@/lib/gsap";
 
 // STAGING ONLY. Pending permission before live: Five Guys trademark use (no endorsement implied),
-// Tyler Barton/BRG, Greer, Activate, StoneCreek, Proliferation. Phil asked for this section on
+// Tyler Barton/BRG, Greer, Activate, StoneCreek, Proliferation, United Property Holdings. Phil asked for this section on
 // 2026-10-20; it overrides the "no client names" rule on the site-v2 staging branch only.
 //
 // Who is listed, and why (verified 2026-10-20 against the BAG CRM, signed contracts and paid
@@ -66,8 +66,9 @@ export default function ClientLogos() {
             </li>
           ))}
         </ul>
-        <p className="mt-12 max-w-[70ch] font-display text-[13px] leading-relaxed text-night-body">
-          Logos belong to their owners and imply no endorsement of Bluegrass Advisory Group.
+        <p data-smallprint className="mt-12 max-w-[70ch] font-display text-[13px] leading-relaxed text-night-body">
+          Logos belong to their owners and imply no endorsement of Bluegrass Advisory Group. Five Guys: Phil runs
+          operations for a Five Guys franchisee in Central Kentucky.
         </p>
       </div>
     </section>

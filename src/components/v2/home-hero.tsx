@@ -35,7 +35,15 @@ export default function HomeHero() {
     let timer = 0;
     import("@/lib/ky-3d").then(({ mountKentucky3D }) => {
       if (cancelled || !stageRef.current) return;
-      kyRef.current = mountKentucky3D(stageRef.current);
+      // If this machine cannot keep the scene smooth, go back to the 2D light for good.
+      kyRef.current = mountKentucky3D(stageRef.current, () => {
+        window.clearTimeout(timer);
+        setMode("2d");
+        window.setTimeout(() => {
+          kyRef.current?.dispose();
+          kyRef.current = null;
+        }, 50);
+      });
       // Keep the 2D light until the 3D canvas has faded in over it.
       timer = window.setTimeout(() => setMode("3d"), 1300);
     });
