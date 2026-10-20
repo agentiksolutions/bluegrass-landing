@@ -102,3 +102,18 @@ Rendered HTML: no em or en dashes, no spaced hyphens, no ", not " tails, no bann
 Open, not defects: smoothness is unmeasured (headless). The showroom report and website tools
 need the Anthropic key, which the preview does not have, so they stop at their error message.
 The contact form has no Supabase or Airtable keys on the preview, so it errors by design.
+
+## Close-out checks
+
+- Links: all 34 internal hrefs in the built pages return 200; cal.com, thepfsa.org and the LinkedIn
+  page answer 200. `/terms` and `/hero-preview` are gone (404) and nothing links to them.
+- Images: every image on 29 pages loaded (no `naturalWidth` of 0 after scrolling each page through).
+- `/academy`, `/prompt-studio`, `/sitemap.xml`, `/robots.txt`: 200.
+- The closing mark's geometry matches the official 2026-09-27 lockup (same 45 nodes and 94 lines,
+  scaled by 0.4923).
+- Home copy: "a restaurant franchisee" again on the home page, as V1 had it. The brand-identity rule
+  keeps the restaurant client at arm's length on the front door; Five Guys is named on the work
+  and about pages.
+- The Academy and Prompt Studio are static pages carried over unchanged. Their teaching samples
+  contain markdown bullets (" - "), sample prompts with ", not" and a mention of n8n as a public
+  automation tool. Left as is: outside this redesign.

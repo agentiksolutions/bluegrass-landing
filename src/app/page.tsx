@@ -166,7 +166,7 @@ export default function HomePage() {
             />
             <FadeUp>
               <p className="mt-8 max-w-[42ch] text-[19px] leading-relaxed text-body md:text-[22px]">
-                He runs operations for a Five Guys franchisee in Central Kentucky and is president of The PFSA, a
+                He runs operations for a restaurant franchisee in Central Kentucky and is president of The PFSA, a
                 Lexington nonprofit. He built the AI systems both run on.
               </p>
               <Link
@@ -256,7 +256,7 @@ export default function HomePage() {
           <FadeUp>
             <Link href="/work/restaurant-franchisee" className="group block border-t border-line pt-8">
               <p className="font-display text-[28px] font-medium leading-tight tracking-[-0.02em] text-ink transition-colors group-hover:text-blue md:text-[36px]">
-                A Five Guys franchisee in Central Kentucky
+                A restaurant franchisee in Central Kentucky
               </p>
               <p className="mt-4 max-w-[46ch] text-[18px] leading-relaxed text-body">
                 Three stores run on one manager portal.
