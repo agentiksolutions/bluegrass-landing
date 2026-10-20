@@ -100,7 +100,8 @@ function makeFlow(scale: number) {
   ctx.fillStyle = "#000";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  const step = (t: number, pull: number) => {
+  // stir: the pointer on the slab, in drawing units (or null), which swirls the current around it.
+  const step = (t: number, pull: number, stir: { x: number; y: number } | null = null) => {
     ctx.setTransform(scale, 0, 0, scale, 0, 0);
     ctx.globalCompositeOperation = "source-over";
     ctx.fillStyle = "rgba(0,0,0,0.07)";
@@ -116,8 +117,20 @@ function makeFlow(scale: number) {
       const dx = STAR[0] - x;
       const dy = STAR[1] - y;
       const d = Math.hypot(dx, dy) + 1e-3;
-      const nx = x + (Math.cos(a) + (dx / d) * pull) * 0.7;
-      const ny = y + (Math.sin(a) + (dy / d) * pull) * 0.7;
+      let sx = 0;
+      let sy = 0;
+      if (stir) {
+        const qx = x - stir.x;
+        const qy = y - stir.y;
+        const q = qx * qx + qy * qy;
+        if (q < 6400) {
+          const f = (1 - q / 6400) * 2.4;
+          sx = (-qy / Math.sqrt(q + 1)) * f;
+          sy = (qx / Math.sqrt(q + 1)) * f;
+        }
+      }
+      const nx = x + (Math.cos(a) + (dx / d) * pull + sx) * 0.7;
+      const ny = y + (Math.sin(a) + (dy / d) * pull + sy) * 0.7;
       life[i] -= 1;
       if (life[i] <= 0 || !inside(nx, ny) || d < 6) {
         spawn(i, t);
@@ -226,6 +239,17 @@ export function mountKentucky3D(host: HTMLElement): Ky3D {
   let progress = 0;
   let shown = 0;
   const pointer = new THREE.Vector2();
+  let pointerAt = 0;
+  // Where the pointer meets the slab's top face, in drawing units, while it has moved recently.
+  const ray = new THREE.Raycaster();
+  const topPlane = new THREE.Plane(new THREE.Vector3(0, 1, 0), -DEPTH);
+  const hit = new THREE.Vector3();
+  const stirAt = () => {
+    if (performance.now() - pointerAt > 1500) return null;
+    ray.setFromCamera(new THREE.Vector2(pointer.x, -pointer.y), camera);
+    if (!ray.ray.intersectPlane(topPlane, hit)) return null;
+    return { x: hit.x / S + W0 / 2, y: H0 / 2 + hit.z / S };
+  };
   const eased = new THREE.Vector2();
   const look = new THREE.Vector3();
   const pos = new THREE.Vector3();
@@ -254,7 +278,7 @@ export function mountKentucky3D(host: HTMLElement): Ky3D {
     camera.position.copy(pos);
     camera.lookAt(look);
 
-    flow.step(t, 0.18 + shown * 1.4);
+    flow.step(t, 0.18 + shown * 1.4, stirAt());
     flowTex.needsUpdate = true;
     top.emissiveIntensity = 0.8 + shown * 0.25;
     starLight.intensity = 4 + Math.sin(t * 2) * 0.8 + shown * 2;
@@ -308,7 +332,10 @@ export function mountKentucky3D(host: HTMLElement): Ky3D {
 
   return {
     setProgress: (p) => (progress = p),
-    setPointer: (x, y) => pointer.set(x, y),
+    setPointer: (x, y) => {
+      pointer.set(x, y);
+      pointerAt = performance.now();
+    },
     dispose: () => {
       stop();
       io.disconnect();

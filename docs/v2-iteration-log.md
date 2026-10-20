@@ -168,3 +168,5 @@ Lighthouse, mobile emulation, local production build: home performance 78 with a
 - The franchisee case has a tip-pool panel (sample data: hours, shares, and a check that the shares add up to the pool). The portal has a tip calculator. The caption claims no frequency.
 - The PFSA case has a board-portal panel (sample data: a donation with its receipt, an application sent to a vote, a recorded vote, drafted minutes). It matches the case study's own account of the first assistance case.
 - Both sit in a night band between the case sections and build in when half on screen.
+
+- Round 11: the pointer now stirs the 3D light. A ray from the camera through the pointer meets the slab's top face, and the current swirls around that point while the pointer has moved in the last 1.5 s.
