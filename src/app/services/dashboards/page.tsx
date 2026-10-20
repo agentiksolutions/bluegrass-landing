@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { pageMeta } from "@/lib/metadata";
 import ServicePageTemplate from "@/components/service-page-template";
+import { photos } from "@/lib/photos";
 
 export const metadata: Metadata = pageMeta({
   title: "Dashboards & Data",
@@ -12,7 +13,7 @@ export const metadata: Metadata = pageMeta({
 export default function DashboardsPage() {
   return (
     <ServicePageTemplate
-      image={{ src: "/images/scenes/back-office-dashboard.webp", alt: "A restaurant manager looking up at a dashboard of charts on a back-office screen" }}
+      shot={photos.portal}
       title="Your numbers, in one place."
       subtitle="We build dashboards that pull your data from the apps you already use, update automatically, and show the numbers behind the decisions you make."
       deliverables={[

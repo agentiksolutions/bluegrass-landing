@@ -4,12 +4,13 @@ import Link from "next/link";
 import { pageMeta } from "@/lib/metadata";
 import CTABand from "@/components/cta-band";
 import JsonLd from "@/components/json-ld";
+import { FadeUp, Reveal } from "@/components/v2/reveal";
 import { photos } from "@/lib/photos";
 
 export const metadata: Metadata = pageMeta({
   title: "About",
   description:
-    "Phil Fifield has spent 15 years in restaurants, most of them running operations. He runs operations for a Five Guys franchisee in Central Kentucky and founded Bluegrass Advisory Group.",
+    "Phil Fifield runs operations for a Five Guys franchisee in Central Kentucky, is president of The PFSA, and founded Bluegrass Advisory Group to help Kentucky businesses get ahead with AI.",
   path: "/about",
 });
 
@@ -18,129 +19,138 @@ const personJsonLd = {
   "@type": "Person",
   name: "Phil Fifield",
   jobTitle: "Founder & Principal",
-  worksFor: {
-    "@type": "Organization",
-    name: "Bluegrass Advisory Group",
-    url: "https://bluegrassadvisorygroup.com",
-  },
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "Lexington",
-    addressRegion: "KY",
-    addressCountry: "US",
-  },
+  worksFor: { "@type": "Organization", name: "Bluegrass Advisory Group", url: "https://bluegrassadvisorygroup.com" },
+  address: { "@type": "PostalAddress", addressLocality: "Lexington", addressRegion: "KY", addressCountry: "US" },
 };
 
+// What Phil runs today, in the present tense (brand rule). No origin line and no unsourced
+// ranking; the years figure is left out until Phil settles "15" or "over 15".
+const today = [
+  { role: "Operations", where: "A Five Guys franchisee in Central Kentucky" },
+  { role: "President", where: "The PFSA, a Lexington nonprofit" },
+  { role: "Founder", where: "Bluegrass Advisory Group" },
+];
 
 export default function AboutPage() {
   return (
     <>
       <JsonLd data={personJsonLd} />
 
-      {/* First screen: the photograph carries it. */}
-      <section className="pt-16 lg:pt-[72px] bg-band">
-        <div className="grid grid-cols-1 lg:grid-cols-[auto_minmax(0,1fr)]">
-          <div className="relative w-full h-[max(360px,calc(52svh))] lg:h-[calc(100svh-72px)] lg:w-[min(calc(100svh-72px),62vw)] lg:min-h-[480px] lg:min-w-[480px]">
+      <section data-nav="dark" data-nomotion className="night bg-night text-night-text">
+        <div className="mx-auto grid max-w-page grid-cols-1 items-end gap-12 px-4 pb-16 pt-28 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:px-10 md:pb-24 md:pt-36 lg:gap-20">
+          <FadeUp delay={0.1} className="mx-auto w-full max-w-[440px] md:mx-0">
             <Image
-              src={photos.phil.src}
-              alt={photos.phil.alt}
-              fill
+              src={photos.headshot.src}
+              alt={photos.headshot.alt}
+              width={photos.headshot.width}
+              height={photos.headshot.height}
               priority
-              sizes="(min-width: 1024px) 62vw, 100vw"
-              className="object-cover object-[40%_top]"
+              sizes="(min-width: 768px) 440px, 100vw"
+              className="h-auto w-full rounded-[6px]"
             />
-          </div>
-          <div className="px-4 md:px-10 py-8 lg:py-12 flex flex-col justify-center">
-            <h1 className="font-display text-[44px] lg:text-[72px] leading-[0.98] font-extralight tracking-[-0.03em] text-ink">
-              Phil Fifield
-            </h1>
-            <p className="mt-3 font-display text-[18px] text-muted">
-              Founder &amp; Principal, Bluegrass Advisory Group
-            </p>
-            <p className="mt-6 text-[20px] leading-relaxed text-body max-w-[34ch]">
-              I&apos;ve spent 15 years in restaurants, most of them running operations. Now I help
-              Kentucky businesses get ahead with AI.
-            </p>
+          </FadeUp>
+          <div className="pb-2">
+            <Reveal
+              as="h1"
+              onLoad
+              delay={0.2}
+              text="Phil Fifield"
+              className="font-display text-[56px] font-light leading-[0.95] tracking-[-0.04em] md:text-[96px]"
+            />
+            <FadeUp delay={0.5}>
+              <p className="mt-4 font-display text-[17px] text-night-blue">Founder and Principal, Bluegrass Advisory Group</p>
+              <p className="mt-7 max-w-[36ch] text-[20px] leading-relaxed text-night-body md:text-[22px]">
+                I run operations for a restaurant franchisee and I&apos;m president of a Lexington nonprofit. I built the AI
+                systems both of them run on. Now I help Kentucky businesses get ahead with AI.
+              </p>
+            </FadeUp>
           </div>
         </div>
       </section>
 
-      <section className="px-4 md:px-10 py-16 md:py-20">
-        <div className="max-w-[1360px] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] gap-10 lg:gap-16 items-start">
+      <section className="px-4 py-24 md:px-10 md:py-32">
+        <div className="mx-auto grid max-w-page grid-cols-1 items-start gap-14 lg:grid-cols-[minmax(0,7fr)_minmax(0,4fr)] lg:gap-24">
           {/* Written from Phil's own notes, 2026-10-07. */}
-          <div className="text-[19px] leading-relaxed text-body max-w-[62ch]">
-            <h2 className="font-display text-[28px] md:text-[36px] font-light tracking-tight text-ink">How I got here</h2>
-            <div className="mt-5 space-y-5">
+          <div className="max-w-[62ch] text-[19px] leading-relaxed text-body">
+            <h2 className="font-display text-[32px] font-light tracking-[-0.02em] text-ink md:text-[44px]">What I run today</h2>
+            <div className="mt-6 space-y-5">
               <p>
-                I started as a crew member and worked my way up to manager. I got there by working hard.
-                I&apos;ve now spent 15 years in restaurants, most of them running operations.
+                I run operations for a Five Guys franchisee in Central Kentucky. I built the manager portal its three stores
+                run on so my managers could spend less time in the back office and more time with guests.
               </p>
               <p>
-                Improving how a business runs is the part of the work I&apos;m proudest of. When the
-                company needed something done, I took it on and did it as well as I could. Along the way,
-                we became the top-ranked restaurant group in the nation among our peers.
+                I took complicated processes and made them simpler. Then I put them in one dashboard that&apos;s easy to
+                read, with the workflows built in: their numbers, their checklists and the weekly newsletter. We still use
+                it today, and the managers don&apos;t need to know anything about AI to use it.
               </p>
               <p>
-                Today I run operations for a Five Guys franchisee in Central Kentucky. I built the
-                manager portal its three stores run on so my managers could spend less time in the back
-                office and more time with guests.
-              </p>
-              <p>
-                I took complicated processes and made them simpler. Then I put them in one dashboard
-                that&apos;s easy to read, with the workflows built in: their numbers, their checklists and
-                the weekly newsletter. We still use it today, and the managers don&apos;t need to know
-                anything about AI to use it.
+                Improving how a business runs is the part of the work I&apos;m proudest of. When the company needed
+                something done, I took it on and did it as well as I could.
               </p>
             </div>
 
-            <h2 className="mt-14 font-display text-[28px] md:text-[36px] font-light tracking-tight text-ink">
+            <h2 className="mt-16 font-display text-[32px] font-light tracking-[-0.02em] text-ink md:text-[44px]">
               Why I started Bluegrass Advisory Group
             </h2>
-            <div className="mt-5 space-y-5">
+            <div className="mt-6 space-y-5">
               <p>
-                I started Bluegrass Advisory Group to help small and mid-sized businesses get ahead with
-                AI. I teach what I&apos;ve learned from coaching managers, and I consult from what has
-                worked when I improved operations in real businesses.
+                I started Bluegrass Advisory Group to help small and mid-sized businesses get ahead with AI. I teach what
+                I&apos;ve learned from coaching managers, and I consult from what has worked when I improved operations in
+                real businesses.
               </p>
               <p>
-                I&apos;m an operator first. I&apos;m not giving advice from a distance. I keep things
-                realistic, and I like to get to work.
+                I&apos;m an operator first. I&apos;m not giving advice from a distance. I keep things realistic, and I like
+                to get to work.
               </p>
             </div>
 
-            <h2 className="mt-14 font-display text-[28px] md:text-[36px] font-light tracking-tight text-ink">
-              What I care about
-            </h2>
-            <div className="mt-5 space-y-5">
+            <h2 className="mt-16 font-display text-[32px] font-light tracking-[-0.02em] text-ink md:text-[44px]">What I care about</h2>
+            <div className="mt-6 space-y-5">
               <p>
-                I try to do the next right thing. I&apos;m obsessed with results and with doing the job
-                right, and I want my customers and clients to know I&apos;m there for them. When something
-                has my name on it, I put everything into it.
+                I try to do the next right thing. I&apos;m obsessed with results and with doing the job right, and I want my
+                customers and clients to know I&apos;m there for them. When something has my name on it, I put everything
+                into it.
               </p>
               <p>
-                Outside of work, I spend my time with my family and friends. Community matters a lot to
-                me. I&apos;m president of The PFSA, a nonprofit in Lexington, and its board runs on a
-                portal I built.
+                Outside of work, I spend my time with my family and friends. Community matters a lot to me. I&apos;m
+                president of The PFSA, a nonprofit in Lexington, and its board runs on a portal I built.
               </p>
               <p>
-                See the <Link href="/work" className="text-blue underline underline-offset-2">work</Link>, or
-                read <Link href="/services" className="text-blue underline underline-offset-2">what we do</Link>.
+                See the{" "}
+                <Link href="/work" className="text-blue underline underline-offset-2">
+                  work
+                </Link>
+                , or read{" "}
+                <Link href="/services" className="text-blue underline underline-offset-2">
+                  what we do
+                </Link>
+                .
               </p>
             </div>
           </div>
-          <figure className="lg:sticky lg:top-28">
-            <Image
-              src={photos.team.src}
-              alt={photos.team.alt}
-              width={photos.team.width}
-              height={photos.team.height}
-              sizes="(min-width: 1024px) 520px, 100vw"
-              className="w-full h-auto rounded"
-            />
-            <figcaption className="mt-3 font-display text-[15px] text-muted">
-              Me, seated, with part of the store team at a Five Guys hiring fair in Central Kentucky.
-            </figcaption>
-          </figure>
+
+          <aside className="lg:sticky lg:top-28">
+            <h2 className="font-display text-[15px] font-semibold text-blue">Today</h2>
+            <ul className="mt-4 border-t border-line">
+              {today.map((t) => (
+                <li key={t.role} className="border-b border-line py-5">
+                  <p className="font-display text-[22px] font-medium tracking-[-0.01em] text-ink">{t.role}</p>
+                  <p className="mt-1 text-[17px] text-body">{t.where}</p>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-10 overflow-hidden rounded-[6px] border border-line">
+              <Image
+                src={photos.portal.src}
+                alt={photos.portal.alt}
+                width={photos.portal.width}
+                height={photos.portal.height}
+                sizes="(min-width: 1024px) 420px, 100vw"
+                className="h-auto w-full"
+              />
+            </div>
+            <p className="mt-3 font-display text-[14px] text-muted">The manager portal, shown in demo mode.</p>
+          </aside>
         </div>
       </section>
 

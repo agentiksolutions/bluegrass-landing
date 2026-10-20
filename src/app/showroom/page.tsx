@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { pageMeta } from "@/lib/metadata";
 import Link from "next/link";
 import CTABand from "@/components/cta-band";
+import PageHero from "@/components/v2/page-hero";
 
 export const metadata: Metadata = pageMeta({
   title: "Showroom",
@@ -40,17 +41,7 @@ const rooms = [
 export default function ShowroomPage() {
   return (
     <>
-      <section className="mt-16 lg:mt-[72px] px-4 md:px-10 pt-16 md:pt-24 pb-14">
-        <div className="max-w-[1360px] mx-auto">
-          <h1 className="font-display text-[48px] sm:text-[68px] lg:text-[88px] leading-[0.95] font-extralight tracking-[-0.03em] text-ink">
-            See it before you buy it
-          </h1>
-          <p className="mt-6 text-[19px] md:text-[22px] leading-snug text-body max-w-[44ch]">
-            Interactive tools that show what AI can do for your business. There
-            is nothing to sign up for, and you can try as many as you want.
-          </p>
-        </div>
-      </section>
+      <PageHero compact title="See it before you buy it" intro="Interactive tools that show what AI can do for your business. There is nothing to sign up for, and you can try as many as you want." />
 
       <section className="px-4 md:px-10 pb-24 md:pb-32">
         <ul className="max-w-[1360px] mx-auto divide-y divide-line border-y border-line">

@@ -4,6 +4,8 @@ import Link from "next/link";
 import { pageMeta } from "@/lib/metadata";
 import { photos } from "@/lib/photos";
 import CTABand from "@/components/cta-band";
+import PageHero from "@/components/v2/page-hero";
+import { FadeUp } from "@/components/v2/reveal";
 
 export const metadata: Metadata = pageMeta({
   title: "Work",
@@ -12,45 +14,61 @@ export const metadata: Metadata = pageMeta({
   path: "/work",
 });
 
+// The store photos wait for the franchise owner's OK (photos.ts), so each case shows its real screen.
 const cases = [
   {
     href: "/work/restaurant-franchisee",
-    photo: photos.storeA,
+    photo: photos.portal,
     title: "A Five Guys franchisee in Central Kentucky",
+    line: "Three stores' numbers, checklists and the weekly newsletter in one manager portal.",
+    caption: "The manager portal, shown in demo mode",
   },
   {
     href: "/work/pfsa",
     photo: photos.pfsaSite,
     title: "The PFSA, a Lexington nonprofit",
+    line: "A board portal for donations, receipts and meeting minutes, a public website and an online application.",
+    caption: "thepfsa.org",
   },
 ];
 
 export default function WorkPage() {
   return (
     <>
-      <section className="pt-28 lg:pt-32 pb-16 px-4 md:px-10 min-h-[100svh]">
-        <div className="max-w-[1360px] mx-auto">
-          <h1 className="font-display text-[48px] sm:text-[68px] lg:text-[88px] leading-[0.95] font-extralight tracking-[-0.03em] text-ink">
-            Work
-          </h1>
-          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
-            {cases.map((c) => (
-              <Link key={c.href} href={c.href} className="group block">
-                <div className="aspect-[4/3] relative bg-band rounded overflow-hidden">
+      <PageHero compact title="Work" intro="Two businesses, the systems we built for them, and what changed." />
+      <section className="px-4 py-20 md:px-10 md:py-28">
+        <div className="mx-auto max-w-page space-y-24 md:space-y-32">
+          {cases.map((c, i) => (
+            <FadeUp key={c.href}>
+              <Link
+                href={c.href}
+                className={`group grid grid-cols-1 items-center gap-8 lg:gap-16 ${
+                  i % 2 ? "lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]" : "lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]"
+                }`}
+              >
+                <div className={`overflow-hidden rounded-[6px] border border-line bg-band ${i % 2 ? "lg:order-2" : ""}`}>
                   <Image
                     src={c.photo.src}
                     alt={c.photo.alt}
-                    fill
-                    sizes="(min-width: 768px) 560px, 100vw"
-                    className="object-contain"
+                    width={c.photo.width}
+                    height={c.photo.height}
+                    sizes="(min-width: 1024px) 760px, 100vw"
+                    className="h-auto w-full transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                   />
                 </div>
-                <h2 className="mt-5 font-display text-[24px] md:text-[30px] font-light text-ink transition-colors group-hover:text-blue">
-                  {c.title}
-                </h2>
+                <div className={i % 2 ? "lg:order-1" : ""}>
+                  <h2 className="font-display text-[32px] font-light leading-[1.05] tracking-[-0.03em] text-ink transition-colors group-hover:text-blue md:text-[48px]">
+                    {c.title}
+                  </h2>
+                  <p className="mt-5 max-w-[40ch] text-[18px] leading-relaxed text-body md:text-[19px]">{c.line}</p>
+                  <p className="mt-4 font-display text-[14px] text-muted">{c.caption}</p>
+                  <span className="mt-6 inline-block font-display text-[15px] font-semibold text-blue underline decoration-blue/40 underline-offset-4 group-hover:decoration-blue">
+                    Read the case study
+                  </span>
+                </div>
               </Link>
-            ))}
-          </div>
+            </FadeUp>
+          ))}
         </div>
       </section>
       <CTABand />

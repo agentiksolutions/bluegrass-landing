@@ -148,10 +148,10 @@ export default function ContactPage() {
           </h1>
           {/* The person who reads the form. Laptop only; on a phone the form comes first. */}
           <Image
-            src={photos.phil.src}
-            alt={photos.phil.alt}
-            width={photos.phil.width}
-            height={photos.phil.height}
+            src={photos.headshot.src}
+            alt={photos.headshot.alt}
+            width={photos.headshot.width}
+            height={photos.headshot.height}
             sizes="440px"
             className="hidden lg:block mt-8 w-full max-w-[440px] h-auto rounded"
           />

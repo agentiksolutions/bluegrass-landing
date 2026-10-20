@@ -3,6 +3,7 @@ import { pageMeta } from "@/lib/metadata";
 import Link from "next/link";
 import Image from "next/image";
 import { getAllPosts } from "@/lib/mdx";
+import PageHero from "@/components/v2/page-hero";
 
 export const metadata: Metadata = pageMeta({
   title: "Insights",
@@ -16,16 +17,7 @@ export default function InsightsPage() {
 
   return (
     <>
-      <section className="mt-16 lg:mt-[72px] px-4 md:px-10 pt-16 md:pt-24 pb-14">
-        <div className="max-w-[1360px] mx-auto">
-          <h1 className="font-display text-[48px] sm:text-[68px] lg:text-[88px] leading-[0.95] font-extralight tracking-[-0.03em] text-ink">
-            Insights
-          </h1>
-          <p className="mt-6 text-[19px] md:text-[22px] leading-snug text-body max-w-[44ch]">
-            What we learn running AI in our own businesses, written for owners.
-          </p>
-        </div>
-      </section>
+      <PageHero compact title="Insights" intro="What we learn running AI in our own businesses, written for owners." />
 
       {first && (
         <section className="px-4 md:px-10 pb-16 md:pb-24">

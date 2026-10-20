@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { pageMeta } from "@/lib/metadata";
 import { photos } from "@/lib/photos";
 import { CaseClose, CaseQuote, CaseSection, CaseStudyHero } from "@/components/case-study";
@@ -20,7 +19,7 @@ export default function FranchiseeCaseStudy() {
       <CaseStudyHero
         label="A Five Guys franchisee in Central Kentucky"
         title="Three stores, one manager portal"
-        photo={photos.storeB}
+        photo={photos.portal}
         intro={
           <p>
             I run operations for this franchisee and built these systems for it.
@@ -59,21 +58,6 @@ export default function FranchiseeCaseStudy() {
         </div>
       </CaseSection>
 
-      <section className="px-4 md:px-10 pb-12">
-        <figure className="max-w-[560px] mx-auto">
-          <Image
-            src={photos.team.src}
-            alt={photos.team.alt}
-            width={photos.team.width}
-            height={photos.team.height}
-            sizes="(min-width: 640px) 560px, 100vw"
-            className="w-full h-auto rounded"
-          />
-          <figcaption className="mt-3 font-display text-[15px] text-muted">
-            Phil, seated, with part of the store team at a hiring fair.
-          </figcaption>
-        </figure>
-      </section>
 
       <CaseClose />
     </>

@@ -1,8 +1,8 @@
-import Image from "next/image";
 import Link from "next/link";
 import Button from "./button";
 import CTABand from "./cta-band";
 import JsonLd from "./json-ld";
+import PageHero from "./v2/page-hero";
 
 interface RelatedPost {
   href: string;
@@ -13,7 +13,9 @@ interface RelatedPost {
 interface ServicePageProps {
   title: string;
   subtitle: string;
-  image: { src: string; alt: string };
+  /** Real work or a panel drawn in code (Phil, 2026-10-07: no generated scenes). */
+  visual?: React.ReactNode;
+  shot?: { src: string; alt: string; width: number; height: number };
   deliverables: string[];
   whoItsFor: string[];
   showroomLink?: { href: string; label: string };
@@ -21,11 +23,11 @@ interface ServicePageProps {
   serviceJsonLd?: Record<string, unknown>;
 }
 
-// Same shape as /services: a scene beside the headline, then plain ruled lists.
 export default function ServicePageTemplate({
   title,
   subtitle,
-  image,
+  visual,
+  shot,
   deliverables,
   whoItsFor,
   showroomLink,
@@ -36,26 +38,12 @@ export default function ServicePageTemplate({
     <>
       {serviceJsonLd && <JsonLd data={serviceJsonLd} />}
 
-      <section className="relative mt-16 lg:mt-[72px] bg-ink">
-        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:min-h-[max(520px,calc(90svh-72px))]">
-          <div className="order-2 lg:order-1 px-4 md:px-10 py-12 lg:py-16 flex flex-col justify-center">
-            <h1 className="font-display text-[40px] sm:text-[54px] lg:text-[66px] leading-[1.0] font-extralight tracking-[-0.03em] text-ink max-w-[13ch]">
-              {title}
-            </h1>
-            <p className="mt-7 text-[19px] md:text-[21px] leading-snug text-body max-w-[38ch]">{subtitle}</p>
-          </div>
-          <div className="order-1 lg:order-2 relative min-h-[300px] sm:min-h-[420px]">
-            <Image src={image.src} alt={image.alt} fill priority sizes="(min-width: 1024px) 58vw, 100vw" className="object-cover" />
-          </div>
-        </div>
-      </section>
+      <PageHero title={title} intro={subtitle} visual={visual} shot={shot} />
 
-      <section className="px-4 md:px-10 py-24 md:py-32">
-        <div className="max-w-[1360px] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] gap-10 lg:gap-20">
-          <h2 className="font-display text-[36px] md:text-[52px] leading-none font-light tracking-tight text-ink">
-            What you get
-          </h2>
-          <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-12 border-t border-line">
+      <section className="px-4 py-24 md:px-10 md:py-32">
+        <div className="mx-auto grid max-w-page grid-cols-1 gap-10 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-20">
+          <h2 className="font-display text-[36px] font-light leading-none tracking-[-0.03em] text-ink md:text-[56px]">What you get</h2>
+          <ul className="grid grid-cols-1 gap-x-12 border-t border-line md:grid-cols-2">
             {deliverables.map((d) => (
               <li key={d} className="border-b border-line py-5 text-[18px] leading-relaxed text-body">
                 {d}
@@ -65,14 +53,12 @@ export default function ServicePageTemplate({
         </div>
       </section>
 
-      <section className="bg-band px-4 md:px-10 py-24 md:py-32">
-        <div className="max-w-[1360px] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] gap-10 lg:gap-20">
-          <h2 className="font-display text-[32px] md:text-[44px] leading-[1.05] font-light tracking-tight text-ink">
-            Who this is for
-          </h2>
+      <section className="bg-band px-4 py-24 md:px-10 md:py-32">
+        <div className="mx-auto grid max-w-page grid-cols-1 gap-10 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-20">
+          <h2 className="font-display text-[32px] font-light leading-[1.05] tracking-[-0.03em] text-ink md:text-[48px]">Who this is for</h2>
           <ul className="divide-y divide-line border-y border-line">
             {whoItsFor.map((w) => (
-              <li key={w} className="py-6 font-display text-[19px] md:text-[23px] font-light leading-snug text-ink">
+              <li key={w} className="py-6 font-display text-[20px] font-medium leading-snug tracking-[-0.01em] text-ink md:text-[26px]">
                 {w}
               </li>
             ))}
@@ -81,17 +67,17 @@ export default function ServicePageTemplate({
       </section>
 
       {(showroomLink || (relatedPosts && relatedPosts.length > 0)) && (
-        <section className="px-4 md:px-10 py-20 md:py-28">
-          <div className="max-w-[1360px] mx-auto flex flex-col lg:flex-row lg:items-start lg:justify-between gap-12">
+        <section className="px-4 py-20 md:px-10 md:py-28">
+          <div className="mx-auto flex max-w-page flex-col gap-12 lg:flex-row lg:items-start lg:justify-between">
             {relatedPosts && relatedPosts.length > 0 && (
               <div>
-                <h2 className="font-display text-[22px] md:text-[26px] font-light text-ink">Related reading</h2>
+                <h2 className="font-display text-[24px] font-light text-ink md:text-[30px]">Related reading</h2>
                 <ul className="mt-6 space-y-4">
                   {relatedPosts.map((post) => (
                     <li key={post.href}>
                       <Link
                         href={post.href}
-                        className="font-display text-[18px] md:text-[20px] text-blue underline underline-offset-4 decoration-blue/40 hover:decoration-blue"
+                        className="font-display text-[18px] text-blue underline decoration-blue/40 underline-offset-4 hover:decoration-blue md:text-[20px]"
                       >
                         {post.title}
                       </Link>

@@ -1,4 +1,6 @@
 import Button from "./button";
+import { Reveal } from "./v2/reveal";
+import { MarkBuild } from "./v2/scroll-sections";
 import { BOOKING_URL, EMAIL, PHONE, PHONE_HREF } from "@/lib/site";
 
 interface CTABandProps {
@@ -8,7 +10,8 @@ interface CTABandProps {
   buttonHref?: string;
 }
 
-// One closing band for every page: limestone, a plain offer, the booking link.
+// One closing chapter for every page: night, the official mark building itself, a plain offer
+// and the booking link. The footer continues the same night background below it.
 export default function CTABand({
   headline = "Tell me what takes up your week.",
   subtext = "Book a 30-minute call. We talk through your business, and I tell you whether I can help.",
@@ -16,28 +19,32 @@ export default function CTABand({
   buttonHref = BOOKING_URL,
 }: CTABandProps) {
   return (
-    <section className="bg-band px-4 md:px-10 py-16 md:py-20">
-      <div className="max-w-[1360px] mx-auto flex flex-col md:flex-row md:items-end md:justify-between gap-8">
-        <div className="max-w-[560px]">
-          <h2 className="font-display text-[32px] md:text-[44px] leading-[1.08] font-light tracking-tight text-ink">
-            {headline}
-          </h2>
-          {subtext && <p className="mt-3 text-[18px] leading-relaxed text-body">{subtext}</p>}
+    <section data-nav="dark" className="night bg-night px-4 pb-20 pt-24 text-night-text md:px-10 md:pb-28 md:pt-36">
+      <div className="mx-auto grid max-w-page grid-cols-1 items-center gap-14 lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] lg:gap-20">
+        <div>
+          <Reveal
+            text={headline}
+            className="max-w-[16ch] font-display text-[40px] font-light leading-[1.02] tracking-[-0.03em] md:text-[64px]"
+          />
+          {subtext && <p className="mt-6 max-w-[44ch] text-[19px] leading-relaxed text-night-body">{subtext}</p>}
+          <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-5 font-display text-[15px]">
+            <Button href={buttonHref}>{buttonText}</Button>
+            <div className="space-y-1 text-night-body">
+              <p>
+                Or call{" "}
+                <a href={PHONE_HREF} className="text-night-text underline decoration-night-blue/60 underline-offset-4 hover:decoration-night-blue">
+                  {PHONE}
+                </a>
+              </p>
+              <p>
+                <a href={`mailto:${EMAIL}`} className="text-night-text underline decoration-night-blue/60 underline-offset-4 hover:decoration-night-blue">
+                  {EMAIL}
+                </a>
+              </p>
+            </div>
+          </div>
         </div>
-        <div className="font-display text-[15px] text-ink">
-          <Button href={buttonHref}>{buttonText}</Button>
-          <p className="mt-4">
-            Or call{" "}
-            <a href={PHONE_HREF} className="text-blue underline underline-offset-2">
-              {PHONE}
-            </a>
-          </p>
-          <p className="mt-1">
-            <a href={`mailto:${EMAIL}`} className="text-blue underline underline-offset-2">
-              {EMAIL}
-            </a>
-          </p>
-        </div>
+        <MarkBuild className="mx-auto w-full max-w-[560px]" />
       </div>
     </section>
   );

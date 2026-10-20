@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { pageMeta } from "@/lib/metadata";
 import ServicePageTemplate from "@/components/service-page-template";
+import { photos } from "@/lib/photos";
 
 export const metadata: Metadata = pageMeta({
   title: "Web Design & Development",
@@ -12,7 +13,7 @@ export const metadata: Metadata = pageMeta({
 export default function WebDesignPage() {
   return (
     <ServicePageTemplate
-      image={{ src: "/images/scenes/shop-website.webp", alt: "A shop owner after closing, checking a website on a laptop at the counter" }}
+      shot={photos.pfsaSite}
       title="A website built for your business."
       subtitle="A website comes with Business AI Setup Professional and Custom. Professional includes a one-page website. Custom includes a full website."
       deliverables={[

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { pageMeta } from "@/lib/metadata";
-import Image from "next/image";
+import PageHero from "@/components/v2/page-hero";
+import { PlanPanel } from "@/components/v2/panels";
 import Link from "next/link";
 import CTABand from "@/components/cta-band";
 import RelatedLinks from "@/components/related-links";
@@ -42,30 +43,11 @@ const drivers = [
 export default function CostPage() {
   return (
     <>
-      <section className="relative mt-16 lg:mt-[72px] bg-ink">
-        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:min-h-[max(520px,calc(90svh-72px))]">
-          <div className="order-2 lg:order-1 px-4 md:px-10 py-12 lg:py-16 flex flex-col justify-center">
-            <h1 className="font-display text-[40px] sm:text-[54px] lg:text-[66px] leading-[1.0] font-extralight tracking-[-0.03em] text-ink max-w-[13ch]">
-              What drives the cost
-            </h1>
-            <p className="mt-7 text-[19px] md:text-[21px] leading-snug text-body max-w-[38ch]">
-              Two businesses can ask for the same thing and get numbers that are
-              nowhere near each other. Six things account for almost all of that gap,
-              and you can work out roughly where you sit before you ever talk to us.
-            </p>
-          </div>
-          <div className="order-1 lg:order-2 relative min-h-[300px] sm:min-h-[420px]">
-            <Image
-              src="/images/scenes/owner-reviewing-plan.webp"
-              alt="A business owner at a kitchen table at night reading a printed plan beside a laptop"
-              fill
-              priority
-              sizes="(min-width: 1024px) 58vw, 100vw"
-              className="object-cover"
-            />
-          </div>
-        </div>
-      </section>
+      <PageHero
+        title="What drives the cost"
+        intro="Two businesses can ask for the same thing and get numbers that are nowhere near each other. Six things account for almost all of that gap, and you can work out roughly where you sit before you ever talk to us."
+        visual={<PlanPanel />}
+      />
 
       <section className="px-4 md:px-10 py-24 md:py-32">
         <div className="max-w-[1360px] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] gap-10 lg:gap-20">

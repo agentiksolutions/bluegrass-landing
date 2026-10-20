@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { pageMeta } from "@/lib/metadata";
 import ServicePageTemplate from "@/components/service-page-template";
+import { SystemsMap } from "@/components/v2/panels";
 
 export const metadata: Metadata = pageMeta({
   title: "Operations Consulting",
@@ -12,7 +13,7 @@ export const metadata: Metadata = pageMeta({
 export default function OperationsPage() {
   return (
     <ServicePageTemplate
-      image={{ src: "/images/scenes/process-map.webp", alt: "A person adding a sticky note to a hand-drawn process map on a whiteboard at night" }}
+      visual={<SystemsMap />}
       title="Improve how the work runs."
       subtitle="Most businesses have the same problems: unclear processes, too many tools, communication gaps, and manual work that could be automated. We find where the time and money go, and tackle it."
       deliverables={[

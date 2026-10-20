@@ -12,6 +12,8 @@
     "@supabase/supabase-js": "^2.42.0",
     "d3-delaunay": "^6.0.4",
     "gray-matter": "^4.0.3",
+    "gsap": "^3.12.5",
+    "lenis": "^1.1.13",
     "motion": "^13.4.2",
     "next": "^14.2.0",
     "next-mdx-remote": "^6.0.0",

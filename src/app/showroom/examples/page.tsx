@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { pageMeta } from "@/lib/metadata";
 import Button from "@/components/button";
 import CTABand from "@/components/cta-band";
+import PageHero from "@/components/v2/page-hero";
 
 export const metadata: Metadata = pageMeta({
   title: "Built Examples",
@@ -29,17 +30,7 @@ const examples = [
 export default function ExamplesPage() {
   return (
     <>
-      <section className="mt-16 lg:mt-[72px] px-4 md:px-10 pt-16 md:pt-24 pb-14">
-        <div className="max-w-[1360px] mx-auto">
-          <h1 className="font-display text-[48px] sm:text-[68px] lg:text-[88px] leading-[0.95] font-extralight tracking-[-0.03em] text-ink">
-            Built examples
-          </h1>
-          <p className="mt-6 text-[19px] md:text-[22px] leading-snug text-body max-w-[44ch]">
-            Real sites and tools we&apos;ve designed: working builds you can click
-            through and interact with.
-          </p>
-        </div>
-      </section>
+      <PageHero compact title="Built examples" intro="Real sites and tools we've designed: working builds you can click through and interact with." />
 
       <section className="px-4 md:px-10 pb-24 md:pb-32">
         <div className="max-w-[1360px] mx-auto">
@@ -65,7 +56,7 @@ export default function ExamplesPage() {
                   </ul>
                   <div className="mt-10">
                     <Button href={ex.href} external={ex.external}>
-                      View Live Demo &rarr;
+                      View the live demo
                     </Button>
                   </div>
                 </div>

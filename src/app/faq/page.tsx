@@ -4,6 +4,7 @@ import Link from "next/link";
 import CTABand from "@/components/cta-band";
 import JsonLd from "@/components/json-ld";
 import RelatedLinks from "@/components/related-links";
+import PageHero from "@/components/v2/page-hero";
 
 export const metadata: Metadata = pageMeta({
   title: "Frequently Asked Questions",
@@ -77,17 +78,7 @@ export default function FAQPage() {
     <>
       <JsonLd data={faqJsonLd} />
 
-      <section className="mt-16 lg:mt-[72px] px-4 md:px-10 pt-16 md:pt-24 pb-14">
-        <div className="max-w-[1360px] mx-auto">
-          <h1 className="font-display text-[48px] sm:text-[68px] lg:text-[88px] leading-[0.95] font-extralight tracking-[-0.03em] text-ink">
-            Questions we get asked
-          </h1>
-          <p className="mt-6 text-[19px] md:text-[22px] leading-snug text-body max-w-[44ch]">
-            Ten questions from intro calls, answered the way we answer them on
-            the phone.
-          </p>
-        </div>
-      </section>
+      <PageHero compact title="Questions we get asked" intro="Ten questions from intro calls, answered the way we answer them on the phone." />
 
       <section className="px-4 md:px-10 pb-24 md:pb-32">
         <div className="max-w-[1360px] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] gap-10 lg:gap-20">

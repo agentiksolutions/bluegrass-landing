@@ -2,7 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { pageMeta } from "@/lib/metadata";
 import CTABand from "@/components/cta-band";
-import { AssistantPanel } from "@/components/work-panels";
+import Button from "@/components/button";
+import { AssistantPanel } from "@/components/v2/panels";
+import PageHero from "@/components/v2/page-hero";
+import { PathSteps } from "@/components/v2/scroll-sections";
 import { BOOKING_URL } from "@/lib/site";
 
 export const metadata: Metadata = pageMeta({
@@ -95,115 +98,87 @@ const guides = [
 export default function ServicesPage() {
   return (
     <>
-      {/* Hero: what we do in one sentence, beside the thing we set up. */}
-      <section className="mt-16 lg:mt-[72px] bg-ink px-4 md:px-10 py-14 md:py-20">
-        <div className="max-w-[1360px] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] gap-10 lg:gap-16 items-center">
-          <div>
-            <h1 className="font-display text-[44px] sm:text-[56px] lg:text-[68px] leading-[0.98] font-extralight tracking-[-0.03em] text-ink max-w-[12ch]">
-              What we do for your business
-            </h1>
-            <p className="mt-6 text-[19px] md:text-[21px] leading-snug text-body max-w-[38ch]">
-              We pair your business with the AI tools that fit it, set them up on your own accounts
-              and train your team to use them.
-            </p>
-            <a
-              href={BOOKING_URL}
-              className="mt-8 inline-flex items-center rounded bg-blue px-6 py-3.5 font-display text-[15px] font-semibold text-white transition-colors hover:bg-blue-dark"
-            >
-              Book a call
-            </a>
-          </div>
-          <div className="relative min-h-[380px] sm:min-h-0 sm:aspect-[16/9] overflow-hidden rounded-lg border border-line bg-white">
-            <AssistantPanel />
-          </div>
-        </div>
-      </section>
+      <PageHero
+        title="What we do for your business"
+        intro="We pair your business with the AI tools that fit it, set them up on your own accounts and train your team to use them."
+        actions={<Button href={BOOKING_URL}>Book a call</Button>}
+        visual={<AssistantPanel />}
+      />
 
       {/* What we do, in four lines. */}
-      <section className="px-4 md:px-10 py-16 md:py-20">
-        <div className="max-w-[1360px] mx-auto">
-          <h2 className="font-display text-[32px] md:text-[48px] leading-none font-light tracking-tight text-ink">
-            What we do
-          </h2>
-          <ul className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8">
+      <section className="px-4 py-24 md:px-10 md:py-32">
+        <div className="mx-auto max-w-page">
+          <h2 className="font-display text-[36px] font-light leading-none tracking-[-0.03em] text-ink md:text-[56px]">What we do</h2>
+          <ul className="mt-12 grid grid-cols-1 gap-x-8 sm:grid-cols-2 lg:grid-cols-4">
             {whatWeDo.map((w) => (
-              <li key={w.name} className="border-t border-line py-6">
-                <h3 className="font-display text-[22px] md:text-[24px] font-light text-ink">{w.name}</h3>
-                <p className="mt-2 text-[16px] md:text-[17px] leading-relaxed text-body">{w.body}</p>
+              <li key={w.name} className="border-t border-ink py-6">
+                <h3 className="font-display text-[22px] font-medium tracking-[-0.01em] text-ink md:text-[24px]">{w.name}</h3>
+                <p className="mt-2 text-[17px] leading-relaxed text-body">{w.body}</p>
               </li>
             ))}
           </ul>
         </div>
       </section>
 
-      {/* The capabilities sheet, in full. */}
-      <section className="bg-band px-4 md:px-10 py-16 md:py-20">
-        <div className="max-w-[1360px] mx-auto">
-          <h2 className="font-display text-[32px] md:text-[48px] leading-none font-light tracking-tight text-ink">
-            Work your assistant can take on
-          </h2>
-          <ul className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8">
+      {/* The capabilities sheet, in full: a night chapter whose heading holds while the list passes. */}
+      <section data-nav="dark" className="night bg-night px-4 py-24 text-night-text md:px-10 md:py-32">
+        <div className="mx-auto grid max-w-page grid-cols-1 gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-20">
+          <div className="lg:sticky lg:top-32 lg:self-start">
+            <h2 className="max-w-[12ch] font-display text-[36px] font-light leading-[1.02] tracking-[-0.03em] md:text-[56px]">
+              Work your assistant can take on
+            </h2>
+            <p className="mt-8 max-w-[40ch] text-[18px] leading-relaxed text-night-body">
+              <span className="font-display text-night-text">Every job starts with a person approving it.</span> Your
+              assistant drafts and proposes, and someone on your team approves before anything is sent, published or
+              changed. As you get comfortable with a routine job, you can choose to let it run on its own with a log you
+              can check.
+            </p>
+          </div>
+          <ul className="border-t border-night-line">
             {capabilities.map((c) => (
-              <li key={c.name} className="border-t border-line py-6">
-                <h3 className="font-display text-[20px] md:text-[22px] font-light text-ink">{c.name}</h3>
-                <p className="mt-2 text-[16px] leading-relaxed text-body">{c.body}</p>
+              <li key={c.name} className="grid grid-cols-1 gap-2 border-b border-night-line py-7 md:grid-cols-[minmax(0,4fr)_minmax(0,7fr)] md:gap-8">
+                <h3 className="font-display text-[22px] font-medium tracking-[-0.01em] md:text-[24px]">{c.name}</h3>
+                <p className="text-[17px] leading-relaxed text-night-body">{c.body}</p>
               </li>
             ))}
           </ul>
-          <p className="mt-6 border-t border-line pt-6 text-[17px] md:text-[18px] leading-relaxed text-body max-w-[90ch]">
-            <span className="font-display text-ink">Every job starts with a person approving it.</span>{" "}
-            Your assistant drafts and proposes, and someone on your team approves before anything is sent,
-            published or changed. As you get comfortable with a routine job, you can choose to let it run on
-            its own with a log you can check.
-          </p>
         </div>
       </section>
 
-      {/* The client path, in one row. */}
-      <section className="px-4 md:px-10 py-16 md:py-20">
-        <div className="max-w-[1360px] mx-auto">
-          <h2 className="font-display text-[32px] md:text-[48px] leading-none font-light tracking-tight text-ink">
-            How it works
-          </h2>
-          <ol className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-x-8">
-            {path.map((p) => (
-              <li key={p.name} className="border-t border-line pt-5 pb-6">
-                <h3 className="font-display text-[20px] md:text-[22px] font-light text-ink">{p.name}</h3>
-                <p className="mt-2 text-[16px] leading-relaxed text-body">{p.body}</p>
-              </li>
-            ))}
-          </ol>
+      {/* The client path: a line draws down the steps. */}
+      <section className="px-4 py-24 md:px-10 md:py-32">
+        <div className="mx-auto grid max-w-page grid-cols-1 gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-20">
+          <h2 className="font-display text-[36px] font-light leading-none tracking-[-0.03em] text-ink md:text-[56px]">How it works</h2>
+          <PathSteps steps={path.map((p) => ({ title: p.name, line: p.body }))} />
         </div>
       </section>
 
       {/* Larger businesses and the other services, side by side. */}
-      <section className="bg-band px-4 md:px-10 py-16 md:py-20">
-        <div className="max-w-[1360px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
+      <section className="bg-band px-4 py-24 md:px-10 md:py-32">
+        <div className="mx-auto grid max-w-page grid-cols-1 gap-16 lg:grid-cols-2 lg:gap-20">
           <div>
-            <h2 className="font-display text-[28px] md:text-[36px] leading-tight font-light tracking-tight text-ink">
-              For larger businesses
-            </h2>
+            <h2 className="font-display text-[30px] font-light leading-tight tracking-[-0.02em] text-ink md:text-[40px]">For larger businesses</h2>
             <p className="mt-3 text-[17px] text-body">Several companies or entities, or custom work.</p>
-            <ul className="mt-6 divide-y divide-line border-y border-line">
+            <ul className="mt-8 divide-y divide-line border-y border-line">
               {larger.map((l) => (
                 <li key={l.name} className="py-5">
-                  <h3 className="font-display text-[20px] font-light text-ink">{l.name}</h3>
-                  <p className="mt-1 text-[16px] leading-relaxed text-body">{l.body}</p>
+                  <h3 className="font-display text-[21px] font-medium tracking-[-0.01em] text-ink">{l.name}</h3>
+                  <p className="mt-1 text-[17px] leading-relaxed text-body">{l.body}</p>
                 </li>
               ))}
             </ul>
           </div>
           <div>
-            <h2 className="font-display text-[28px] md:text-[36px] leading-tight font-light tracking-tight text-ink">
-              Also
-            </h2>
+            <h2 className="font-display text-[30px] font-light leading-tight tracking-[-0.02em] text-ink md:text-[40px]">Also</h2>
             <p className="mt-3 text-[17px] text-body">For any business, on its own or alongside a setup.</p>
-            <ul className="mt-6 divide-y divide-line border-y border-line">
+            <ul className="mt-8 divide-y divide-line border-y border-line">
               {also.map((a) => (
                 <li key={a.name}>
                   <Link href={a.href} className="group block py-5">
-                    <h3 className="font-display text-[20px] font-light text-ink transition-colors group-hover:text-blue">{a.name}</h3>
-                    <p className="mt-1 text-[16px] leading-relaxed text-body">{a.body}</p>
+                    <h3 className="font-display text-[21px] font-medium tracking-[-0.01em] text-ink transition-colors group-hover:text-blue">
+                      {a.name}
+                    </h3>
+                    <p className="mt-1 text-[17px] leading-relaxed text-body">{a.body}</p>
                   </Link>
                 </li>
               ))}
@@ -212,13 +187,13 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <section className="px-4 md:px-10 py-12 md:py-14">
-        <nav aria-label="Guides" className="max-w-[1360px] mx-auto">
+      <section className="px-4 py-16 md:px-10 md:py-20">
+        <nav aria-label="Guides" className="mx-auto max-w-page">
           <h2 className="font-display text-[18px] font-semibold text-ink">Guides</h2>
-          <ul className="mt-4 flex flex-wrap gap-x-8 gap-y-3 font-display text-[16px]">
+          <ul className="mt-5 flex flex-wrap gap-x-8 gap-y-3 font-display text-[16px]">
             {guides.map((g) => (
               <li key={g.href}>
-                <Link href={g.href} className="text-blue underline underline-offset-4 decoration-blue/40 hover:decoration-blue">
+                <Link href={g.href} className="text-blue underline decoration-blue/40 underline-offset-4 hover:decoration-blue">
                   {g.label}
                 </Link>
               </li>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { pageMeta } from "@/lib/metadata";
 import ServicePageTemplate from "@/components/service-page-template";
+import { InboxPanel } from "@/components/v2/panels";
 
 export const metadata: Metadata = pageMeta({
   title: "AI Integration",
@@ -12,7 +13,7 @@ export const metadata: Metadata = pageMeta({
 export default function AIIntegrationPage() {
   return (
     <ServicePageTemplate
-      image={{ src: "/images/scenes/inbox-sorting.webp", alt: "An office manager at dusk pointing at an inbox sorted into groups on a large monitor" }}
+      visual={<InboxPanel />}
       title="AI that fits how your business runs."
       subtitle="Tools that do real work: research, reporting, document creation and customer communication, set up around how your business runs."
       deliverables={[

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { pageMeta } from "@/lib/metadata";
 import { CookieSettingsButton } from "@/components/cookie-consent";
+import PageHero from "@/components/v2/page-hero";
 
 export const metadata: Metadata = pageMeta({
   title: "Privacy Notice",
@@ -9,19 +10,17 @@ export const metadata: Metadata = pageMeta({
   path: "/privacy",
 });
 
-const h2 = "font-display text-[24px] leading-snug font-bold tracking-tight mt-12 mb-4";
-const p = "text-[17px] leading-relaxed text-charcoal mb-4";
-const ul = "list-disc pl-6 text-[17px] leading-relaxed text-charcoal mb-4 space-y-2";
-const a = "text-emerald underline hover:text-sage";
+const h2 = "font-display text-[26px] leading-snug font-medium tracking-[-0.01em] text-ink mt-12 mb-4";
+const p = "text-[17px] leading-relaxed text-body mb-4";
+const ul = "list-disc pl-6 text-[17px] leading-relaxed text-body mb-4 space-y-2";
+const a = "text-blue underline hover:text-blue-dark";
 
 export default function PrivacyPage() {
   return (
-    <section className="pt-[148px] pb-24 px-6 md:px-12 max-w-content mx-auto">
+    <>
+    <PageHero compact title="Privacy notice" intro="Effective date: October 16, 2026" />
+    <section className="mx-auto max-w-page px-4 pb-24 pt-16 md:px-10 md:pt-20">
       <div className="max-w-[680px]">
-        <h1 className="font-display text-[clamp(36px,5vw,52px)] leading-[1.1] font-bold tracking-tight mb-4">
-          Privacy notice
-        </h1>
-        <p className="text-[15px] text-stone mb-10">Effective date: October 16, 2026</p>
 
         <p className={p}>
           This notice covers bluegrassadvisorygroup.com, run by Bluegrass
@@ -106,5 +105,6 @@ export default function PrivacyPage() {
         </p>
       </div>
     </section>
+    </>
   );
 }

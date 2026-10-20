@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Button from "@/components/button";
+import KentuckyLine from "@/components/v2/kentucky-line";
 
 export const metadata: Metadata = {
   title: "Page Not Found",
@@ -11,43 +12,40 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <section className="mt-16 lg:mt-[72px] px-4 md:px-10 pt-16 md:pt-24 pb-24 md:pb-32">
-      <div className="max-w-[1360px] mx-auto">
-        <h1 className="font-display text-[48px] sm:text-[68px] lg:text-[88px] leading-[0.95] font-extralight tracking-[-0.03em] text-ink max-w-[16ch]">
-          We couldn&apos;t find that page
-        </h1>
-        <p className="mt-6 text-[19px] md:text-[22px] leading-snug text-body max-w-[44ch]">
-          The link may be old or the page may have moved. Here are a few good
-          places to pick back up.
-        </p>
-
-        <div className="mt-10 flex flex-wrap gap-3">
-          <Button href="/">Back to Home</Button>
-          <Button href="/showroom" variant="secondary">
-            Explore the Showroom
-          </Button>
-          <Button href="/contact" variant="secondary">
-            Get in Touch
-          </Button>
-        </div>
-
-        <ul className="mt-16 border-t border-line pt-8 flex flex-wrap gap-x-10 gap-y-3">
-          <li>
-            <Link href="/services" className="font-display text-[20px] md:text-[24px] font-light text-blue underline underline-offset-4 decoration-blue/30 hover:decoration-blue">
+    <section data-nav="dark" className="night flex min-h-[100svh] items-center bg-night px-4 pb-20 pt-32 text-night-text md:px-10">
+      <div className="mx-auto grid w-full max-w-page grid-cols-1 items-center gap-14 lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)]">
+        <div>
+          <h1 className="max-w-[16ch] font-display text-[48px] font-light leading-[0.98] tracking-[-0.035em] sm:text-[68px] lg:text-[84px]">
+            We couldn&apos;t find that page
+          </h1>
+          <p className="mt-6 max-w-[44ch] text-[19px] leading-snug text-night-body md:text-[22px]">
+            The link may be old or the page may have moved. Here are a few good places to pick back up.
+          </p>
+          <div className="mt-10 flex flex-wrap gap-3">
+            <Button href="/">Back to home</Button>
+            <Button href="/services" variant="outline-dark">
               Services
-            </Link>
-          </li>
-          <li>
-            <Link href="/about" className="font-display text-[20px] md:text-[24px] font-light text-blue underline underline-offset-4 decoration-blue/30 hover:decoration-blue">
-              About
-            </Link>
-          </li>
-          <li>
-            <Link href="/insights" className="font-display text-[20px] md:text-[24px] font-light text-blue underline underline-offset-4 decoration-blue/30 hover:decoration-blue">
-              Insights
-            </Link>
-          </li>
-        </ul>
+            </Button>
+            <Button href="/contact" variant="outline-dark">
+              Contact
+            </Button>
+          </div>
+          <ul className="mt-14 flex flex-wrap gap-x-10 gap-y-3 border-t border-night-line pt-8 font-display text-[20px] font-light">
+            {[
+              { href: "/work", label: "Work" },
+              { href: "/about", label: "About" },
+              { href: "/insights", label: "Blog" },
+              { href: "/showroom", label: "Showroom" },
+            ].map((l) => (
+              <li key={l.href}>
+                <Link href={l.href} className="underline decoration-night-blue/50 underline-offset-4 hover:decoration-night-blue">
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <KentuckyLine className="mx-auto max-w-[560px]" />
       </div>
     </section>
   );
