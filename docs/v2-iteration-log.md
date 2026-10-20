@@ -316,3 +316,5 @@ Research is in `docs/v2-references.md` (GOV.UK, Stripe, Vercel, Linear, Apple UK
 
 - Still 20 of 20 on `consent.py`, 11 of 11 on `interact.py`. No overflow or errors on /, /about, the two case studies, /services and /privacy at 390, 768 and 1440.
 - Earlier pending items: the logo note was updated in e5cd5cb (Five Guys and Activate approved). "Over 15 years": no years figure is on the site to change.
+
+- **Correction (team-lead):** the round 2 redraw of the Five Guys mark is reverted, because a redraw alters a trademark. The file is back to the official vector paths from e945c7e in one color: the box is limestone and the letters are knocked out with an SVG mask (`scratchpad/fg_onecolor.py`). It is still mid-row.

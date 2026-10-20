@@ -13,8 +13,8 @@ import { gsap, EASE, motionOff } from "@/lib/gsap";
 // the manager portal was built; The PFSA is the nonprofit whose systems he built as president.
 // Logos come from each company's own site (PFSA: its own site's source files), shown in one
 // limestone monochrome treatment. StoneCreek and United Property Holdings publish no logo, so
-// their names are set in type rather than drawn. The Five Guys box is drawn as an outline with
-// limestone letters (no filled square), so it matches the other single-color marks.
+// their names are set in type rather than drawn. Five Guys uses its official vector paths in one
+// color: the box in limestone with the letters knocked out (an SVG mask), like the other marks.
 const CLIENTS: { name: string; logo?: string; h?: string }[] = [
   { name: "Greer Companies", logo: "/images/clients/greer-companies.png", h: "h-12 md:h-14" },
   { name: "Activate", logo: "/images/clients/activate.svg", h: "h-4 md:h-5" },
