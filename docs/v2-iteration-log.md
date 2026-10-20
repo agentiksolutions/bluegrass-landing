@@ -162,3 +162,9 @@ Lighthouse, mobile emulation, local production build: home performance 78 with a
 - The dashboard now arrives tilted back in depth (28 degrees, 86% scale) and settles flat as the inputs land. The inputs' landing spots are measured with the board and panels flat, so they still hit their slots.
 - Every inner page's opening visual drifts upward slower than the page as you scroll (`Drift`), so the headline and the picture separate in depth.
 - The sequence takes a heading per page, so the dashboards pages do not repeat the home page's line.
+
+## Round 10 (case studies)
+
+- The franchisee case has a tip-pool panel (sample data: hours, shares, and a check that the shares add up to the pool). The portal has a tip calculator. The caption claims no frequency.
+- The PFSA case has a board-portal panel (sample data: a donation with its receipt, an application sent to a vote, a recorded vote, drafted minutes). It matches the case study's own account of the first assistance case.
+- Both sit in a night band between the case sections and build in when half on screen.

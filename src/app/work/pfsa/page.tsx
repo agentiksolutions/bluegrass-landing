@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { pageMeta } from "@/lib/metadata";
 import { photos } from "@/lib/photos";
-import { CaseClose, CaseQuote, CaseSection, CaseStudyHero } from "@/components/case-study";
+import { CaseClose, CaseQuote, CaseSection, CaseStudyHero, CaseVisual } from "@/components/case-study";
+import { BoardPanel } from "@/components/v2/panels";
 
 // Facts come from docs/case-study-facts-2026-09-23.md, Case 2 (sourced rows only).
 // Past tense for the minutes pipeline: the board has not met since April 2026.
@@ -58,6 +59,9 @@ export default function PfsaCaseStudy() {
           secretary to review. It was tested end to end in March 2026.
         </p>
       </CaseSection>
+      <CaseVisual caption="What the board portal records, from a donation to a recorded vote.">
+        <BoardPanel />
+      </CaseVisual>
 
       <CaseSection title="Results">
         <p>

@@ -451,3 +451,87 @@ export function PlanPanel() {
     </div>
   );
 }
+
+/** A tip pool split by hours worked, the kind of calculation the manager portal does each week. */
+export function TipPanel() {
+  const rows = [
+    { name: "Team member A", hours: 31.5 },
+    { name: "Team member B", hours: 24.0 },
+    { name: "Team member C", hours: 18.25 },
+    { name: "Team member D", hours: 12.0 },
+  ];
+  const pool = 1240;
+  const total = rows.reduce((s, r) => s + r.hours, 0);
+  const ref = useOnce((el) =>
+    gsap
+      .timeline()
+      .from(el.querySelectorAll("[data-row]"), { autoAlpha: 0, x: -12, duration: 0.45, stagger: 0.12, ease: EASE })
+      .from(el.querySelectorAll("[data-share]"), { scaleX: 0, transformOrigin: "left center", duration: 0.8, stagger: 0.12, ease: EASE }, "-=0.3")
+      .from(el.querySelector("[data-check]"), { autoAlpha: 0, y: 6, duration: 0.4 }),
+  );
+  return (
+    <div
+      ref={ref}
+      role="img"
+      data-nomotion
+      aria-label="A weekly tip pool split by hours worked, shown with sample data: four team members, their hours, their share of a 1,240 dollar pool, and a check that the shares add up to the pool"
+      className="w-full overflow-hidden rounded-[6px] border border-night-line bg-night-2 font-display"
+    >
+      <PanelHead title="Tip pool" />
+      <div className="space-y-3 p-5 text-[13px] sm:text-[14px]">
+        {rows.map((r) => {
+          const share = (pool * r.hours) / total;
+          return (
+            <div key={r.name} data-row className="grid grid-cols-[minmax(0,4fr)_minmax(0,2fr)_minmax(0,5fr)_minmax(0,2fr)] items-center gap-3">
+              <span className="truncate text-night-text">{r.name}</span>
+              <span className="text-night-body">{r.hours.toFixed(2)} h</span>
+              <span className="h-2 rounded-[2px] bg-night-line">
+                <span data-share className="block h-full rounded-[2px] bg-night-blue" style={{ width: `${(r.hours / total) * 100 * 2.4}%` }} />
+              </span>
+              <span className="text-right text-night-text">${share.toFixed(2)}</span>
+            </div>
+          );
+        })}
+      </div>
+      <p data-check className="flex justify-between border-t border-night-line px-5 py-3 text-[12px] text-night-body sm:text-[13px]">
+        <span>Pool ${pool.toLocaleString("en-US")}.00 · {total.toFixed(2)} hours</span>
+        <span className="text-night-blue">Shares add up to the pool</span>
+      </p>
+    </div>
+  );
+}
+
+/** A nonprofit board portal: donations in, receipts sent, minutes filed. */
+export function BoardPanel() {
+  const items = [
+    { what: "Donation recorded", detail: "Receipt emailed to the donor", tag: "Donations" },
+    { what: "Assistance application received", detail: "Sent to the board for a vote", tag: "Applications" },
+    { what: "Board vote recorded", detail: "Approved, payment scheduled", tag: "Votes" },
+    { what: "Meeting minutes drafted", detail: "Ready for the secretary to review", tag: "Minutes" },
+  ];
+  const ref = useOnce((el) =>
+    gsap.timeline().from(el.querySelectorAll("[data-item]"), { autoAlpha: 0, y: 14, duration: 0.5, stagger: 0.18, ease: EASE }),
+  );
+  return (
+    <div
+      ref={ref}
+      role="img"
+      data-nomotion
+      aria-label="A nonprofit board portal activity list, shown with sample data: a donation recorded with a receipt sent, an assistance application sent for a vote, a board vote recorded and meeting minutes drafted for review"
+      className="w-full overflow-hidden rounded-[6px] border border-night-line bg-night-2 font-display"
+    >
+      <PanelHead title="Board portal, this month" />
+      <ul className="divide-y divide-night-line">
+        {items.map((it) => (
+          <li data-item key={it.what} className="flex items-center gap-4 px-5 py-3.5 text-[13px] sm:text-[14px]">
+            <span className="min-w-0 flex-1">
+              <span className="block text-night-text">{it.what}</span>
+              <span className="block text-night-body">{it.detail}</span>
+            </span>
+            <span className="shrink-0 rounded-[3px] border border-night-line px-2.5 py-1 text-[12px] text-night-body">{it.tag}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}

@@ -47,3 +47,15 @@ export function CaseClose({ note }: { note?: string }) {
     </>
   );
 }
+
+/** A night band holding one panel drawn in code (sample data), between case sections. */
+export function CaseVisual({ caption, children }: { caption: string; children: React.ReactNode }) {
+  return (
+    <section data-nav="dark" className="night my-8 bg-night px-4 py-20 text-night-text md:px-10 md:py-28">
+      <div className="mx-auto max-w-[720px]">
+        {children}
+        <p className="mt-4 font-display text-[14px] text-night-body">{caption}</p>
+      </div>
+    </section>
+  );
+}

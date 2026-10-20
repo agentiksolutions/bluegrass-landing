@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { pageMeta } from "@/lib/metadata";
 import { photos } from "@/lib/photos";
-import { CaseClose, CaseQuote, CaseSection, CaseStudyHero } from "@/components/case-study";
+import { CaseClose, CaseQuote, CaseSection, CaseStudyHero, CaseVisual } from "@/components/case-study";
+import { TipPanel } from "@/components/v2/panels";
 
 // Facts come from docs/case-study-facts-2026-09-23.md (sourced rows only) and Phil's own
 // words in docs/phil-impact-in-his-words-2026-09-23.md. No payroll, no store names, no store towns.
@@ -49,6 +50,9 @@ export default function FranchiseeCaseStudy() {
           tells the manager who to call and walks them through troubleshooting.
         </p>
       </CaseSection>
+      <CaseVisual caption="One of the portal's jobs: splitting the tip pool by hours worked.">
+        <TipPanel />
+      </CaseVisual>
 
       <CaseSection title="In my words">
         <div className="grid grid-cols-1 gap-6 not-prose">
