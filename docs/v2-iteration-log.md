@@ -145,3 +145,14 @@ New since round 5:
 | The scattered inputs never appeared: the chip layer faded with the panels | The word-count marker `data-panel` doubled as the panel-animation selector. The marker is now `data-imagery`, and chips are shown outside the timeline so a refresh cannot hide them |
 | Dashboard figures and the weekly report showed their final values before the build | They start at zero and blank and count or type in. The server HTML keeps the finished values for crawlers and reduced motion |
 | Home copy at 351 words after the new sections | Step lines, one video line, the hero caption and the long logo note trimmed. 299 words |
+
+## Round 8 (performance)
+
+| Defect | Fix |
+|---|---|
+| Phones downloaded the 3 MB flight video with the first screen (3.8 MB page weight) | The video loads only when its section is about a screen away; the reduced-motion still is lazy. Home page weight on first load: 687 KB |
+| First-screen headlines and intros waited for the page script before rising (late on slow phones) | First-screen words and blocks now rise with pure CSS animations from the first paint (`data-reveal-load`, `data-fade-load`); scroll reveals keep GSAP |
+| Hero paragraph reflowed when the reading font arrived | A reserved minimum height |
+| The data-to-dashboard sequence added to the dashboards service page and the multi-location guide | Reused as is |
+
+Lighthouse, mobile emulation, local production build: home performance 78 with accessibility, best practices and SEO all 100. The largest paint there is the cookie banner's paragraph, which appears after hydration (main's legal component, left as is). Services: 89. Layout shift: home 0.085, under the 0.1 line.

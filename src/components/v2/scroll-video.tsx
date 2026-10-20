@@ -29,8 +29,18 @@ export default function ScrollVideo({
     const el = ref.current;
     const video = videoRef.current;
     if (!el || !video || motionOff()) return;
-    video.src = window.innerWidth < 821 ? srcSmall : src;
-    video.load();
+    // Fetch the video only when the section is about a screen away, so it never competes with
+    // the first screen for bandwidth.
+    const near = new IntersectionObserver(
+      ([e]) => {
+        if (!e.isIntersecting) return;
+        video.src = window.innerWidth < 821 ? srcSmall : src;
+        video.load();
+        near.disconnect();
+      },
+      { rootMargin: "120% 0px" },
+    );
+    near.observe(el);
 
     let target = 0;
     let raf = 0;
@@ -63,6 +73,7 @@ export default function ScrollVideo({
       tl.to({}, { duration: 0.1 });
     }, el);
     return () => {
+      near.disconnect();
       cancelAnimationFrame(raf);
       ctx.revert();
     };
@@ -71,7 +82,7 @@ export default function ScrollVideo({
   return (
     <section ref={ref} data-nav="dark" data-nomotion className="night relative h-[100svh] overflow-hidden bg-night text-night-text">
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={still} alt="" aria-hidden="true" className="absolute inset-0 hidden h-full w-full object-cover [.motion-off_&]:block" />
+      <img src={still} alt="" aria-hidden="true" loading="lazy" className="absolute inset-0 hidden h-full w-full object-cover [.motion-off_&]:block" />
       <video
         ref={videoRef}
         muted

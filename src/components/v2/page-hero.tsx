@@ -47,18 +47,18 @@ export default function PageHero({
             }`}
           />
           {intro && (
-            <FadeUp delay={0.55} className="mt-7 max-w-[40ch] text-[19px] leading-snug text-night-body md:text-[21px]">
+            <FadeUp onLoad delay={0.55} className="mt-7 max-w-[40ch] text-[19px] leading-snug text-night-body md:text-[21px]">
               {intro}
             </FadeUp>
           )}
           {actions && (
-            <FadeUp delay={0.7} className="mt-9 flex flex-wrap items-center gap-x-7 gap-y-4">
+            <FadeUp onLoad delay={0.7} className="mt-9 flex flex-wrap items-center gap-x-7 gap-y-4">
               {actions}
             </FadeUp>
           )}
         </div>
         {!compact && (shot || art) && (
-          <FadeUp delay={0.45} className="min-w-0">
+          <FadeUp onLoad delay={0.45} className="min-w-0">
             {shot ? (
               <div className="overflow-hidden rounded-[6px] border border-night-line bg-white">
                 <Image

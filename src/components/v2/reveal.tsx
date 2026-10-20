@@ -30,7 +30,9 @@ export function Reveal({
 
   useLayoutEffect(() => {
     const el = ref.current;
-    if (!el || motionOff()) return;
+    // First-screen headlines rise with a CSS animation from the first paint (see globals.css), so
+    // they never wait for the page script to load.
+    if (!el || motionOff() || onLoad) return;
     const ctx = gsap.context(() => {
       const words = el.querySelectorAll(".rv-w > span");
       gsap.fromTo(
@@ -51,15 +53,18 @@ export function Reveal({
   }, [delay, onLoad, stagger]);
 
   const lines = text.split("\n");
+  let n = 0;
   return createElement(
     as,
-    { ref, className, "data-reveal": "" },
+    onLoad
+      ? { ref, className, "data-reveal-load": "", style: { "--d": `${delay}s`, "--s": `${stagger}s` } as React.CSSProperties }
+      : { ref, className, "data-reveal": "" },
     lines.map((line, li) => (
       <span key={li} className="block">
         {line.split(" ").map((w, i, arr) => (
           <span key={i}>
             <span className="rv-w">
-              <span>{w}</span>
+              <span style={onLoad ? ({ "--i": n++ } as React.CSSProperties) : undefined}>{w}</span>
             </span>
             {i < arr.length - 1 ? " " : null}
           </span>
@@ -75,17 +80,20 @@ export function FadeUp({
   className = "",
   delay = 0,
   as = "div",
+  onLoad = false,
 }: {
   children: React.ReactNode;
   className?: string;
   delay?: number;
   as?: Tag;
+  /** First screen: a CSS fade from the first paint instead of waiting for the script. */
+  onLoad?: boolean;
 }) {
   const ref = useRef<HTMLElement>(null);
 
   useLayoutEffect(() => {
     const el = ref.current;
-    if (!el || motionOff()) return;
+    if (!el || motionOff() || onLoad) return;
     const ctx = gsap.context(() => {
       gsap.fromTo(
         el,
@@ -94,9 +102,13 @@ export function FadeUp({
       );
     }, el);
     return () => ctx.revert();
-  }, [delay]);
+  }, [delay, onLoad]);
 
-  return createElement(as, { ref, className, "data-fade": "" }, children);
+  return createElement(
+    as,
+    onLoad ? { ref, className, "data-fade-load": "", style: { "--d": `${delay}s` } as React.CSSProperties } : { ref, className, "data-fade": "" },
+    children,
+  );
 }
 
 /** Re-measure pins once fonts and images have settled. */

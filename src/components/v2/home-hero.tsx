@@ -95,8 +95,8 @@ export default function HomeHero() {
               className="font-display text-[46px] font-medium leading-[0.98] tracking-[-0.04em] sm:text-[68px] lg:text-[104px]"
             />
           </div>
-          <FadeUp delay={0.9} className="pointer-events-auto mt-8 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
-            <p className="max-w-[30ch] text-[19px] leading-snug text-night-body md:text-[22px]">
+          <FadeUp onLoad delay={0.9} className="pointer-events-auto mt-8 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+            <p className="min-h-[2.5em] max-w-[30ch] text-[19px] leading-snug text-night-body md:text-[22px]">
               We teach your team, build your AI tools, and support them after.
             </p>
             <div className="flex flex-wrap items-center gap-x-7 gap-y-4">

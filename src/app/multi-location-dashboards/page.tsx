@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { pageMeta } from "@/lib/metadata";
 import PageHero from "@/components/v2/page-hero";
+import DataToDashboard from "@/components/v2/data-to-dashboard";
 import { LocationsPanel } from "@/components/v2/panels";
 import Link from "next/link";
 import Button from "@/components/button";
@@ -38,6 +39,7 @@ export default function MultiLocationDashboardsPage() {
         intro="At three or more locations you read about the week later, in reports that arrive on different days in different shapes."
         visual={<LocationsPanel />}
       />
+      <DataToDashboard />
 
       <section className="px-4 md:px-10 py-24 md:py-32">
         <div className="max-w-[1360px] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] gap-10 lg:gap-20">

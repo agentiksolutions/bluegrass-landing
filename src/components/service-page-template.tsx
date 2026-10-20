@@ -16,6 +16,8 @@ interface ServicePageProps {
   /** Real work or a panel drawn in code (Phil, 2026-10-07: no generated scenes). */
   visual?: React.ReactNode;
   shot?: { src: string; alt: string; width: number; height: number };
+  /** A full-width scroll sequence shown right after the opening band. */
+  feature?: React.ReactNode;
   deliverables: string[];
   whoItsFor: string[];
   showroomLink?: { href: string; label: string };
@@ -28,6 +30,7 @@ export default function ServicePageTemplate({
   subtitle,
   visual,
   shot,
+  feature,
   deliverables,
   whoItsFor,
   showroomLink,
@@ -39,6 +42,7 @@ export default function ServicePageTemplate({
       {serviceJsonLd && <JsonLd data={serviceJsonLd} />}
 
       <PageHero title={title} intro={subtitle} visual={visual} shot={shot} />
+      {feature}
 
       <section className="px-4 py-24 md:px-10 md:py-32">
         <div className="mx-auto grid max-w-page grid-cols-1 gap-10 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-20">

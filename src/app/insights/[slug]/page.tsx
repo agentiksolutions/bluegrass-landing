@@ -81,7 +81,7 @@ export default function InsightPostPage({ params }: Props) {
         </div>
       </section>
       <article className="mx-auto max-w-[1040px] px-4 pb-16 md:px-10">
-        <FadeUp delay={0.3} className="-mt-28 md:-mt-40">
+        <FadeUp onLoad delay={0.3} className="-mt-28 md:-mt-40">
           <figure className="relative aspect-[16/10] overflow-hidden rounded-[6px] border border-line bg-band">
             <Image src={post.meta.cover} alt={post.meta.coverAlt} fill priority sizes="(min-width: 1040px) 960px, 100vw" className="object-cover" />
           </figure>

@@ -38,7 +38,7 @@ export default function AboutPage() {
 
       <section data-nav="dark" data-nomotion className="night bg-night text-night-text">
         <div className="mx-auto grid max-w-page grid-cols-1 items-end gap-12 px-4 pb-16 pt-28 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:px-10 md:pb-24 md:pt-36 lg:gap-20">
-          <FadeUp delay={0.1} className="mx-auto w-full max-w-[440px] md:mx-0">
+          <FadeUp onLoad delay={0.1} className="mx-auto w-full max-w-[440px] md:mx-0">
             <Image
               src={photos.headshot.src}
               alt={photos.headshot.alt}
@@ -57,7 +57,7 @@ export default function AboutPage() {
               text="Phil Fifield"
               className="font-display text-[56px] font-light leading-[0.95] tracking-[-0.04em] md:text-[96px]"
             />
-            <FadeUp delay={0.5}>
+            <FadeUp onLoad delay={0.5}>
               <p className="mt-4 font-display text-[17px] text-night-blue">Founder and Principal, Bluegrass Advisory Group</p>
               <p className="mt-7 max-w-[36ch] text-[20px] leading-relaxed text-night-body md:text-[22px]">
                 I run operations for a restaurant franchisee and I&apos;m president of a Lexington nonprofit. I built the AI
