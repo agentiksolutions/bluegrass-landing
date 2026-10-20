@@ -12,24 +12,24 @@ export const metadata: Metadata = pageMeta({
 export default function OperationsPage() {
   return (
     <ServicePageTemplate
-      label="Operations Consulting"
-      title="Fix what's actually broken."
-      subtitle="Most businesses have the same problems — unclear processes, too many tools, communication gaps, and manual work that should've been automated years ago. We find the leaks and plug them."
+      image={{ src: "/images/scenes/process-map.webp", alt: "A person adding a sticky note to a hand-drawn process map on a whiteboard at night" }}
+      title="Improve how the work runs."
+      subtitle="Most businesses have the same problems: unclear processes, too many tools, communication gaps, and manual work that could be automated. We find where the time and money go, and tackle it."
       deliverables={[
-        "Full operational assessment — processes, tools, and team workflows",
+        "Full operational assessment: processes, tools, and team workflows",
         "SOP documentation for your critical processes",
-        "Tool audit and recommendation — what to keep, what to replace",
+        "Tool audit and recommendation: what to keep, what to replace",
         "Communication system design for teams and management",
         "Employee handbook and onboarding documentation",
         "Process automation where it makes sense",
-        "Implementation support — we don't just recommend, we build",
-        "Quarterly check-ins to measure impact and adjust",
+        "Implementation: we build what the roadmap recommends",
+        "Ongoing check-ins through Office Hours or an Embedded Retainer",
       ]}
       whoItsFor={[
         "Growing businesses where things keep falling through the cracks",
         "Companies where the owner is still doing everything manually",
         "Teams with high turnover and no onboarding system",
-        "Businesses with great people but terrible processes",
+        "Businesses with good people and processes that need work",
       ]}
       showroomLink={{
         href: "/showroom",
@@ -37,14 +37,14 @@ export default function OperationsPage() {
       }}
       relatedPosts={[
         {
-          href: "/insights/automating-our-own-back-office",
-          title: "What We Automated in Our Own Back Office First, and What It Cost Us to Learn",
-          category: "Case Study",
+          href: "/work/restaurant-franchisee",
+          title: "Three stores, one manager portal",
+          category: "Case study",
         },
         {
-          href: "/insights/choosing-an-ai-consultant",
-          title: "How to Choose an AI Consultant (Six Questions That Actually Separate Them)",
-          category: "Strategy",
+          href: "/work/pfsa",
+          title: "A back office for a Lexington nonprofit",
+          category: "Case study",
         },
       ]}
       serviceJsonLd={{

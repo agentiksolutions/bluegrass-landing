@@ -1,0 +1,19 @@
+/* Keyframes for marquee.tsx, from the Magic UI registry entry for marquee (MIT, Copyright (c) Magic UI).
+   Import once from the site's global stylesheet. Plain CSS, so it works on Tailwind 3 or 4. */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-100% - var(--gap))); }
+}
+
+@keyframes marquee-vertical {
+  from { transform: translateY(0); }
+  to { transform: translateY(calc(-100% - var(--gap))); }
+}
+
+.animate-marquee { animation: marquee var(--duration) infinite linear; }
+.animate-marquee-vertical { animation: marquee-vertical var(--duration) linear infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-marquee-vertical { animation: none; }
+}

@@ -12,23 +12,23 @@ export const metadata: Metadata = pageMeta({
 export default function AIIntegrationPage() {
   return (
     <ServicePageTemplate
-      label="AI Integration"
-      title="AI that actually fits your business."
-      subtitle="Not a chatbot on your website. Real tools that do real work — research, reporting, document creation, customer communication — trained on your business, not generic templates."
+      image={{ src: "/images/scenes/inbox-sorting.webp", alt: "An office manager at dusk pointing at an inbox sorted into groups on a large monitor" }}
+      title="AI that fits how your business runs."
+      subtitle="Tools that do real work: research, reporting, document creation and customer communication, set up around how your business runs."
       deliverables={[
-        "AI readiness assessment — where it makes sense and where it doesn't",
+        "AI readiness assessment: where it makes sense and where it doesn't",
         "Custom AI workflows for your specific use cases",
         "Document generation and report automation",
         "Internal research and data analysis tools",
-        "Customer communication automation (not spam — real value)",
+        "Customer communication drafts, approved by a person before they go out",
         "Integration with your existing tools and systems",
-        "Staff training so your team actually uses it",
-        "Ongoing support and refinement as your needs change",
+        "Staff training so your team uses it",
+        "Ongoing support through Office Hours or an Embedded Retainer",
       ]}
       whoItsFor={[
         "Businesses that know AI exists but don't know where to start",
         "Companies spending hours on tasks that could be automated",
-        "Teams drowning in manual research, reporting, or admin work",
+        "Teams spending their week on manual research, reporting, or admin work",
         "Business owners who want to stay ahead without becoming tech companies",
       ]}
       showroomLink={{
@@ -37,9 +37,9 @@ export default function AIIntegrationPage() {
       }}
       relatedPosts={[
         {
-          href: "/insights/automating-our-own-back-office",
-          title: "What We Automated in Our Own Back Office First, and What It Cost Us to Learn",
-          category: "Case Study",
+          href: "/work/restaurant-franchisee",
+          title: "Three stores, one manager portal",
+          category: "Case study",
         },
         {
           href: "/insights/ai-trust-gap",

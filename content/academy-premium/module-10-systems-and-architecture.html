@@ -1,0 +1,114 @@
+<h3>Start here: the 5 discovery questions</h3>
+<p>Answer these before diving into tools and systems. They determine your starting point.</p>
+
+<div class="widget" id="discoveryWidget">
+<div class="widget-title">Your Starting Point</div>
+<div class="widget-sub">Fill in your answers: they'll generate a personalized summary.</div>
+<div class="widget-field"><label>1. What area of your operation would you most like to improve?</label><input type="text" id="dq1" placeholder="Sales, operations, communication, finance, hiring..."/></div>
+<div class="widget-field"><label>2. What's keeping you up at night operationally?</label><input type="text" id="dq2" placeholder="The thing that nags you..."/></div>
+<div class="widget-field"><label>3. What do you not have time to do that you know you should?</label><input type="text" id="dq3" placeholder="SOPs, training, data tracking, follow-ups..."/></div>
+<div class="widget-field"><label>4. What systems are you currently using?</label><input type="text" id="dq4" placeholder="QuickBooks, Google Workspace, spreadsheets..."/></div>
+<div class="widget-field"><label>5. What does success look like in 90 days?</label><input type="text" id="dq5" placeholder="Be specific..."/></div>
+<button class="widget-btn" onclick="generateDiscovery()">See My Summary</button>
+<div class="widget-result" id="discoveryResult"></div>
+</div>
+
+<h3>What is a "session"?</h3>
+<p>A focused block of time working with AI. Understanding types helps you maintain continuity.</p>
+
+<div class="card card-em"><div class="card-t">Light session (< 30 min)</div><div class="card-b">Single task: email, formula, checklist. Save output if useful. No log needed.</div></div>
+<div class="card card-em"><div class="card-t">Heavy session (30+ min)</div><div class="card-b">Multi-step work: SOPs, analysis, planning. Write a session log after: what you did, what's still open. Update MEMORY.md if anything changed.</div></div>
+<div class="card card-em"><div class="card-t">Research session</div><div class="card-b">Learning, comparing options, gathering info before a decision. Summarize findings. Add decisions to DECISION-LOG.md.</div></div>
+
+<h3>What is a project (AI architecture)</h3>
+<div class="card card-em"><div class="card-b">
+A project is any defined initiative with a goal, files, and ongoing AI interactions:<br><br>
+1. <strong>A goal</strong>: "Reorganize warehouse" / "Build Q2 budget"<br>
+2. <strong>A folder</strong>: under Company/Projects/<br>
+3. <strong>A Claude Project</strong>: with custom instructions<br>
+4. <strong>Reference docs</strong>: uploaded to Claude<br>
+5. <strong>Session logs</strong>: tracking progress<br><br>
+When you think in projects, AI becomes a team member assigned to the initiative.
+</div></div>
+
+<h3>What is a blueprint?</h3>
+<div class="card card-em"><div class="card-b">
+A blueprint maps out a system before you build it:<br><br>
+1. <strong>Current State</strong>: how things work today<br>
+2. <strong>Desired State</strong>: how they should work<br>
+3. <strong>Gap Analysis</strong>: what needs to change<br>
+4. <strong>Tool Selection</strong>: which AI tools and integrations<br>
+5. <strong>Implementation Phases</strong>: what gets built first<br>
+6. <strong>Success Metrics</strong>: how you'll know it's working<br><br>
+Without a blueprint, people jump to tools and build a mess. With one, every piece serves a purpose.
+</div></div>
+
+<h3>The architecture stack</h3>
+<div class="code"><span class="cm">┌─────────────────────────────────────────────┐</span>
+<span class="fld">│  AI AGENTS                                  │</span>
+<span class="fl">│  Autonomous tasks, monitoring, decisions     │</span>
+<span class="cm">├─────────────────────────────────────────────┤</span>
+<span class="fld">│  WORKFLOW AUTOMATION                        │</span>
+<span class="fl">│  Zapier, Make, n8n: connecting tools + AI   │</span>
+<span class="cm">├─────────────────────────────────────────────┤</span>
+<span class="fld">│  CUSTOM DASHBOARDS & TOOLS                  │</span>
+<span class="fl">│  v0, purpose-built apps, data visualization │</span>
+<span class="cm">├─────────────────────────────────────────────┤</span>
+<span class="hl">│  KNOWLEDGE SYSTEM                    ← HERE │</span>
+<span class="hl">│  CLAUDE.md, MEMORY.md, Decision Logs        │</span>
+<span class="cm">├─────────────────────────────────────────────┤</span>
+<span class="hl">│  ORGANIZED FILES & PROMPTS           ← HERE │</span>
+<span class="cm">├─────────────────────────────────────────────┤</span>
+<span class="hl">│  AI TOOLS (Claude, Perplexity)       ← HERE │</span>
+<span class="cm">├─────────────────────────────────────────────┤</span>
+<span class="hl">│  MINDSET & SKILLS                    ← HERE │</span>
+<span class="cm">└─────────────────────────────────────────────┘</span></div>
+<p>Each layer builds on the one below. You can't automate if your files are scattered. You can't build dashboards without understanding data. The foundation matters.</p>
+
+<h3>Why architecture matters</h3>
+<p>Most people approach AI like this: sign up for a tool, try a few things, get inconsistent results, conclude "AI isn't that useful for my industry." The problem isn't AI: it's the lack of architecture.</p>
+
+<div class="card card-em"><div class="card-b">
+<strong>Without architecture:</strong> Every AI session starts from zero. You re-explain your situation. Results vary wildly. Nothing builds on the last session.<br><br>
+<strong>With architecture:</strong> Every AI session builds on the last. Your CLAUDE.md gives instant context. Your MEMORY.md carries forward what matters. Your decision log prevents rehashing. Your session logs create continuity. Prompts are saved and refined. AI becomes a force multiplier that gets better every week.
+</div></div>
+
+<h3>Where Obsidian fits</h3>
+<p>We mentioned Obsidian in Module 2 as a knowledge base tool. Here's where it clicks:</p>
+
+<div class="card card-em"><div class="card-t">Obsidian as your AI command center</div><div class="card-b">
+Your CLAUDE.md, MEMORY.md, DECISION-LOG.md, session logs, saved prompts, and SOPs are all Markdown files. Obsidian turns that folder of .md files into a searchable, linked, visual knowledge system.<br><br>
+<strong>What Obsidian gives you:</strong><br>
+• <strong>Instant search</strong>: find anything across all your files in milliseconds<br>
+• <strong>Linked notes</strong>: connect related documents (your SOP links to the decision that created it)<br>
+• <strong>Graph view</strong>: see how your knowledge connects visually<br>
+• <strong>Daily notes</strong>: perfect for session logs<br>
+• <strong>Tags and folders</strong>: organize by project, category, or status<br>
+• <strong>Mobile sync</strong>: access everything from your phone (a paid add-on)<br><br>
+<strong>How to start:</strong><br>
+1. Download Obsidian (free) from obsidian.md<br>
+2. Point it at your AI-System/ folder<br>
+3. Your existing .md files appear instantly<br>
+4. Start linking documents with [[double brackets]]<br>
+5. Use daily notes for session logs<br><br>
+Time to set up: 10 minutes. Learning curve: 30 minutes to be productive.
+</div></div>
+
+<h3>The compound effect</h3>
+<p>Here's what happens when you run this system for 90 days:</p>
+<ul>
+<li><strong>Week 1:</strong> CLAUDE.md created. First conversations are better because AI knows who you are.</li>
+<li><strong>Week 4:</strong> MEMORY.md has 8+ topic files. AI sessions start faster. You stop repeating yourself.</li>
+<li><strong>Week 8:</strong> Decision log has 10+ entries. You stop second-guessing past choices. New decisions build on old ones.</li>
+<li><strong>Week 12:</strong> 15+ saved prompts. You're generating in minutes what used to take hours. Your AI-Prompts folder is a competitive advantage: nobody else in your industry has it.</li>
+</ul>
+
+<div class="co co-em"><div><strong>This is the inflection point.</strong> Most people use AI casually for months and plateau. People who build this system break through that plateau. The architecture is the difference between AI being "kind of helpful" and AI being "how did I ever work without this."</div></div>
+
+<h3>Quiz: Module 10</h3>
+<div class="qz" data-quiz="q13"><div class="qz-q">What's the difference between a "light session" and a "heavy session"?</div><div class="qz-opts">
+<div class="qz-o" data-a="w" onclick="aQuiz(this)"><div class="qz-r"></div>Light is on mobile, heavy is on desktop</div>
+<div class="qz-o" data-a="w" onclick="aQuiz(this)"><div class="qz-r"></div>Light uses free tier, heavy uses Pro</div>
+<div class="qz-o" data-a="c" onclick="aQuiz(this)"><div class="qz-r"></div>Light is a single quick task (no log needed); heavy is multi-step work (write a session log, update MEMORY.md)</div>
+<div class="qz-o" data-a="w" onclick="aQuiz(this)"><div class="qz-r"></div>There is no difference</div>
+</div><div class="qz-res" id="q13-r"></div></div>

@@ -1,17 +1,9 @@
+// A small plain label. It used to be an uppercase eyebrow on every section.
 export default function SectionLabel({
   children,
-  light = false,
 }: {
   children: React.ReactNode;
   light?: boolean;
 }) {
-  return (
-    <p
-      className={`text-xs font-semibold tracking-[2.5px] uppercase mb-3 ${
-        light ? "text-sage" : "text-emerald"
-      }`}
-    >
-      {children}
-    </p>
-  );
+  return <p className="font-display text-sm font-semibold text-muted mb-3">{children}</p>;
 }

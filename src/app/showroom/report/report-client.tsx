@@ -15,11 +15,11 @@ const industries = [
 ];
 
 const painPoints = [
-  "Drowning in spreadsheets and manual processes",
+  "Too many spreadsheets and manual processes",
   "No real visibility into my numbers",
   "Website is outdated or nonexistent",
   "Losing money but can't pinpoint where",
-  "Staff turnover and training is killing us",
+  "Staff turnover and constant retraining",
   "Spending too much time on admin work",
   "Can't keep up with competitors",
   "Don't know where to start with technology",
@@ -31,7 +31,6 @@ interface Report {
     title: string;
     impact: string;
     description: string;
-    savings: string;
   }[];
   quickWin: string;
   bottomLine: string;
@@ -84,8 +83,8 @@ export default function ReportPage() {
       <div className="min-h-screen px-5 py-10 pt-[108px]">
         <div className="max-w-[720px] mx-auto">
           <div className="mb-10">
-            <div className="text-[11px] font-semibold tracking-[2px] text-emerald uppercase mb-2">
-              AI Opportunity Report
+            <div className="text-[11px] font-semibold font-display tracking-[2px] text-emerald mb-2">
+              AI Readiness Report
             </div>
             <div className="text-[13px] text-stone mb-5">
               Prepared for{" "}
@@ -99,43 +98,40 @@ export default function ReportPage() {
           </div>
 
           <div className="mb-10">
-            <div className="text-xs font-semibold tracking-[2px] text-stone uppercase mb-5">
+            <div className="text-xs font-semibold font-display tracking-[2px] text-stone mb-5">
               Top Opportunities
             </div>
             {report.opportunities.map((opp, i) => (
               <div
                 key={i}
-                className="bg-white rounded-lg p-7 mb-4 border border-[#e8e5e0]"
+                className="bg-white rounded-lg p-7 mb-4 border border-line"
               >
                 <div className="flex justify-between items-start mb-3">
                   <h3 className="font-display text-xl font-bold">{opp.title}</h3>
                   <span
-                    className={`text-[11px] font-bold tracking-wider uppercase px-2.5 py-1 rounded-[3px] whitespace-nowrap ${impactColor(
+                    className={`text-[11px] font-bold px-2.5 py-1 rounded-[3px] whitespace-nowrap ${impactColor(
                       opp.impact
                     )}`}
                   >
                     {opp.impact} Impact
                   </span>
                 </div>
-                <p className="text-sm leading-relaxed text-[#666] mb-3">
+                <p className="text-sm leading-relaxed text-charcoal">
                   {opp.description}
                 </p>
-                <div className="text-[13px] font-semibold text-emerald">
-                  Est. savings: {opp.savings}
-                </div>
               </div>
             ))}
           </div>
 
           <div className="bg-emerald rounded-lg p-7 mb-10 text-warm-white">
-            <div className="text-[11px] font-semibold tracking-[2px] uppercase mb-3 opacity-70">
+            <div className="text-[11px] font-semibold font-display tracking-[2px] mb-3 opacity-70">
               This Week&apos;s Quick Win
             </div>
             <p className="text-[15px] leading-relaxed">{report.quickWin}</p>
           </div>
 
-          <div className="border-t border-[#e0ddd8] pt-7 mb-10">
-            <div className="text-xs font-semibold tracking-[2px] text-stone uppercase mb-3">
+          <div className="border-t border-line pt-7 mb-10">
+            <div className="text-xs font-semibold font-display tracking-[2px] text-stone mb-3">
               The Bottom Line
             </div>
             <p className="font-display text-xl leading-relaxed font-semibold italic text-graphite">
@@ -147,10 +143,9 @@ export default function ReportPage() {
             <h3 className="font-display text-2xl font-bold mb-3">
               Want to dig deeper?
             </h3>
-            <p className="text-sm text-[#aaa] mb-6 leading-relaxed">
-              This report is a starting point. A 30-minute conversation gives us
-              enough to tell you exactly what&apos;s worth building and what it
-              would cost.
+            <p className="text-sm text-stone mb-6 leading-relaxed">
+              This report is a starting point. In a 30-minute call we can tell
+              you what we would build first.
             </p>
             <a
               href="mailto:phil@bluegrassadvisorygroup.com"
@@ -158,7 +153,7 @@ export default function ReportPage() {
             >
               Schedule a Free Call
             </a>
-            <p className="text-xs text-[#666] mt-3">
+            <p className="text-xs text-charcoal mt-3">
               phil@bluegrassadvisorygroup.com
             </p>
           </div>
@@ -182,7 +177,7 @@ export default function ReportPage() {
             </button>
           </div>
 
-          <div className="text-center mt-10 pt-6 border-t border-[#e8e5e0]">
+          <div className="text-center mt-10 pt-6 border-t border-line">
             <span className="font-display text-base text-graphite">
               Bluegrass <span className="text-emerald">Advisory</span>
             </span>
@@ -203,7 +198,7 @@ export default function ReportPage() {
             Bluegrass <span className="text-emerald">Advisory</span>
           </div>
           <p className="text-sm text-stone">
-            AI Opportunity Report — Free, instant, no signup
+            AI Readiness Report: free, with no signup
           </p>
         </div>
 
@@ -235,7 +230,7 @@ export default function ReportPage() {
               onChange={(e) =>
                 setFormData({ ...formData, businessName: e.target.value })
               }
-              className="w-full p-4 border-2 border-[#e0ddd8] rounded-md text-base bg-white outline-none focus:border-emerald transition-colors"
+              className="w-full p-4 border-2 border-line rounded-md text-base bg-white outline-none focus:border-emerald transition-colors"
               autoFocus
             />
             <div className="mt-6">
@@ -249,7 +244,7 @@ export default function ReportPage() {
                 onChange={(e) =>
                   setFormData({ ...formData, employees: e.target.value })
                 }
-                className="w-[120px] p-4 border-2 border-[#e0ddd8] rounded-md text-base bg-white outline-none focus:border-emerald transition-colors"
+                className="w-[120px] p-4 border-2 border-line rounded-md text-base bg-white outline-none focus:border-emerald transition-colors"
               />
             </div>
           </div>
@@ -272,7 +267,7 @@ export default function ReportPage() {
                   className={`px-5 py-3 rounded-md text-sm transition-all cursor-pointer border-2 ${
                     formData.industry === ind
                       ? "border-emerald bg-emerald/[0.06] text-emerald font-semibold"
-                      : "border-[#e0ddd8] bg-white text-[#666]"
+                      : "border-line bg-white text-charcoal"
                   }`}
                 >
                   {ind}
@@ -291,7 +286,7 @@ export default function ReportPage() {
                     className={`px-5 py-3 rounded-md text-sm transition-all cursor-pointer border-2 ${
                       formData.locations === n
                         ? "border-emerald bg-emerald/[0.06] text-emerald font-semibold"
-                        : "border-[#e0ddd8] bg-white text-[#666]"
+                        : "border-line bg-white text-charcoal"
                     }`}
                   >
                     {n}
@@ -319,7 +314,7 @@ export default function ReportPage() {
                   className={`px-5 py-3 rounded-md text-sm text-left transition-all cursor-pointer border-2 ${
                     formData.painPoint === pp
                       ? "border-emerald bg-emerald/[0.06] text-emerald font-semibold"
-                      : "border-[#e0ddd8] bg-white text-[#666]"
+                      : "border-line bg-white text-charcoal"
                   }`}
                 >
                   {pp}
@@ -374,8 +369,7 @@ export default function ReportPage() {
         )}
 
         <p className="text-center text-xs text-[#ccc] mt-12">
-          No email required. No data stored. Just a free look at what&apos;s
-          possible.
+          No email required, and nothing you enter is stored.
         </p>
       </div>
     </div>

@@ -1,16 +1,18 @@
-import { Playfair_Display, DM_Sans } from "next/font/google";
+import { Hanken_Grotesk, Newsreader } from "next/font/google";
 
-export const playfair = Playfair_Display({
+// Headlines and UI.
+export const hanken = Hanken_Grotesk({
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
-  weight: ["400", "600", "700"],
-  style: ["normal", "italic"],
 });
 
-export const dmSans = DM_Sans({
+// Reading text.
+export const newsreader = Newsreader({
   subsets: ["latin"],
   variable: "--font-body",
   display: "swap",
-  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  // next/font has no fallback metrics for Newsreader; Georgia is set in tailwind.config.ts.
+  adjustFontFallback: false,
 });

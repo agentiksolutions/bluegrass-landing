@@ -11,38 +11,43 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <section className="pt-[148px] pb-32 px-6 md:px-12 max-w-content mx-auto text-center">
-      <div className="text-[13px] font-semibold tracking-[2px] text-emerald uppercase mb-4">
-        404
-      </div>
-      <h1 className="font-display text-[clamp(36px,5vw,52px)] leading-[1.1] font-bold tracking-tight mb-5">
-        We couldn&apos;t find that page.
-      </h1>
-      <p className="text-[17px] leading-relaxed text-stone max-w-[460px] mx-auto mb-10">
-        The link may be old or the page may have moved. Here are a few good
-        places to pick back up.
-      </p>
+    <section className="mt-16 lg:mt-[72px] px-4 md:px-10 pt-16 md:pt-24 pb-24 md:pb-32">
+      <div className="max-w-[1360px] mx-auto">
+        <h1 className="font-display text-[48px] sm:text-[68px] lg:text-[88px] leading-[0.95] font-extralight tracking-[-0.03em] text-ink max-w-[16ch]">
+          We couldn&apos;t find that page
+        </h1>
+        <p className="mt-6 text-[19px] md:text-[22px] leading-snug text-body max-w-[44ch]">
+          The link may be old or the page may have moved. Here are a few good
+          places to pick back up.
+        </p>
 
-      <div className="flex flex-wrap gap-3 justify-center mb-14">
-        <Button href="/">Back to Home</Button>
-        <Button href="/showroom" variant="secondary">
-          Explore the Showroom
-        </Button>
-        <Button href="/contact" variant="secondary">
-          Get in Touch
-        </Button>
-      </div>
+        <div className="mt-10 flex flex-wrap gap-3">
+          <Button href="/">Back to Home</Button>
+          <Button href="/showroom" variant="secondary">
+            Explore the Showroom
+          </Button>
+          <Button href="/contact" variant="secondary">
+            Get in Touch
+          </Button>
+        </div>
 
-      <div className="flex flex-wrap gap-x-6 gap-y-2 justify-center text-sm text-stone">
-        <Link href="/services" className="hover:text-emerald transition-colors">
-          Services
-        </Link>
-        <Link href="/about" className="hover:text-emerald transition-colors">
-          About
-        </Link>
-        <Link href="/insights" className="hover:text-emerald transition-colors">
-          Insights
-        </Link>
+        <ul className="mt-16 border-t border-line pt-8 flex flex-wrap gap-x-10 gap-y-3">
+          <li>
+            <Link href="/services" className="font-display text-[20px] md:text-[24px] font-light text-blue underline underline-offset-4 decoration-blue/30 hover:decoration-blue">
+              Services
+            </Link>
+          </li>
+          <li>
+            <Link href="/about" className="font-display text-[20px] md:text-[24px] font-light text-blue underline underline-offset-4 decoration-blue/30 hover:decoration-blue">
+              About
+            </Link>
+          </li>
+          <li>
+            <Link href="/insights" className="font-display text-[20px] md:text-[24px] font-light text-blue underline underline-offset-4 decoration-blue/30 hover:decoration-blue">
+              Insights
+            </Link>
+          </li>
+        </ul>
       </div>
     </section>
   );

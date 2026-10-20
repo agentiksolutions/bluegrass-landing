@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { pageMeta } from "@/lib/metadata";
+import Image from "next/image";
 import Link from "next/link";
-import SectionLabel from "@/components/section-label";
 import CTABand from "@/components/cta-band";
 import RelatedLinks from "@/components/related-links";
 
@@ -16,12 +16,12 @@ const tools = [
   {
     title: "Inbox and invoice triage",
     what: "Mail arriving in a shared inbox gets read, classified by type and by which part of the business it belongs to, and only the items needing a decision surface for a person.",
-    limit: "It triages, it does not pay. Accuracy depends on how consistently a sender formats what they send, and a new vendor needs a round of tuning before it reads them reliably.",
+    limit: "It sorts and flags. A person still approves and pays. Accuracy depends on how consistently a sender formats what they send, and a new vendor needs a round of tuning before it reads them reliably.",
   },
   {
     title: "Meeting notes and action items",
     what: "A recurring meeting is transcribed and comes back as a summary with decisions and action items attached to names. This week's items carry into next week automatically.",
-    limit: "Transcription quality tracks audio quality. It also mistakes a verbal shrug for a commitment now and then, so a person reads it before it goes out.",
+    limit: "Transcription quality tracks audio quality. It also sometimes reads a vague remark as a commitment, so a person reads it before it goes out.",
   },
   {
     title: "A daily briefing",
@@ -30,13 +30,13 @@ const tools = [
   },
   {
     title: "Recurring internal communications",
-    what: "A weekly or monthly internal update assembled from inputs your team already produces, in the same format every time, tracking whether last period's commitments actually happened.",
+    what: "A weekly or monthly internal update assembled from inputs your team already produces, in the same format every time, tracking whether last period's commitments happened.",
     limit: "Some inputs still have to be handed over until their source is connected. The draft is automatic, the approval is not.",
   },
   {
     title: "Searchable documents",
     what: "Your procedures, contracts, and training material in one place you can ask questions of in plain English, with answers drawn from the actual documents rather than a generic model.",
-    limit: "It returns what your documents say. Stale procedures produce confidently stale answers, so this one is worth doing after a cleanup rather than before.",
+    limit: "It returns what your documents say. Stale procedures produce confidently stale answers, so do this one after a cleanup.",
   },
   {
     title: "Research before a conversation",
@@ -46,7 +46,7 @@ const tools = [
   {
     title: "Voice notes into records",
     what: "A recording from a site visit or a drive home comes back transcribed, sorted by which part of the business it concerns, with the action items pulled out.",
-    limit: "Somebody has to actually press record, and speaker names need a contact list before it can label who said what.",
+    limit: "Somebody has to press record, and speaker names need a contact list before it can label who said what.",
   },
   {
     title: "Dashboards",
@@ -58,78 +58,91 @@ const tools = [
 export default function AIToolsPage() {
   return (
     <>
-      <section className="pt-[148px] pb-8 px-6 md:px-12 max-w-content mx-auto">
-        <SectionLabel>What we build</SectionLabel>
-        <h1 className="font-display text-[clamp(36px,5vw,52px)] leading-[1.1] font-bold tracking-tight mb-4">
-          The tools we build most often.
-        </h1>
-        <p className="text-lg leading-relaxed text-[#666] max-w-[620px] mb-4">
-          Every business believes its problem is unique. The problems mostly are.
-          The tools that solve them turn out to be the same eight, arranged
-          differently.
-        </p>
-        <p className="text-[15px] leading-relaxed text-[#666] max-w-[620px] mb-16">
-          Each one below comes with what it will not do, because that is the part
-          you need before you buy, rather than after.
-        </p>
-      </section>
-
-      <section className="px-6 md:px-12 pb-20 max-w-content mx-auto">
-        <div className="flex flex-col">
-          {tools.map((t) => (
-            <div key={t.title} className="py-8 border-t border-[#e8e5e0]">
-              <h2 className="font-display text-xl font-bold mb-3">{t.title}</h2>
-              <p className="text-[15px] leading-relaxed text-[#666] max-w-[680px] mb-4">
-                {t.what}
-              </p>
-              <p className="text-[14px] leading-relaxed text-[#888] max-w-[680px] border-l-2 border-emerald/30 pl-4">
-                {t.limit}
-              </p>
-            </div>
-          ))}
-          <div className="border-t border-[#e8e5e0]" />
+      <section className="relative mt-16 lg:mt-[72px] bg-ink">
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:min-h-[max(520px,calc(90svh-72px))]">
+          <div className="order-2 lg:order-1 px-4 md:px-10 py-12 lg:py-16 flex flex-col justify-center">
+            <h1 className="font-display text-[40px] sm:text-[54px] lg:text-[66px] leading-[1.0] font-extralight tracking-[-0.03em] text-ink max-w-[13ch]">
+              The tools we build most often
+            </h1>
+            <p className="mt-7 text-[19px] md:text-[21px] leading-snug text-body max-w-[38ch]">
+              Every business believes its problem is unique. The problems mostly are.
+              The tools that solve them turn out to be the same eight, arranged
+              differently.
+            </p>
+          </div>
+          <div className="order-1 lg:order-2 relative min-h-[300px] sm:min-h-[420px]">
+            <Image
+              src="/images/scenes/inbox-sorting.webp"
+              alt="An office manager at dusk pointing at an inbox sorted into groups on a large monitor"
+              fill
+              priority
+              sizes="(min-width: 1024px) 58vw, 100vw"
+              className="object-cover"
+            />
+          </div>
         </div>
       </section>
 
-      <section className="bg-cream py-20 px-6 md:px-12">
-        <div className="max-w-content mx-auto">
-          <div className="max-w-[680px]">
-            <h2 className="font-display text-2xl font-bold mb-6">
-              A person approves anything that leaves the building.
-            </h2>
-            <p className="text-[15px] leading-relaxed text-[#666] mb-4">
-              Every one of these proposes and a person decides. No email reaches a
-              customer, no document publishes, and no record changes because an
-              automation felt confident about it.
+      <section className="px-4 md:px-10 py-24 md:py-32">
+        <div className="max-w-[1360px] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] gap-10 lg:gap-20">
+          <p className="text-[18px] md:text-[19px] leading-relaxed text-body max-w-[36ch]">
+            Each one below comes with what it will not do, because that is the part
+            you need before you buy, rather than after.
+          </p>
+          <ul className="divide-y divide-line border-y border-line">
+            {tools.map((t) => (
+              <li key={t.title} className="grid grid-cols-1 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] gap-3 md:gap-10 py-8 md:py-10">
+                <h2 className="font-display text-[24px] md:text-[30px] font-light leading-tight text-ink">{t.title}</h2>
+                <div>
+                  <p className="text-[18px] md:text-[19px] leading-relaxed text-body">{t.what}</p>
+                  <p className="mt-4 text-[17px] leading-relaxed text-muted">{t.limit}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="bg-band px-4 md:px-10 py-24 md:py-32">
+        <div className="max-w-[1360px] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] gap-10 lg:gap-20">
+          <h2 className="font-display text-[32px] md:text-[48px] leading-[1.05] font-light tracking-tight text-ink">
+            A person approves anything that goes to a customer
+          </h2>
+          <div className="max-w-[62ch] space-y-5">
+            <p className="text-[18px] md:text-[19px] leading-relaxed text-body">
+              Every one of these proposes and a person decides. No email or
+              document reaches a customer because an automation felt confident
+              about it.
             </p>
-            <p className="text-[15px] leading-relaxed text-[#666]">
-              That is slower than full automation, and it is why nothing has gone
-              out on its own that we had to walk back. As
-              you watch a tool get it right for a few months, you can widen what
-              it is allowed to do. That decision stays yours.
+            <p className="text-[18px] md:text-[19px] leading-relaxed text-body">
+              That is slower than full automation. As you watch a tool get it
+              right over time, you can widen what it is allowed to do. That
+              decision stays yours.
             </p>
           </div>
         </div>
       </section>
 
-      <section className="py-20 px-6 md:px-12 max-w-content mx-auto">
-        <div className="max-w-[680px]">
-          <h2 className="font-display text-2xl font-bold mb-6">
-            What we do not sell.
+      <section className="px-4 md:px-10 py-24 md:py-32">
+        <div className="max-w-[1360px] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] gap-10 lg:gap-20">
+          <h2 className="font-display text-[32px] md:text-[48px] leading-[1.05] font-light tracking-tight text-ink">
+            What we do not sell
           </h2>
-          <p className="text-[15px] leading-relaxed text-[#666] mb-4">
-            Customer-facing chatbots are a different product with different risks,
-            and they are not what we do. Neither is anything we cannot show you
-            running before you pay for it.
-          </p>
-          <p className="text-[15px] leading-relaxed text-[#666]">
-            If you want to see the difference, the{" "}
-            <Link href="/showroom" className="text-emerald hover:underline">
-              showroom
-            </Link>{" "}
-            has working tools you can use right now without giving anyone your
-            email address.
-          </p>
+          <div className="max-w-[62ch] space-y-5">
+            <p className="text-[18px] md:text-[19px] leading-relaxed text-body">
+              Customer-facing chatbots are a different product with different risks,
+              and they are not what we do. Neither is anything we cannot show you
+              running before you pay for it.
+            </p>
+            <p className="text-[18px] md:text-[19px] leading-relaxed text-body">
+              If you want to see the difference, the{" "}
+              <Link href="/showroom" className="text-blue underline underline-offset-4 decoration-blue/40 hover:decoration-blue">
+                showroom
+              </Link>{" "}
+              has working tools you can use right now without giving anyone your
+              email address.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -143,7 +156,7 @@ export default function AIToolsPage() {
           {
             href: "/ai-assessment",
             label: "What an AI assessment involves",
-            blurb: "The step that decides which of these you actually need.",
+            blurb: "The step that decides which of these you need.",
           },
           {
             href: "/ai-for-hospitality",
@@ -151,16 +164,16 @@ export default function AIToolsPage() {
             blurb: "The same tools, arranged for a multi-location operation.",
           },
           {
-            href: "/insights",
-            label: "Insights",
-            blurb: "What we learned building all of this for ourselves first.",
+            href: "/work/restaurant-franchisee",
+            label: "Case study: three stores, one manager portal",
+            blurb: "Several of these tools, running for a Five Guys franchisee in Central Kentucky.",
           },
         ]}
       />
 
       <CTABand
         headline="Which one would you start with?"
-        subtext="Thirty minutes. Tell us where the hours go and we will tell you which of these is worth building, and which would be a waste of your money."
+        subtext="Thirty minutes. Tell us where the hours go and we will tell you which of these to build first, and which would be a waste of your money."
       />
     </>
   );

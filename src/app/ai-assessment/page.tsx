@@ -1,52 +1,70 @@
 import type { Metadata } from "next";
 import { pageMeta } from "@/lib/metadata";
+import Image from "next/image";
 import Link from "next/link";
-import SectionLabel from "@/components/section-label";
 import CTABand from "@/components/cta-band";
 import RelatedLinks from "@/components/related-links";
 
 export const metadata: Metadata = pageMeta({
   title: "What an AI Assessment Involves",
   description:
-    "Inside a Bluegrass Advisory Group AI assessment: the intake interview, the review, the written roadmap you own, the walkthrough, and the readout call.",
+    "Inside the Bluegrass Advisory Group Roadmap: the intake form, one recorded screen-share session, a one-page systems map, a written plan and a readout call. Discovery for larger businesses.",
   path: "/ai-assessment",
 });
 
-const steps = [
+// Roadmap steps, deliverables and price come from Discovery-Kit/BAG-Engagement-Catalog.md,
+// "Roadmap" and "Tier 0" (2026-10-07). The Discovery section comes from "Tier 2".
+const roadmapSteps = [
   {
-    num: "01",
     title: "The intro call",
     body: "Thirty minutes, no charge. We ask which parts of the business are in scope, how many tools your team touches in a day, and who else has to sign off. By the end of it you have a recommendation, and one of the things we recommend is doing nothing yet.",
   },
   {
-    num: "02",
+    title: "The intake form",
+    body: "A questionnaire you fill in online about your business, your tools and your people. It is free, and we read it before we meet.",
+  },
+  {
+    title: "The session",
+    body: "You and the people who do the work show us how it gets done today, in one recorded screen-share session. If you prefer, we do it at your office instead.",
+  },
+  {
+    title: "The systems map",
+    body: "A one-page drawing of the tools you use today, who uses each one, and how information moves between them. We build it from your intake form and the session.",
+  },
+  {
+    title: "The written plan",
+    body: "The three workflows to start with, which Business AI Setup package fits and why, what stays off limits for the assistant, and what happens in the first 30 days.",
+  },
+  {
+    title: "The readout call",
+    body: "We walk you through the map and the plan and answer your questions.",
+  },
+];
+
+const discoverySteps = [
+  {
     title: "Intake",
-    body: "Once an assessment is signed we send a questionnaire and a short list of things to send over. Whatever documents you already have are enough. Nobody needs to build a data room for us.",
+    body: "Once Discovery is signed we send a questionnaire and a short list of things to send over. Whatever documents you already have are enough. Nobody needs to build a data room for us.",
   },
   {
-    num: "03",
     title: "The interview",
-    body: "A live conversation about how the business runs. For a single department it is about 90 minutes. For a multi-entity business it is several sessions with the owner and the people who actually run each piece, spread across a week.",
+    body: "A live conversation about how the business runs. For a single department it is one session. For a multi-entity business it is several sessions with the owner and the people who run each piece.",
   },
   {
-    num: "04",
     title: "The review",
-    body: "We read everything you sent and map what you currently run against what the work actually requires. This is the quiet part, and it is where most of the hours go.",
+    body: "We read everything you sent and map what you currently run against what the work requires. This is the quiet part, and it is where most of the hours go.",
   },
   {
-    num: "05",
     title: "The roadmap",
     body: "You get a written document: where the business stands today, which opportunities are worth money, what order to do them in, and what a build would involve where a build is the answer. It arrives as a PDF plus the plain-text source, so it is yours to edit and yours to keep.",
   },
   {
-    num: "06",
     title: "The walkthrough",
-    body: "Before the live call, a recorded walkthrough of the document lands in your inbox. Watch it on your own time so the call is about your questions instead of our narration.",
+    body: "Before the live call, we send a recorded walkthrough of the document. Watch it when it suits you, so the call is about your questions instead of our narration.",
   },
   {
-    num: "07",
     title: "The readout",
-    body: "A live call to go through the recommendations and make decisions. Then an email window stays open for follow-up questions, which runs two weeks on a focused assessment and a month on a larger one.",
+    body: "A live call to go through the recommendations and make decisions. After it, you can email follow-up questions during a window we agree on before you sign.",
   },
 ];
 
@@ -57,19 +75,19 @@ const outcomes = [
   },
   {
     label: "Tools-based optimization",
-    body: "Your stack is fine. The gap is that nothing talks to anything, and the fix is automation around what you already pay for.",
+    body: "Your stack is fine. The gap is that nothing talks to anything, and the answer is automation around what you already pay for.",
   },
   {
     label: "Process first",
-    body: "The tools are not the problem. Documentation, training, and who-does-what are the problem, and buying software would bury it.",
+    body: "Documentation, training, and who-does-what are the problem. Buying software would bury it.",
   },
   {
     label: "Embedded support",
-    body: "The work is ongoing rather than a project, and a fractional AI operations person is the right shape.",
+    body: "The work is ongoing rather than a project, and an Embedded Retainer is the right shape.",
   },
   {
     label: "Walk away",
-    body: "You got what you needed from the assessment and you can take it from here. We say so and the engagement ends there.",
+    body: "You got what you needed from Discovery and you can take it from here. We say so and the engagement ends there.",
   },
 ];
 
@@ -83,88 +101,131 @@ const notIncluded = [
 export default function AIAssessmentPage() {
   return (
     <>
-      <section className="pt-[148px] pb-8 px-6 md:px-12 max-w-content mx-auto">
-        <SectionLabel>Assessment</SectionLabel>
-        <h1 className="font-display text-[clamp(36px,5vw,52px)] leading-[1.1] font-bold tracking-tight mb-4">
-          What an AI assessment involves.
-        </h1>
-        <p className="text-lg leading-relaxed text-[#666] max-w-[620px] mb-4">
-          Most firms will quote you a build before they understand the business.
-          An assessment is the step that makes the build worth paying for, and it
-          stands on its own if you never hire anyone to do the work.
-        </p>
-        <p className="text-[15px] leading-relaxed text-[#666] max-w-[620px] mb-16">
-          Here is the whole sequence, start to finish.
-        </p>
-      </section>
-
-      <section className="px-6 md:px-12 pb-20 max-w-content mx-auto">
-        <div className="flex flex-col">
-          {steps.map((s) => (
-            <div
-              key={s.num}
-              className="grid grid-cols-[44px_1fr] gap-6 py-7 border-t border-[#e8e5e0]"
-            >
-              <span className="font-display text-[13px] font-bold text-emerald pt-1">
-                {s.num}
-              </span>
-              <div>
-                <h2 className="font-display text-xl font-bold mb-2">
-                  {s.title}
-                </h2>
-                <p className="text-[15px] leading-relaxed text-[#666] max-w-[620px]">
-                  {s.body}
-                </p>
-              </div>
-            </div>
-          ))}
-          <div className="border-t border-[#e8e5e0]" />
-        </div>
-      </section>
-
-      <section className="bg-cream py-20 px-6 md:px-12">
-        <div className="max-w-content mx-auto">
-          <h2 className="font-display text-2xl font-bold mb-4">
-            Five ways an assessment can end.
-          </h2>
-          <p className="text-[15px] leading-relaxed text-[#666] max-w-[620px] mb-10">
-            Every assessment lands on one of these. The fifth one is the reason
-            the other four are worth reading: a roadmap that always recommends
-            buying more from the firm that wrote it is a sales document.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {outcomes.map((o) => (
-              <div
-                key={o.label}
-                className="p-6 bg-white rounded-lg border border-[#e8e5e0]"
-              >
-                <h3 className="font-display text-lg font-bold mb-2">
-                  {o.label}
-                </h3>
-                <p className="text-[14px] leading-relaxed text-[#666]">
-                  {o.body}
-                </p>
-              </div>
-            ))}
+      <section className="relative mt-16 lg:mt-[72px] bg-ink">
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:min-h-[max(520px,calc(90svh-72px))]">
+          <div className="order-2 lg:order-1 px-4 md:px-10 py-12 lg:py-16 flex flex-col justify-center">
+            <h1 className="font-display text-[40px] sm:text-[54px] lg:text-[66px] leading-[1.0] font-extralight tracking-[-0.03em] text-ink max-w-[13ch]">
+              What an AI assessment involves
+            </h1>
+            <p className="mt-7 text-[19px] md:text-[21px] leading-snug text-body max-w-[38ch]">
+              For most businesses the assessment is the Roadmap. It tells you
+              where AI fits in your business and which setup to buy.
+            </p>
+          </div>
+          <div className="order-1 lg:order-2 relative min-h-[300px] sm:min-h-[420px]">
+            <Image
+              src="/images/scenes/assessment-walkthrough.webp"
+              alt="One person pointing at a spreadsheet on a laptop while explaining their work to another who takes notes"
+              fill
+              priority
+              sizes="(min-width: 1024px) 58vw, 100vw"
+              className="object-cover"
+            />
           </div>
         </div>
       </section>
 
-      <section className="py-20 px-6 md:px-12 max-w-content mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-[72px]">
+      <section className="px-4 md:px-10 py-24 md:py-32">
+        <div className="max-w-[1360px] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] gap-10 lg:gap-20">
           <div>
-            <h2 className="font-display text-2xl font-bold mb-6">
-              Timing and price.
+            <h2 className="font-display text-[32px] md:text-[48px] leading-[1.05] font-light tracking-tight text-ink">
+              The Roadmap
             </h2>
-            <p className="text-[15px] leading-relaxed text-[#666] mb-4">
+            <p className="mt-5 text-[18px] leading-relaxed text-body max-w-[36ch]">
+              Here is the whole sequence, start to finish.
+            </p>
+          </div>
+          <ol className="divide-y divide-line border-y border-line">
+            {roadmapSteps.map((s) => (
+              <li key={s.title} className="grid grid-cols-1 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] gap-3 md:gap-10 py-8 md:py-10">
+                <h3 className="font-display text-[24px] md:text-[30px] font-light leading-tight text-ink">{s.title}</h3>
+                <p className="text-[18px] md:text-[19px] leading-relaxed text-body">{s.body}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section className="bg-band px-4 md:px-10 py-24 md:py-32">
+        <div className="max-w-[1360px] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] gap-10 lg:gap-20">
+          <h2 className="font-display text-[32px] md:text-[48px] leading-[1.05] font-light tracking-tight text-ink">
+            Price
+          </h2>
+          <div className="max-w-[62ch] space-y-5">
+            <p className="text-[18px] md:text-[19px] leading-relaxed text-body">
+              The Roadmap is $2,500. All of it counts toward a Business AI Setup
+              package (Essentials, Professional or Custom) bought within 30 days
+              of the readout call.
+            </p>
+            <p className="text-[18px] md:text-[19px] leading-relaxed text-body">
+              The Roadmap is optional. You can buy a Business AI Setup without it.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="px-4 md:px-10 py-24 md:py-32">
+        <div className="max-w-[1360px] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] gap-10 lg:gap-20">
+          <div>
+            <h2 className="font-display text-[32px] md:text-[48px] leading-[1.05] font-light tracking-tight text-ink">
+              Discovery, for larger businesses
+            </h2>
+            <p className="mt-5 text-[18px] leading-relaxed text-body max-w-[36ch]">
+              Discovery &amp; Strategic Roadmap takes the place of the Roadmap
+              for businesses with several companies or entities, or custom work
+              over $10,000. You get an assessment of where you are, ranked
+              recommendations and a sequenced roadmap.
+            </p>
+          </div>
+          <ol className="divide-y divide-line border-y border-line">
+            {discoverySteps.map((s) => (
+              <li key={s.title} className="grid grid-cols-1 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] gap-3 md:gap-10 py-8 md:py-10">
+                <h3 className="font-display text-[24px] md:text-[30px] font-light leading-tight text-ink">{s.title}</h3>
+                <p className="text-[18px] md:text-[19px] leading-relaxed text-body">{s.body}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section className="bg-band px-4 md:px-10 py-24 md:py-32">
+        <div className="max-w-[1360px] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] gap-10 lg:gap-20">
+          <div>
+            <h2 className="font-display text-[32px] md:text-[48px] leading-[1.05] font-light tracking-tight text-ink">
+              Five ways Discovery can end
+            </h2>
+            <p className="mt-5 text-[18px] leading-relaxed text-body max-w-[40ch]">
+              Every Discovery lands on one of these. The fifth one matters most:
+              a roadmap that always recommends buying more from the firm that
+              wrote it is a sales document.
+            </p>
+          </div>
+          <ul className="divide-y divide-line border-y border-line">
+            {outcomes.map((o) => (
+              <li key={o.label} className="grid grid-cols-1 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] gap-3 md:gap-10 py-7 md:py-8">
+                <h3 className="font-display text-[22px] md:text-[26px] font-light leading-tight text-ink">{o.label}</h3>
+                <p className="text-[18px] leading-relaxed text-body">{o.body}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="px-4 md:px-10 py-24 md:py-32">
+        <div className="max-w-[1360px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20">
+          <div>
+            <h2 className="font-display text-[32px] md:text-[48px] leading-[1.05] font-light tracking-tight text-ink">
+              Discovery timing and price
+            </h2>
+            <p className="mt-8 text-[18px] md:text-[19px] leading-relaxed text-body max-w-[52ch]">
               Timing is agreed with you for each project before you sign.
             </p>
-            <p className="text-[15px] leading-relaxed text-[#666]">
-              The price is fixed before you sign, and it is set by how much of
-              the business is in scope. What moves it is covered on{" "}
+            <p className="mt-5 text-[18px] md:text-[19px] leading-relaxed text-body max-w-[52ch]">
+              The price of Discovery is fixed before you sign, and it is set by
+              how much of the business is in scope. What moves it is covered on{" "}
               <Link
                 href="/ai-consulting-cost"
-                className="text-emerald hover:underline"
+                className="text-blue underline underline-offset-4 decoration-blue/40 hover:decoration-blue"
               >
                 the cost page
               </Link>
@@ -172,19 +233,16 @@ export default function AIAssessmentPage() {
             </p>
           </div>
           <div>
-            <h2 className="font-display text-2xl font-bold mb-6">
-              What is outside it.
+            <h2 className="font-display text-[32px] md:text-[48px] leading-[1.05] font-light tracking-tight text-ink">
+              What Discovery does not include
             </h2>
-            <div className="space-y-3">
+            <ul className="mt-8 divide-y divide-line border-y border-line">
               {notIncluded.map((n) => (
-                <p
-                  key={n}
-                  className="text-[15px] leading-relaxed text-[#666]"
-                >
-                  &bull; {n}
-                </p>
+                <li key={n} className="py-5 text-[18px] leading-relaxed text-body">
+                  {n}
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
         </div>
       </section>
@@ -204,7 +262,7 @@ export default function AIAssessmentPage() {
           },
           {
             href: "/showroom/report",
-            label: "Try the opportunity report",
+            label: "Try the readiness report",
             blurb:
               "A free, automated version of the first question an assessment asks.",
           },
@@ -218,7 +276,7 @@ export default function AIAssessmentPage() {
 
       <CTABand
         headline="Start with the call."
-        subtext="Thirty minutes, no charge, no pitch. You leave with a recommendation even if the recommendation is that an assessment would be a waste of your money right now."
+        subtext="Thirty minutes, at no charge. You leave with a recommendation, even if it is that an assessment would be a waste of your money right now."
       />
     </>
   );

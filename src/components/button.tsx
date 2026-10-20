@@ -11,12 +11,9 @@ interface ButtonProps {
 }
 
 const variants: Record<Variant, string> = {
-  primary:
-    "bg-emerald text-warm-white hover:bg-sage",
-  secondary:
-    "bg-transparent text-graphite border border-graphite/10 hover:border-graphite",
-  dark:
-    "bg-graphite text-warm-white hover:bg-emerald",
+  primary: "bg-blue text-white hover:bg-blue-dark",
+  secondary: "bg-transparent text-ink border border-ink/25 hover:border-ink",
+  dark: "bg-blue text-white hover:bg-blue-dark",
 };
 
 export default function Button({
@@ -26,7 +23,7 @@ export default function Button({
   className = "",
   external = false,
 }: ButtonProps) {
-  const classes = `inline-block px-8 py-4 rounded text-[15px] font-semibold transition-all duration-200 ${variants[variant]} ${className}`;
+  const classes = `inline-block whitespace-nowrap px-6 py-3.5 rounded font-display text-[15px] font-semibold transition-colors duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink ${variants[variant]} ${className}`;
 
   if (external || href.startsWith("http")) {
     return (

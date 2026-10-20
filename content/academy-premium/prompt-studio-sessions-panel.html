@@ -1,0 +1,144 @@
+            <div class="sessions-layout">
+              <div>
+                <!-- SESSION ESTIMATOR -->
+                <div class="session-form-card" style="margin-bottom:16px;border-left:3px solid var(--emerald);">
+                  <h3 style="display:flex;align-items:center;gap:8px;">
+                    Session estimator
+                  </h3>
+                  <p style="font-size:12px;color:var(--stone);margin-bottom:12px;">Describe what you want to build or accomplish. Get a pre-flight estimate before you start.</p>
+                  <textarea class="code-textarea" id="estimator-input" placeholder="I want to build a dashboard that shows real-time sales data from three stores, pulling from our POS API, with charts and a daily email summary..." rows="4" style="min-height:80px;"></textarea>
+                  <div style="margin-top:10px;">
+                    <button class="btn-primary" onclick="runEstimator()">Estimate the session</button>
+                  </div>
+                  <div id="estimator-result" style="display:none;margin-top:16px;">
+                    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px;">
+                      <div class="stat-card" style="border-left:3px solid var(--emerald);">
+                        <div class="stat-card-num" id="est-type" style="font-size:16px;">-</div>
+                        <div class="stat-card-label">Session Type</div>
+                      </div>
+                      <div class="stat-card" style="border-left:3px solid var(--gold);">
+                        <div class="stat-card-num" id="est-time" style="font-size:16px;">-</div>
+                        <div class="stat-card-label">Est. Duration</div>
+                      </div>
+                      <div class="stat-card" style="border-left:3px solid var(--blue);">
+                        <div class="stat-card-num" id="est-complexity" style="font-size:16px;">-</div>
+                        <div class="stat-card-label">Complexity</div>
+                      </div>
+                    </div>
+                    <div style="font-size:13px;line-height:1.6;margin-bottom:12px;" id="est-reasoning"></div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+                      <div style="background:var(--cream);border-radius:var(--radius-sm);padding:12px;">
+                        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--emerald);margin-bottom:6px;">Have Ready</div>
+                        <div style="font-size:12px;line-height:1.5;" id="est-prereqs"></div>
+                      </div>
+                      <div style="background:var(--cream);border-radius:var(--radius-sm);padding:12px;">
+                        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--blue);margin-bottom:6px;">Strategy</div>
+                        <div style="font-size:12px;line-height:1.5;" id="est-strategy"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="session-form-card">
+                  <h3>Log a session</h3>
+                  <div class="session-type-selector" id="session-type-selector">
+                    <button class="session-type-btn active" data-stype="light" onclick="selectSessionType('light')">Light <span style="display:block;font-size:10px;color:var(--stone);font-weight:400;">20-45 min</span></button>
+                    <button class="session-type-btn" data-stype="heavy" onclick="selectSessionType('heavy')">Heavy <span style="display:block;font-size:10px;color:var(--stone);font-weight:400;">1-3 hours</span></button>
+                    <button class="session-type-btn" data-stype="research" onclick="selectSessionType('research')">Research <span style="display:block;font-size:10px;color:var(--stone);font-weight:400;">45-90 min</span></button>
+                    <button class="session-type-btn" data-stype="overnight" onclick="selectSessionType('overnight')">Overnight <span style="display:block;font-size:10px;color:var(--stone);font-weight:400;">3-8 hrs unattended</span></button>
+                  </div>
+                  <div class="session-field">
+                    <label>Direction: what did you work on?</label>
+                    <textarea id="session-direction" placeholder="What was this session about?"></textarea>
+                  </div>
+                  <div class="session-field">
+                    <label>Outputs: what did you produce?</label>
+                    <textarea id="session-outputs" placeholder="List what you actually built or delivered"></textarea>
+                  </div>
+                  <div class="session-field">
+                    <label>Decisions: what was decided?</label>
+                    <textarea id="session-decisions" placeholder="Key decisions made this session"></textarea>
+                  </div>
+                  <div class="session-field">
+                    <label>Open loops: what's unfinished?</label>
+                    <textarea id="session-loops" placeholder="Things left undone or needing follow-up"></textarea>
+                  </div>
+                  <div class="session-field">
+                    <label>Ideas: what came up?</label>
+                    <textarea id="session-ideas" placeholder="New ideas, connections, things to explore"></textarea>
+                  </div>
+                  <div class="session-field">
+                    <label>Quality rating</label>
+                    <div class="star-rating" id="session-rating">
+                      <button type="button" onclick="setRating(1)" aria-label="Rate 1 of 5">1</button>
+                      <button type="button" onclick="setRating(2)" aria-label="Rate 2 of 5">2</button>
+                      <button type="button" onclick="setRating(3)" aria-label="Rate 3 of 5">3</button>
+                      <button type="button" onclick="setRating(4)" aria-label="Rate 4 of 5">4</button>
+                      <button type="button" onclick="setRating(5)" aria-label="Rate 5 of 5">5</button>
+                    </div>
+                  </div>
+                  <button class="btn-primary" onclick="saveSession()" style="width:100%;">Save the session</button>
+
+                  <div class="autonomous-setup" id="autonomous-setup">
+                    <h4>Overnight direction</h4>
+                    <div class="session-field">
+                      <label>Most important thing to work on?</label>
+                      <textarea id="auto-focus" placeholder="The #1 priority"></textarea>
+                    </div>
+                    <div class="session-field">
+                      <label>Open loops to address?</label>
+                      <textarea id="auto-loops" placeholder="What should be tackled?"></textarea>
+                    </div>
+                    <div class="session-field">
+                      <label>Questions needing answers?</label>
+                      <textarea id="auto-questions" placeholder="What do you need figured out?"></textarea>
+                    </div>
+                    <div class="session-field">
+                      <label>What to challenge or reconsider?</label>
+                      <textarea id="auto-challenge" placeholder="What should be questioned?"></textarea>
+                    </div>
+                    <div style="display:flex;gap:8px;">
+                      <button class="btn-primary" onclick="generateBriefing()">Write the morning briefing</button>
+                    </div>
+                    <div class="gen-briefing-output" id="gen-briefing-output">
+                      <div class="upgraded-prompt-block" id="briefing-result"></div>
+                      <button class="btn-copy" style="margin-top:8px;" onclick="copyText('briefing-result')">Copy the briefing</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="session-list" id="session-list">
+                  <h3>Session timeline</h3>
+                </div>
+              </div>
+
+              <div class="insights-panel">
+                <div class="stat-cards">
+                  <div class="stat-card">
+                    <div class="stat-card-num" id="stat-total">0</div>
+                    <div class="stat-card-label">Sessions</div>
+                  </div>
+                  <div class="stat-card">
+                    <div class="stat-card-num" id="stat-avg-rating">-</div>
+                    <div class="stat-card-label">Avg Rating</div>
+                  </div>
+                  <div class="stat-card">
+                    <div class="stat-card-num" id="stat-open-loops">0</div>
+                    <div class="stat-card-label">Open loops</div>
+                  </div>
+                  <div class="stat-card">
+                    <div class="stat-card-num" id="stat-ideas">0</div>
+                    <div class="stat-card-label">Ideas Logged</div>
+                  </div>
+                </div>
+                <div class="insights-section">
+                  <h4>Open loops</h4>
+                  <div id="insights-loops"><span style="font-size:12px;color:var(--stone);">No open loops yet</span></div>
+                </div>
+                <div class="insights-section">
+                  <h4>Idea bank</h4>
+                  <div id="insights-ideas"><span style="font-size:12px;color:var(--stone);">No ideas logged yet</span></div>
+                </div>
+              </div>
+            </div>
+          

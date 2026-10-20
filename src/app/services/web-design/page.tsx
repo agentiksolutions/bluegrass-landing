@@ -5,30 +5,28 @@ import ServicePageTemplate from "@/components/service-page-template";
 export const metadata: Metadata = pageMeta({
   title: "Web Design & Development",
   description:
-    "Custom web design for Kentucky businesses. No templates. Professional sites built for speed, SEO, and conversions. Based in Lexington, KY.",
+    "A website comes with Business AI Setup Professional and Custom: a one-page site or a full site, with the domain and hosting in your own accounts. Lexington, KY.",
   path: "/services/web-design",
 });
 
 export default function WebDesignPage() {
   return (
     <ServicePageTemplate
-      label="Web Design & Development"
-      title="Your business deserves a real website."
-      subtitle="Not a template with your logo slapped on it. A fully custom site designed around your business, your customers, and your goals. Built to load fast, look sharp, and convert visitors into calls."
+      image={{ src: "/images/scenes/shop-website.webp", alt: "A shop owner after closing, checking a website on a laptop at the counter" }}
+      title="A website built for your business."
+      subtitle="A website comes with Business AI Setup Professional and Custom. Professional includes a one-page website. Custom includes a full website."
       deliverables={[
-        "Custom design — no templates, no drag-and-drop builders",
-        "Mobile-responsive layout that works on every device",
-        "SEO foundation — proper structure, meta tags, page speed optimization",
-        "Contact forms, maps, and lead capture built in",
-        "Hosting setup and domain configuration",
-        "Google Business Profile and analytics integration",
-        "Content writing for your key pages",
-        "30-day post-launch support for edits and tweaks",
+        "Professional: a one-page website",
+        "Professional: a domain and hosting in your own accounts",
+        "Custom: a full website",
+        "Custom: a dashboard or app, with a database if it needs one",
+        "Both: Claude set up for your business and training for your people",
+        "The Support plan fixes a broken website",
       ]}
       whoItsFor={[
         "Businesses with no website or a website that looks like it was built in 2015",
         "Companies that tried Wix or Squarespace and outgrew it",
-        "Anyone who's embarrassed to hand out their URL",
+        "Anyone who hesitates to hand out their web address",
         "Businesses where the website doesn't match the quality of the work they do",
       ]}
       showroomLink={{
@@ -37,9 +35,9 @@ export default function WebDesignPage() {
       }}
       relatedPosts={[
         {
-          href: "/insights/choosing-an-ai-consultant",
-          title: "How to Choose an AI Consultant (Six Questions That Actually Separate Them)",
-          category: "Strategy",
+          href: "/work/pfsa",
+          title: "A back office for a Lexington nonprofit",
+          category: "Case study",
         },
       ]}
       serviceJsonLd={{
@@ -53,7 +51,7 @@ export default function WebDesignPage() {
         },
         areaServed: "Central Kentucky",
         description:
-          "Custom web design and development for businesses. Professional sites built for speed, SEO, and conversions — not templates.",
+          "A website included with Business AI Setup Professional (one-page website, domain and hosting in your own accounts) and Custom (full website).",
       }}
     />
   );
