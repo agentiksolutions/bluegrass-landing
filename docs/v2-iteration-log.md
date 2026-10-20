@@ -280,3 +280,24 @@ Words of copy in `main`, imagery and small print excluded. The count includes th
 - **Logo wall:** Five Guys and Activate are approved. Still pending before live: Tyler Barton/BRG, Greer, StoneCreek, Proliferation, United Property Holdings. The code comment and the round 6 note are updated.
 - **Years:** Phil chose "over 15 years". No years figure is on the site now: the About figure was cut in round 6, and the copy passes removed the others. A grep of src and content for a years claim finds only a placeholder example in the website generator. When a years line is added back, it must read "over 15 years".
 - **Turnstile:** the keys are set for Production in Vercel; the preview has none. Removed from the For Phil list.
+
+## Consent card and privacy page (Phil: "the privacy things needs to be more professional looking")
+
+Research is in `docs/v2-references.md` (GOV.UK, Stripe, Vercel, Linear, Apple UK, Locomotive and three Awwwards studios). Visuals that render in a script were not verifiable for Stripe, Vercel, Linear and Apple; that is noted there.
+
+- **Consent card (`src/components/cookie-consent.tsx`):**
+  - A white card in the bottom-left corner on desktop (400 px) and a sheet inset 12 px on phones. Hanken Grotesk, thin neutral border, soft shadow.
+  - "Cookies on this site", one line of wording, Accept and Reject as identical UK blue buttons, then "Manage preferences" and "Privacy notice" links.
+  - Preferences: Necessary ("Remembers your cookie choice in this browser.", Always on) and Analytics (a keyboard switch), then "Save preferences". Escape or Back returns to the card before a first choice.
+  - After any choice a "Your cookie settings were saved." message shows for 4 seconds and is announced through a status region. Focus returns to the control that reopened the card.
+  - The footer's existing "Cookie settings" button reopens straight into preferences, with the switch showing the saved choice. The entrance animation runs only for motion-safe visitors.
+- **Behavior kept:** GA still loads only after consent ("granted"), the same storage key and values, Reject still clears _ga cookies, and the card still takes focus when it opens.
+- **Checked at 390 and 1440 (`consent.py`, 20 of 20 pass):**
+  - No GA request before a choice or after Reject.
+  - The card takes focus. The switch starts off and toggles with Space. Escape goes back.
+  - The saved message is announced, and the choice persists over a reload.
+  - The footer link reopens preferences, and GA loads after opting in.
+- **/privacy:**
+  - A limestone title block with "Effective" and "Last updated" dates (both October 16, 2026, the only date on record).
+  - A contents list that stays beside the text on wide screens, sections divided by thin rules, and a 68-character reading column.
+  - The wording is unchanged except the analytics paragraph, which said "click Accept" and "click Decline". It now says "accept analytics cookies" and "reject them" to match the new buttons.

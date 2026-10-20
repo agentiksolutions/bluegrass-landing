@@ -97,3 +97,41 @@ Phones play the same build once when it arrives on screen. Reduced motion shows 
 **The pre-rendered flight (`scroll-video.tsx`):**
 - A Blender Cycles render made on the Mac mini, 150 frames.
 - Every frame is a keyframe, so scrubbing it with scroll seeks instantly.
+
+## Cookie consent (2026-10-20, for Phil's "more professional" request)
+
+Researched by plain fetches of page source, cookie policies and design-system docs. A script-rendered banner whose layout could not be seen is marked second-hand.
+
+- **GOV.UK Design System (verified, design-system.service.gov.uk/components/cookie-banner):**
+  - **Layout:** a block at the top of the page, never fixed, so it cannot cover focused content.
+  - **Wording:** heading "Cookies on [service]". One line names essential cookies, one asks for analytics.
+  - **Buttons:** "Accept analytics cookies" and "Reject analytics cookies" at equal weight, plus a "View cookies" link.
+  - **After a choice:** a confirmation ("You've accepted analytics cookies. You can change your cookie settings at any time.") with a "Hide cookie message" button.
+  - **Preferences:** on a separate cookies page, with a Yes/No per category.
+  - **Reopen:** the footer link.
+- **Stripe (verified in source):**
+  - **Wording:** "We use cookies to improve your experience and for marketing. Read our cookie policy or manage cookies."
+  - **Buttons:** "Accept all" and "Reject all".
+  - **Preferences:** a full cookie-settings page with Advertising, Functional and Essential (required).
+  - **Reopen:** a "Cookie settings" link in the footer.
+- **Vercel (verified: footer and categories only):**
+  - **Reopen:** a footer button, "Cookie Preferences".
+  - **Categories:** Strictly Necessary, Functionality, and Performance and Analytics.
+  - **Banner:** layout not captured.
+- **Linear and Apple UK (verified: footer and policy only):**
+  - **Banner:** none in the served HTML.
+  - **Linear:** points to browser settings.
+  - **Apple:** a "Use of Cookies" footer link.
+- **Locomotive (award-winning studio, verified from its consent config):**
+  - **Layout:** a small card in the bottom-right corner.
+  - **Buttons:** "Accept All" and "Accept Necessary", plus a "Let me choose" link.
+  - **Preferences:** a modal with Strictly necessary (required) and Performance (a switch), and "Save Preferences".
+  - **Reopen:** a "Cookie preferences" footer link.
+- **Active Theory, makemepulse, Obys (Awwwards Sites of the Day):** no banner in the served HTML. Dogstudio, Resn and Basic/Dept were not checked.
+
+What the BAG card takes from them:
+- **Layout:** a compact corner card (Locomotive) in the brand's type and blue. No full-screen modal and no scroll lock.
+- **Buttons:** Accept and Reject side by side at identical weight (GOV.UK, Stripe), plus a "Manage preferences" link.
+- **Preferences:** two rows, Necessary (always on) and Analytics (a switch), and one "Save preferences" button.
+- **After a choice:** a short "Your cookie settings were saved." message, announced to screen readers (GOV.UK).
+- **Reopen:** "Cookie settings" in the footer and on /privacy (Stripe's wording).
