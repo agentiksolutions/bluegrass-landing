@@ -78,7 +78,7 @@ export default function AboutPage() {
               <p>
                 Improving how a business runs is the part of the work I&apos;m proudest of. When the
                 company needed something done, I took it on and did it as well as I could. Along the way,
-                we became the top-ranked restaurant group in the nation among our peers.
+                in 2022 we ranked #1 of 91 Five Guys franchise groups on the company&apos;s monthly Blended Index.
               </p>
               <p>
                 Today I run operations for a Five Guys franchisee in Central Kentucky. I built the
