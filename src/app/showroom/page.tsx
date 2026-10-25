@@ -70,7 +70,7 @@ export default function ShowroomPage() {
       <div className="max-w-content mx-auto px-6 md:px-12 py-16 pb-24 grid grid-cols-1 md:grid-cols-2 gap-5">
         {rooms.map((room) => (
           <Link key={room.id} href={room.href} className="group block">
-            <Card className="!p-10">
+            <Card className="p-10!">
               <div className="flex justify-between items-start mb-5">
                 <span className="font-display text-4xl font-bold text-[#e8e5e0] group-hover:text-emerald transition-colors leading-none">
                   {room.num}

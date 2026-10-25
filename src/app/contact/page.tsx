@@ -177,7 +177,7 @@ export default function ContactPage() {
             </div>
           </div>
 
-          <div className="bg-band p-6 rounded">
+          <div className="bg-band p-6 rounded-sm">
             <h2 className="text-[16px] font-semibold text-ink mb-3">
               What happens next
             </h2>
@@ -191,7 +191,7 @@ export default function ContactPage() {
         </div>
 
         {/* Right column: form or success */}
-        <div className="bg-white p-6 md:p-10 rounded border border-line">
+        <div className="bg-white p-6 md:p-10 rounded-sm border border-line">
           {submitted ? (
             <SuccessState
               calendlyUrl={calendlyUrl}
@@ -211,7 +211,7 @@ export default function ContactPage() {
                     value={form.contact_name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-line rounded text-[15px] text-ink bg-white outline-none focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
+                    className="w-full px-4 py-3 border border-line rounded-sm text-[15px] text-ink bg-white outline-hidden focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
                   />
                 </div>
                 <div>
@@ -224,7 +224,7 @@ export default function ContactPage() {
                     value={form.contact_role}
                     onChange={handleChange}
                     placeholder="CEO, COO, Operator..."
-                    className="w-full px-4 py-3 border border-line rounded text-[15px] text-ink bg-white outline-none focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
+                    className="w-full px-4 py-3 border border-line rounded-sm text-[15px] text-ink bg-white outline-hidden focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
                   />
                 </div>
               </div>
@@ -240,7 +240,7 @@ export default function ContactPage() {
                   value={form.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border border-line rounded text-[15px] text-ink bg-white outline-none focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
+                  className="w-full px-4 py-3 border border-line rounded-sm text-[15px] text-ink bg-white outline-hidden focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
                 />
               </div>
 
@@ -256,7 +256,7 @@ export default function ContactPage() {
                     value={form.company_name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-line rounded text-[15px] text-ink bg-white outline-none focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
+                    className="w-full px-4 py-3 border border-line rounded-sm text-[15px] text-ink bg-white outline-hidden focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
                   />
                 </div>
                 <div>
@@ -272,7 +272,7 @@ export default function ContactPage() {
                     value={form.company_website}
                     onChange={handleChange}
                     placeholder="example.com"
-                    className="w-full px-4 py-3 border border-line rounded text-[15px] text-ink bg-white outline-none focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
+                    className="w-full px-4 py-3 border border-line rounded-sm text-[15px] text-ink bg-white outline-hidden focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
                   />
                 </div>
               </div>
@@ -288,7 +288,7 @@ export default function ContactPage() {
                     value={form.annual_revenue_range}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-line rounded text-[15px] text-ink bg-white outline-none focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
+                    className="w-full px-4 py-3 border border-line rounded-sm text-[15px] text-ink bg-white outline-hidden focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
                   >
                     {REVENUE_OPTIONS.map((opt) => (
                       <option key={opt.value} value={opt.value}>
@@ -306,7 +306,7 @@ export default function ContactPage() {
                     value={form.num_entities}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-line rounded text-[15px] text-ink bg-white outline-none focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
+                    className="w-full px-4 py-3 border border-line rounded-sm text-[15px] text-ink bg-white outline-hidden focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
                   >
                     {ENTITIES_OPTIONS.map((opt) => (
                       <option key={opt.value} value={opt.value}>
@@ -329,7 +329,7 @@ export default function ContactPage() {
                   required
                   rows={4}
                   placeholder="A few sentences on what you're trying to figure out, what you've tried, what's blocking you..."
-                  className="w-full px-4 py-3 border border-line rounded text-[15px] text-ink bg-white outline-none focus:border-blue focus:ring-1 focus:ring-blue transition-colors resize-none"
+                  className="w-full px-4 py-3 border border-line rounded-sm text-[15px] text-ink bg-white outline-hidden focus:border-blue focus:ring-1 focus:ring-blue transition-colors resize-none"
                 />
               </div>
 
@@ -347,7 +347,7 @@ export default function ContactPage() {
                   value={form.best_call_time}
                   onChange={handleChange}
                   placeholder="Weekday mornings ET, Tuesday/Thursday afternoons..."
-                  className="w-full px-4 py-3 border border-line rounded text-[15px] text-ink bg-white outline-none focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
+                  className="w-full px-4 py-3 border border-line rounded-sm text-[15px] text-ink bg-white outline-hidden focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
                 />
               </div>
 
@@ -358,7 +358,7 @@ export default function ContactPage() {
                 tabIndex={-1}
                 autoComplete="off"
                 aria-hidden="true"
-                className="absolute -left-[9999px] h-px w-px overflow-hidden"
+                className="absolute left-[-9999px] h-px w-px overflow-hidden"
               />
               {TURNSTILE_SITE_KEY && (
                 <>
@@ -382,7 +382,7 @@ export default function ContactPage() {
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full bg-blue text-white px-6 py-4 rounded text-[16px] font-semibold hover:bg-blue-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-blue text-white px-6 py-4 rounded-sm text-[16px] font-semibold hover:bg-blue-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {submitting ? "Submitting..." : "Submit & Schedule Call"}
               </button>
@@ -442,7 +442,7 @@ function SuccessState({
             href={calendlyUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block bg-blue text-white px-6 py-4 rounded text-[16px] font-semibold hover:bg-blue-dark transition-colors"
+            className="inline-block bg-blue text-white px-6 py-4 rounded-sm text-[16px] font-semibold hover:bg-blue-dark transition-colors"
           >
             Book a 30-minute call
           </a>
@@ -451,7 +451,7 @@ function SuccessState({
           </p>
         </>
       ) : (
-        <div className={`${newsreader.className} bg-band p-5 rounded text-[16px] text-body leading-relaxed`}>
+        <div className={`${newsreader.className} bg-band p-5 rounded-sm text-[16px] text-body leading-relaxed`}>
           I&apos;ll be in touch to schedule the call. Check your inbox. A
           confirmation email should arrive in the next minute or two.
         </div>

@@ -46,7 +46,7 @@ export default function ExamplesPage() {
       <div className="max-w-content mx-auto px-6 md:px-12 pb-24">
         <div className="grid grid-cols-1 gap-6">
           {examples.map((ex) => (
-            <Card key={ex.title} className="!p-10">
+            <Card key={ex.title} className="p-10!">
               <div className="flex justify-between items-start mb-4">
                 <h2 className="font-display text-2xl font-bold">{ex.title}</h2>
                 <span className="text-[10px] font-bold tracking-[1.5px] text-emerald uppercase bg-emerald/[0.07] px-2.5 py-1 rounded-[3px]">
@@ -68,7 +68,7 @@ export default function ExamplesPage() {
                 href={ex.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block bg-graphite text-warm-white px-7 py-3.5 rounded text-sm font-semibold hover:bg-emerald transition-colors"
+                className="inline-block bg-graphite text-warm-white px-7 py-3.5 rounded-sm text-sm font-semibold hover:bg-emerald transition-colors"
               >
                 View Live Demo &rarr;
               </a>

@@ -89,7 +89,7 @@ export default function CookieConsent() {
   };
 
   const btn =
-    "px-5 py-2.5 rounded text-[14px] font-semibold border border-warm-white/40 text-warm-white hover:bg-warm-white hover:text-graphite transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-warm-white";
+    "px-5 py-2.5 rounded-sm text-[14px] font-semibold border border-warm-white/40 text-warm-white hover:bg-warm-white hover:text-graphite transition-colors duration-200 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-warm-white";
 
   return (
     <>
@@ -110,7 +110,7 @@ export default function CookieConsent() {
           ref={banner}
           tabIndex={-1}
           aria-label="Cookie consent"
-          className="fixed inset-x-0 bottom-0 z-50 bg-graphite text-warm-white border-t border-[#2a2a2a] px-4 py-5 md:px-12 outline-none"
+          className="fixed inset-x-0 bottom-0 z-50 bg-graphite text-warm-white border-t border-[#2a2a2a] px-4 py-5 md:px-12 outline-hidden"
         >
           <div className="max-w-content mx-auto flex flex-col md:flex-row md:items-center gap-4 md:gap-8">
             <p className="text-[14px] leading-relaxed text-[#bbb] flex-1">

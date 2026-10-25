@@ -29,7 +29,7 @@ export default function InsightsPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {posts.map((post) => (
           <Link key={post.slug} href={`/insights/${post.slug}`} className="group">
-            <article className="bg-white rounded-lg p-8 border border-[#e8e5e0] h-full transition-all duration-[250ms] group-hover:border-emerald group-hover:-translate-y-0.5 group-hover:shadow-[0_8px_30px_rgba(0,0,0,0.04)]">
+            <article className="bg-white rounded-lg p-8 border border-[#e8e5e0] h-full transition-all duration-250 group-hover:border-emerald group-hover:-translate-y-0.5 group-hover:shadow-[0_8px_30px_rgba(0,0,0,0.04)]">
               <span className="text-[10px] font-bold tracking-[1.5px] text-emerald uppercase">
                 {post.category}
               </span>

@@ -73,7 +73,7 @@ export default function ServicesPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {services.map((s) => (
             <Link key={s.num} href={s.href} className="group">
-              <Card className="!p-9 h-full">
+              <Card className="p-9! h-full">
                 <div className="text-3xl text-emerald mb-4">{s.icon}</div>
                 <h2 className="font-display text-xl font-bold mb-3 group-hover:text-emerald transition-colors">
                   {s.title}

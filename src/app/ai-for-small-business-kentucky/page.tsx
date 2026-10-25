@@ -70,7 +70,7 @@ export default function KentuckySmallBusinessPage() {
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {firstBuilds.map((b) => (
-            <Card key={b.title} className="!p-8 h-full">
+            <Card key={b.title} className="p-8! h-full">
               <h3 className="font-display text-lg font-bold mb-3">{b.title}</h3>
               <p className="text-[14px] leading-relaxed text-[#666]">{b.body}</p>
             </Card>

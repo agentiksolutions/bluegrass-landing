@@ -188,7 +188,7 @@ export default function HomePage() {
             <Button
               href="/services"
               variant="secondary"
-              className="!text-warm-white !border-warm-white/30 hover:!border-warm-white"
+              className="text-warm-white! border-warm-white/30! hover:border-warm-white!"
             >
               What We Do
             </Button>
@@ -290,7 +290,7 @@ export default function HomePage() {
       {/* ════════ ABOUT STRIP ════════ */}
       <section className="section-padding max-w-content mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-[72px] items-center">
-          <div className="relative rounded-[12px] overflow-hidden aspect-[3/4]">
+          <div className="relative rounded-[12px] overflow-hidden aspect-3/4">
             <video
               autoPlay
               muted
@@ -367,7 +367,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {blogPosts.map((post) => (
               <Link key={post.slug} href={`/insights/${post.slug}`} className="group">
-                <article className="bg-warm-white rounded-md overflow-hidden border border-transparent group-hover:border-emerald group-hover:-translate-y-0.5 transition-all duration-[250ms]">
+                <article className="bg-warm-white rounded-md overflow-hidden border border-transparent group-hover:border-emerald group-hover:-translate-y-0.5 transition-all duration-250">
                   <div className="relative overflow-hidden">
                     <Image
                       src={post.image}

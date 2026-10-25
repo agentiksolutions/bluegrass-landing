@@ -15,7 +15,7 @@ export default function InlineArticleCTA() {
           href="https://cal.com/philip-fifield/intro"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block px-6 py-3 rounded bg-emerald text-warm-white text-[14px] font-semibold hover:bg-sage transition-colors duration-200"
+          className="inline-block px-6 py-3 rounded-sm bg-emerald text-warm-white text-[14px] font-semibold hover:bg-sage transition-colors duration-200"
         >
           Schedule a Free Call
         </a>

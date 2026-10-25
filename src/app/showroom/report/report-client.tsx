@@ -154,7 +154,7 @@ export default function ReportPage() {
             </p>
             <a
               href="mailto:phil@bluegrassadvisorygroup.com"
-              className="inline-block bg-emerald text-warm-white px-8 py-3.5 rounded text-sm font-semibold hover:bg-sage transition-colors"
+              className="inline-block bg-emerald text-warm-white px-8 py-3.5 rounded-sm text-sm font-semibold hover:bg-sage transition-colors"
             >
               Schedule a Free Call
             </a>
@@ -212,7 +212,7 @@ export default function ReportPage() {
           {[0, 1, 2].map((i) => (
             <div
               key={i}
-              className={`flex-1 h-[3px] rounded-sm transition-colors duration-300 ${
+              className={`flex-1 h-[3px] rounded-xs transition-colors duration-300 ${
                 i <= step ? "bg-emerald" : "bg-[#e0ddd8]"
               }`}
             />
@@ -235,7 +235,7 @@ export default function ReportPage() {
               onChange={(e) =>
                 setFormData({ ...formData, businessName: e.target.value })
               }
-              className="w-full p-4 border-2 border-[#e0ddd8] rounded-md text-base bg-white outline-none focus:border-emerald transition-colors"
+              className="w-full p-4 border-2 border-[#e0ddd8] rounded-md text-base bg-white outline-hidden focus:border-emerald transition-colors"
               autoFocus
             />
             <div className="mt-6">
@@ -249,7 +249,7 @@ export default function ReportPage() {
                 onChange={(e) =>
                   setFormData({ ...formData, employees: e.target.value })
                 }
-                className="w-[120px] p-4 border-2 border-[#e0ddd8] rounded-md text-base bg-white outline-none focus:border-emerald transition-colors"
+                className="w-[120px] p-4 border-2 border-[#e0ddd8] rounded-md text-base bg-white outline-hidden focus:border-emerald transition-colors"
               />
             </div>
           </div>
@@ -271,7 +271,7 @@ export default function ReportPage() {
                   onClick={() => setFormData({ ...formData, industry: ind })}
                   className={`px-5 py-3 rounded-md text-sm transition-all cursor-pointer border-2 ${
                     formData.industry === ind
-                      ? "border-emerald bg-emerald/[0.06] text-emerald font-semibold"
+                      ? "border-emerald bg-emerald/6 text-emerald font-semibold"
                       : "border-[#e0ddd8] bg-white text-[#666]"
                   }`}
                 >
@@ -290,7 +290,7 @@ export default function ReportPage() {
                     onClick={() => setFormData({ ...formData, locations: n })}
                     className={`px-5 py-3 rounded-md text-sm transition-all cursor-pointer border-2 ${
                       formData.locations === n
-                        ? "border-emerald bg-emerald/[0.06] text-emerald font-semibold"
+                        ? "border-emerald bg-emerald/6 text-emerald font-semibold"
                         : "border-[#e0ddd8] bg-white text-[#666]"
                     }`}
                   >
@@ -318,7 +318,7 @@ export default function ReportPage() {
                   onClick={() => setFormData({ ...formData, painPoint: pp })}
                   className={`px-5 py-3 rounded-md text-sm text-left transition-all cursor-pointer border-2 ${
                     formData.painPoint === pp
-                      ? "border-emerald bg-emerald/[0.06] text-emerald font-semibold"
+                      ? "border-emerald bg-emerald/6 text-emerald font-semibold"
                       : "border-[#e0ddd8] bg-white text-[#666]"
                   }`}
                 >

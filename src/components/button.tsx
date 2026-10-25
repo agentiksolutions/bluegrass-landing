@@ -26,7 +26,7 @@ export default function Button({
   className = "",
   external = false,
 }: ButtonProps) {
-  const classes = `inline-block px-8 py-4 rounded text-[15px] font-semibold transition-all duration-200 ${variants[variant]} ${className}`;
+  const classes = `inline-block px-8 py-4 rounded-sm text-[15px] font-semibold transition-all duration-200 ${variants[variant]} ${className}`;
 
   if (external || href.startsWith("http")) {
     return (

@@ -33,7 +33,7 @@ export default function CTABand({
               <Button
                 href="mailto:phil@bluegrassadvisorygroup.com"
                 variant="secondary"
-                className="!text-stone !border-[#444] hover:!border-stone hover:!text-warm-white"
+                className="text-stone! border-[#444]! hover:border-stone! hover:text-warm-white!"
               >
                 Email Us
               </Button>
@@ -62,7 +62,7 @@ export default function CTABand({
         >
           <source src={video} type="video/mp4" />
         </video>
-        <div className="absolute inset-0 z-[1] bg-[rgba(28,28,30,0.55)]" />
+        <div className="absolute inset-0 z-1 bg-[rgba(28,28,30,0.55)]" />
         <div className="relative z-10 max-w-[560px] mx-auto text-center">
           <h2 className="font-display text-[clamp(30px,4vw,42px)] font-bold tracking-tight mb-4 text-warm-white">
             {headline}
