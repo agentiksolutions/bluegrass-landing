@@ -130,8 +130,8 @@ Researched by plain fetches of page source, cookie policies and design-system do
 - **Active Theory, makemepulse, Obys (Awwwards Sites of the Day):** no banner in the served HTML. Dogstudio, Resn and Basic/Dept were not checked.
 
 What the BAG card takes from them:
-- **Layout:** a compact corner card (Locomotive) in the brand's type and blue. No full-screen modal and no scroll lock.
-- **Buttons:** Accept and Reject side by side at identical weight (GOV.UK, Stripe), plus a "Manage preferences" link.
-- **Preferences:** two rows, Necessary (always on) and Analytics (a switch), and one "Save preferences" button.
+- **Layout (2026-10-28, Phil asked again for the large-company look):** a compact card in the bottom-left corner on desktop, under the header on phones. No scroll lock on the card.
+- **Buttons:** "Accept all" (filled) and "Reject all" (outlined) side by side at the same size (GOV.UK, Stripe), plus a "Manage preferences" link.
+- **Preferences:** a centered window over a dimmed page, with Necessary (always on) and Analytics (a switch), then "Cancel" and "Save preferences".
 - **After a choice:** a short "Your cookie settings were saved." message, announced to screen readers (GOV.UK).
 - **Reopen:** "Cookie settings" in the footer and on /privacy (Stripe's wording).
