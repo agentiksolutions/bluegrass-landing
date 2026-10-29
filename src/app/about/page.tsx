@@ -11,7 +11,7 @@ import { photos } from "@/lib/photos";
 export const metadata: Metadata = pageMeta({
   title: "About",
   description:
-    "Phil Fifield runs operations for a Five Guys franchisee in Central Kentucky, is president of The PFSA, and founded Bluegrass Advisory Group to help Kentucky businesses get ahead with AI.",
+    "Phil Fifield runs operations for a Five Guys franchisee in Central Kentucky, is president of The PFSA, and founded Bluegrass Advisory Group to help Kentucky businesses put the newest technology and tools to work.",
   path: "/about",
 });
 
