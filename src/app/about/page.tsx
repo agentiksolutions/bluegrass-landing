@@ -85,7 +85,8 @@ export default function AboutPage() {
               </p>
               <p>
                 The portal and the tools behind it also replaced several services a hospitality business usually pays
-                for every year. Running everything in one place saves the business money and gives my managers time back.
+                for every year. Running everything in one place saves the business money and gives my managers time back. Because
+                I build that work in-house, we spend less than we would hiring outside help to do it.
               </p>
               <p>
                 The job is people as much as numbers. I hire, train and coach the managers who run each shift, and some
