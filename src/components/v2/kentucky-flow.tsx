@@ -60,7 +60,7 @@ function buildMask() {
   return { mask, cells, cols, rows };
 }
 
-export default function KentuckyFlow({ className = "" }: { className?: string }) {
+export default function KentuckyFlow({ className = "", still = false }: { className?: string; still?: boolean }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -69,7 +69,7 @@ export default function KentuckyFlow({ className = "" }: { className?: string })
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const reduce = document.documentElement.classList.contains("motion-off");
+    const reduce = still || document.documentElement.classList.contains("motion-off");
     const { mask, cells, cols, rows } = buildMask();
     const insideAt = (x: number, y: number) => {
       const c = (x / CELL) | 0;
@@ -306,7 +306,7 @@ export default function KentuckyFlow({ className = "" }: { className?: string })
       host.removeEventListener("pointermove", onMove);
       host.removeEventListener("pointerleave", onLeave);
     };
-  }, []);
+  }, [still]);
 
   return <canvas ref={canvasRef} aria-hidden="true" className={`absolute inset-0 h-full w-full ${className}`} />;
 }

@@ -30,7 +30,8 @@ export default function HomeHero() {
 
   // Load three.js only when this device will use it.
   useEffect(() => {
-    if (!can3D()) return;
+    // ponytail: 3D is off for now (Phil, 2026-10-29: keep the first image, still). Delete `false &&` to bring it back.
+    if (!(false && can3D())) return;
     let cancelled = false;
     let timer = 0;
     let wait = 0;
@@ -104,13 +105,8 @@ export default function HomeHero() {
 
   return (
     <section ref={ref} data-nav="dark" data-nomotion className="night relative h-[100svh] min-h-[620px] overflow-hidden bg-night text-night-text">
-      {/* Kentucky sits in the upper-right corner, clear of the headline (Phil, 2026-10-29). */}
-      <div
-        ref={stageRef}
-        className="absolute right-0 top-[72px] h-[42%] w-full [mask-image:radial-gradient(ellipse_at_center,black_60%,transparent_100%)] md:top-[10%] md:h-[58%] md:w-[60%]"
-        aria-hidden="true"
-      >
-        {mode === "2d" && <KentuckyFlow />}
+      <div ref={stageRef} className="absolute inset-0" aria-hidden="true">
+        {mode === "2d" && <KentuckyFlow still />}
       </div>
       <div className="pointer-events-none relative mx-auto flex h-full max-w-page-pad flex-col justify-end px-4 pb-14 md:px-10 md:pb-20">
         <div data-hero-words>
