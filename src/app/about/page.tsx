@@ -61,9 +61,11 @@ export default function AboutPage() {
               className="font-display text-[56px] font-light leading-[0.95] tracking-[-0.04em] md:text-[96px]"
             />
             <FadeUp onLoad delay={0.5}>
-              <p className="mt-7 max-w-[36ch] text-[20px] leading-relaxed text-night-body md:text-[22px]">
-                I founded Bluegrass Advisory Group. I run a franchisee&apos;s operations, lead a Lexington nonprofit,
-                and built the systems both use.
+              <p className="mt-7 max-w-[44ch] text-[20px] leading-relaxed text-night-body md:text-[22px]">
+                I&apos;m Director of Operations for a hospitality group in Central Kentucky. We run multiple locations,
+                and I&apos;ve managed, trained and developed hundreds of employees. Developing leaders is the part of
+                the job I&apos;m proudest of. Now I&apos;m bringing that experience to Bluegrass Advisory Group, where I
+                build the systems and tools that make businesses more profitable.
               </p>
             </FadeUp>
           </div>
