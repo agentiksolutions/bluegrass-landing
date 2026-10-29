@@ -100,7 +100,7 @@ export default function AboutPage() {
               </p>
               <p>
                 I started Bluegrass Advisory Group to bring that experience home to Kentucky businesses. I help small
-                and mid-sized companies get ahead with AI, and I start from what has worked in real operations, because
+                and mid-sized companies put the newest technology and tools to work, and I start from what has worked in real operations, because
                 I&apos;m an operator first.
               </p>
             </div>
