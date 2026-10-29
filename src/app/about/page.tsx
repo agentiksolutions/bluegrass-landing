@@ -84,8 +84,8 @@ export default function AboutPage() {
                 don&apos;t need to know anything about AI to use it.
               </p>
               <p>
-                Those tools also replaced several services a hospitality business usually pays for every year. Running
-                them in one place saves the business money and gives my managers time back.
+                The portal and the tools behind it also replaced several services a hospitality business usually pays
+                for every year. Running everything in one place saves the business money and gives my managers time back.
               </p>
               <p>
                 The job is people as much as numbers. I hire, train and coach the managers who run each shift, and some
