@@ -90,6 +90,11 @@ export default function AboutPage() {
             </h2>
             <div className="mt-6 space-y-5">
               <p>
+                I&apos;m a Kentucky native. I&apos;ve lived in several states, and I came back to my hometown in
+                Kentucky, where I&apos;ve spent most of my career. Now I want to put what I&apos;ve learned to work for
+                businesses here at home.
+              </p>
+              <p>
                 I started Bluegrass Advisory Group to help small and mid-sized businesses get ahead with AI. I&apos;m an
                 operator first, and I consult from what has worked in real businesses.
               </p>
