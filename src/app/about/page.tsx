@@ -64,7 +64,7 @@ export default function AboutPage() {
               <p className="mt-7 max-w-[44ch] text-[20px] leading-relaxed text-night-body md:text-[22px]">
                 I&apos;m Director of Operations for a hospitality group in Central Kentucky. We run multiple locations,
                 and I&apos;ve managed, trained and developed hundreds of employees. Developing leaders is the part of
-                the job I&apos;m proudest of. Now I&apos;m bringing that experience to Bluegrass Advisory Group, where I
+                the job I care about most. Now I&apos;m bringing that experience to Bluegrass Advisory Group, where I
                 build the systems and tools that make businesses more profitable.
               </p>
             </FadeUp>
@@ -83,6 +83,11 @@ export default function AboutPage() {
                 stores run on. It puts their numbers, checklists and weekly newsletter in one place, and the managers
                 don&apos;t need to know anything about AI to use it.
               </p>
+              <p>
+                The job is people as much as numbers. I hire, train and coach the managers who run each shift, and some
+                of the team members I trained now lead teams of their own. Building those leaders is the work I&apos;m
+                proudest of.
+              </p>
             </div>
 
             <h2 className="mt-16 font-display text-[32px] font-light leading-[1.08] tracking-[-0.02em] text-ink md:text-[44px]">
@@ -90,13 +95,14 @@ export default function AboutPage() {
             </h2>
             <div className="mt-6 space-y-5">
               <p>
-                I&apos;m a Kentucky native. I&apos;ve lived in several states, and I came back to my hometown in
-                Kentucky, where I&apos;ve spent most of my career. Now I want to put what I&apos;ve learned to work for
-                businesses here at home.
+                I&apos;m a Kentucky native. My career has taken me through several states, and each one sharpened how
+                I run operations and lead people. I came back to my hometown, where I&apos;ve spent most of my career,
+                and this is where I want to build what comes next.
               </p>
               <p>
-                I started Bluegrass Advisory Group to help small and mid-sized businesses get ahead with AI. I&apos;m an
-                operator first, and I consult from what has worked in real businesses.
+                I started Bluegrass Advisory Group to bring that experience home to Kentucky businesses. I help small
+                and mid-sized companies get ahead with AI, and I start from what has worked in real operations, because
+                I&apos;m an operator first.
               </p>
             </div>
 
