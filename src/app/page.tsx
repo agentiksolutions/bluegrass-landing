@@ -5,17 +5,9 @@ import CTABand from "@/components/cta-band";
 import JsonLd from "@/components/json-ld";
 import DataToDashboard from "@/components/v2/data-to-dashboard";
 import HomeHero from "@/components/v2/home-hero";
-import ClientLogos from "@/components/v2/client-logos";
-import { AssistantPanel, StorePanel, SupportThread, SystemsMap } from "@/components/v2/panels";
+import { AssistantPanel, SupportThread } from "@/components/v2/panels";
 import { FadeUp, Reveal } from "@/components/v2/reveal";
-import {
-  HorizontalTrack,
-  HoverList,
-  PathSteps,
-  PhotoReveal,
-  PinnedStatements,
-  TrackCard,
-} from "@/components/v2/scroll-sections";
+import { PhotoReveal, PinnedStatements } from "@/components/v2/scroll-sections";
 import { pageMeta } from "@/lib/metadata";
 import { photos } from "@/lib/photos";
 
@@ -59,48 +51,14 @@ export const metadata: Metadata = {
 };
 
 // Copy comes from the reviewed staging home page (homepage-21st). Sources: Engagement Catalog
-// "right tier if" lines and brand decision item 36 for the problems; the catalog's small-business
-// path for the steps; each market line from that market's own page on this site.
-// Pictures are real things only: Phil's headshot, the live Academy, the PFSA site, and panels drawn
-// in code marked "Sample data".
+// "right tier if" lines and brand decision item 36 for the problems.
+// Pictures are real things only: Phil's headshot, the live Academy, and panels drawn in code
+// marked "Sample data". How it starts has its own page; Recent work, client logos and Industries
+// are off the home page for now (Phil, 2026-10-29).
 const problems = [
   "No AI rules for your team.",
   "Not sure where to start.",
   "Reports that don't agree.",
-];
-
-const steps = [
-  { title: "Free intro call" },
-  { title: "Roadmap" },
-  { title: "Business AI Setup" },
-  { title: "A monthly plan" },
-];
-
-const markets = [
-  {
-    label: "Hospitality",
-    href: "/ai-for-hospitality",
-    image: "/images/work/tiles/store-screen.webp",
-    imageAlt: "",
-  },
-  {
-    label: "Multi-location",
-    href: "/multi-location-dashboards",
-    image: "/images/work/tiles/systems-map.webp",
-    imageAlt: "",
-  },
-  {
-    label: "Nonprofits",
-    href: "/work/pfsa",
-    image: "/images/work/tiles/pfsa.webp",
-    imageAlt: "",
-  },
-  {
-    label: "Small businesses",
-    href: "/ai-for-small-business-kentucky",
-    image: "/images/work/tiles/assistant.webp",
-    imageAlt: "",
-  },
 ];
 
 export default function HomePage() {
@@ -110,7 +68,7 @@ export default function HomePage() {
       <JsonLd data={organizationJsonLd} />
       <JsonLd data={websiteJsonLd} />
 
-      {/* 1. Hero: the Kentucky mark in 3D on desktops, moving light in 2D elsewhere. */}
+      {/* 1. Hero: the logo's blue Kentucky with its white star. */}
       <HomeHero />
 
       {/* 2. What we help with: each line lights up while the section holds. */}
@@ -150,112 +108,54 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 4. How we help: a night chapter that holds while the three services pass sideways. */}
-      <HorizontalTrack
-        id="how-we-help"
-        intro={
-          <>
-            <Reveal text="How we help" className="font-display text-[48px] font-light leading-none tracking-[-0.03em] md:text-[72px]" />
-          </>
-        }
-      >
-        <TrackCard
-          title="Education"
-          line="Classes for your team."
-          href="/academy"
-        >
-          <div className="overflow-hidden rounded-[6px] border border-night-line bg-white">
-            <Image
-              src="/images/work/academy-4k.webp"
-              alt="The BAG Academy course page: AI Foundations, a practical course on using AI at work, with the lesson list down the side"
-              width={3840}
-              height={2160}
-              sizes="(min-width: 821px) 560px, 100vw"
-              className="h-auto w-full"
-            />
-          </div>
-        </TrackCard>
-        <TrackCard
-          title="Build"
-          line="Tools built for your business."
-          href="/services"
-        >
-          <AssistantPanel />
-        </TrackCard>
-        <TrackCard
-          title="Support"
-          line="We keep it running."
-          href="/services"
-        >
-          <SupportThread />
-        </TrackCard>
-      </HorizontalTrack>
-
-      {/* 5. Start from the work: the Roadmap's systems map and the path after it. */}
-      <section className="bg-white px-4 py-24 md:px-10 md:py-36">
+      {/* 4. How we help: quick links, each with its picture (Phil, 2026-10-29). */}
+      <section data-nav="dark" className="night bg-night px-4 py-24 text-night-text md:px-10 md:py-36">
         <div className="mx-auto max-w-page">
-          <Reveal
-            text="How it starts"
-            className="max-w-[18ch] font-display text-[40px] font-light leading-[1.02] tracking-[-0.03em] text-ink md:text-[64px]"
-          />
-          <div className="mt-14 grid grid-cols-1 items-start gap-14 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-20">
-            <FadeUp>
-              <SystemsMap />
-            </FadeUp>
-            <PathSteps steps={steps} />
+          <Reveal text="How we help" className="font-display text-[48px] font-light leading-none tracking-[-0.03em] md:text-[72px]" />
+          <div className="mt-14 grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-8">
+            {[
+              {
+                title: "Education",
+                line: "Classes for your team.",
+                href: "/academy",
+                art: (
+                  <div className="overflow-hidden rounded-[6px] border border-night-line bg-white">
+                    <Image
+                      src="/images/work/academy-4k.webp"
+                      alt="The BAG Academy course page: AI Foundations, a practical course on using AI at work, with the lesson list down the side"
+                      width={3840}
+                      height={2160}
+                      sizes="(min-width: 768px) 33vw, 100vw"
+                      className="h-auto w-full"
+                    />
+                  </div>
+                ),
+              },
+              { title: "Build", line: "Tools built for your business.", href: "/services", art: <AssistantPanel /> },
+              { title: "Support", line: "We keep it running.", href: "/services", art: <SupportThread /> },
+            ].map((c, i) => (
+              <FadeUp key={c.title} delay={i * 0.08}>
+                <Link href={c.href} className="group block">
+                  <div className="transition-transform duration-700 ease-out group-hover:-translate-y-1">{c.art}</div>
+                  <p className="mt-6 font-display text-[28px] font-medium leading-tight tracking-[-0.02em] transition-colors group-hover:text-night-blue">
+                    {c.title}
+                  </p>
+                  <p className="mt-1 text-[17px] text-night-body">{c.line}</p>
+                </Link>
+              </FadeUp>
+            ))}
           </div>
+          <Link
+            href="/how-it-starts"
+            className="mt-16 inline-block font-display text-[17px] font-semibold text-night-blue underline decoration-night-blue/40 underline-offset-4 hover:decoration-night-blue"
+          >
+            How it starts
+          </Link>
         </div>
       </section>
-
-      {/* 6. Recent work: the two projects, each with its screen. */}
-      <section className="bg-white pb-24 md:pb-36">
-        <div className="mx-auto max-w-page-pad px-4 md:px-10">
-          <Reveal text="Recent work" className="mb-12 font-display text-[40px] font-light leading-none tracking-[-0.03em] text-ink md:mb-16 md:text-[64px]" />
-        </div>
-        <div className="mx-auto grid max-w-page-pad grid-cols-1 items-start gap-16 px-4 md:px-10 lg:grid-cols-2 lg:gap-20">
-          <FadeUp>
-            <Link href="/work/restaurant-franchisee" className="group block">
-              <div className="mb-8 rounded-[6px] bg-night p-4 transition-transform duration-700 ease-out group-hover:-translate-y-1 sm:p-6">
-                <StorePanel />
-              </div>
-              <p className="font-display text-[28px] font-medium leading-tight tracking-[-0.02em] text-ink transition-colors group-hover:text-blue md:text-[36px]">
-                A restaurant franchisee
-              </p>
-            </Link>
-          </FadeUp>
-          <FadeUp delay={0.12}>
-            <Link href="/work/pfsa" className="group block">
-              <div className="mb-8 overflow-hidden rounded-[6px] border border-line transition-transform duration-700 ease-out group-hover:-translate-y-1">
-                <Image
-                  src={photos.pfsaSite.src}
-                  alt={photos.pfsaSite.alt}
-                  width={photos.pfsaSite.width}
-                  height={photos.pfsaSite.height}
-                  sizes="(min-width: 1024px) 640px, 100vw"
-                  className="h-auto w-full"
-                />
-              </div>
-              <p className="font-display text-[28px] font-medium leading-tight tracking-[-0.02em] text-ink transition-colors group-hover:text-blue md:text-[36px]">
-                The PFSA
-              </p>
-            </Link>
-          </FadeUp>
-        </div>
-      </section>
-
-      {/* Who we have worked with (staging only; see the permission note in the component). */}
-      <ClientLogos />
-
-      {/* 7. Industries: a preview follows the pointer on hover. */}
-      <section className="bg-band px-4 py-24 md:px-10 md:py-36">
-        <div className="mx-auto grid max-w-page grid-cols-1 gap-12 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-20">
-          <Reveal text="Industries" className="max-w-[10ch] font-display text-[40px] font-light leading-[1.02] tracking-[-0.03em] text-ink md:text-[56px]" />
-          <HoverList items={markets} />
-        </div>
-      </section>
-
 
       <CTABand
+        logo
         headline="Start with a free 30-minute call."
         subtext=""
       />

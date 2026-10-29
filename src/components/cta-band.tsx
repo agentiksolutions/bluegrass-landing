@@ -1,4 +1,5 @@
 import Button from "./button";
+import Logo from "./logo";
 import { FadeUp, Reveal } from "./v2/reveal";
 import { MARK } from "@/lib/mark-geometry";
 import { BOOKING_URL, EMAIL, PHONE, PHONE_HREF } from "@/lib/site";
@@ -8,6 +9,8 @@ interface CTABandProps {
   subtext?: string;
   buttonText?: string;
   buttonHref?: string;
+  /** Show the full white logo instead of the blue Kentucky (the home page, where the hero already has it). */
+  logo?: boolean;
 }
 
 // One closing chapter for every page: night, the logo's Kentucky as one solid blue shape with its
@@ -18,6 +21,7 @@ export default function CTABand({
   subtext = "Book a free 30-minute call.",
   buttonText = "Book a call",
   buttonHref = BOOKING_URL,
+  logo = false,
 }: CTABandProps) {
   return (
     <section data-nav="dark" className="night bg-night px-4 pb-20 pt-24 text-night-text md:px-10 md:pb-28 md:pt-36">
@@ -46,10 +50,14 @@ export default function CTABand({
           </div>
         </div>
         <FadeUp className="mx-auto w-full max-w-[560px]">
-          <svg viewBox={MARK.viewBox} className="h-auto w-full" role="img" aria-label="Kentucky, with a star at Lexington">
-            <path d={MARK.state} fill="#0033A0" />
-            <path d={MARK.star} fill="#FFFFFF" />
-          </svg>
+          {logo ? (
+            <Logo height={106} tone="dark" className="h-auto w-full" />
+          ) : (
+            <svg viewBox={MARK.viewBox} className="h-auto w-full" role="img" aria-label="Kentucky, with a star at Lexington">
+              <path d={MARK.state} fill="#0033A0" />
+              <path d={MARK.star} fill="#FFFFFF" />
+            </svg>
+          )}
         </FadeUp>
       </div>
     </section>

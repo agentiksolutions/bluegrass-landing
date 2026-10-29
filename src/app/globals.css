@@ -97,6 +97,36 @@
   transform-origin: left center;
 }
 
+/* Header "Book a call": a band of light runs around the edge (Phil, 2026-10-29). Reduced motion
+   leaves a still border. */
+@property --swirl {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+.swirl-edge {
+  position: relative;
+}
+/* A 2px ring: the mask cuts the middle out so only the edge shows over the button. */
+.swirl-edge::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  padding: 2px;
+  border-radius: 5px;
+  pointer-events: none;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  background: conic-gradient(from var(--swirl), #0033a0 0deg, #9db2e8 50deg, #ffffff 80deg, #9db2e8 110deg, #0033a0 160deg, #0033a0 360deg);
+  animation: swirl 3.2s linear infinite;
+}
+@keyframes swirl {
+  to {
+    --swirl: 360deg;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

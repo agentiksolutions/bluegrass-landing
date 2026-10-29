@@ -360,9 +360,6 @@ export default function ContactPage() {
         </div>
 
         <div className="font-display">
-          <p className="text-[17px] text-body mb-6">
-            If AI is not what your business needs right now, I will tell you.
-          </p>
           <div className="text-[16px] text-body space-y-2">
             <div>
               <span className="font-semibold text-ink">Email:</span>{" "}
@@ -379,16 +376,6 @@ export default function ContactPage() {
             <div>
               <span className="font-semibold text-ink">Based in:</span> Lexington, Kentucky
             </div>
-          </div>
-
-          <div className="mt-8 bg-band p-6 rounded">
-            <h2 className="text-[16px] font-semibold text-ink mb-3">What happens next</h2>
-            <ol className="text-[16px] text-body leading-relaxed space-y-1.5 list-decimal list-inside">
-              <li>You send this form.</li>
-              <li>I review it and reply.</li>
-              <li>We set up a free 30-minute call.</li>
-              <li>You get a recommendation, and sometimes it is to wait.</li>
-            </ol>
           </div>
         </div>
       </div>

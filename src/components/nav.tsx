@@ -109,7 +109,7 @@ export default function Nav() {
               href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="whitespace-nowrap rounded-[3px] bg-blue px-4 py-2.5 text-[14px] font-semibold text-white transition-colors hover:bg-blue-dark"
+              className="swirl-edge whitespace-nowrap rounded-[3px] bg-blue px-4 py-2.5 text-[14px] font-semibold text-white transition-colors hover:bg-blue-dark"
             >
               Book a call
             </a>

@@ -25,6 +25,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/ai-for-small-business-kentucky`, lastModified, changeFrequency: "monthly" as const, priority: 0.8 },
     { url: `${baseUrl}/ai-tools-we-build`, lastModified, changeFrequency: "monthly" as const, priority: 0.7 },
     { url: `${baseUrl}/multi-location-dashboards`, lastModified, changeFrequency: "monthly" as const, priority: 0.7 },
+    { url: `${baseUrl}/how-it-starts`, lastModified, changeFrequency: "monthly" as const, priority: 0.7 },
     { url: `${baseUrl}/faq`, lastModified, changeFrequency: "monthly" as const, priority: 0.7 },
     { url: `${baseUrl}/about`, lastModified, changeFrequency: "monthly" as const, priority: 0.8 },
     { url: `${baseUrl}/work`, lastModified, changeFrequency: "monthly" as const, priority: 0.8 },
