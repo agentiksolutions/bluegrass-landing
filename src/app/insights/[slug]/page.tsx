@@ -12,14 +12,15 @@ import InlineArticleCTA from "@/components/inline-article-cta";
 import JsonLd from "@/components/json-ld";
 
 interface Props {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 export function generateStaticParams() {
   return getAllPosts().map((post) => ({ slug: post.slug }));
 }
 
-export function generateMetadata({ params }: Props): Metadata {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
   const post = getPost(params.slug);
   if (!post) return {};
   return pageMeta({
@@ -31,7 +32,8 @@ export function generateMetadata({ params }: Props): Metadata {
   });
 }
 
-export default function InsightPostPage({ params }: Props) {
+export default async function InsightPostPage(props: Props) {
+  const params = await props.params;
   const post = getPost(params.slug);
   if (!post) notFound();
 
