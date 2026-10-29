@@ -238,7 +238,7 @@ export function mountKentucky3D(host: HTMLElement, onSlow?: () => void): Ky3D {
   // Camera path: a wide three-quarter view from the southwest, then a flight down to Lexington.
   const starWorld = new THREE.Vector3(toX(STAR[0]), DEPTH, -toY(STAR[1]));
   const shots = {
-    wide: { pos: new THREE.Vector3(-2.1, 7.6, 10.6), look: new THREE.Vector3(-1.25, 0, 1.25) },
+    wide: { pos: new THREE.Vector3(-0.9, 8.6, 12.2), look: new THREE.Vector3(0.1, 0, 0.35) },
     close: { pos: new THREE.Vector3(starWorld.x - 0.7, 2.3, starWorld.z + 2.6), look: starWorld.clone() },
   };
   let progress = 0;
@@ -259,7 +259,7 @@ export function mountKentucky3D(host: HTMLElement, onSlow?: () => void): Ky3D {
   const look = new THREE.Vector3();
   const pos = new THREE.Vector3();
 
-  // The wide shot looks at a point southwest of centre, so the state sits up and to the right of the headline.
+  // The wide shot looks at the middle of the state, so it sits centred in its corner box.
   const frame = () => {
     const w = width();
     const h = height();
