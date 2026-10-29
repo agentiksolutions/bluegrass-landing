@@ -6,8 +6,8 @@ import { COUNTY_ARCS } from "@/lib/ky-counties";
 import { MARK } from "@/lib/mark-geometry";
 
 // The V2 hero: a network inside the real Kentucky outline, in the style of Obsidian's graph view
-// (Phil, 2026-10-29). Dots of different sizes are joined by thin links and drift slightly in
-// place. Signals fire along the links like neurons: a pulse runs to the next dot, lights it, and
+// (Phil, 2026-10-29). Dots of different sizes are joined by links and float around their
+// homes, and current slides through every link all the time. Signals fire along the links like neurons: a pulse runs to the next dot, lights it, and
 // can set off its neighbours. Lexington is the hub. Scrolling raises the firing rate; the pointer
 // lights the nearest dot and its links. Drawn live on the device, so it stays sharp at any size.
 // Coordinates are the logo's drawing units (viewBox 980 x 440), shared with the official mark.
@@ -214,9 +214,9 @@ export default function KentuckyFlow({ className = "", still = false }: { classN
       const sx = new Float32Array(n);
       const sy = new Float32Array(n);
       for (let i = 0; i < n; i++) {
-        const a = i === 0 ? 0 : 1.8;
-        sx[i] = ox + (net.x[i] + Math.sin(t * 0.45 + phase[i]) * a) * s;
-        sy[i] = oy + (net.y[i] + Math.cos(t * 0.38 + phase[i] * 1.3) * a) * s;
+        const a = i === 0 ? 0 : 4.5;
+        sx[i] = ox + (net.x[i] + (Math.sin(t * 0.8 + phase[i]) * 0.7 + Math.sin(t * 1.9 + phase[i] * 2.1) * 0.3) * a) * s;
+        sy[i] = oy + (net.y[i] + (Math.cos(t * 0.7 + phase[i] * 1.3) * 0.7 + Math.cos(t * 1.6 + phase[i] * 1.7) * 0.3) * a) * s;
       }
       // On load the network appears from Lexington outward over the first two seconds.
       const reach = reduce ? 1e4 : 30 + Math.min(1, t / 2) * 800;
@@ -242,11 +242,18 @@ export default function KentuckyFlow({ className = "", still = false }: { classN
         p.moveTo(sx[a], sy[a]);
         p.lineTo(sx[b], sy[b]);
       }
-      ctx.lineWidth = 0.65;
-      ctx.strokeStyle = "rgba(242,241,236,0.2)";
+      ctx.lineWidth = w < 768 ? 1.1 : 1.3;
+      ctx.strokeStyle = "rgba(242,241,236,0.24)";
       ctx.stroke(links);
-      ctx.lineWidth = 1.2;
-      ctx.strokeStyle = "rgba(157,178,232,0.75)";
+      // Current runs through every link all the time: short bright dashes sliding along each line.
+      ctx.setLineDash([3, 16]);
+      ctx.lineDashOffset = -t * 38;
+      ctx.lineWidth = w < 768 ? 1.3 : 1.5;
+      ctx.strokeStyle = "rgba(200,214,248,0.5)";
+      ctx.stroke(links);
+      ctx.setLineDash([]);
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = "rgba(157,178,232,0.85)";
       ctx.stroke(lit);
 
       // Signals: new ones start every so often, more from Lexington, faster as the visitor scrolls.
@@ -268,19 +275,19 @@ export default function KentuckyFlow({ className = "", still = false }: { classN
         }
         const x = sx[p.from] + (sx[p.to] - sx[p.from]) * p.t;
         const y = sy[p.from] + (sy[p.to] - sy[p.from]) * p.t;
-        const tail = Math.max(0, p.t - 0.35);
+        const tail = Math.max(0, p.t - 0.5);
         const g = ctx.createLinearGradient(sx[p.from] + (sx[p.to] - sx[p.from]) * tail, sy[p.from] + (sy[p.to] - sy[p.from]) * tail, x, y);
         g.addColorStop(0, "rgba(157,178,232,0)");
         g.addColorStop(1, "rgba(200,214,248,0.95)");
         ctx.strokeStyle = g;
-        ctx.lineWidth = 2;
+        ctx.lineWidth = 3;
         ctx.beginPath();
         ctx.moveTo(sx[p.from] + (sx[p.to] - sx[p.from]) * tail, sy[p.from] + (sy[p.to] - sy[p.from]) * tail);
         ctx.lineTo(x, y);
         ctx.stroke();
         ctx.fillStyle = "#FFFFFF";
         ctx.beginPath();
-        ctx.arc(x, y, 1.6, 0, Math.PI * 2);
+        ctx.arc(x, y, 2.2, 0, Math.PI * 2);
         ctx.fill();
         return true;
       });
