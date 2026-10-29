@@ -1,5 +1,4 @@
 import Button from "./button";
-import Logo from "./logo";
 import { FadeUp, Reveal } from "./v2/reveal";
 import { MARK } from "@/lib/mark-geometry";
 import { BOOKING_URL, EMAIL, PHONE, PHONE_HREF } from "@/lib/site";
@@ -9,8 +8,8 @@ interface CTABandProps {
   subtext?: string;
   buttonText?: string;
   buttonHref?: string;
-  /** Show the full white logo instead of the blue Kentucky (the home page, where the hero already has it). */
-  logo?: boolean;
+  /** Off on the home page: its hero already has the Kentucky and the footer has the logo (Phil, 2026-10-29). */
+  art?: boolean;
 }
 
 // One closing chapter for every page: night, the logo's Kentucky as one solid blue shape with its
@@ -21,11 +20,15 @@ export default function CTABand({
   subtext = "Book a free 30-minute call.",
   buttonText = "Book a call",
   buttonHref = BOOKING_URL,
-  logo = false,
+  art = true,
 }: CTABandProps) {
   return (
     <section data-nav="dark" className="night bg-night px-4 pb-20 pt-24 text-night-text md:px-10 md:pb-28 md:pt-36">
-      <div className="mx-auto grid max-w-page grid-cols-1 items-center gap-14 lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] lg:gap-20">
+      <div
+        className={`mx-auto grid max-w-page grid-cols-1 items-center gap-14 lg:gap-20 ${
+          art ? "lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)]" : ""
+        }`}
+      >
         <div>
           <Reveal
             text={headline}
@@ -49,16 +52,14 @@ export default function CTABand({
             </div>
           </div>
         </div>
-        <FadeUp className="mx-auto w-full max-w-[560px]">
-          {logo ? (
-            <Logo height={106} tone="dark" className="h-auto w-full" />
-          ) : (
+        {art && (
+          <FadeUp className="mx-auto w-full max-w-[560px]">
             <svg viewBox={MARK.viewBox} className="h-auto w-full" role="img" aria-label="Kentucky, with a star at Lexington">
               <path d={MARK.state} fill="#0033A0" />
               <path d={MARK.star} fill="#FFFFFF" />
             </svg>
-          )}
-        </FadeUp>
+          </FadeUp>
+        )}
       </div>
     </section>
   );

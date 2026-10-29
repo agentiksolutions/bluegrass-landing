@@ -135,12 +135,13 @@ export default function HomePage() {
               { title: "Support", line: "We keep it running.", href: "/services", art: <SupportThread /> },
             ].map((c, i) => (
               <FadeUp key={c.title} delay={i * 0.08}>
+                {/* Title first so the three line up; the pictures differ in height. */}
                 <Link href={c.href} className="group block">
-                  <div className="transition-transform duration-700 ease-out group-hover:-translate-y-1">{c.art}</div>
-                  <p className="mt-6 font-display text-[28px] font-medium leading-tight tracking-[-0.02em] transition-colors group-hover:text-night-blue">
+                  <p className="font-display text-[28px] font-medium leading-tight tracking-[-0.02em] transition-colors group-hover:text-night-blue">
                     {c.title}
                   </p>
                   <p className="mt-1 text-[17px] text-night-body">{c.line}</p>
+                  <div className="mt-6 transition-transform duration-700 ease-out group-hover:-translate-y-1">{c.art}</div>
                 </Link>
               </FadeUp>
             ))}
@@ -155,7 +156,7 @@ export default function HomePage() {
       </section>
 
       <CTABand
-        logo
+        art={false}
         headline="Start with a free 30-minute call."
         subtext=""
       />
