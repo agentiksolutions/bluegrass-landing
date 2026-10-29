@@ -30,7 +30,7 @@ export default function HomeHero() {
 
   // Load three.js only when this device will use it.
   useEffect(() => {
-    // ponytail: 3D is off for now (Phil, 2026-10-29: keep the first image, still). Delete `false &&` to bring it back.
+    // ponytail: 3D is off for now (Phil, 2026-10-29: keep the 2D state). Delete `false &&` to bring it back.
     if (!(false && can3D())) return;
     let cancelled = false;
     let timer = 0;
@@ -106,7 +106,7 @@ export default function HomeHero() {
   return (
     <section ref={ref} data-nav="dark" data-nomotion className="night relative h-[100svh] min-h-[620px] overflow-hidden bg-night text-night-text">
       <div ref={stageRef} className="absolute inset-0" aria-hidden="true">
-        {mode === "2d" && <KentuckyFlow still />}
+        {mode === "2d" && <KentuckyFlow />}
       </div>
       <div className="pointer-events-none relative mx-auto flex h-full max-w-page-pad flex-col justify-end px-4 pb-14 md:px-10 md:pb-20">
         <div data-hero-words>
