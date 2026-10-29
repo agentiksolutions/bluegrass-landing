@@ -85,8 +85,7 @@ export default function AboutPage() {
               </p>
               <p>
                 The job is people as much as numbers. I hire, train and coach the managers who run each shift, and some
-                of the team members I trained now lead teams of their own. Building those leaders is the work I&apos;m
-                proudest of.
+                of the team members I trained now lead teams of their own.
               </p>
             </div>
 
