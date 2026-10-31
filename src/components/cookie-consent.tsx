@@ -126,11 +126,11 @@ export default function CookieConsent() {
   };
 
   const base =
-    "inline-flex min-h-[44px] items-center justify-center rounded-[3px] border border-blue px-5 font-display text-[14px] font-semibold transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue";
+    "inline-flex min-h-[44px] items-center justify-center rounded-[3px] border border-blue px-5 font-display text-[14px] font-semibold transition-colors duration-200 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue";
   const btn = `${base} bg-blue text-white hover:border-blue-dark hover:bg-blue-dark`;
   const outlineBtn = `${base} bg-white text-blue hover:bg-tint`;
   const textBtn =
-    "font-display text-[14px] font-semibold text-blue underline decoration-blue/40 underline-offset-4 hover:decoration-blue focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue";
+    "font-display text-[14px] font-semibold text-blue underline decoration-blue/40 underline-offset-4 hover:decoration-blue focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue";
 
   return (
     <>
@@ -148,7 +148,7 @@ export default function CookieConsent() {
           ref={card}
           tabIndex={-1}
           aria-labelledby="cookie-title"
-          className="fixed inset-x-3 top-[72px] z-30 rounded-[6px] border border-line bg-white p-5 text-ink shadow-[0_12px_40px_rgba(22,27,34,0.22)] outline-none motion-safe:animate-[cookie-in_0.35s_ease-out] md:bottom-6 md:left-6 md:right-auto md:top-auto md:z-50 md:w-[400px] md:p-6"
+          className="fixed inset-x-3 top-[72px] z-30 rounded-[6px] border border-line bg-white p-5 text-ink shadow-[0_12px_40px_rgba(22,27,34,0.22)] outline-hidden motion-safe:animate-[cookie-in_0.35s_ease-out] md:bottom-6 md:left-6 md:right-auto md:top-auto md:z-50 md:w-[400px] md:p-6"
         >
           <h2 id="cookie-title" className="font-display text-[16px] font-semibold">
             Cookies on this site
@@ -214,13 +214,13 @@ export default function CookieConsent() {
                   aria-labelledby="analytics-label"
                   aria-describedby="analytics-desc"
                   onClick={() => setAnalytics((v) => !v)}
-                  className={`relative mt-0.5 h-6 w-11 shrink-0 rounded-[3px] border transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue ${
+                  className={`relative mt-0.5 h-6 w-11 shrink-0 rounded-[3px] border transition-colors duration-200 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue ${
                     analytics ? "border-blue bg-blue" : "border-line bg-band"
                   }`}
                 >
                   <span
                     aria-hidden="true"
-                    className={`absolute top-[3px] h-4 w-4 rounded-[2px] bg-white shadow transition-[left] duration-200 ${analytics ? "left-[23px]" : "left-[3px]"}`}
+                    className={`absolute top-[3px] h-4 w-4 rounded-[2px] bg-white shadow-sm transition-[left] duration-200 ${analytics ? "left-[23px]" : "left-[3px]"}`}
                   />
                 </button>
               </li>

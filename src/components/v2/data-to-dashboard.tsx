@@ -197,7 +197,7 @@ export default function DataToDashboard({ title = "Your numbers, in one dashboar
 
   return (
     <section ref={ref} data-nav="dark" data-nomotion className="night relative overflow-hidden bg-night text-night-text">
-      <div className="mx-auto flex min-h-[100svh] max-w-page-pad flex-col px-4 pb-10 pt-24 md:px-10 min-[821px]:pt-28">
+      <div className="mx-auto flex min-h-svh max-w-page-pad flex-col px-4 pb-10 pt-24 md:px-10 min-[821px]:pt-28">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <h2 className="max-w-[20ch] font-display text-[34px] font-light leading-[1.04] tracking-[-0.03em] md:text-[52px]">
             {title}
@@ -205,14 +205,14 @@ export default function DataToDashboard({ title = "Your numbers, in one dashboar
           <p className="font-display text-[13px] text-night-body">Sample data</p>
         </div>
 
-        <div data-stage className="relative mt-8 flex-1 [perspective:1400px]">
+        <div data-stage className="relative mt-8 flex-1 perspective-[1400px]">
           {/* The mess. Hidden from screen readers: it is the same sample data the panels show. */}
-          <div aria-hidden="true" data-imagery className="pointer-events-none absolute inset-0 z-20 grid place-items-center [transform-style:preserve-3d]">
+          <div aria-hidden="true" data-imagery className="pointer-events-none absolute inset-0 z-20 grid place-items-center transform-3d">
             {CHIPS.map((c, i) => (
               <span
                 key={i}
                 data-chip={c.slot}
-                className={`invisible absolute whitespace-nowrap rounded-[4px] border px-3 py-1.5 font-display text-[13px] shadow-[0_10px_30px_rgba(0,0,0,0.35)] [.motion-off_&]:hidden ${chipStyle[c.kind]}`}
+                className={`invisible absolute whitespace-nowrap rounded-[4px] border px-3 py-1.5 font-display text-[13px] shadow-[0_10px_30px_rgba(0,0,0,0.35)] in-[.motion-off]:hidden ${chipStyle[c.kind]}`}
               >
                 {c.text}
               </span>

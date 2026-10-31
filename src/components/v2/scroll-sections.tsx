@@ -66,7 +66,7 @@ export function PinnedStatements({ heading, items }: { heading: string; items: s
 
   return (
     <section ref={ref} data-nomotion className="relative bg-white">
-      <div className="mx-auto grid min-h-[100svh] max-w-page-pad grid-cols-1 content-center gap-10 px-4 py-24 md:px-10 min-[821px]:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] min-[821px]:gap-16">
+      <div className="mx-auto grid min-h-svh max-w-page-pad grid-cols-1 content-center gap-10 px-4 py-24 md:px-10 min-[821px]:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] min-[821px]:gap-16">
         <h2 data-heading className="max-w-[10ch] font-display text-[40px] font-light leading-[1.02] tracking-[-0.03em] text-ink md:text-[56px]">
           {heading}
         </h2>
@@ -131,12 +131,12 @@ export function HorizontalTrack({
 
   return (
     <section ref={ref} id={id} data-nav="dark" className="night relative overflow-hidden bg-night text-night-text scroll-mt-0">
-      <div className="flex min-h-[100svh] flex-col py-24 track:h-[100svh] track:py-0">
+      <div className="flex min-h-svh flex-col py-24 track:h-svh track:py-0">
         {/* The heading stays put above the track while the cards pass. */}
         <div className="mx-auto w-full max-w-page-pad px-4 pb-12 md:px-10 track:pb-0 track:pt-28">{intro}</div>
         <div
           data-track
-          className="flex flex-col gap-16 px-4 md:px-10 track:w-max track:flex-1 track:flex-row track:items-center track:gap-[6vw] track:pl-[max(2.5rem,calc((100vw-1360px)/2+2.5rem))] track:pr-[8vw] track:[perspective:1600px]"
+          className="flex flex-col gap-16 px-4 md:px-10 track:w-max track:flex-1 track:flex-row track:items-center track:gap-[6vw] track:pl-[max(2.5rem,calc((100vw-1360px)/2+2.5rem))] track:pr-[8vw] track:perspective-[1600px]"
         >
           {children}
         </div>
@@ -310,14 +310,14 @@ export function HoverList({ items }: { items: { label: string; href: string; lin
             <Link href={m.href} className="group flex items-center justify-between gap-6 py-7 md:py-9">
               <span className="block overflow-hidden pb-1">
                 <span data-rise style={{ "--i": i } as React.CSSProperties} className="block">
-                  <span className="block font-display text-[28px] font-light leading-tight tracking-[-0.025em] text-ink transition-[transform,color] duration-300 ease-out group-hover:translate-x-2 group-hover:text-blue md:text-[48px]">
+                  <span className="block font-display text-[28px] font-light leading-tight tracking-tight text-ink transition-[transform,color] duration-300 ease-out group-hover:translate-x-2 group-hover:text-blue md:text-[48px]">
                     {m.label}
                   </span>
                 </span>
               </span>
               {/* Touch screens have no hover, so the picture sits in the row. */}
-              <span aria-hidden="true" className="relative hidden aspect-[16/10] w-[120px] shrink-0 overflow-hidden rounded-[4px] border border-line bg-white sm:w-[180px] [@media(hover:none)]:block">
-                <Image src={m.image} alt="" fill sizes="180px" className="object-cover object-left-top" />
+              <span aria-hidden="true" className="relative hidden aspect-16/10 w-[120px] shrink-0 overflow-hidden rounded-[4px] border border-line bg-white sm:w-[180px] [@media(hover:none)]:block">
+                <Image src={m.image} alt="" fill sizes="180px" className="object-cover object-top-left" />
               </span>
               {m.line && <span className="hidden max-w-[36ch] text-[18px] leading-relaxed text-body md:block">{m.line}</span>}
               <svg aria-hidden="true" viewBox="0 0 16 16" className="h-5 w-5 shrink-0 [@media(hover:none)]:hidden -translate-x-2 text-blue opacity-0 transition-all duration-300 ease-out group-hover:translate-x-0 group-hover:opacity-100" fill="none" stroke="currentColor" strokeWidth="1.6">
@@ -330,7 +330,7 @@ export function HoverList({ items }: { items: { label: string; href: string; lin
       <div
         data-preview
         aria-hidden="true"
-        className="pointer-events-none invisible absolute left-0 top-0 z-10 hidden aspect-[16/9] w-[340px] overflow-hidden rounded-[6px] border border-line bg-band [@media(hover:hover)]:block"
+        className="pointer-events-none invisible absolute left-0 top-0 z-10 hidden aspect-video w-[340px] overflow-hidden rounded-[6px] border border-line bg-band [@media(hover:hover)]:block"
       >
         {items.map((m) => (
           <div key={m.href} data-img className="absolute inset-0 opacity-0">

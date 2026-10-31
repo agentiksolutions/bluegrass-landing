@@ -207,9 +207,9 @@ const industries: Record<
 
 // No colored edge strips (Phil, 2026-09-24). A tint and a full hairline carry the alert type.
 const alertStyles = {
-  warning: { border: "border-gold/40", bg: "bg-gold/[0.06]" },
-  action: { border: "border-emerald/40", bg: "bg-emerald/[0.06]" },
-  info: { border: "border-stone/40", bg: "bg-stone/[0.06]" },
+  warning: { border: "border-gold/40", bg: "bg-gold/6" },
+  action: { border: "border-emerald/40", bg: "bg-emerald/6" },
+  info: { border: "border-stone/40", bg: "bg-stone/6" },
 };
 
 export default function DashboardDemoPage() {
@@ -266,7 +266,7 @@ export default function DashboardDemoPage() {
           <select
             value={selected}
             onChange={(e) => setSelected(e.target.value)}
-            className="bg-[#2a2a2c] border border-[#444] rounded text-[#ccc] px-3 py-1.5 text-xs font-body cursor-pointer outline-none"
+            className="bg-[#2a2a2c] border border-[#444] rounded-sm text-[#ccc] px-3 py-1.5 text-xs font-body cursor-pointer outline-hidden"
           >
             {Object.entries(industries).map(([key, ind]) => (
               <option key={key} value={key}>
@@ -372,7 +372,7 @@ export default function DashboardDemoPage() {
               {data.costBreakdown.map((item, i) => (
                 <div key={i} className="flex items-center gap-1.5">
                   <div
-                    className="w-2 h-2 rounded-sm"
+                    className="w-2 h-2 rounded-xs"
                     style={{ background: item.color }}
                   />
                   <span className="text-[11px] text-stone">
@@ -432,11 +432,11 @@ export default function DashboardDemoPage() {
             </ResponsiveContainer>
             <div className="flex gap-5 mt-2">
               <div className="flex items-center gap-1.5">
-                <div className="w-4 h-0.5 bg-emerald rounded-sm" />
+                <div className="w-4 h-0.5 bg-emerald rounded-xs" />
                 <span className="text-[11px] text-stone">Revenue</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <div className="w-4 h-0.5 bg-[#ccc] rounded-sm border-t border-dashed border-[#ccc]" />
+                <div className="w-4 h-0.5 bg-[#ccc] rounded-xs border-t border-dashed border-[#ccc]" />
                 <span className="text-[11px] text-stone">Costs</span>
               </div>
             </div>
@@ -513,7 +513,7 @@ export default function DashboardDemoPage() {
           </div>
           <a
             href="mailto:phil@bluegrassadvisorygroup.com"
-            className="bg-emerald text-warm-white px-7 py-3 rounded text-[13px] font-semibold whitespace-nowrap shrink-0 hover:bg-sage transition-colors"
+            className="bg-emerald text-warm-white px-7 py-3 rounded-sm text-[13px] font-semibold whitespace-nowrap shrink-0 hover:bg-sage transition-colors"
           >
             Talk to Us
           </a>

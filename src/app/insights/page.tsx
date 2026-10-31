@@ -25,7 +25,7 @@ export default function InsightsPage() {
             href={`/insights/${first.slug}`}
             className="group max-w-[1360px] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] gap-8 lg:gap-14 items-center"
           >
-            <div className="relative aspect-[16/9] overflow-hidden rounded">
+            <div className="relative aspect-video overflow-hidden rounded-sm">
               <Image
                 src={first.cover}
                 alt={first.coverAlt}
@@ -57,7 +57,7 @@ export default function InsightsPage() {
                   href={`/insights/${post.slug}`}
                   className="group grid grid-cols-[minmax(0,2fr)_minmax(0,5fr)] md:grid-cols-[minmax(0,3fr)_minmax(0,9fr)] gap-5 md:gap-10 py-8 items-center"
                 >
-                  <div className="relative aspect-[16/10] overflow-hidden rounded">
+                  <div className="relative aspect-16/10 overflow-hidden rounded-sm">
                     <Image
                       src={post.cover}
                       alt={post.coverAlt}

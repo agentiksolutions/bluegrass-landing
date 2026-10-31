@@ -48,7 +48,7 @@ export function ParallaxBand({
       transition={{ duration: 1.1, ease: EASE }}
     >
       {/* Oversized so the drift never exposes an edge. */}
-      <motion.div className="absolute -inset-y-[12%] inset-x-0" style={still ? undefined : { y }}>
+      <motion.div className="absolute inset-y-[-12%] inset-x-0" style={still ? undefined : { y }}>
         {children}
       </motion.div>
       {frame}

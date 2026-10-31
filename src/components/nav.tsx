@@ -129,7 +129,7 @@ export default function Nav() {
                 />
                 <span
                   className={`absolute bottom-0 left-0 h-[1.5px] w-6 transition-transform duration-300 ${onDark ? "bg-night-text" : "bg-ink"} ${
-                    open ? "-translate-y-[5.5px] -rotate-45" : ""
+                    open ? "translate-y-[-5.5px] -rotate-45" : ""
                   }`}
                 />
               </span>

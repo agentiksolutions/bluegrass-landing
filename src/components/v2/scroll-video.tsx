@@ -105,20 +105,20 @@ export default function ScrollVideo({
   }, [src, srcSmall, poster, posterSmall]);
 
   return (
-    <section ref={ref} data-nav="dark" data-nomotion className="night relative h-[100svh] overflow-hidden bg-night text-night-text">
+    <section ref={ref} data-nav="dark" data-nomotion className="night relative h-svh overflow-hidden bg-night text-night-text">
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={still} alt="" aria-hidden="true" loading="lazy" className="absolute inset-0 hidden h-full w-full object-cover [.motion-off_&]:block" />
+      <img src={still} alt="" aria-hidden="true" loading="lazy" className="absolute inset-0 hidden h-full w-full object-cover in-[.motion-off]:block" />
       <video
         ref={videoRef}
         muted
         playsInline
         preload="none"
         aria-hidden="true"
-        className="absolute inset-0 h-full w-full object-cover [.motion-off_&]:hidden"
+        className="absolute inset-0 h-full w-full object-cover in-[.motion-off]:hidden"
       />
       {/* A legibility scrim under the words, not decoration: the lit network runs under them. */}
       {lines.length > 0 && (
-        <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-[55%] bg-gradient-to-t from-night via-night/70 to-transparent" />
+        <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-[55%] bg-linear-to-t from-night via-night/70 to-transparent" />
       )}
       <div className="relative mx-auto flex h-full max-w-page-pad items-end px-4 pb-16 md:px-10 md:pb-24">
         {/* Wide screens with motion: the lines take turns in one spot. Otherwise only the last shows. */}

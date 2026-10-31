@@ -117,7 +117,7 @@ export default function WebsiteGeneratorPage() {
                   </span>
                 ))}
                 <span
-                  className="text-white px-[18px] py-2 rounded text-xs font-semibold"
+                  className="text-white px-[18px] py-2 rounded-sm text-xs font-semibold"
                   style={{ background: accent }}
                 >
                   {siteData.cta}
@@ -153,7 +153,7 @@ export default function WebsiteGeneratorPage() {
                 {siteData.subtext}
               </p>
               <span
-                className="inline-block text-white px-7 py-3 rounded text-sm font-semibold"
+                className="inline-block text-white px-7 py-3 rounded-sm text-sm font-semibold"
                 style={{ background: accent }}
               >
                 {siteData.cta}
@@ -167,7 +167,7 @@ export default function WebsiteGeneratorPage() {
                   <div
                     key={i}
                     // No colored edge strips (Phil, 2026-09-24): a full hairline on every card.
-                    className="p-7 rounded"
+                    className="p-7 rounded-sm"
                     style={{ border: "1px solid #eee" }}
                   >
                     <h3
@@ -219,7 +219,7 @@ export default function WebsiteGeneratorPage() {
               {/* ponytail: this used to collect an email and send nothing. A booking link is honest. */}
               <a
                 href={BOOKING_URL}
-                className="bg-emerald text-warm-white px-7 py-3 rounded text-[13px] font-semibold whitespace-nowrap shrink-0 hover:bg-sage transition-colors"
+                className="bg-emerald text-warm-white px-7 py-3 rounded-sm text-[13px] font-semibold whitespace-nowrap shrink-0 hover:bg-sage transition-colors"
               >
                 Book a call
               </a>
@@ -245,7 +245,7 @@ export default function WebsiteGeneratorPage() {
             </button>
             <button
               onClick={() => generateSite()}
-              className="border border-[#444] text-stone px-5 py-2 rounded text-xs cursor-pointer hover:border-stone hover:text-warm-white transition-colors"
+              className="border border-[#444] text-stone px-5 py-2 rounded-sm text-xs cursor-pointer hover:border-stone hover:text-warm-white transition-colors"
             >
               Regenerate with same info
             </button>
@@ -272,7 +272,7 @@ export default function WebsiteGeneratorPage() {
           {[0, 1].map((i) => (
             <div
               key={i}
-              className={`flex-1 h-[3px] rounded-sm transition-colors duration-300 ${
+              className={`flex-1 h-[3px] rounded-xs transition-colors duration-300 ${
                 i <= step ? "bg-emerald" : "bg-[#e0ddd8]"
               }`}
             />
@@ -301,7 +301,7 @@ export default function WebsiteGeneratorPage() {
                 onChange={(e) =>
                   setFormData({ ...formData, businessName: e.target.value })
                 }
-                className="w-full px-[18px] py-3.5 border-2 border-line rounded-md text-[15px] bg-white outline-none focus:border-emerald transition-colors"
+                className="w-full px-[18px] py-3.5 border-2 border-line rounded-md text-[15px] bg-white outline-hidden focus:border-emerald transition-colors"
                 autoFocus
               />
             </div>
@@ -317,7 +317,7 @@ export default function WebsiteGeneratorPage() {
                 onChange={(e) =>
                   setFormData({ ...formData, whatYouDo: e.target.value })
                 }
-                className="w-full px-[18px] py-3.5 border-2 border-line rounded-md text-[15px] bg-white outline-none focus:border-emerald transition-colors resize-y"
+                className="w-full px-[18px] py-3.5 border-2 border-line rounded-md text-[15px] bg-white outline-hidden focus:border-emerald transition-colors resize-y"
               />
             </div>
 
@@ -332,7 +332,7 @@ export default function WebsiteGeneratorPage() {
                 onChange={(e) =>
                   setFormData({ ...formData, location: e.target.value })
                 }
-                className="w-full px-[18px] py-3.5 border-2 border-line rounded-md text-[15px] bg-white outline-none focus:border-emerald transition-colors"
+                className="w-full px-[18px] py-3.5 border-2 border-line rounded-md text-[15px] bg-white outline-hidden focus:border-emerald transition-colors"
               />
             </div>
           </div>
@@ -355,7 +355,7 @@ export default function WebsiteGeneratorPage() {
                   onClick={() => setFormData({ ...formData, vibe: v.id })}
                   className={`p-[18px_20px] rounded-md text-left transition-all cursor-pointer border-2 ${
                     formData.vibe === v.id
-                      ? "border-emerald bg-emerald/[0.04]"
+                      ? "border-emerald bg-emerald/4"
                       : "border-line bg-white"
                   }`}
                 >

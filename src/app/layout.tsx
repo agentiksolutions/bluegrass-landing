@@ -29,7 +29,7 @@ export default function RootLayout({
       <body className="bg-white font-body text-ink">
         <a
           href="#main"
-          className="sr-only z-[100] rounded-[3px] bg-blue px-4 py-2 font-display text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+          className="sr-only z-100 rounded-[3px] bg-blue px-4 py-2 font-display text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
         >
           Skip to content
         </a>
