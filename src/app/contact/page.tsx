@@ -145,7 +145,7 @@ export default function ContactPage() {
       <div data-nav="dark" aria-hidden="true" className="absolute inset-x-0 top-0 h-[290px] bg-night lg:h-[520px]" />
       <div className="relative mx-auto grid max-w-[1360px] grid-cols-1 items-start gap-x-20 gap-y-10 lg:grid-cols-2">
         <div>
-          <h1 className="font-display text-[44px] font-light leading-[1.0] tracking-[-0.035em] text-night-text lg:text-[72px]">
+          <h1 className="font-display text-[44px] font-light leading-none tracking-[-0.035em] text-night-text lg:text-[72px]">
             Let&apos;s see if I can help
           </h1>
           {/* The person who reads the form. Laptop only; on a phone the form comes first. */}
@@ -155,12 +155,12 @@ export default function ContactPage() {
             width={photos.headshot.width}
             height={photos.headshot.height}
             sizes="440px"
-            className="hidden lg:block mt-8 w-full max-w-[440px] h-auto rounded"
+            className="hidden lg:block mt-8 w-full max-w-[440px] h-auto rounded-sm"
           />
         </div>
 
         {/* Form: second on a phone, right-hand column on a laptop. */}
-        <div className="bg-white p-6 md:p-10 rounded border border-line lg:col-start-2 lg:row-start-1">
+        <div className="bg-white p-6 md:p-10 rounded-sm border border-line lg:col-start-2 lg:row-start-1">
           {submitted ? (
             <SuccessState
               calendlyUrl={calendlyUrl}
@@ -180,7 +180,7 @@ export default function ContactPage() {
                     value={form.contact_name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-line rounded text-[15px] bg-white outline-none focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
+                    className="w-full px-4 py-3 border border-line rounded-sm text-[15px] bg-white outline-hidden focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
                   />
                 </div>
                 <div>
@@ -193,7 +193,7 @@ export default function ContactPage() {
                     value={form.contact_role}
                     onChange={handleChange}
                     placeholder="CEO, COO, Operator..."
-                    className="w-full px-4 py-3 border border-line rounded text-[15px] bg-white outline-none focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
+                    className="w-full px-4 py-3 border border-line rounded-sm text-[15px] bg-white outline-hidden focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
                   />
                 </div>
               </div>
@@ -209,7 +209,7 @@ export default function ContactPage() {
                   value={form.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border border-line rounded text-[15px] bg-white outline-none focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
+                  className="w-full px-4 py-3 border border-line rounded-sm text-[15px] bg-white outline-hidden focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
                 />
               </div>
 
@@ -225,7 +225,7 @@ export default function ContactPage() {
                     value={form.company_name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-line rounded text-[15px] bg-white outline-none focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
+                    className="w-full px-4 py-3 border border-line rounded-sm text-[15px] bg-white outline-hidden focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
                   />
                 </div>
                 <div>
@@ -238,7 +238,7 @@ export default function ContactPage() {
                     value={form.company_website}
                     onChange={handleChange}
                     placeholder="example.com (optional)"
-                    className="w-full px-4 py-3 border border-line rounded text-[15px] bg-white outline-none focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
+                    className="w-full px-4 py-3 border border-line rounded-sm text-[15px] bg-white outline-hidden focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
                   />
                 </div>
               </div>
@@ -254,7 +254,7 @@ export default function ContactPage() {
                     value={form.annual_revenue_range}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-line rounded text-[15px] bg-white outline-none focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
+                    className="w-full px-4 py-3 border border-line rounded-sm text-[15px] bg-white outline-hidden focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
                   >
                     {REVENUE_OPTIONS.map((opt) => (
                       <option key={opt.value} value={opt.value}>
@@ -272,7 +272,7 @@ export default function ContactPage() {
                     value={form.num_entities}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-line rounded text-[15px] bg-white outline-none focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
+                    className="w-full px-4 py-3 border border-line rounded-sm text-[15px] bg-white outline-hidden focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
                   >
                     {ENTITIES_OPTIONS.map((opt) => (
                       <option key={opt.value} value={opt.value}>
@@ -295,7 +295,7 @@ export default function ContactPage() {
                   required
                   rows={4}
                   placeholder="What you're trying to figure out and what's blocking you"
-                  className="w-full px-4 py-3 border border-line rounded text-[15px] bg-white outline-none focus:border-blue focus:ring-1 focus:ring-blue transition-colors resize-none"
+                  className="w-full px-4 py-3 border border-line rounded-sm text-[15px] bg-white outline-hidden focus:border-blue focus:ring-1 focus:ring-blue transition-colors resize-none"
                 />
               </div>
 
@@ -310,7 +310,7 @@ export default function ContactPage() {
                   value={form.best_call_time}
                   onChange={handleChange}
                   placeholder="Optional, e.g. weekday mornings"
-                  className="w-full px-4 py-3 border border-line rounded text-[15px] bg-white outline-none focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
+                  className="w-full px-4 py-3 border border-line rounded-sm text-[15px] bg-white outline-hidden focus:border-blue focus:ring-1 focus:ring-blue transition-colors"
                 />
               </div>
 
@@ -321,7 +321,7 @@ export default function ContactPage() {
                 tabIndex={-1}
                 autoComplete="off"
                 aria-hidden="true"
-                className="absolute -left-[9999px] h-px w-px overflow-hidden"
+                className="absolute left-[-9999px] h-px w-px overflow-hidden"
               />
               {TURNSTILE_SITE_KEY && (
                 <>
@@ -345,7 +345,7 @@ export default function ContactPage() {
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full bg-blue text-white px-6 py-4 rounded font-display text-[16px] font-semibold hover:bg-blue-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-blue text-white px-6 py-4 rounded-sm font-display text-[16px] font-semibold hover:bg-blue-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {submitting ? "Sending..." : "Send"}
               </button>

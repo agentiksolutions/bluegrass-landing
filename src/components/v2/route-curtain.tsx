@@ -62,7 +62,7 @@ export default function RouteCurtain() {
   }, [pathname]);
 
   return (
-    <div ref={ref} aria-hidden="true" className="pointer-events-none fixed inset-0 z-[90] hidden place-items-center bg-night">
+    <div ref={ref} aria-hidden="true" className="pointer-events-none fixed inset-0 z-90 hidden place-items-center bg-night">
       <svg viewBox="600 135 95 95" className="h-12 w-12">
         <path d={MARK.star} fill="#FFFFFF" />
       </svg>

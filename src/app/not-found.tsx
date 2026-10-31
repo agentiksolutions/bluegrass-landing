@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <section data-nav="dark" className="night flex min-h-[100svh] items-center bg-night px-4 pb-20 pt-32 text-night-text md:px-10">
+    <section data-nav="dark" className="night flex min-h-svh items-center bg-night px-4 pb-20 pt-32 text-night-text md:px-10">
       <div className="mx-auto grid w-full max-w-page grid-cols-1 items-center gap-14 lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)]">
         <div>
           <h1 className="max-w-[16ch] font-display text-[48px] font-light leading-[0.98] tracking-[-0.035em] sm:text-[68px] lg:text-[84px]">

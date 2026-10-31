@@ -260,7 +260,7 @@ export function SystemsMap() {
               <span className="text-ink">{n(e[0]).label}</span>
               <span aria-hidden="true" className="text-muted">to</span>
               <span className="text-ink">{n(e[1]).label}</span>
-              <span className={`ml-auto rounded px-2.5 py-0.5 text-[12px] ${start ? "bg-blue text-white" : e[2] ? "text-muted" : "text-blue"}`}>
+              <span className={`ml-auto rounded-sm px-2.5 py-0.5 text-[12px] ${start ? "bg-blue text-white" : e[2] ? "text-muted" : "text-blue"}`}>
                 {e[2] ? "by hand" : "on its own"}
               </span>
             </li>

@@ -43,7 +43,7 @@ export default function PageHero({
             onLoad
             delay={0.15}
             text={title}
-            className={`font-display font-light leading-[1.0] tracking-[-0.035em] ${
+            className={`font-display font-light leading-none tracking-[-0.035em] ${
               compact ? "max-w-[18ch] text-[44px] md:text-[72px]" : "max-w-[14ch] text-[42px] sm:text-[56px] lg:text-[72px]"
             }`}
           />
