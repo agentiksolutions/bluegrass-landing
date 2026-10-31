@@ -332,7 +332,7 @@ export default function ReportPage() {
             <button
               onClick={() => canProceed() && setStep(step + 1)}
               disabled={!canProceed()}
-              className={`px-8 py-3.5 rounded text-sm font-semibold transition-colors ${
+              className={`[font-family:Newsreader,Georgia,serif] px-8 py-3.5 rounded text-sm font-semibold transition-colors ${
                 canProceed()
                   ? "bg-graphite text-warm-white hover:bg-emerald cursor-pointer"
                   : "bg-[#ddd] text-stone cursor-default"
